@@ -1,0 +1,12 @@
+spring:
+  # 数据库连接信息
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zero-admin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: admin
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+

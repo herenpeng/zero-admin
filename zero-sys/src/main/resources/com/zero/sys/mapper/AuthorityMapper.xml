@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.AuthorityMapper">
+
+    <resultMap id="resultMap" type="com.zero.sys.domain.Authority">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="pattern" jdbcType="VARCHAR" property="pattern"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="BOOLEAN" property="description"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <collection property="roles" ofType="com.zero.sys.domain.Role">
+            <id column="rid" jdbcType="INTEGER" property="id"/>
+            <result column="role_name" jdbcType="VARCHAR" property="name"/>
+            <result column="role_description" jdbcType="VARCHAR" property="description"/>
+        </collection>
+    </resultMap>
+
+    <sql id="baseColumn">
+        id, pattern, `name`, description, create_time, update_time
+    </sql>
+
+    <sql id="baseSelectSql">
+        select sa.id as id,sa.pattern as pattern,sa.name as name,sa.description as description,
+        sr.id as rid,sr.name as role_name,sr.description as role_description
+        from sys_authority sa
+        left join sys_authority_role sar on sar.aid = sa.id
+        left join sys_role sr on sr.id = sar.rid
+    </sql>
+
+    <select id="getByPattern" resultMap="resultMap">
+        <include refid="baseSelectSql"></include>
+        where sa.pattern = #{pattern}
+    </select>
+
+    <select id="getPage" resultMap="resultMap">
+        <include refid="baseSelectSql"></include>
+    </select>
+
+
+</mapper>
