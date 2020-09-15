@@ -39,7 +39,7 @@ public class MyLoginFailureHandler implements AuthenticationFailureHandler {
         } else {
             resultData.put("msg", "登录失败");
         }
-        ResponseData<Map> responseData = new ResponseData<>(CodeEnum.OK.getValue(), resultData);
+        ResponseData<Map> responseData = new ResponseData<>(CodeEnum.LOGIN_ERROR.getValue(), resultData);
         ResponseUtils.responseJson(response, responseData);
     }
 }

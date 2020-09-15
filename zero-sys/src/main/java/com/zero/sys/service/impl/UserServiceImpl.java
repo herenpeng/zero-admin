@@ -27,5 +27,18 @@ public class UserServiceImpl implements UserService {
         return userMapper.getPage(page);
     }
 
+    @Override
+    public void enabled(Integer id, Boolean enabled) throws Exception {
+        User user = new User();
+        user.setId(id);
+        user.setEnabled(enabled);
+        userMapper.updateById(user);
+    }
+
+    @Override
+    public void insert(User user) throws Exception {
+        userMapper.insert(user);
+    }
+
 
 }

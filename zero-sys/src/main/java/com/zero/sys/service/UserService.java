@@ -5,6 +5,7 @@ import com.zero.sys.domain.User;
 
 /**
  * 用户业务逻辑层接口
+ *
  * @author herenpeng
  * @since 2020-08-04 22:42
  */
@@ -20,5 +21,18 @@ public interface UserService {
      */
     IPage<User> page(Integer currentPage, Integer size) throws Exception;
 
+    /**
+     * 启用或者禁用该用户账号
+     *
+     * @param id      用户id
+     * @param enabled true为启用，false为禁用
+     */
+    void enabled(Integer id, Boolean enabled) throws Exception;
 
+    /**
+     * 插入一条用户信息
+     *
+     * @param user 用户对象
+     */
+    void insert(User user) throws Exception;
 }
