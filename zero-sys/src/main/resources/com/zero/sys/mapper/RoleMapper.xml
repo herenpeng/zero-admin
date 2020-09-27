@@ -14,5 +14,15 @@
         id, `name`, description, create_time, update_time
     </sql>
 
+    <select id="getByUserId" resultMap="resultMap">
+        select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
+        from sys_role sr
+        left join sys_user_role sur on sur.role_id = sr.id
+        where 1 = 1
+        <if test="userId != null">
+            and sur.user_id = #{userId}
+        </if>
+    </select>
+
 
 </mapper>

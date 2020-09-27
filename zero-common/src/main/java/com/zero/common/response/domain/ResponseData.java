@@ -1,17 +1,14 @@
 package com.zero.common.response.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * HTTP协议response对象的返回体，其中包含了返回的具体数据
+ *
  * @author herenpeng
  * @since 2020-09-12 12:27
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ResponseData<T> {
 
     /**
@@ -24,13 +21,58 @@ public class ResponseData<T> {
      */
     private T data;
 
+    private static ResponseData responseData;
+
     /**
-     * 重写一个单参数的构造方法
+     * 私有构造方法，这样就只能够通过静态方法code()和ok()创建ResponseData对象
+     */
+    private ResponseData() {
+    }
+
+    /**
+     * 静态方法
      *
      * @param code 业务状态码
+     * @param <T>  返回数据的泛型
+     * @return 返回一个业务状态为code的ResponseData对象
      */
-    public ResponseData(Integer code) {
-        this.code = code;
+    public static <T> ResponseData<T> code(Integer code) {
+        responseData = new ResponseData();
+        responseData.setCode(code);
+        return responseData;
+    }
+
+    /**
+     * 非静态方法
+     *
+     * @param data 返回数据
+     * @param <T>  返回数据的泛型
+     * @return 返回一个返回数据为data的ResponseData对象
+     */
+    public <T> ResponseData<T> data(T data) {
+        responseData.setData(data);
+        return responseData;
+    }
+
+    /**
+     * 静态方法
+     *
+     * @param <T> 返回数据的泛型
+     * @return 返回一个业务状态为20000，返回数据为null的ResponseData对象
+     */
+    public static <T> ResponseData<T> ok() {
+        return code(CodeEnum.OK.getValue());
+    }
+
+    /**
+     * 静态方法
+     *
+     * @param data 返回数据
+     * @param <T>  返回数据的泛型
+     * @return 返回一个业务状态为20000，返回数据为data的ResponseData对象
+     */
+    public static <T> ResponseData<T> ok(T data) {
+        return ok().data(data);
     }
 
 }

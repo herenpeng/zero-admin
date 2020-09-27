@@ -3,6 +3,7 @@ package com.zero.sys.security.config;
 import com.zero.sys.security.filter.SecurityAccessDecisionManager;
 import com.zero.sys.security.filter.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,9 +18,11 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsUtils;
 
 /**
  * SpringSecurity配置类
+ *
  * @author herenpeng
  * @since 2020-09-13 8:26
  */
@@ -46,14 +49,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutHandler logoutHandler;
 
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http.authorizeRequests();
+
         authorizeRequests.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
             @Override
             public <O extends FilterSecurityInterceptor> O postProcess(O o) {
@@ -63,8 +72,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             }
         });
 
+        // 响应头中附带允许跨域的请求头
+        authorizeRequests.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
+
         // 其余所有请求都需要登录后认证才能访问能访问
         authorizeRequests.anyRequest().authenticated();
+
 
         // 定义登录请求的表单提交处理接口，Security默认帮我们实现了
         http.formLogin().loginProcessingUrl("/login")
@@ -76,6 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.logout().logoutUrl("/logout")
+                // 退出登录的处理器
                 .addLogoutHandler(logoutHandler)
                 .permitAll();
 

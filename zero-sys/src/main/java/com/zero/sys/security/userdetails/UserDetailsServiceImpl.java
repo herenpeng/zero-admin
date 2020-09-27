@@ -18,7 +18,7 @@ import org.springframework.util.ObjectUtils;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class UserDetailsServiceImpl implements UserDetailsService {
-    
+
     @Autowired
     private UserMapper userMapper;
 

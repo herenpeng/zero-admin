@@ -17,8 +17,8 @@ import java.util.Date;
  * @since 2020-09-07 08:05
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @TableName("sys_role")
 public class Role implements Serializable {
     /**

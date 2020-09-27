@@ -26,6 +26,7 @@ public interface UserService {
      *
      * @param id      用户id
      * @param enabled true为启用，false为禁用
+     * @throws Exception
      */
     void enabled(Integer id, Boolean enabled) throws Exception;
 
@@ -33,6 +34,15 @@ public interface UserService {
      * 插入一条用户信息
      *
      * @param user 用户对象
+     * @throws Exception
      */
     void insert(User user) throws Exception;
+
+    /**
+     * 通过主键删除用户信息
+     *
+     * @param id 用户主键
+     * @throws Exception
+     */
+    void delete(Integer id) throws Exception;
 }

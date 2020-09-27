@@ -24,8 +24,8 @@
         select sa.id as id,sa.pattern as pattern,sa.name as name,sa.description as description,
         sr.id as rid,sr.name as role_name,sr.description as role_description
         from sys_authority sa
-        left join sys_authority_role sar on sar.aid = sa.id
-        left join sys_role sr on sr.id = sar.rid
+        left join sys_authority_role sar on sar.authority_id = sa.id
+        left join sys_role sr on sr.id = sar.role_id
     </sql>
 
     <select id="getByPattern" resultMap="resultMap">

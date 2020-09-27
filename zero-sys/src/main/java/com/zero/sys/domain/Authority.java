@@ -14,12 +14,13 @@ import java.util.List;
 
 /**
  * 权限实体类信息
+ *
  * @author herenpeng
  * @since 2020-09-07 8:20
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @TableName("sys_authority")
 public class Authority implements Serializable {
     /**

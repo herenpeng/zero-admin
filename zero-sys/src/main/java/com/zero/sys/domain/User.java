@@ -22,8 +22,8 @@ import java.util.List;
  * @since 2020-09-07 08:05
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @TableName("sys_user")
 public class User implements UserDetails {
     /**

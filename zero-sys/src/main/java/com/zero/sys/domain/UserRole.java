@@ -15,20 +15,20 @@ import java.util.Date;
  * @since 2020-09-07 08:05
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @TableName("sys_user_role")
 public class UserRole implements Serializable {
     /**
      * 用户主键，sys_user表的主键id
      */
-    @TableField(value = "uid", el = "uid")
-    private Integer uid;
+    @TableField(value = "user_id", el = "userId")
+    private Integer userId;
     /**
      * 角色主键，sys_role表的主键id
      */
-    @TableField(value = "rid", el = "rid")
-    private Integer rid;
+    @TableField(value = "role_id", el = "roleId")
+    private Integer roleId;
     /**
      * 数据插入时间
      */

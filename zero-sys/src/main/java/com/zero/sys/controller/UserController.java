@@ -1,12 +1,14 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.response.domain.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.domain.User;
 import com.zero.sys.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("user")
+@Api(value = "用户测试接口", tags = "UserController")
 public class UserController {
 
     @Autowired
@@ -31,12 +34,16 @@ public class UserController {
      * @throws Exception 抛出异常
      */
     @GetMapping("page/{currentPage}")
-    public ResponseEntity<ResponseData> page(
+    @ApiOperation(value = "分页查询用户", notes = "查询用户数据", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10")
+    })
+    public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size) throws Exception {
         IPage<User> page = userService.page(currentPage, size);
-        ResponseData<IPage> body = new ResponseData<>(CodeEnum.OK.getValue(), page);
-        return ResponseEntity.ok(body);
+        return ResponseData.ok(page);
     }
 
     /**
@@ -48,11 +55,11 @@ public class UserController {
      * @throws Exception 抛出异常
      */
     @PutMapping("enabled/{id}")
-    public ResponseEntity<ResponseData> page(
+    public ResponseData page(
             @PathVariable("id") Integer id,
             @RequestParam("enabled") Boolean enabled) throws Exception {
         userService.enabled(id, enabled);
-        return ResponseEntity.ok(new ResponseData(CodeEnum.OK.getValue()));
+        return ResponseData.ok();
     }
 
     /**
@@ -63,9 +70,15 @@ public class UserController {
      * @throws Exception 抛出异常
      */
     @PostMapping
-    public ResponseEntity<ResponseData> insert(@RequestParam("user") User user) throws Exception {
+    public ResponseData insert(User user) throws Exception {
         userService.insert(user);
-        return ResponseEntity.ok(new ResponseData(CodeEnum.OK.getValue()));
+        return ResponseData.ok("添加用户成功");
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseData delete(@PathVariable("id") Integer id) throws Exception {
+        userService.delete(id);
+        return ResponseData.ok("删除用户成功");
     }
 
 

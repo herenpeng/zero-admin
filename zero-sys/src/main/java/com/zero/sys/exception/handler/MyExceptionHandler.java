@@ -2,7 +2,6 @@ package com.zero.sys.exception.handler;
 
 import com.zero.common.response.domain.ResponseData;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,10 +24,18 @@ public class MyExceptionHandler {
      * @return
      */
     @ResponseBody
-    @ExceptionHandler(AccessDeniedException.class)
+    // @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ResponseData> notLoginExceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
         ResponseData responseData = new ResponseData(50000,"系统未登录");
+        return ResponseEntity.ok(responseData);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ResponseData> exceptionHandler(HttpServletRequest request, Exception e) {
+        e.printStackTrace();
+        ResponseData responseData = new ResponseData(50000,"系统发送异常");
         return ResponseEntity.ok(responseData);
     }
 

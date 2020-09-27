@@ -29,5 +29,4 @@ public interface UserMapper extends BaseMapper<User> {
      */
     IPage<User> getPage(IPage page);
 
-
 }

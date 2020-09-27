@@ -29,8 +29,8 @@
         su.password_expire as password_expire,sr.id as rid,sr.name as name,
         sr.description as description
         from sys_user su
-        left join sys_user_role sur on sur.uid = su.id
-        left join sys_role sr on sr.id = sur.rid
+        left join sys_user_role sur on sur.user_id = su.id
+        left join sys_role sr on sr.id = sur.role_id
     </sql>
 
     <select id="loadUserByUsername" resultMap="resultMap">
