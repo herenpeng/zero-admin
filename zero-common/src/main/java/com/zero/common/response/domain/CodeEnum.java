@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * ResponseData对象的code属性枚举类
+ *
  * @author herenpeng
  * @since 2020-09-13 20:00
  */
@@ -18,9 +19,14 @@ public enum CodeEnum {
      */
     LOGIN_ERROR(50000),
     /**
-     * 未登录
+     * code为50001，代表未登录
      */
-    NOT_LOGIN(50001);
+    NOT_LOGIN(50001),
+
+    /**
+     * code为50002，代表系统发生异常
+     */
+    SYS_EXCEPTION(50002);
 
     private Integer value;
 

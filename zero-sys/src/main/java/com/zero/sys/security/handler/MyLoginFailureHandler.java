@@ -25,7 +25,7 @@ public class MyLoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-        HashMap<Object, Object> resultData = new HashMap<>(16);
+        Map<String, Object> resultData = new HashMap<>(16);
         if (e instanceof LockedException) {
             resultData.put("msg", "账号被锁定，登录失败");
         } else if (e instanceof BadCredentialsException) {
@@ -39,7 +39,7 @@ public class MyLoginFailureHandler implements AuthenticationFailureHandler {
         } else {
             resultData.put("msg", "登录失败");
         }
-        ResponseData<Map> responseData = new ResponseData<>(CodeEnum.LOGIN_ERROR.getValue(), resultData);
+        ResponseData<Map<String, Object>> responseData = ResponseData.code(CodeEnum.LOGIN_ERROR.getValue()).data(resultData);
         ResponseUtils.responseJson(response, responseData);
     }
 }
