@@ -28,3 +28,10 @@ zero:
   sys:
     user:
       default-password: 111111
+    security:
+      jwt:
+        secret: HdGkiOiI4ODgiLCJzdWIiOiLlsI
+        ttl: 3600000
+        issuer: https://www.zero.com
+
+

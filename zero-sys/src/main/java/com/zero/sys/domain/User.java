@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 
 /**
  * 用户实体类信息
+ *
  * @author herenpeng
  * @since 2020-09-07 08:05
  */
@@ -37,8 +40,9 @@ public class User implements UserDetails {
     @TableField(value = "username", el = "username")
     private String username;
     /**
-     * 用户密码
+     * 用户密码，如果password为null，则在序列化为json的时候不进行序列化
      */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @TableField(value = "password", el = "password")
     private String password;
     /**
@@ -81,6 +85,7 @@ public class User implements UserDetails {
     @TableField(exist = false)
     private List<Role> roles;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();

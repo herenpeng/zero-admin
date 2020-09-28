@@ -1,16 +1,21 @@
 package com.zero.sys.security.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.common.response.util.ResponseUtils;
+import com.zero.sys.domain.User;
+import com.zero.sys.security.jwt.util.JwtUtils;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * 登录成功的处理器
@@ -21,10 +26,21 @@ import java.io.IOException;
 @Component
 public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @SneakyThrows
     @Override
-    @ResponseBody
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        ResponseData<Object> responseData = ResponseData.ok(authentication.getPrincipal());
+        User user = (User) authentication.getPrincipal();
+        // 不应该把密码放入JWT的载荷中
+        user.setPassword(null);
+        String tokenId = UUID.randomUUID().toString();
+        String subject = objectMapper.writeValueAsString(user);
+        // 创建JWT
+        String jwt = JwtUtils.createJWT(tokenId, subject);
+
+        ResponseData<Object> responseData = ResponseData.ok(jwt);
         ResponseUtils.responseJson(response, responseData);
     }
 }

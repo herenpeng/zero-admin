@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * 用户的Mapper接口
+ *
  * @author herenpeng
  * @since 2020-09-07 19:25
  */
@@ -16,6 +17,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 通过用户名查找对应的用户，以及用户所拥有的角色信息
+     *
      * @param username 用户名，需要在数据库中保证唯一
      * @return 用户信息
      */

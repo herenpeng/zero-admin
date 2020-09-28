@@ -45,4 +45,12 @@ public interface UserService {
      * @throws Exception
      */
     void delete(Integer id) throws Exception;
+
+    /**
+     * 通过accessToken解析用户信息并返回
+     *
+     * @param accessToken cookie中的accessToken信息
+     * @return 用户信息
+     */
+    User info(String accessToken) throws Exception;
 }

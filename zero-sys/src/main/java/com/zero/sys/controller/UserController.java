@@ -75,10 +75,23 @@ public class UserController {
         return ResponseData.ok("添加用户成功");
     }
 
+    /**
+     * 通过主键删除用户信息
+     *
+     * @param id 用户主键
+     * @return
+     * @throws Exception 抛出异常
+     */
     @DeleteMapping("{id}")
     public ResponseData delete(@PathVariable("id") Integer id) throws Exception {
         userService.delete(id);
         return ResponseData.ok("删除用户成功");
+    }
+
+    @GetMapping("info")
+    public ResponseData info(@CookieValue("accessToken") String accessToken) throws Exception {
+        User user = userService.info(accessToken);
+        return ResponseData.ok(user);
     }
 
 

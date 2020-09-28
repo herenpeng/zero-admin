@@ -2,11 +2,14 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.sys.domain.User;
 import com.zero.sys.mapper.RoleMapper;
 import com.zero.sys.mapper.UserMapper;
 import com.zero.sys.property.UserProperties;
+import com.zero.sys.security.jwt.util.JwtUtils;
 import com.zero.sys.service.UserService;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserProperties userProperties;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size) throws Exception {
@@ -63,6 +69,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Integer id) throws Exception {
         userMapper.deleteById(id);
+    }
+
+    @Override
+    public User info(String accessToken) throws Exception {
+        Claims claims = JwtUtils.parseJWT(accessToken);
+        String subject = claims.getSubject();
+        User user = objectMapper.readValue(subject, User.class);
+        return user;
     }
 
 
