@@ -3,6 +3,7 @@ package com.zero.sys.security.filter;
 import com.zero.sys.domain.Authority;
 import com.zero.sys.domain.Role;
 import com.zero.sys.mapper.AuthorityMapper;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -28,6 +29,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
     @Autowired
     private PathMatcher pathMatcher;
 
+    @SneakyThrows
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。

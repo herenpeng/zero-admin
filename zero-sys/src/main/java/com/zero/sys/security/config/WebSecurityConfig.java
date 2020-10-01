@@ -61,6 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // 处理跨域请求中的Preflight请求,响应头中附带允许跨域的请求头
+        http.cors().and().csrf().disable().authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
+
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http.authorizeRequests();
 
         authorizeRequests.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
@@ -72,12 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             }
         });
 
-        // 响应头中附带允许跨域的请求头
-        authorizeRequests.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
-
         // 其余所有请求都需要登录后认证才能访问能访问
         authorizeRequests.anyRequest().authenticated();
-
 
         // 定义登录请求的表单提交处理接口，Security默认帮我们实现了
         http.formLogin().loginProcessingUrl("/login")
@@ -94,6 +95,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         // 关闭CSRF防御，方便用postman进行接口测试
-        http.csrf().disable();
+        // http.csrf().disable();
     }
 }

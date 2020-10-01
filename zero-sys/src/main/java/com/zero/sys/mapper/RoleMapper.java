@@ -19,7 +19,8 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 通过用户主键信息获取该用户所有的角色，需要关联中间表sys_user_role
      * @param userId
      * @return
+     * @throws Exception
      */
-    List<Role> getByUserId(@Param("userId") Integer userId);
+    List<Role> getByUserId(@Param("userId") Integer userId) throws Exception;
 
 }

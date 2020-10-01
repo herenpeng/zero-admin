@@ -70,7 +70,7 @@ public class UserController {
      * @throws Exception 抛出异常
      */
     @PostMapping
-    public ResponseData insert(User user) throws Exception {
+    public ResponseData insert(@RequestBody User user) throws Exception {
         userService.insert(user);
         return ResponseData.ok("添加用户成功");
     }
@@ -89,7 +89,7 @@ public class UserController {
     }
 
     @GetMapping("info")
-    public ResponseData info(@CookieValue("accessToken") String accessToken) throws Exception {
+    public ResponseData info(@RequestHeader("accessToken") String accessToken) throws Exception {
         User user = userService.info(accessToken);
         return ResponseData.ok(user);
     }

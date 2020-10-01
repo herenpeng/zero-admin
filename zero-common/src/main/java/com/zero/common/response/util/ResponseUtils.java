@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 
 /**
  * HttpServletResponse的封装工具类
+ *
  * @author herenpeng
  * @since 2020-09-13 19:00
  */
@@ -37,7 +38,6 @@ public class ResponseUtils {
         writer.flush();
         writer.close();
     }
-
 
 
 }

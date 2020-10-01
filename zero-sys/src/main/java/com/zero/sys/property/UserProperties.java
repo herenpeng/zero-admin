@@ -19,6 +19,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "zero.sys.user")
 public class UserProperties {
 
+    /**
+     * 添加用户时的默认密码
+     */
     private String defaultPassword;
 
 }

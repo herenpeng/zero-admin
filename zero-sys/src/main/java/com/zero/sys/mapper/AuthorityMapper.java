@@ -19,14 +19,16 @@ public interface AuthorityMapper extends BaseMapper<Authority> {
      *
      * @param pattern 权限格式（URI）
      * @return 返回权限信息
+     * @throws Exception
      */
-    Authority getByPattern(@Param("pattern") String pattern);
+    Authority getByPattern(@Param("pattern") String pattern) throws Exception;
 
     /**
      * 分页获取权限数据，区别于selectPage的是，使用该方法能够关联获取Authority对象中的roles集合属性
      *
      * @param page 分页对象
      * @return 分页权限集合
+     * @throws Exception
      */
-    IPage<Authority> getPage(IPage page);
+    IPage<Authority> getPage(IPage page) throws Exception;
 }

@@ -3,7 +3,6 @@ package com.zero.sys.security.filter;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,9 +29,9 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
         for (ConfigAttribute configAttribute : collection) {
             if ("ROLE_LOGIN".equals(configAttribute.getAttribute())) {
-                if (authentication instanceof AnonymousAuthenticationToken) {
-                    throw new AccessDeniedException("账号未登录异常");
-                }
+                // if (authentication instanceof AnonymousAuthenticationToken) {
+                //     throw new AccessDeniedException("账号未登录异常");
+                // }
                 return;
             }
             // 获取当前用户的所有角色

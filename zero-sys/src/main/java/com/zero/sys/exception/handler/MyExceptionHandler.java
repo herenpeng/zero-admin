@@ -2,7 +2,6 @@ package com.zero.sys.exception.handler;
 
 import com.zero.common.response.domain.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,18 +26,18 @@ public class MyExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ResponseData> notLoginExceptionHandler(HttpServletRequest request, Exception e) {
+    public ResponseData notLoginExceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
         ResponseData<String> responseData = ResponseData.code(CodeEnum.NOT_LOGIN.getValue()).data("系统未登录");
-        return ResponseEntity.ok(responseData);
+        return responseData;
     }
 
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseData> exceptionHandler(HttpServletRequest request, Exception e) {
+    public ResponseData exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
-        ResponseData<String> responseData = ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).data("系统发送异常");
-        return ResponseEntity.ok(responseData);
+        ResponseData<String> responseData = ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).data("系统发生异常");
+        return responseData;
     }
 
 
