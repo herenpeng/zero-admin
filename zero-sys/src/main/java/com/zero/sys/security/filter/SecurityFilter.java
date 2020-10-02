@@ -1,8 +1,8 @@
 package com.zero.sys.security.filter;
 
-import com.zero.sys.domain.Authority;
+import com.zero.sys.domain.Resources;
 import com.zero.sys.domain.Role;
-import com.zero.sys.mapper.AuthorityMapper;
+import com.zero.sys.mapper.ResourcesMapper;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
 
     @Autowired
-    private AuthorityMapper authorityMapper;
+    private ResourcesMapper resourcesMapper;
 
     @Autowired
     private PathMatcher pathMatcher;
@@ -34,9 +34,9 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        Authority authority = authorityMapper.getByPattern(requestUrl);
-        if (ObjectUtils.allNotNull(authority) && pathMatcher.match(authority.getPattern(), requestUrl)) {
-            List<Role> roles = authority.getRoles();
+        Resources resources = resourcesMapper.getByUri(requestUrl);
+        if (ObjectUtils.allNotNull(resources) && pathMatcher.match(resources.getUri(), requestUrl)) {
+            List<Role> roles = resources.getRoles();
             String[] roleNameList = new String[roles.size()];
             for (int i = 0; i < roles.size(); i++) {
                 roleNameList[i] = roles.get(i).getName();

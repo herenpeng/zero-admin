@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-09-17 18:56
  */
 @RestController
-@RequestMapping("authority")
-public class AuthorityController {
+@RequestMapping("resources")
+public class ResourcesController {
 
 
     

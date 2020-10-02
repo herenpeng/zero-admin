@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 权限实体类信息
+ * 系统资源实体类信息
  *
  * @author herenpeng
  * @since 2020-09-07 8:20
@@ -21,25 +21,25 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_authority")
-public class Authority implements Serializable {
+@TableName("sys_resources")
+public class Resources implements Serializable {
     /**
      * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 权限格式
+     * 资源定位符
      */
-    @TableField(value = "pattern", el = "pattern")
-    private String pattern;
+    @TableField(value = "uri", el = "uri")
+    private String uri;
     /**
-     * 权限名称
+     * 资源名称
      */
     @TableField(value = "name", el = "name")
     private String name;
     /**
-     * 权限描述信息
+     * 资源描述信息
      */
     @TableField(value = "description", el = "description")
     private String description;
@@ -55,7 +55,7 @@ public class Authority implements Serializable {
     private Date updateTime;
 
     /**
-     * 拥有该权限的角色信息，非数据库字段
+     * 拥有该资源的角色信息，非数据库字段
      */
     @TableField(exist = false)
     private List<Role> roles;

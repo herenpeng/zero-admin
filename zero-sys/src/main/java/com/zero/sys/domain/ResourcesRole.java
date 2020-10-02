@@ -10,20 +10,21 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 权限-角色关联表
+ * 资源-角色关联表
+ *
  * @author herenpeng
  * @since 2020-09-07 19:13
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_authority_role")
-public class AuthorityRole implements Serializable {
+@TableName("sys_resources_role")
+public class ResourcesRole implements Serializable {
     /**
-     * 权限主键，sys_authority表的主键id
+     * 权限主键，sys_resources表的主键id
      */
-    @TableField(value = "authority_id", el = "authorityId")
-    private Integer authorityId;
+    @TableField(value = "resources_id", el = "resourcesId")
+    private Integer resourcesId;
     /**
      * 角色主键，sys_role表的主键id
      */
