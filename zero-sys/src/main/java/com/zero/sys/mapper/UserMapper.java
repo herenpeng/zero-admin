@@ -33,4 +33,13 @@ public interface UserMapper extends BaseMapper<User> {
      */
     IPage<User> getPage(IPage page) throws Exception;
 
+    /**
+     * 删除用户的角色
+     *
+     * @param userId 用户主键
+     * @param roleId 角色主键
+     * @throws Exception 抛出异常
+     */
+    void deleteUserRole(@Param("userId") Integer userId, @Param("roleId") Integer roleId) throws Exception;
+
 }

@@ -79,5 +79,10 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public void deleteUserRole(Integer userId, Integer roleId) throws Exception {
+        userMapper.deleteUserRole(userId, roleId);
+    }
+
 
 }

@@ -26,7 +26,7 @@ public interface UserService {
      *
      * @param id      用户id
      * @param enabled true为启用，false为禁用
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
     void enabled(Integer id, Boolean enabled) throws Exception;
 
@@ -34,15 +34,15 @@ public interface UserService {
      * 插入一条用户信息
      *
      * @param user 用户对象
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
     void insert(User user) throws Exception;
 
     /**
-     * 通过主键删除用户信息
+     * 通过主键逻辑删除用户信息
      *
      * @param id 用户主键
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
     void delete(Integer id) throws Exception;
 
@@ -51,6 +51,16 @@ public interface UserService {
      *
      * @param accessToken cookie中的accessToken信息
      * @return 用户信息
+     * @throws Exception 抛出异常
      */
     User info(String accessToken) throws Exception;
+
+    /**
+     * 删除用户的角色
+     *
+     * @param userId 用户主键
+     * @param roleId 角色主键
+     * @throws Exception
+     */
+    void deleteUserRole(Integer userId, Integer roleId) throws Exception;
 }

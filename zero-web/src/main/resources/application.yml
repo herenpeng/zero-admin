@@ -24,6 +24,13 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 打印sql语句
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 配置逻辑删除字段
+  global-config:
+    db-config:
+      # 删除状态为1
+      logic-delete-value: 1
+      # 没有删除状态为0
+      logic-not-delete-value: 0
 zero:
   sys:
     user:

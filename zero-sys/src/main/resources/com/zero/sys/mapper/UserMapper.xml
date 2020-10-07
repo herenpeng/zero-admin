@@ -33,6 +33,7 @@
         left join sys_role sr on sr.id = sur.role_id
     </sql>
 
+
     <select id="loadUserByUsername" resultMap="resultMap">
         <include refid="baseSelectSql"></include>
         where su.username = #{username}
@@ -41,6 +42,10 @@
     <select id="getPage" resultMap="resultMap">
         <include refid="baseSelectSql"></include>
     </select>
+
+    <delete id="deleteUserRole">
+        delete from sys_user_role where user_id = #{userId} and role_id = #{roleId}
+    </delete>
 
 
 

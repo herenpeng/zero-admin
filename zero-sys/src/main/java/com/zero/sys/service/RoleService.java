@@ -16,6 +16,7 @@ public interface RoleService {
      * 获取所有的用户角色信息
      *
      * @return
+     * @throws Exception
      */
     List<Role> list() throws Exception;
 

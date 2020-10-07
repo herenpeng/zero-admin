@@ -1,15 +1,13 @@
 package com.zero.sys.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zero.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,12 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_resources")
-public class Resources implements Serializable {
-    /**
-     * 主键
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+public class Resources extends BaseEntity implements Serializable {
+
     /**
      * 资源定位符
      */
@@ -43,16 +37,6 @@ public class Resources implements Serializable {
      */
     @TableField(value = "description", el = "description")
     private String description;
-    /**
-     * 数据插入时间
-     */
-    @TableField(value = "create_time", el = "createTime")
-    private Date createTime;
-    /**
-     * 数据更新时间
-     */
-    @TableField(value = "update_time", el = "updateTime")
-    private Date updateTime;
 
     /**
      * 拥有该资源的角色信息，非数据库字段

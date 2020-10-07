@@ -37,15 +37,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityFilter securityFilter;
 
+
     @Autowired
     private SecurityAccessDecisionManager securityAccessDecisionManager;
 
+    /**
+     * 登录成功
+     */
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
+    /**
+     * 登录失败
+     */
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
 
+    /**
+     * 退出登录
+     */
     @Autowired
     private LogoutHandler logoutHandler;
 

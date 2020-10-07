@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("user")
-@Api(value = "用户测试接口", tags = "UserController")
+@Api(value = "用户操作接口", tags = "UserController")
 public class UserController {
 
     @Autowired
@@ -94,5 +94,11 @@ public class UserController {
         return ResponseData.ok(user);
     }
 
-
+    @DeleteMapping("{userId}")
+    public ResponseData deleteUserRole(
+            @PathVariable("userId") Integer userId,
+            @RequestParam("roleId") Integer roleId) throws Exception {
+        userService.deleteUserRole(userId, roleId);
+        return ResponseData.ok("删除用户角色成功");
+    }
 }
