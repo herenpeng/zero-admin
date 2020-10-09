@@ -18,27 +18,30 @@ import java.util.Date;
 public class BaseEntity implements Serializable {
 
     /**
-     * 主键
+     * 主键ID
      */
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 数据插入时间
+     * 数据库数据创建时间
      */
     @ApiModelProperty(value = "数据库数据创建时间")
     @TableField(value = "create_time", el = "createTime")
     private Date createTime;
 
     /**
-     * 数据更新时间
+     * 数据库数据更新时间
      */
     @ApiModelProperty(value = "数据库数据更新时间")
     @TableField(value = "update_time", el = "updateTime")
     private Date updateTime;
 
-    @ApiModelProperty(value = "数据库数据逻辑删除")
+    /**
+     * 数据库数据标识逻辑删除字段
+     */
+    @ApiModelProperty(value = "数据库数据标识逻辑删除字段")
     @TableLogic
     private Integer deleted;
 

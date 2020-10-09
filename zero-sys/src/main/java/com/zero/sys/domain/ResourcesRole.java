@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * 资源-角色关联表
  *
@@ -19,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_resources_role")
-public class ResourcesRole extends BaseEntity implements Serializable {
+public class ResourcesRole extends BaseEntity {
     /**
      * 权限主键，sys_resources表的主键id
      */

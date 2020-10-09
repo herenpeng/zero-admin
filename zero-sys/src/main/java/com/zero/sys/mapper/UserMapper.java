@@ -42,4 +42,5 @@ public interface UserMapper extends BaseMapper<User> {
      */
     void deleteUserRole(@Param("userId") Integer userId, @Param("roleId") Integer roleId) throws Exception;
 
+
 }

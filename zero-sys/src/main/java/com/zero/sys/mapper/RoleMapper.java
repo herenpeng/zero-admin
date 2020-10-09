@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 角色的Mapper接口
+ *
  * @author herenpeng
  * @since 2020-09-07 22:34
  */
@@ -17,10 +18,20 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     /**
      * 通过用户主键信息获取该用户所有的角色，需要关联中间表sys_user_role
+     *
      * @param userId
      * @return
      * @throws Exception
      */
     List<Role> getByUserId(@Param("userId") Integer userId) throws Exception;
+
+    /**
+     * 获取该用户没有的角色信息
+     *
+     * @param userId 用户主键
+     * @return 用户未拥有的角色集合
+     * @throws Exception 抛出异常
+     */
+    List<Role> getRoleList(@Param("userId") Integer userId) throws Exception;
 
 }

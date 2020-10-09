@@ -1,5 +1,7 @@
 package com.zero.common.response.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,17 +10,20 @@ import lombok.Data;
  * @author herenpeng
  * @since 2020-09-12 12:27
  */
+@ApiModel(value = "响应数据实体类")
 @Data
 public class ResponseData<T> {
 
     /**
      * 业务状态码，区别于HTTP协议状态码，
      */
+    @ApiModelProperty(value = "业务状态码")
     private Integer code;
 
     /**
      * 返回前端的交互数据
      */
+    @ApiModelProperty(value = "业务响应数据")
     private T data;
 
     private static ResponseData responseData;

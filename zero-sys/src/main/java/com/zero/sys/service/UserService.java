@@ -1,7 +1,10 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
+
+import java.util.List;
 
 /**
  * 用户业务逻辑层接口
@@ -63,4 +66,22 @@ public interface UserService {
      * @throws Exception
      */
     void deleteUserRole(Integer userId, Integer roleId) throws Exception;
+
+    /**
+     * 获取该用户没有的角色信息
+     *
+     * @param userId 用户主键
+     * @return 用户未拥有的角色集合
+     * @throws Exception 抛出异常
+     */
+    List<Role> getRoleList(Integer userId) throws Exception;
+
+    /**
+     * 添加用户角色关系
+     *
+     * @param userId 用户主键
+     * @param roleId 角色主键
+     * @throws Exception 抛出异常
+     */
+    void addUserRole(Integer userId, Integer roleId) throws Exception;
 }

@@ -25,4 +25,12 @@
     </select>
 
 
+    <select id="getRoleList" resultType="com.zero.sys.domain.Role">
+        select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
+        from sys_role sr
+        where sr.id not in
+        (select sur.role_id from sys_user_role sur where sur.user_id = #{userId})
+    </select>
+
+
 </mapper>
