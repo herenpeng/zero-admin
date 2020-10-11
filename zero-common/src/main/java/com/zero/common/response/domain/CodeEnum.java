@@ -15,18 +15,17 @@ public enum CodeEnum {
      */
     OK(20000),
     /**
-     * code为50000，代表登录错误
+     * code为30000，代表登录错误
      */
-    LOGIN_ERROR(50000),
+    LOGIN_ERROR(30000),
     /**
-     * code为50001，代表未登录
+     * code为30001，代表未登录
      */
-    NOT_LOGIN(50001),
-
+    NOT_LOGIN(30001),
     /**
-     * code为50002，代表系统发生异常
+     * code为50000，代表系统发生异常
      */
-    SYS_EXCEPTION(50002);
+    SYS_EXCEPTION(50000);
 
     private Integer value;
 
