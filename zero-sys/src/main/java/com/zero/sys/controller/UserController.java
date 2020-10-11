@@ -102,7 +102,8 @@ public class UserController {
         return ResponseData.ok("删除用户角色成功");
     }
 
-    @ApiOperation(value = "删除用户角色")
+
+    @ApiOperation(value = "获取该用户未拥有的角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户主键", required = true)
     })
