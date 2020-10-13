@@ -50,4 +50,7 @@ public class SysFile {
      */
     private double usage;
 
+    public String getUsage() {
+        return usage + "%";
+    }
 }

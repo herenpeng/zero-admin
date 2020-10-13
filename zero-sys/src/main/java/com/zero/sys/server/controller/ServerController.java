@@ -1,7 +1,9 @@
 package com.zero.sys.server.controller;
 
 import com.zero.common.response.domain.ResponseData;
+import com.zero.sys.server.domain.Cpu;
 import com.zero.sys.server.domain.Server;
+import com.zero.sys.server.util.OshiUtils;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServerController {
 
     @GetMapping("/cpu")
-    public ResponseData getCpuInfo() {
-
-        return ResponseData.ok();
+    public ResponseData<Cpu> getCpuInfo() throws Exception {
+        Cpu cpu = OshiUtils.getCpuInfo();
+        return ResponseData.ok(cpu);
     }
 
 

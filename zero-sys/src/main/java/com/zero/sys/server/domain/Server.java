@@ -12,7 +12,8 @@ import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.Util;
 
-import java.rmi.UnknownHostException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -50,7 +51,6 @@ public class Server {
      * 磁盘相关信息
      */
     private List<SysFile> sysFiles = new LinkedList<SysFile>();
-
 
 
     public void copyTo() throws Exception {
@@ -100,10 +100,11 @@ public class Server {
     /**
      * 设置服务器信息
      */
-    private void setSysInfo() {
+    private void setSysInfo() throws UnknownHostException {
+        InetAddress inetAddress = InetAddress.getLocalHost();
+        sys.setComputerName(inetAddress.getHostName());
+        sys.setComputerIp(inetAddress.getHostAddress());
         Properties props = System.getProperties();
-        // sys.setComputerName(IpUtils.getHostName());
-        // sys.setComputerIp(IpUtils.getHostIp());
         sys.setOsName(props.getProperty("os.name"));
         sys.setOsArch(props.getProperty("os.arch"));
         sys.setUserDir(props.getProperty("user.dir"));
@@ -145,6 +146,7 @@ public class Server {
 
     /**
      * 字节转换
+     *
      * @param size 字节大小
      * @return 转换后值
      */

@@ -1,5 +1,6 @@
 package com.zero.sys.server.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.zero.sys.server.util.Arith;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
  * @since 2020-10-12 20:14
  */
 @ApiModel(value = "系统CPU参数信息实体类")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

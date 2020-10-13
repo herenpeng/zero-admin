@@ -68,14 +68,14 @@ public class Jvm {
     }
 
     /**
-     * 获取JDK名称
+     * 获取JVM名称
      */
     public String getName() {
         return ManagementFactory.getRuntimeMXBean().getVmName();
     }
 
     /**
-     * JDK启动时间
+     * JVM启动时间
      */
     public String getStartTime() {
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
@@ -83,7 +83,7 @@ public class Jvm {
     }
 
     /**
-     * JDK运行时间
+     * JVM运行时间
      */
     public String getRunTime() {
         long startTime = ManagementFactory.getRuntimeMXBean().getStartTime();
