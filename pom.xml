@@ -23,7 +23,7 @@
         <jjwt.version>0.9.0</jjwt.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
-        <oshi-core.version>3.9.1</oshi-core.version>
+        <oshi-core.version>5.1.1</oshi-core.version>
     </properties>
 
     <parent>
@@ -44,6 +44,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!--jjwt，Java对JWT的封装工具依赖-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -55,7 +56,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--Lombox的依赖-->
+        <!--lombox的依赖-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -77,6 +78,7 @@
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
+        <!--swagger2的依赖-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
@@ -87,11 +89,17 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>${springfox-swagger2.version}</version>
         </dependency>
+        <!--oshi的依赖-->
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
             <version>${oshi-core.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.imjcker</groupId>-->
+<!--            <artifactId>oshi-spring-boot-starter</artifactId>-->
+<!--            <version>1.0.1</version>-->
+<!--        </dependency>-->
         <!--devtools热部署依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

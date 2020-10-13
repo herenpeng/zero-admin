@@ -31,6 +31,11 @@ mybatis-plus:
       logic-delete-value: 1
       # 没有删除状态为0
       logic-not-delete-value: 0
+#imjcker:
+#  oshi:
+#    sys-view-servlet:
+#      enbled: true
+#      url-pattern: /oshi/*
 zero:
   sys:
     user:
