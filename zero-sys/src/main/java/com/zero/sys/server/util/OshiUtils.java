@@ -1,11 +1,17 @@
 package com.zero.sys.server.util;
 
 import com.zero.sys.server.domain.Cpu;
+import com.zero.sys.server.domain.Jvm;
+import com.zero.sys.server.domain.Mem;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
+import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.util.Util;
+
+import java.net.UnknownHostException;
+import java.util.Properties;
 
 /**
  * 封装的Oshi工具类，本地操作系统和Java的硬件信息库
@@ -17,6 +23,13 @@ public class OshiUtils {
 
     private static final int OSHI_WAIT_SECOND = 1000;
 
+    private static HardwareAbstractionLayer hardware;
+
+    static {
+        SystemInfo systemInfo = new SystemInfo();
+        hardware = systemInfo.getHardware();
+    }
+
     /**
      * 获取CPU的使用率和未使用率
      *
@@ -25,9 +38,17 @@ public class OshiUtils {
      */
     public static Cpu getCpuInfo() throws Exception {
         Cpu cpu = new Cpu();
-        SystemInfo systemInfo = new SystemInfo();
-        HardwareAbstractionLayer hal = systemInfo.getHardware();
-        CentralProcessor processor = hal.getProcessor();
+        setCpuInfo(cpu, hardware.getProcessor());
+        return cpu;
+    }
+
+    /**
+     * 封装的设置cpu信息的方法
+     *
+     * @param cpu
+     * @param processor
+     */
+    public static void setCpuInfo(Cpu cpu, CentralProcessor processor) {
         long[] prevTicks = processor.getSystemCpuLoadTicks();
         Util.sleep(OSHI_WAIT_SECOND);
         long[] ticks = processor.getSystemCpuLoadTicks();
@@ -46,7 +67,54 @@ public class OshiUtils {
         cpu.setUsed(user);
         cpu.setWait(iowait);
         cpu.setFree(idle);
-        return cpu;
+    }
+
+    /**
+     * 获取内存信息
+     *
+     * @return
+     * @throws Exception
+     */
+    public static Mem getMenInfo() throws Exception {
+        Mem mem = new Mem();
+        setMemInfo(mem, hardware.getMemory());
+        return mem;
+    }
+
+    /**
+     * 设置内存信息
+     *
+     * @param mem
+     * @param memory
+     */
+    public static void setMemInfo(Mem mem, GlobalMemory memory) {
+        mem.setTotal(memory.getTotal());
+        mem.setUsed(memory.getTotal() - memory.getAvailable());
+        mem.setFree(memory.getAvailable());
+    }
+
+    /**
+     * 获取Java虚拟机信息
+     *
+     * @return
+     * @throws Exception
+     */
+    public static Jvm getJvmInfo() throws Exception {
+        Jvm jvm = new Jvm();
+        setJvmInfo(jvm);
+        return jvm;
+    }
+
+    /**
+     * 设置Java虚拟机
+     */
+    public static void setJvmInfo(Jvm jvm) throws UnknownHostException {
+        Properties props = System.getProperties();
+        jvm.setTotal(Runtime.getRuntime().totalMemory());
+        jvm.setMax(Runtime.getRuntime().maxMemory());
+        jvm.setFree(Runtime.getRuntime().freeMemory());
+        jvm.setVersion(props.getProperty("java.version"));
+        jvm.setHome(props.getProperty("java.home"));
     }
 
 }

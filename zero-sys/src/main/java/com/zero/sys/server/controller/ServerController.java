@@ -2,6 +2,8 @@ package com.zero.sys.server.controller;
 
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.server.domain.Cpu;
+import com.zero.sys.server.domain.Jvm;
+import com.zero.sys.server.domain.Mem;
 import com.zero.sys.server.domain.Server;
 import com.zero.sys.server.util.OshiUtils;
 import io.swagger.annotations.Api;
@@ -24,6 +26,18 @@ public class ServerController {
     public ResponseData<Cpu> getCpuInfo() throws Exception {
         Cpu cpu = OshiUtils.getCpuInfo();
         return ResponseData.ok(cpu);
+    }
+
+    @GetMapping("/mem")
+    public ResponseData<Mem> getMenInfo() throws Exception {
+        Mem men = OshiUtils.getMenInfo();
+        return ResponseData.ok(men);
+    }
+
+    @GetMapping("/jvm")
+    public ResponseData<Jvm> getJvmInfo() throws Exception {
+        Jvm jvm = OshiUtils.getJvmInfo();
+        return ResponseData.ok(jvm);
     }
 
 

@@ -1,16 +1,13 @@
 package com.zero.sys.server.domain;
 
 import com.zero.sys.server.util.Arith;
+import com.zero.sys.server.util.OshiUtils;
 import lombok.Data;
 import oshi.SystemInfo;
-import oshi.hardware.CentralProcessor;
-import oshi.hardware.CentralProcessor.TickType;
-import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
-import oshi.util.Util;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -24,8 +21,6 @@ import java.util.Properties;
  */
 @Data
 public class Server {
-
-    private static final int OSHI_WAIT_SECOND = 1000;
 
     /**
      * CPU相关信息
@@ -54,47 +49,13 @@ public class Server {
 
 
     public void copyTo() throws Exception {
-        SystemInfo si = new SystemInfo();
-        HardwareAbstractionLayer hal = si.getHardware();
-        setCpuInfo(hal.getProcessor());
-        setMemInfo(hal.getMemory());
+        SystemInfo systemInfo = new SystemInfo();
+        HardwareAbstractionLayer hardware = systemInfo.getHardware();
+        OshiUtils.setCpuInfo(cpu, hardware.getProcessor());
+        OshiUtils.setMemInfo(mem, hardware.getMemory());
+        OshiUtils.setJvmInfo(jvm);
         setSysInfo();
-        setJvmInfo();
-        setSysFiles(si.getOperatingSystem());
-    }
-
-    /**
-     * 设置CPU信息
-     */
-    private void setCpuInfo(CentralProcessor processor) {
-        // CPU信息
-        long[] prevTicks = processor.getSystemCpuLoadTicks();
-        Util.sleep(OSHI_WAIT_SECOND);
-        long[] ticks = processor.getSystemCpuLoadTicks();
-        long nice = ticks[TickType.NICE.getIndex()] - prevTicks[TickType.NICE.getIndex()];
-        long irq = ticks[TickType.IRQ.getIndex()] - prevTicks[TickType.IRQ.getIndex()];
-        long softirq = ticks[TickType.SOFTIRQ.getIndex()] - prevTicks[TickType.SOFTIRQ.getIndex()];
-        long steal = ticks[TickType.STEAL.getIndex()] - prevTicks[TickType.STEAL.getIndex()];
-        long cSys = ticks[TickType.SYSTEM.getIndex()] - prevTicks[TickType.SYSTEM.getIndex()];
-        long user = ticks[TickType.USER.getIndex()] - prevTicks[TickType.USER.getIndex()];
-        long iowait = ticks[TickType.IOWAIT.getIndex()] - prevTicks[TickType.IOWAIT.getIndex()];
-        long idle = ticks[TickType.IDLE.getIndex()] - prevTicks[TickType.IDLE.getIndex()];
-        long totalCpu = user + nice + cSys + idle + iowait + irq + softirq + steal;
-        cpu.setCpuNum(processor.getLogicalProcessorCount());
-        cpu.setTotal(totalCpu);
-        cpu.setSys(cSys);
-        cpu.setUsed(user);
-        cpu.setWait(iowait);
-        cpu.setFree(idle);
-    }
-
-    /**
-     * 设置内存信息
-     */
-    private void setMemInfo(GlobalMemory memory) {
-        mem.setTotal(memory.getTotal());
-        mem.setUsed(memory.getTotal() - memory.getAvailable());
-        mem.setFree(memory.getAvailable());
+        setSysFiles(systemInfo.getOperatingSystem());
     }
 
     /**
@@ -110,17 +71,6 @@ public class Server {
         sys.setUserDir(props.getProperty("user.dir"));
     }
 
-    /**
-     * 设置Java虚拟机
-     */
-    private void setJvmInfo() throws UnknownHostException {
-        Properties props = System.getProperties();
-        jvm.setTotal(Runtime.getRuntime().totalMemory());
-        jvm.setMax(Runtime.getRuntime().maxMemory());
-        jvm.setFree(Runtime.getRuntime().freeMemory());
-        jvm.setVersion(props.getProperty("java.version"));
-        jvm.setHome(props.getProperty("java.home"));
-    }
 
     /**
      * 设置磁盘信息
