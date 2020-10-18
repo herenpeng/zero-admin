@@ -78,7 +78,7 @@ public class UserController {
     }
 
 
-    @ApiOperation(value = "获取请求头上的accessToken，并更具accessToken返回用户信息")
+    @ApiOperation(value = "获取请求头上的accessToken，并根据accessToken返回用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "用户请求token", required = true)
     })

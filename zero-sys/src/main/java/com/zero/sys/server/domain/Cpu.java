@@ -1,7 +1,7 @@
 package com.zero.sys.server.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.zero.sys.server.util.Arith;
+import com.zero.sys.server.util.ArithHelper;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,23 +51,23 @@ public class Cpu {
     private double free;
 
     public double getTotal() {
-        return Arith.round(Arith.mul(total, 100), 2);
+        return ArithHelper.round(ArithHelper.mul(total, 100), 2);
     }
 
     public double getSys() {
-        return Arith.round(Arith.mul(sys / total, 100), 2);
+        return ArithHelper.round(ArithHelper.mul(sys / total, 100), 2);
     }
 
     public double getUsed() {
-        return Arith.round(Arith.mul(used / total, 100), 2);
+        return ArithHelper.round(ArithHelper.mul(used / total, 100), 2);
     }
 
     public double getWait() {
-        return Arith.round(Arith.mul(wait / total, 100), 2);
+        return ArithHelper.round(ArithHelper.mul(wait / total, 100), 2);
     }
 
     public double getFree() {
-        return Arith.round(Arith.mul(free / total, 100), 2);
+        return ArithHelper.round(ArithHelper.mul(free / total, 100), 2);
     }
 
 }

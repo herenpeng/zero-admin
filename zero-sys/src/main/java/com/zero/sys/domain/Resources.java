@@ -32,18 +32,18 @@ public class Resources extends BaseEntity {
     private String uri;
 
     /**
-     * 资源名称
-     */
-    @ApiModelProperty(value = "资源名称")
-    @TableField(value = "name", el = "name")
-    private String name;
-
-    /**
      * 资源描述信息
      */
     @ApiModelProperty(value = "资源描述信息")
     @TableField(value = "description", el = "description")
     private String description;
+
+    /**
+     * 资源方法类型
+     */
+    @ApiModelProperty(value = "资源方法类型")
+    @TableField(value = "method_type", el = "methodType")
+    private String methodType;
 
     /**
      * 拥有该资源的角色信息，非数据库字段

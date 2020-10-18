@@ -45,5 +45,10 @@ zero:
         secret: HdGkiOiI4ODgiLCJzdWIiOiLlsI
         ttl: 3600000
         issuer: https://www.zero.com
-
+    listener:
+      execution-start: true
+      execution-stop: true
+      event:
+        scan-resources: true
+        destroy-resources: true
 

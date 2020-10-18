@@ -32,4 +32,10 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @throws Exception
      */
     IPage<Resources> getPage(IPage page) throws Exception;
+
+    /**
+     * 删除全部的系统资源数据，【注意】该删除为物理删除，主要是用于系统停止事件的时候进行销毁资源，然后重新扫描资源
+     * @throws Exception
+     */
+    void deleteAll() throws Exception;
 }

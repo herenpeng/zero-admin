@@ -1,6 +1,6 @@
 package com.zero.sys.server.domain;
 
-import com.zero.sys.server.util.Arith;
+import com.zero.sys.server.util.ArithHelper;
 import com.zero.sys.server.util.OshiUtils;
 import lombok.Data;
 import oshi.SystemInfo;
@@ -89,7 +89,7 @@ public class Server {
             sysFile.setTotal(convertFileSize(total));
             sysFile.setFree(convertFileSize(free));
             sysFile.setUsed(convertFileSize(used));
-            sysFile.setUsage(Arith.mul(Arith.div(used, total, 4), 100));
+            sysFile.setUsage(ArithHelper.mul(ArithHelper.div(used, total, 4), 100));
             sysFiles.add(sysFile);
         }
     }

@@ -1,19 +1,15 @@
 package com.zero.sys.server.controller;
 
 import com.zero.common.response.domain.ResponseData;
-import com.zero.sys.server.domain.Cpu;
-import com.zero.sys.server.domain.Jvm;
-import com.zero.sys.server.domain.Mem;
-import com.zero.sys.server.domain.Server;
+import com.zero.sys.server.domain.*;
 import com.zero.sys.server.util.OshiUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 系统信息控制器，用于处理系统信息（如CPU，内存，JVM使用情况等等）
- *
  * @author herenpeng
  * @since 2020-10-12 8:27
  */
@@ -22,30 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("server")
 public class ServerController {
 
-    @GetMapping("/cpu")
-    public ResponseData<Cpu> getCpuInfo() throws Exception {
+    @ApiOperation(value = "获取系统服务器的CPU，内存，JVM饼图信息")
+    @GetMapping("piechart")
+    public ResponseData<ServerPieChart> getServerPirChartInfo() throws Exception {
         Cpu cpu = OshiUtils.getCpuInfo();
-        return ResponseData.ok(cpu);
-    }
-
-    @GetMapping("/mem")
-    public ResponseData<Mem> getMenInfo() throws Exception {
-        Mem men = OshiUtils.getMenInfo();
-        return ResponseData.ok(men);
-    }
-
-    @GetMapping("/jvm")
-    public ResponseData<Jvm> getJvmInfo() throws Exception {
+        Mem mem = OshiUtils.getMenInfo();
         Jvm jvm = OshiUtils.getJvmInfo();
-        return ResponseData.ok(jvm);
+        ServerPieChart serverPieChart = new ServerPieChart(cpu, mem, jvm);
+        return ResponseData.ok(serverPieChart);
     }
 
 
-    /**
-     * 获取服务器监控信息
-     * @return
-     * @throws Exception
-     */
+    @ApiOperation(value = "获取系统服务器的监控信息")
     @GetMapping("/info")
     public ResponseData<Server> getInfo() throws Exception {
         Server server = new Server();

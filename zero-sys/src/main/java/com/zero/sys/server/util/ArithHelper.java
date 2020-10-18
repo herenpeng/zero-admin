@@ -1,6 +1,8 @@
 package com.zero.sys.server.util;
 
 /**
+ * 算术运算助手
+ *
  * @author herenpeng
  * @since 2020-10-12 20:27
  */
@@ -13,7 +15,7 @@ import java.math.RoundingMode;
  * @author zengxueqi
  * @since 2020/07/14
  */
-public class Arith {
+public class ArithHelper {
 
     /**
      * 默认除法运算精度
@@ -23,7 +25,7 @@ public class Arith {
     /**
      * 这个类不能实例化
      */
-    private Arith() {
+    private ArithHelper() {
     }
 
     /**
