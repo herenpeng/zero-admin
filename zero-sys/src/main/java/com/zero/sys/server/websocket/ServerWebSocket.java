@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Component
 @EnableScheduling
-@ServerEndpoint("/websocket/server/piechart")
+@ServerEndpoint("websocket/server/piechart")
 public class ServerWebSocket {
 
     public static Map<String, Session> webSocketClients = new ConcurrentHashMap<>();

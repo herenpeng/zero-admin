@@ -22,6 +22,11 @@ import java.lang.reflect.Method;
 @Component
 public class ScanResources implements StartEvent {
 
+    /**
+     * 请求路径前面的斜杠
+     */
+    public static final String PATH_PREFIX = "/";
+
     @Autowired
     ConfigurableApplicationContext run;
 
@@ -100,7 +105,7 @@ public class ScanResources implements StartEvent {
                     description = apiOperation.value();
                 }
                 Resources resources = new Resources();
-                resources.setUri(beanPath + methodPath);
+                resources.setUri(splicingPath(beanPath, methodPath));
                 resources.setMethodType(methodType);
                 resources.setDescription(description);
                 resourcesMapper.insert(resources);
@@ -108,5 +113,21 @@ public class ScanResources implements StartEvent {
         }
     }
 
+    /**
+     * 拼接路径
+     *
+     * @param beanPath   类路径
+     * @param methodPath 方法路径
+     * @return 返回拼接之后的路径
+     */
+    private String splicingPath(String beanPath, String methodPath) {
+        if (!beanPath.startsWith(PATH_PREFIX)) {
+            beanPath = PATH_PREFIX + beanPath;
+        }
+        if (!methodPath.startsWith(PATH_PREFIX)) {
+            methodPath = PATH_PREFIX + methodPath;
+        }
+        return beanPath + methodPath;
+    }
 
 }

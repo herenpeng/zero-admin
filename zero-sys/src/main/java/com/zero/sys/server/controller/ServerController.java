@@ -30,7 +30,7 @@ public class ServerController {
 
 
     @ApiOperation(value = "获取系统服务器的监控信息")
-    @GetMapping("/info")
+    @GetMapping("info")
     public ResponseData<Server> getInfo() throws Exception {
         Server server = new Server();
         server.copyTo();
