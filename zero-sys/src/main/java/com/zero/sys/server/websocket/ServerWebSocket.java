@@ -19,13 +19,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 注意：@ServerEndpoint注解中的路径，必须以/开头，否则在项目启动的时候，
+ * 会报java.lang.IllegalStateException: Failed to register @ServerEndpoint class异常信息
+ *
  * @author herenpeng
  * @since 2020-10-18 11:32
  */
 @Slf4j
 @Component
 @EnableScheduling
-@ServerEndpoint("websocket/server/piechart")
+@ServerEndpoint("/websocket/server/piechart")
 public class ServerWebSocket {
 
     public static Map<String, Session> webSocketClients = new ConcurrentHashMap<>();
@@ -63,7 +66,7 @@ public class ServerWebSocket {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        log.error("系统建立WebSocket连接发生错误");
+        log.error("[WebSocket连接]系统建立WebSocket连接发生错误");
         error.printStackTrace();
     }
 
@@ -100,12 +103,17 @@ public class ServerWebSocket {
 
 
     @Scheduled(fixedDelay = 1000)
-    public void cpuTask() throws Exception {
+    public void serverPieChartTask() throws Exception {
         if (webSocketClients.size() > 0) {
             sendServerPieChartInfo();
         }
     }
 
+    /**
+     * 推送服务器饼图信息到前台页面
+     *
+     * @throws Exception
+     */
     private void sendServerPieChartInfo() throws Exception {
         Cpu cpu = OshiUtils.getCpuInfo();
         Mem mem = OshiUtils.getMenInfo();
