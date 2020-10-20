@@ -1,10 +1,7 @@
 package com.zero.sys.security.filter;
 
-import com.zero.sys.domain.Resources;
-import com.zero.sys.domain.Role;
 import com.zero.sys.mapper.ResourcesMapper;
 import lombok.SneakyThrows;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -14,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.PathMatcher;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author 何任鹏
@@ -34,16 +30,16 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        Resources resources = resourcesMapper.getByUri(requestUrl);
-        if (ObjectUtils.allNotNull(resources) && pathMatcher.match(resources.getUri(), requestUrl)) {
-            List<Role> roles = resources.getRoles();
-            String[] roleNameList = new String[roles.size()];
-            for (int i = 0; i < roles.size(); i++) {
-                roleNameList[i] = roles.get(i).getName();
-            }
-            // 传递的是需要的角色名数组
-            return SecurityConfig.createList(roleNameList);
-        }
+        // Resources resources = resourcesMapper.getByUri(requestUrl);
+        // if (ObjectUtils.allNotNull(resources) && pathMatcher.match(resources.getUri(), requestUrl)) {
+        //     List<Role> roles = resources.getRoles();
+        //     String[] roleNameList = new String[roles.size()];
+        //     for (int i = 0; i < roles.size(); i++) {
+        //         roleNameList[i] = roles.get(i).getName();
+        //     }
+        //     // 传递的是需要的角色名数组
+        //     return SecurityConfig.createList(roleNameList);
+        // }
         return SecurityConfig.createList("ROLE_LOGIN");
     }
 

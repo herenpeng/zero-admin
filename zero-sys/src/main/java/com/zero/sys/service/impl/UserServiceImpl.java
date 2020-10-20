@@ -51,9 +51,9 @@ public class UserServiceImpl implements UserService {
     private ObjectMapper objectMapper;
 
     @Override
-    public IPage<User> page(Integer currentPage, Integer size) throws Exception {
+    public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
         Page page = new Page(currentPage, size);
-        IPage<User> pageInfo = userMapper.selectPage(page, null);
+        IPage<User> pageInfo = userMapper.getPage(page, queryUser);
         for (User user : pageInfo.getRecords()) {
             user.setRoles(roleMapper.getByUserId(user.getId()));
         }
@@ -95,8 +95,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Role> getRoleList(Integer userId) throws Exception {
-        return roleMapper.getRoleList(userId);
+    public List<Role> getUserNotRoleList(Integer userId) throws Exception {
+        return roleMapper.getUserNotRoleList(userId);
     }
 
     @Override
@@ -105,6 +105,11 @@ public class UserServiceImpl implements UserService {
         userRole.setUserId(userId);
         userRole.setRoleId(roleId);
         userRoleMapper.insert(userRole);
+    }
+
+    @Override
+    public void updateById(User user) throws Exception {
+        userMapper.updateById(user);
     }
 
 

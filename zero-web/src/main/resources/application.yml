@@ -49,6 +49,6 @@ zero:
       execution-start: true
       execution-stop: true
       event:
-        scan-resources: true
-        destroy-resources: true
+        scan-resources: false
+        destroy-resources: false
 

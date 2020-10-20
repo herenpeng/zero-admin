@@ -3,8 +3,8 @@ package com.zero.sys.security.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.common.response.util.ResponseUtils;
-import com.zero.sys.domain.User;
 import com.zero.sys.security.jwt.util.JwtUtils;
+import com.zero.sys.security.userdetails.MyUserDetails;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,11 +32,10 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
     @SneakyThrows
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        User user = (User) authentication.getPrincipal();
+        MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
         // 不应该把密码放入JWT的载荷中
-        user.setPassword(null);
         String tokenId = UUID.randomUUID().toString();
-        String subject = objectMapper.writeValueAsString(user);
+        String subject = objectMapper.writeValueAsString(myUserDetails.getUser());
         // 创建JWT
         String jwt = JwtUtils.createJWT(tokenId, subject);
 

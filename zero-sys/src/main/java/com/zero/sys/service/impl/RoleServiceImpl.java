@@ -1,5 +1,7 @@
 package com.zero.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.sys.domain.Role;
 import com.zero.sys.mapper.RoleMapper;
 import com.zero.sys.service.RoleService;
@@ -25,7 +27,29 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
+    public IPage<Role> page(Integer currentPage, Integer size, Role queryRole) throws Exception {
+        Page page = new Page(currentPage, size);
+        IPage<Role> pageInfo = roleMapper.getPage(page, queryRole);
+        return pageInfo;
+    }
+
+    @Override
     public List<Role> list() throws Exception {
         return roleMapper.selectList(null);
+    }
+
+    @Override
+    public void insert(Role role) throws Exception {
+        roleMapper.insert(role);
+    }
+
+    @Override
+    public void updateById(Role role) throws Exception {
+        roleMapper.updateById(role);
+    }
+
+    @Override
+    public void delete(Integer id) throws Exception {
+        roleMapper.deleteById(id);
     }
 }

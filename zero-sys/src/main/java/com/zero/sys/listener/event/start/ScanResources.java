@@ -5,6 +5,7 @@ import com.zero.sys.domain.Resources;
 import com.zero.sys.mapper.ResourcesMapper;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
@@ -48,9 +49,9 @@ public class ScanResources implements StartEvent {
             Class<?> beanClass = bean.getClass();
 
             // 类路径
-            String beanPath = null;
+            String beanPath = "";
             // 方法路径
-            String methodPath = null;
+            String methodPath = "";
             // 方法类型
             String methodType = null;
             // 资源描述
@@ -121,10 +122,10 @@ public class ScanResources implements StartEvent {
      * @return 返回拼接之后的路径
      */
     private String splicingPath(String beanPath, String methodPath) {
-        if (!beanPath.startsWith(PATH_PREFIX)) {
+        if (StringUtils.isNoneBlank(beanPath) && !beanPath.startsWith(PATH_PREFIX)) {
             beanPath = PATH_PREFIX + beanPath;
         }
-        if (!methodPath.startsWith(PATH_PREFIX)) {
+        if (StringUtils.isNoneBlank(methodPath) && !methodPath.startsWith(PATH_PREFIX)) {
             methodPath = PATH_PREFIX + methodPath;
         }
         return beanPath + methodPath;

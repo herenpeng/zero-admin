@@ -19,10 +19,11 @@ public interface UserService {
      *
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
+     * @param queryUser   查询用户的条件
      * @return 分页查询的所有用户数据
      * @throws Exception 抛出异常
      */
-    IPage<User> page(Integer currentPage, Integer size) throws Exception;
+    IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception;
 
     /**
      * 启用或者禁用该用户账号
@@ -74,7 +75,7 @@ public interface UserService {
      * @return 用户未拥有的角色集合
      * @throws Exception 抛出异常
      */
-    List<Role> getRoleList(Integer userId) throws Exception;
+    List<Role> getUserNotRoleList(Integer userId) throws Exception;
 
     /**
      * 添加用户角色关系
@@ -84,4 +85,12 @@ public interface UserService {
      * @throws Exception 抛出异常
      */
     void addUserRole(Integer userId, Integer roleId) throws Exception;
+
+    /**
+     * 通过用户主键更新用户信息
+     *
+     * @param user 用户对象
+     * @throws Exception
+     */
+    void updateById(User user) throws Exception;
 }

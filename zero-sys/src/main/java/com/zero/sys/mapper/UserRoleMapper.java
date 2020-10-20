@@ -5,6 +5,8 @@ import com.zero.sys.domain.UserRole;
 import org.springframework.stereotype.Repository;
 
 /**
+ * 用户和角色之间的关系表
+ *
  * @author herenpeng
  * @since 2020-10-09 22:37
  */

@@ -18,19 +18,48 @@
         select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
         from sys_role sr
         left join sys_user_role sur on sur.role_id = sr.id
-        where 1 = 1
+        where sr.deleted = 0
         <if test="userId != null">
             and sur.user_id = #{userId}
         </if>
     </select>
 
-
-    <select id="getRoleList" resultType="com.zero.sys.domain.Role">
-        select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
+    <select id="getUserNotRoleList" resultMap="resultMap">
+        select sr.id, sr.name, sr.description
         from sys_role sr
-        where sr.id not in
+        where sr.deleted = 0 and sr.id not in
         (select sur.role_id from sys_user_role sur where sur.user_id = #{userId})
     </select>
+
+    <select id="getByResourcesId" resultMap="resultMap">
+        select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
+        from sys_role sr
+        left join sys_resources_role srer on srer.role_id = sr.id
+        where sr.deleted = 0
+        <if test="resourcesId != null">
+            and srer.resources_id = #{resourcesId}
+        </if>
+    </select>
+
+    <select id="getResourcesNotRoleList" resultMap="resultMap">
+        select sr.id, sr.name, sr.description
+        from sys_role sr
+        where sr.deleted = 0 and sr.id not in
+        (select srer.role_id from sys_resources_role srer where srer.resources_id = #{resourcesId})
+    </select>
+
+    <select id="getPage" resultMap="resultMap">
+        select sr.id, sr.name, sr.description
+        from sys_role sr
+        where sr.deleted = 0
+        <if test="queryRole.name != null">
+            and sr.name like concat('%', #{queryRole.name}, '%')
+        </if>
+        <if test="queryRole.description != null">
+            and sr.description like concat('%', #{queryRole.description}, '%')
+        </if>
+    </select>
+
 
 
 </mapper>

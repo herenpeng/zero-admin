@@ -30,16 +30,36 @@
 
 
     <select id="getByUri" resultMap="resultMap">
-        <include refid="baseSelectSql"></include>
+        select sre.id as id,sre.uri as uri,sre.description as description,
+        sr.id as rid,sr.name as role_name,sr.description as role_description
+        from sys_resources sre
+        left join sys_resources_role srer on srer.resources_id = sre.id
+        left join sys_role sr on sr.id = srer.role_id
         where sre.uri = #{uri}
     </select>
 
     <select id="getPage" resultMap="resultMap">
-        <include refid="baseSelectSql"></include>
+        select sre.id as id,sre.uri as uri,sre.description as description,
+        sre.method_type as method_type
+        from sys_resources sre
+        where sre.deleted = 0
+        <if test="queryResources.uri != null">
+            and sre.uri like concat('%', #{queryResources.uri}, '%')
+        </if>
+        <if test="queryResources.description != null">
+            and sre.description like concat('%', #{queryResources.description}, '%')
+        </if>
+        <if test="queryResources.methodType != null">
+            and sre.method_type = #{queryResources.methodType}
+        </if>
     </select>
 
     <delete id="deleteAll">
         delete from sys_resources
+    </delete>
+
+    <delete id="deleteResourcesRole">
+        delete from sys_resources_role where resources_id = #{resourcesId} and role_id = #{roleId}
     </delete>
 
 </mapper>

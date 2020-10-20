@@ -25,13 +25,14 @@ public interface UserMapper extends BaseMapper<User> {
     User loadUserByUsername(@Param("username") String username) throws Exception;
 
     /**
-     * 分页获取用户数据，区别于selectPage的是，使用该方法能够关联获取User对象中的roles集合属性
+     * 分页获取用户数据，区别于selectPage的是，该方法添加了查询条件
      *
-     * @param page 分页查询
+     * @param page      分页查询
+     * @param queryUser 用户查询条件
      * @return 用户集合
      * @throws Exception 抛出异常
      */
-    IPage<User> getPage(IPage page) throws Exception;
+    IPage<User> getPage(IPage page, @Param("queryUser") User queryUser) throws Exception;
 
     /**
      * 删除用户的角色

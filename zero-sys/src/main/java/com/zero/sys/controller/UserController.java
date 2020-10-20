@@ -31,13 +31,15 @@ public class UserController {
     @ApiOperation(value = "分页查询用户数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10")
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
+            @ApiImplicitParam(name = "queryUser", value = "用户查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "10") Integer size) throws Exception {
-        IPage<User> page = userService.page(currentPage, size);
+            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            User queryUser) throws Exception {
+        IPage<User> page = userService.page(currentPage, size, queryUser);
         return ResponseData.ok(page);
     }
 
@@ -64,6 +66,17 @@ public class UserController {
     public ResponseData insert(@RequestBody User user) throws Exception {
         userService.insert(user);
         return ResponseData.ok("添加用户成功");
+    }
+
+
+    @ApiOperation(value = "更新用户记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = "用户对象", required = true)
+    })
+    @PutMapping
+    public ResponseData update(@RequestBody User user) throws Exception {
+        userService.updateById(user);
+        return ResponseData.ok("更新用户成功");
     }
 
 
@@ -108,9 +121,9 @@ public class UserController {
             @ApiImplicitParam(name = "userId", value = "用户主键", required = true)
     })
     @GetMapping("role/{userId}")
-    public ResponseData getRoleList(
+    public ResponseData getUserNotRoleList(
             @PathVariable("userId") Integer userId) throws Exception {
-        List<Role> roleList = userService.getRoleList(userId);
+        List<Role> roleList = userService.getUserNotRoleList(userId);
         return ResponseData.ok(roleList);
     }
 
