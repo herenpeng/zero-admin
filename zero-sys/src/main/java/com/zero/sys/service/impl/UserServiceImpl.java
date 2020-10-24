@@ -2,6 +2,7 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
@@ -12,7 +13,6 @@ import com.zero.sys.mapper.UserRoleMapper;
 import com.zero.sys.property.UserProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import com.zero.sys.service.UserService;
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +30,7 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -61,6 +61,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean save(User user) {
+        String defaultPassword = userProperties.getDefaultPassword();
+        String encodePassword = passwordEncoder.encode(defaultPassword);
+        user.setPassword(encodePassword);
+        return retBool(userMapper.insert(user));
+    }
+
+    @Override
     public void enabled(Integer id, Boolean enabled) throws Exception {
         User user = new User();
         user.setId(id);
@@ -68,24 +76,10 @@ public class UserServiceImpl implements UserService {
         userMapper.updateById(user);
     }
 
-    @Override
-    public void insert(User user) throws Exception {
-        String defaultPassword = userProperties.getDefaultPassword();
-        String encodePassword = passwordEncoder.encode(defaultPassword);
-        user.setPassword(encodePassword);
-        userMapper.insert(user);
-    }
-
-    @Override
-    public void delete(Integer id) throws Exception {
-        userMapper.deleteById(id);
-    }
 
     @Override
     public User info(String accessToken) throws Exception {
-        Claims claims = JwtUtils.parseJWT(accessToken);
-        String subject = claims.getSubject();
-        User user = objectMapper.readValue(subject, User.class);
+        User user = JwtUtils.getUserInfo(accessToken);
         return user;
     }
 
@@ -105,11 +99,6 @@ public class UserServiceImpl implements UserService {
         userRole.setUserId(userId);
         userRole.setRoleId(roleId);
         userRoleMapper.insert(userRole);
-    }
-
-    @Override
-    public void updateById(User user) throws Exception {
-        userMapper.updateById(user);
     }
 
 

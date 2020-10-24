@@ -1,6 +1,7 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.zero.sys.domain.Role;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-09-14 20:28
  */
-public interface RoleService {
+public interface RoleService extends IService<Role> {
 
     /**
      * 分页查询角色信息
@@ -33,27 +34,4 @@ public interface RoleService {
     List<Role> list() throws Exception;
 
 
-    /**
-     * 插入一个角色对象
-     *
-     * @param role 角色对象
-     * @throws Exception 抛出异常
-     */
-    void insert(Role role) throws Exception;
-
-    /**
-     * 更新角色对象
-     *
-     * @param role 角色对象
-     * @throws Exception 抛出异常
-     */
-    void updateById(Role role) throws Exception;
-
-    /**
-     * 通过主键删除角色信息
-     *
-     * @param id 角色主键
-     * @throws Exception 抛出异常
-     */
-    void delete(Integer id) throws Exception;
 }

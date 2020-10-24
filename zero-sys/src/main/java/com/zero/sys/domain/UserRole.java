@@ -22,6 +22,7 @@ public class UserRole extends BaseEntity {
      */
     @TableField(value = "user_id", el = "userId")
     private Integer userId;
+
     /**
      * 角色主键，sys_role表的主键id
      */

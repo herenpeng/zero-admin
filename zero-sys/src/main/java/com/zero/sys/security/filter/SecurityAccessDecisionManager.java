@@ -1,21 +1,29 @@
 package com.zero.sys.security.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 /**
- * @author 何任鹏
- * 2020/7/25 18:50
+ * @author herenpeng
+ * 2020-9-13 18:50
  */
 @Component
 public class SecurityAccessDecisionManager implements AccessDecisionManager {
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     /**
      * 权限认证
      *
@@ -25,25 +33,33 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
      * @throws AccessDeniedException               权限拒绝异常
      * @throws InsufficientAuthenticationException 权限不足异常
      */
+    @SneakyThrows
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
-        for (ConfigAttribute configAttribute : collection) {
-            if ("ROLE_LOGIN".equals(configAttribute.getAttribute())) {
-                // if (authentication instanceof AnonymousAuthenticationToken) {
-                //     throw new AccessDeniedException("账号未登录异常");
-                // }
-                return;
-            }
-            // 获取当前用户的所有角色
-            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            // 判断逻辑：当然登录用户角色只要满足资源路径的其中一个角色便可以访问
-            for (GrantedAuthority authority : authorities) {
-                if (authority.getAuthority().equals(configAttribute.getAttribute())) {
-                    return;
-                }
-            }
-        }
-        throw new AccessDeniedException("非法请求");
+        // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。
+        FilterInvocation filterInvocation = (FilterInvocation) o;
+        HttpServletRequest request = filterInvocation.getHttpRequest();
+
+        String uri = request.getRequestURI();
+
+        // for (ConfigAttribute configAttribute : collection) {
+        //     if ("ROLE_LOGIN".equals(configAttribute.getAttribute())) {
+        //         // if (authentication instanceof AnonymousAuthenticationToken) {
+        //         //     throw new AccessDeniedException("账号未登录异常");
+        //         // }
+        //         return;
+        //     }
+        //     // 获取当前用户的所有角色
+        //     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        //     // 判断逻辑：当然登录用户角色只要满足资源路径的其中一个角色便可以访问
+        //     for (GrantedAuthority authority : authorities) {
+        //         if (authority.getAuthority().equals(configAttribute.getAttribute())) {
+        //             return;
+        //         }
+        //     }
+        // }
+        return;
+        // throw new AccessDeniedException("非法请求");
     }
 
     @Override

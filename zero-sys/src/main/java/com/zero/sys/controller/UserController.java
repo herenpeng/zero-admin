@@ -1,6 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.common.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
@@ -9,7 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,10 +23,7 @@ import java.util.List;
 @Api(value = "用户操作接口", tags = "UserController")
 @RestController
 @RequestMapping("user")
-public class UserController {
-
-    @Autowired
-    private UserService userService;
+public class UserController extends BaseController<UserService, User> {
 
     @ApiOperation(value = "分页查询用户数据")
     @ApiImplicitParams({
@@ -39,10 +36,9 @@ public class UserController {
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "8") Integer size,
             User queryUser) throws Exception {
-        IPage<User> page = userService.page(currentPage, size, queryUser);
+        IPage<User> page = baseService.page(currentPage, size, queryUser);
         return ResponseData.ok(page);
     }
-
 
     @ApiOperation(value = "启用或者禁用一个用户账号")
     @ApiImplicitParams({
@@ -53,41 +49,8 @@ public class UserController {
     public ResponseData enabled(
             @PathVariable("id") Integer id,
             @RequestParam("enabled") Boolean enabled) throws Exception {
-        userService.enabled(id, enabled);
+        baseService.enabled(id, enabled);
         return ResponseData.ok();
-    }
-
-
-    @ApiOperation(value = "插入一条用户记录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户对象", required = true)
-    })
-    @PostMapping
-    public ResponseData insert(@RequestBody User user) throws Exception {
-        userService.insert(user);
-        return ResponseData.ok("添加用户成功");
-    }
-
-
-    @ApiOperation(value = "更新用户记录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户对象", required = true)
-    })
-    @PutMapping
-    public ResponseData update(@RequestBody User user) throws Exception {
-        userService.updateById(user);
-        return ResponseData.ok("更新用户成功");
-    }
-
-
-    @ApiOperation(value = "通过主键删除用户信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户主键", required = true)
-    })
-    @DeleteMapping("{id}")
-    public ResponseData delete(@PathVariable("id") Integer id) throws Exception {
-        userService.delete(id);
-        return ResponseData.ok("删除用户成功");
     }
 
 
@@ -97,7 +60,7 @@ public class UserController {
     })
     @GetMapping("info")
     public ResponseData info(@RequestHeader("accessToken") String accessToken) throws Exception {
-        User user = userService.info(accessToken);
+        User user = baseService.info(accessToken);
         return ResponseData.ok(user);
     }
 
@@ -111,8 +74,8 @@ public class UserController {
     public ResponseData deleteUserRole(
             @PathVariable("userId") Integer userId,
             @RequestParam("roleId") Integer roleId) throws Exception {
-        userService.deleteUserRole(userId, roleId);
-        return ResponseData.ok("删除用户角色成功");
+        baseService.deleteUserRole(userId, roleId);
+        return ResponseData.ok().message("删除用户角色成功");
     }
 
 
@@ -123,7 +86,7 @@ public class UserController {
     @GetMapping("role/{userId}")
     public ResponseData getUserNotRoleList(
             @PathVariable("userId") Integer userId) throws Exception {
-        List<Role> roleList = userService.getUserNotRoleList(userId);
+        List<Role> roleList = baseService.getUserNotRoleList(userId);
         return ResponseData.ok(roleList);
     }
 
@@ -136,8 +99,8 @@ public class UserController {
     public ResponseData addUserRole(
             @PathVariable("userId") Integer userId,
             @RequestParam Integer roleId) throws Exception {
-        userService.addUserRole(userId, roleId);
-        return ResponseData.ok("添加用户角色成功");
+        baseService.addUserRole(userId, roleId);
+        return ResponseData.ok().message("添加用户角色成功");
     }
 
 }

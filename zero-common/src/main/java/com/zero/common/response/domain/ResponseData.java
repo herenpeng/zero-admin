@@ -21,6 +21,12 @@ public class ResponseData<T> {
     private Integer code;
 
     /**
+     * 业务提示消息，一般在增删改操作的时候返回
+     */
+    @ApiModelProperty(value = "业务提示消息")
+    private String message;
+
+    /**
      * 返回前端的交互数据
      */
     @ApiModelProperty(value = "业务响应数据")
@@ -44,6 +50,11 @@ public class ResponseData<T> {
     public static <T> ResponseData<T> code(Integer code) {
         responseData = new ResponseData();
         responseData.setCode(code);
+        return responseData;
+    }
+
+    public <T> ResponseData<T> message(String message) {
+        responseData.setMessage(message);
         return responseData;
     }
 

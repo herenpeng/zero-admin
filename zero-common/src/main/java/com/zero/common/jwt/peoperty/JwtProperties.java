@@ -1,4 +1,4 @@
-package com.zero.sys.security.jwt.peoperty;
+package com.zero.common.jwt.peoperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,5 +33,10 @@ public class JwtProperties {
      * token的签发者
      */
     private String issuer;
+
+    /**
+     * token名称；accessToken
+     */
+    private String name;
 
 }

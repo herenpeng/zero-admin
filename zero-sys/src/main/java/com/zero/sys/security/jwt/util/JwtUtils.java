@@ -1,6 +1,9 @@
 package com.zero.sys.security.jwt.util;
 
-import com.zero.sys.security.jwt.peoperty.JwtProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zero.sys.domain.Role;
+import com.zero.sys.domain.User;
+import com.zero.common.jwt.peoperty.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +31,13 @@ public class JwtUtils {
     @Autowired
     public void setJwtProperties(JwtProperties jwtProperties) {
         JwtUtils.jwtProperties = jwtProperties;
+    }
+
+    private static ObjectMapper objectMapper;
+
+    @Autowired
+    public static void setObjectMapper(ObjectMapper objectMapper) {
+        JwtUtils.objectMapper = objectMapper;
     }
 
     /**
@@ -144,5 +155,59 @@ public class JwtUtils {
                 .parseClaimsJws(jwt).getBody();
         return claims;
     }
+
+
+    /**
+     * 判断jwt是否已经过期
+     *
+     * @param jwt JWT字符串信息
+     * @return 如果jwt已经过期，返回true，否则返回false
+     * @throws Exception 抛出异常
+     */
+    public static boolean isExpiration(String jwt) throws Exception {
+        Claims claims = JwtUtils.parseJWT(jwt);
+        return claims.getExpiration().before(new Date());
+    }
+
+
+    /**
+     * 通过jwt解析请求用户信息，并返回User对象
+     *
+     * @param jwt JWT字符串信息
+     * @return User对象
+     * @throws Exception 抛出异常
+     */
+    public static User getUserInfo(String jwt) throws Exception {
+        Claims claims = JwtUtils.parseJWT(jwt);
+        String subject = claims.getSubject();
+        User user = objectMapper.readValue(subject, User.class);
+        return user;
+    }
+
+
+    /**
+     * 通过jwt解析，获取对应请求的用户的用户名
+     *
+     * @param jwt JWT字符串信息
+     * @return 返回请求的用户的用户名信息
+     * @throws Exception 抛出异常
+     */
+    public static String getUsername(String jwt) throws Exception {
+        User user = getUserInfo(jwt);
+        return user.getUsername();
+    }
+
+    /**
+     * 通过jwt解析，获取对应请求的用户的用户名
+     *
+     * @param jwt JWT字符串信息
+     * @return 返回请求的用户的角色信息
+     * @throws Exception 抛出异常
+     */
+    public static List<Role> getRoleList(String jwt) throws Exception {
+        User user = getUserInfo(jwt);
+        return user.getRoles();
+    }
+
 
 }

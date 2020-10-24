@@ -1,6 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.common.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.domain.Role;
 import com.zero.sys.service.RoleService;
@@ -8,7 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,11 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "用户角色操作接口", tags = "RoleController")
 @RestController
 @RequestMapping("role")
-public class RoleController {
-
-    @Autowired
-    private RoleService roleService;
-
+public class RoleController extends BaseController<RoleService, Role> {
 
     @ApiOperation(value = "分页查询角色数据")
     @ApiImplicitParams({
@@ -37,7 +33,7 @@ public class RoleController {
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "8") Integer size,
             Role queryRole) throws Exception {
-        IPage<Role> page = roleService.page(currentPage, size, queryRole);
+        IPage<Role> page = baseService.page(currentPage, size, queryRole);
         return ResponseData.ok(page);
     }
 
@@ -49,39 +45,8 @@ public class RoleController {
     @ApiOperation(value = "获取所有的用户角色")
     @GetMapping("list")
     public ResponseData list() throws Exception {
-        return ResponseData.ok(roleService.list());
+        return ResponseData.ok(baseService.list());
     }
 
-    @ApiOperation(value = "插入一条角色记录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "role", value = "角色对象", required = true)
-    })
-    @PostMapping
-    public ResponseData insert(@RequestBody Role role) throws Exception {
-        roleService.insert(role);
-        return ResponseData.ok("添加角色成功");
-    }
-
-
-    @ApiOperation(value = "更新角色记录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "role", value = "角色对象", required = true)
-    })
-    @PutMapping
-    public ResponseData update(@RequestBody Role role) throws Exception {
-        roleService.updateById(role);
-        return ResponseData.ok("更新角色成功");
-    }
-
-
-    @ApiOperation(value = "通过主键删除角色信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "角色主键", required = true)
-    })
-    @DeleteMapping("{id}")
-    public ResponseData delete(@PathVariable("id") Integer id) throws Exception {
-        roleService.delete(id);
-        return ResponseData.ok("删除角色成功");
-    }
 
 }

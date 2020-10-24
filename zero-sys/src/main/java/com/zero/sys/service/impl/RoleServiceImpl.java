@@ -2,6 +2,7 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zero.sys.domain.Role;
 import com.zero.sys.mapper.RoleMapper;
 import com.zero.sys.service.RoleService;
@@ -21,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
     @Autowired
     private RoleMapper roleMapper;
@@ -38,18 +39,4 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.selectList(null);
     }
 
-    @Override
-    public void insert(Role role) throws Exception {
-        roleMapper.insert(role);
-    }
-
-    @Override
-    public void updateById(Role role) throws Exception {
-        roleMapper.updateById(role);
-    }
-
-    @Override
-    public void delete(Integer id) throws Exception {
-        roleMapper.deleteById(id);
-    }
 }

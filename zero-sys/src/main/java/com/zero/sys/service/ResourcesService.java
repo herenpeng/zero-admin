@@ -1,6 +1,7 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.Resources;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-10-20 21:56
  */
-public interface ResourcesService {
+public interface ResourcesService extends IService<Resources> {
 
     /**
      * 分页查询系统资源数据
@@ -24,22 +25,6 @@ public interface ResourcesService {
      * @throws Exception 抛出异常
      */
     IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources) throws Exception;
-
-    /**
-     * 插入一条系统资源信息
-     *
-     * @param resources 系统资源对象
-     * @throws Exception 抛出异常
-     */
-    void insert(Resources resources) throws Exception;
-
-    /**
-     * 通过主键逻辑删除系统资源信息
-     *
-     * @param id 系统资源主键
-     * @throws Exception 抛出异常
-     */
-    void delete(Integer id) throws Exception;
 
     /**
      * 删除系统资源的角色
@@ -68,12 +53,5 @@ public interface ResourcesService {
      */
     void addResourcesRole(Integer resourcesId, Integer roleId) throws Exception;
 
-    /**
-     * 通过系统资源主键更新系统资源信息
-     *
-     * @param resources 系统资源对象
-     * @throws Exception
-     */
-    void updateById(Resources resources) throws Exception;
 
 }

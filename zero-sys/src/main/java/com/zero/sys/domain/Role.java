@@ -27,6 +27,7 @@ public class Role extends BaseEntity {
     @ApiModelProperty(value = "角色名称")
     @TableField(value = "name", el = "name")
     private String name;
+
     /**
      * 角色描述信息
      */

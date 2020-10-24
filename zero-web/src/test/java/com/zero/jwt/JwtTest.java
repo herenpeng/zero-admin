@@ -3,7 +3,7 @@ package com.zero.jwt;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.MyApplication;
-import com.zero.sys.security.jwt.peoperty.JwtProperties;
+import com.zero.common.jwt.peoperty.JwtProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.junit.Test;

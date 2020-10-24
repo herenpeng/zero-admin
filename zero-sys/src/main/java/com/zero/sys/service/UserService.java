@@ -1,6 +1,7 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-08-04 22:42
  */
-public interface UserService {
+public interface UserService extends IService<User> {
 
     /**
      * 分页查询用户数据
@@ -33,22 +34,6 @@ public interface UserService {
      * @throws Exception 抛出异常
      */
     void enabled(Integer id, Boolean enabled) throws Exception;
-
-    /**
-     * 插入一条用户信息
-     *
-     * @param user 用户对象
-     * @throws Exception 抛出异常
-     */
-    void insert(User user) throws Exception;
-
-    /**
-     * 通过主键逻辑删除用户信息
-     *
-     * @param id 用户主键
-     * @throws Exception 抛出异常
-     */
-    void delete(Integer id) throws Exception;
 
     /**
      * 通过accessToken解析用户信息并返回
@@ -86,11 +71,5 @@ public interface UserService {
      */
     void addUserRole(Integer userId, Integer roleId) throws Exception;
 
-    /**
-     * 通过用户主键更新用户信息
-     *
-     * @param user 用户对象
-     * @throws Exception
-     */
-    void updateById(User user) throws Exception;
+
 }

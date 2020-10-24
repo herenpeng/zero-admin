@@ -22,7 +22,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 用户信息
      * @throws Exception 抛出异常
      */
-    User loadUserByUsername(@Param("username") String username) throws Exception;
+    User loadUserByUsername(@Param("username") String username);
 
     /**
      * 分页获取用户数据，区别于selectPage的是，该方法添加了查询条件

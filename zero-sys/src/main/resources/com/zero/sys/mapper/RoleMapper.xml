@@ -52,10 +52,10 @@
         select sr.id, sr.name, sr.description
         from sys_role sr
         where sr.deleted = 0
-        <if test="queryRole.name != null">
+        <if test="queryRole.name != null and queryRole.name != ''">
             and sr.name like concat('%', #{queryRole.name}, '%')
         </if>
-        <if test="queryRole.description != null">
+        <if test="queryRole.description != null and queryRole.description != ''">
             and sr.description like concat('%', #{queryRole.description}, '%')
         </if>
     </select>

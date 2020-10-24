@@ -23,6 +23,7 @@ public class ResourcesRole extends BaseEntity {
      */
     @TableField(value = "resources_id", el = "resourcesId")
     private Integer resourcesId;
+
     /**
      * 角色主键，sys_role表的主键id
      */

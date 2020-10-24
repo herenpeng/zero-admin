@@ -23,7 +23,7 @@
         id, username, `password`, enabled, locked, account_expire, password_expire, create_time, update_time
     </sql>
 
-    <sql id="baseSelectSql">
+    <select id="loadUserByUsername" resultMap="resultMap">
         select su.id as id,su.username as username,su.password as password,
         su.enabled as enabled,su.locked as locked,su.account_expire as account_expire,
         su.password_expire as password_expire,sr.id as rid,sr.name as name,
@@ -31,11 +31,6 @@
         from sys_user su
         left join sys_user_role sur on sur.user_id = su.id
         left join sys_role sr on sr.id = sur.role_id
-    </sql>
-
-
-    <select id="loadUserByUsername" resultMap="resultMap">
-        <include refid="baseSelectSql"></include>
         where su.deleted = 0 and su.username = #{username}
     </select>
 
@@ -45,7 +40,7 @@
         su.password_expire as password_expire
         from sys_user su
         where su.deleted = 0
-        <if test="queryUser.username != null">
+        <if test="queryUser.username != null and queryUser.username != ''">
             and su.username like concat('%', #{queryUser.username}, '%')
         </if>
         <if test="queryUser.enabled != null">

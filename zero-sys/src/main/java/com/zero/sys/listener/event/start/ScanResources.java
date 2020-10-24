@@ -1,5 +1,6 @@
 package com.zero.sys.listener.event.start;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.common.listener.event.StartEvent;
 import com.zero.sys.domain.Resources;
 import com.zero.sys.mapper.ResourcesMapper;
@@ -28,6 +29,19 @@ public class ScanResources implements StartEvent {
      */
     public static final String PATH_PREFIX = "/";
 
+    /**
+     * 匹配的正则表达式
+     */
+    public static final String REGEX = "\\{[A-Za-z0-9]+\\}";
+
+    /**
+     * 替换正则表达式内的内容，形成新的适用于正则表达式
+     */
+    public static final String REPLACE = "[A-Za-z0-9]+";
+
+    public static final String REGEX_START = "^";
+    public static final String REGEX_END = "$";
+
     @Autowired
     ConfigurableApplicationContext run;
 
@@ -50,13 +64,6 @@ public class ScanResources implements StartEvent {
 
             // 类路径
             String beanPath = "";
-            // 方法路径
-            String methodPath = "";
-            // 方法类型
-            String methodType = null;
-            // 资源描述
-            String description = null;
-
 
             // 获取类上的@RequestMapping注解
             RequestMapping beanRequestMapping = beanClass.getAnnotation(RequestMapping.class);
@@ -67,34 +74,43 @@ public class ScanResources implements StartEvent {
                 }
             }
 
-            Method[] methods = beanClass.getDeclaredMethods();
+            Method[] methods = beanClass.getMethods();
             for (Method method : methods) {
+                // 方法路径
+                String methodPath = "";
+                // 方法类型
+                RequestMethodTypeEnum methodType = null;
+                // 资源描述
+                String description = null;
                 // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
                 GetMapping getMapping = method.getAnnotation(GetMapping.class);
                 PostMapping postMapping = method.getAnnotation(PostMapping.class);
                 PutMapping putMapping = method.getAnnotation(PutMapping.class);
                 DeleteMapping deleteMapping = method.getAnnotation(DeleteMapping.class);
+                if (!ObjectUtils.anyNotNull(getMapping, postMapping, putMapping, deleteMapping)) {
+                    continue;
+                }
                 String[] value = null;
                 if (ObjectUtils.allNotNull(getMapping)) {
-                    methodType = "get";
+                    methodType = RequestMethodTypeEnum.GET;
                     value = getMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];
                     }
                 } else if (ObjectUtils.allNotNull(postMapping)) {
-                    methodType = "post";
+                    methodType = RequestMethodTypeEnum.POST;
                     value = postMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];
                     }
                 } else if (ObjectUtils.allNotNull(putMapping)) {
-                    methodType = "put";
+                    methodType = RequestMethodTypeEnum.PUT;
                     value = putMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];
                     }
                 } else if (ObjectUtils.allNotNull(deleteMapping)) {
-                    methodType = "delete";
+                    methodType = RequestMethodTypeEnum.DELETE;
                     value = deleteMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];
@@ -106,12 +122,28 @@ public class ScanResources implements StartEvent {
                     description = apiOperation.value();
                 }
                 Resources resources = new Resources();
-                resources.setUri(splicingPath(beanPath, methodPath));
+                resources.setUri(splicingUri(beanPath, methodPath));
+                resources.setRegex(splicingRegex(beanPath, methodPath));
                 resources.setMethodType(methodType);
-                resources.setDescription(description);
-                resourcesMapper.insert(resources);
+
+                // 先在数据库里面进行查找，如果有对应的路径和方法，我们不插入，而是进行更新
+                QueryWrapper<Resources> queryWrapper = new QueryWrapper<>(resources);
+                Resources res = resourcesMapper.selectOne(queryWrapper);
+                if (ObjectUtils.allNotNull(res)) {
+                    res.setDescription(description);
+                    resourcesMapper.updateById(res);
+                } else {
+                    resources.setDescription(description);
+                    resourcesMapper.insert(resources);
+                }
             }
         }
+    }
+
+    private String splicingRegex(String beanPath, String methodPath) {
+        String uri = splicingUri(beanPath, methodPath);
+        String regex = REGEX_START + uri.replaceAll(REGEX, REPLACE) + REGEX_END;
+        return regex;
     }
 
     /**
@@ -121,7 +153,7 @@ public class ScanResources implements StartEvent {
      * @param methodPath 方法路径
      * @return 返回拼接之后的路径
      */
-    private String splicingPath(String beanPath, String methodPath) {
+    private String splicingUri(String beanPath, String methodPath) {
         if (StringUtils.isNoneBlank(beanPath) && !beanPath.startsWith(PATH_PREFIX)) {
             beanPath = PATH_PREFIX + beanPath;
         }
