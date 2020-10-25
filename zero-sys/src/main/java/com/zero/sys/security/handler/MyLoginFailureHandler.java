@@ -3,6 +3,7 @@ package com.zero.sys.security.handler;
 import com.zero.common.response.domain.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.common.response.util.ResponseUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -23,6 +24,9 @@ import java.util.Map;
 @Component
 public class MyLoginFailureHandler implements AuthenticationFailureHandler {
 
+    @Autowired
+    private ResponseUtils responseUtils;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
         Map<String, Object> resultData = new HashMap<>(16);
@@ -40,6 +44,6 @@ public class MyLoginFailureHandler implements AuthenticationFailureHandler {
             resultData.put("msg", "登录失败");
         }
         ResponseData<Map<String, Object>> responseData = ResponseData.code(CodeEnum.LOGIN_ERROR.getValue()).data(resultData);
-        ResponseUtils.responseJson(response, responseData);
+        responseUtils.responseJson(response, responseData);
     }
 }

@@ -39,6 +39,9 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private ResponseUtils responseUtils;
+
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -51,6 +54,6 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 将jwt存放入redis中
         redisTemplate.opsForHash().put(jwtProperties.getName(), tokenId, jwt);
         ResponseData<Object> responseData = ResponseData.ok(jwt);
-        ResponseUtils.responseJson(response, responseData);
+        responseUtils.responseJson(response, responseData);
     }
 }
