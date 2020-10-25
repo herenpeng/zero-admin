@@ -1,17 +1,23 @@
 package com.zero.sys.security.filter;
 
+import com.zero.common.exception.MyException;
+import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.jwt.peoperty.JwtProperties;
 import com.zero.common.request.util.RequestUtils;
 import com.zero.sys.domain.Resources;
 import com.zero.sys.domain.Role;
 import com.zero.sys.mapper.ResourcesMapper;
+import com.zero.sys.security.jwt.util.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.PathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
@@ -21,6 +27,7 @@ import java.util.List;
  * @author herenpeng
  * 2020-9-13 18:31
  */
+@Slf4j
 @Component
 public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
 
@@ -31,18 +38,43 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
     private ResourcesMapper resourcesMapper;
 
     @Autowired
-    private PathMatcher pathMatcher;
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private JwtProperties jwtProperties;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。
         FilterInvocation filterInvocation = (FilterInvocation) object;
-
         HttpServletRequest request = filterInvocation.getRequest();
-        String requestUrl = filterInvocation.getRequestUrl();
+        // 获取token
+        String token = requestUtils.getToken(request);
+        if (StringUtils.isBlank(token)) {
+            // 没有token，拒绝访问
+            log.error("[系统登录功能]该请求未携带token，token为空");
+            throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
+        }
+        // 解析token
+        String tokenId = null;
+        try {
+            tokenId = jwtUtils.getId(token);
+        } catch (Exception e) {
+            log.error("[系统登录功能]解析token失败");
+            throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
+        }
+        Object redisToken = redisTemplate.opsForHash().get(jwtProperties.getName(), tokenId);
+        if (!StringUtils.equalsIgnoreCase(token, String.valueOf(redisToken))) {
+            log.error("[系统登录功能]该token已失效或已过期");
+            throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
+        }
 
-        Resources resources = resourcesMapper.getByRegexUrlAndMethodType(requestUrl, requestUtils.getRequestMethodType(request));
-
+        // 授权
+        String requestURI = request.getRequestURI();
+        Resources resources = resourcesMapper.getByRegexUriAndMethodType(requestURI, request.getMethod().toUpperCase());
         if (ObjectUtils.allNotNull(resources)) {
             List<Role> roles = resources.getRoles();
             String[] roleNameList = new String[roles.size()];
@@ -52,7 +84,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
             // 传递的是需要的角色名数组
             return SecurityConfig.createList(roleNameList);
         }
-        return SecurityConfig.createList("ROLE_LOGIN");
+        return SecurityConfig.createList("ACCESS_DENIED");
     }
 
 

@@ -1,12 +1,13 @@
 package com.zero.sys.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zero.common.jwt.peoperty.JwtProperties;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.common.response.util.ResponseUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import com.zero.sys.security.userdetails.MyUserDetails;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,16 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @SneakyThrows
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private JwtProperties jwtProperties;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
@@ -37,8 +47,9 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
         String tokenId = UUID.randomUUID().toString();
         String subject = objectMapper.writeValueAsString(myUserDetails.getUser());
         // 创建JWT
-        String jwt = JwtUtils.createJWT(tokenId, subject);
-
+        String jwt = jwtUtils.createJWT(tokenId, subject);
+        // 将jwt存放入redis中
+        redisTemplate.opsForHash().put(jwtProperties.getName(), tokenId, jwt);
         ResponseData<Object> responseData = ResponseData.ok(jwt);
         ResponseUtils.responseJson(response, responseData);
     }

@@ -1,9 +1,10 @@
 package com.zero.sys.security.jwt.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zero.common.jwt.peoperty.JwtProperties;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
-import com.zero.common.jwt.peoperty.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -26,19 +27,11 @@ import java.util.Map;
 @Component
 public class JwtUtils {
 
-    private static JwtProperties jwtProperties;
+    @Autowired
+    private JwtProperties jwtProperties;
 
     @Autowired
-    public void setJwtProperties(JwtProperties jwtProperties) {
-        JwtUtils.jwtProperties = jwtProperties;
-    }
-
-    private static ObjectMapper objectMapper;
-
-    @Autowired
-    public static void setObjectMapper(ObjectMapper objectMapper) {
-        JwtUtils.objectMapper = objectMapper;
-    }
+    private ObjectMapper objectMapper;
 
     /**
      * 由字符串生成加密key
@@ -46,7 +39,7 @@ public class JwtUtils {
      * @return 返回一个加密的字符串数据
      * @throws Exception 抛出异常
      */
-    private static SecretKey generateKey() throws Exception {
+    private SecretKey generateKey() {
         String secret = jwtProperties.getSecret();
         // 本地的密码解码
         byte[] encodedKey = Base64.decodeBase64(secret);
@@ -66,7 +59,7 @@ public class JwtUtils {
      * @return 返回JWT
      * @throws Exception 抛出异常
      */
-    public static String createJWT(String id, String subject, String issuer, Long ttlMillis, Map<String, Object> claims) throws Exception {
+    public String createJWT(String id, String subject, String issuer, Long ttlMillis, Map<String, Object> claims) {
         // 指定签名的时候使用的签名算法，也就是header那部分，jjwt已经将这部分内容封装好了。
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         // 生成签名的时候使用的秘钥secret，切记这个秘钥不能外露哦。它就是你服务端的私钥，在任何场景都不应该流露出去，一旦客户端得知这个secret, 那就意味着客户端是可以自我签发jwt了。
@@ -108,7 +101,7 @@ public class JwtUtils {
      * @return 返回JWT
      * @throws Exception 抛出异常
      */
-    public static String createJWT(String id, String subject, Long ttlMillis, Map<String, Object> claims) throws Exception {
+    public String createJWT(String id, String subject, Long ttlMillis, Map<String, Object> claims) {
         return createJWT(id, subject, jwtProperties.getIssuer(), ttlMillis, claims);
     }
 
@@ -121,7 +114,7 @@ public class JwtUtils {
      * @return 返回JWT
      * @throws Exception 抛出异常
      */
-    public static String createJWT(String id, String subject, Map<String, Object> claims) throws Exception {
+    public String createJWT(String id, String subject, Map<String, Object> claims) {
         return createJWT(id, subject, jwtProperties.getIssuer(), jwtProperties.getTtl(), claims);
     }
 
@@ -133,7 +126,7 @@ public class JwtUtils {
      * @return 返回JWT
      * @throws Exception 抛出异常
      */
-    public static String createJWT(String id, String subject) throws Exception {
+    public String createJWT(String id, String subject) {
         return createJWT(id, subject, jwtProperties.getIssuer(), jwtProperties.getTtl(), null);
     }
 
@@ -142,9 +135,8 @@ public class JwtUtils {
      *
      * @param jwt JWT字符串信息
      * @return 返回JWT载荷信息
-     * @throws Exception 抛出异常
      */
-    public static Claims parseJWT(String jwt) throws Exception {
+    public Claims parseJWT(String jwt) {
         // 签名秘钥，和生成的签名的秘钥一模一样
         SecretKey key = generateKey();
         // 得到DefaultJwtParser
@@ -162,11 +154,23 @@ public class JwtUtils {
      *
      * @param jwt JWT字符串信息
      * @return 如果jwt已经过期，返回true，否则返回false
-     * @throws Exception 抛出异常
      */
-    public static boolean isExpiration(String jwt) throws Exception {
-        Claims claims = JwtUtils.parseJWT(jwt);
+    public boolean isExpiration(String jwt) {
+        Claims claims = parseJWT(jwt);
         return claims.getExpiration().before(new Date());
+    }
+
+
+    /**
+     * 获取jwt的Id
+     *
+     * @param jwt JWT字符串信息
+     * @return Jwt的Id
+     */
+    public String getId(String jwt) {
+        Claims claims = parseJWT(jwt);
+        String id = claims.getId();
+        return id;
     }
 
 
@@ -175,10 +179,10 @@ public class JwtUtils {
      *
      * @param jwt JWT字符串信息
      * @return User对象
-     * @throws Exception 抛出异常
+     * @throws JsonProcessingException 抛出Json格式化异常
      */
-    public static User getUserInfo(String jwt) throws Exception {
-        Claims claims = JwtUtils.parseJWT(jwt);
+    public User getUserInfo(String jwt) throws JsonProcessingException {
+        Claims claims = parseJWT(jwt);
         String subject = claims.getSubject();
         User user = objectMapper.readValue(subject, User.class);
         return user;
@@ -190,9 +194,9 @@ public class JwtUtils {
      *
      * @param jwt JWT字符串信息
      * @return 返回请求的用户的用户名信息
-     * @throws Exception 抛出异常
+     * @throws JsonProcessingException 抛出Json格式化异常
      */
-    public static String getUsername(String jwt) throws Exception {
+    public String getUsername(String jwt) throws JsonProcessingException {
         User user = getUserInfo(jwt);
         return user.getUsername();
     }
@@ -202,9 +206,9 @@ public class JwtUtils {
      *
      * @param jwt JWT字符串信息
      * @return 返回请求的用户的角色信息
-     * @throws Exception 抛出异常
+     * @throws JsonProcessingException 抛出Json格式化异常
      */
-    public static List<Role> getRoleList(String jwt) throws Exception {
+    public List<Role> getRoleList(String jwt) throws JsonProcessingException {
         User user = getUserInfo(jwt);
         return user.getRoles();
     }

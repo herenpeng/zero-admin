@@ -79,7 +79,7 @@ public class ScanResources implements StartEvent {
                 // 方法路径
                 String methodPath = "";
                 // 方法类型
-                RequestMethodTypeEnum methodType = null;
+                String methodType = null;
                 // 资源描述
                 String description = null;
                 // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
@@ -92,25 +92,25 @@ public class ScanResources implements StartEvent {
                 }
                 String[] value = null;
                 if (ObjectUtils.allNotNull(getMapping)) {
-                    methodType = RequestMethodTypeEnum.GET;
+                    methodType = "GET";
                     value = getMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];
                     }
                 } else if (ObjectUtils.allNotNull(postMapping)) {
-                    methodType = RequestMethodTypeEnum.POST;
+                    methodType = "POST";
                     value = postMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];
                     }
                 } else if (ObjectUtils.allNotNull(putMapping)) {
-                    methodType = RequestMethodTypeEnum.PUT;
+                    methodType = "PUT";
                     value = putMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];
                     }
                 } else if (ObjectUtils.allNotNull(deleteMapping)) {
-                    methodType = RequestMethodTypeEnum.DELETE;
+                    methodType = "DELETE";
                     value = deleteMapping.value();
                     if (value.length > 0) {
                         methodPath = value[0];

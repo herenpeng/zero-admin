@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class Resources extends BaseEntity {
      */
     @ApiModelProperty(value = "资源方法类型")
     @TableField(value = "method_type", el = "methodType")
-    private RequestMethod methodType;
+    private String methodType;
 
     /**
      * 拥有该资源的角色信息，非数据库字段

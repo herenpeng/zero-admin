@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.sys.domain.Resources;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 系统资源的Mapper接口
@@ -20,12 +19,12 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
     /**
      * 通过uri正则表达式字段（regex）匹配获取对应的资源
      *
-     * @param url        请求路径
+     * @param uri        请求路径
      * @param methodType 方法类型
      * @return 返回资源信息
      * @throws Exception
      */
-    Resources getByRegexUrlAndMethodType(@Param("url") String url, @Param("methodType") RequestMethod methodType);
+    Resources getByRegexUriAndMethodType(@Param("uri") String uri, @Param("methodType") String methodType);
 
     /**
      * 分页获取系统资源数据，区别于selectPage的是，该方法添加了查询条件

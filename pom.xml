@@ -44,6 +44,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!--SpringWebSocket的依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -53,6 +54,11 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jjwt.version}</version>
+        </dependency>
+        <!--SpringDataRedis的启动器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--Spring单元测试的启动器-->
         <dependency>
@@ -99,11 +105,6 @@
             <artifactId>oshi-core</artifactId>
             <version>${oshi-core.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.imjcker</groupId>-->
-<!--            <artifactId>oshi-spring-boot-starter</artifactId>-->
-<!--            <version>1.0.1</version>-->
-<!--        </dependency>-->
         <!--devtools热部署依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

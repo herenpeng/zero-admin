@@ -48,6 +48,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserProperties userProperties;
 
     @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @Override
@@ -79,7 +82,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User info(String accessToken) throws Exception {
-        User user = JwtUtils.getUserInfo(accessToken);
+        User user = jwtUtils.getUserInfo(accessToken);
         return user;
     }
 

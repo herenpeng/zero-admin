@@ -28,7 +28,7 @@ public class ScanResourcesTest {
     public void test01() {
         Resources resources = new Resources();
         resources.setUri(null);
-        resources.setMethodType(RequestMethodTypeEnum.DELETE);
+        resources.setMethodType("DELETE");
 
         QueryWrapper<Resources> queryWrapper = new QueryWrapper<>(resources);
         List<Resources> resourcesList = resourcesMapper.selectList(queryWrapper);

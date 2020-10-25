@@ -1,6 +1,9 @@
 package com.zero.sys.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zero.common.request.util.RequestUtils;
+import com.zero.sys.domain.Role;
+import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author herenpeng
@@ -23,6 +27,12 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private RequestUtils requestUtils;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     /**
      * 权限认证
@@ -40,26 +50,22 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
         FilterInvocation filterInvocation = (FilterInvocation) o;
         HttpServletRequest request = filterInvocation.getHttpRequest();
 
-        String uri = request.getRequestURI();
-
-        // for (ConfigAttribute configAttribute : collection) {
-        //     if ("ROLE_LOGIN".equals(configAttribute.getAttribute())) {
-        //         // if (authentication instanceof AnonymousAuthenticationToken) {
-        //         //     throw new AccessDeniedException("账号未登录异常");
-        //         // }
-        //         return;
-        //     }
-        //     // 获取当前用户的所有角色
-        //     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        //     // 判断逻辑：当然登录用户角色只要满足资源路径的其中一个角色便可以访问
-        //     for (GrantedAuthority authority : authorities) {
-        //         if (authority.getAuthority().equals(configAttribute.getAttribute())) {
-        //             return;
-        //         }
-        //     }
-        // }
-        return;
-        // throw new AccessDeniedException("非法请求");
+        for (ConfigAttribute configAttribute : collection) {
+            // 访问拒绝
+            if ("ACCESS_DENIED".equals(configAttribute.getAttribute())) {
+                throw new InsufficientAuthenticationException("您的访问权限不足");
+            }
+            // 获取请求token
+            String token = requestUtils.getToken(request);
+            List<Role> roleList = jwtUtils.getRoleList(token);
+            // 判断逻辑：当然登录用户角色只要满足资源路径的其中一个角色便可以访问
+            for (Role role : roleList) {
+                if (role.getName().equals(configAttribute.getAttribute())) {
+                    return;
+                }
+            }
+        }
+        throw new InsufficientAuthenticationException("您的访问权限不足");
     }
 
     @Override
