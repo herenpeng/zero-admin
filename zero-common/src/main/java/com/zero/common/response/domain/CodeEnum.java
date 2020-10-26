@@ -19,9 +19,13 @@ public enum CodeEnum {
      */
     LOGIN_ERROR(30000),
     /**
-     * code为40003，权限不足异常，拒绝访问
+     * code为40003，拒绝访问
      */
     ACCESS_DENIED(40003),
+    /**
+     * code为40003，权限不足
+     */
+    INSUFFICIENT_PERMISSIONS(40003),
     /**
      * code为50000，代表系统发生异常
      */

@@ -1,6 +1,5 @@
 package com.zero.sys.security.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.common.request.util.RequestUtils;
 import com.zero.sys.domain.Role;
 import com.zero.sys.security.jwt.util.JwtUtils;
@@ -24,9 +23,6 @@ import java.util.List;
  */
 @Component
 public class SecurityAccessDecisionManager implements AccessDecisionManager {
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Autowired
     private RequestUtils requestUtils;

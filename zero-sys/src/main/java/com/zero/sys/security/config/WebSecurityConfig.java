@@ -1,5 +1,6 @@
 package com.zero.sys.security.config;
 
+import com.zero.sys.security.handler.MyAuthenticationEntryPoint;
 import com.zero.sys.security.filter.SecurityAccessDecisionManager;
 import com.zero.sys.security.filter.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -37,7 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityFilter securityFilter;
 
-
     @Autowired
     private SecurityAccessDecisionManager securityAccessDecisionManager;
 
@@ -59,8 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutHandler logoutHandler;
 
+    @Autowired
+    private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -70,11 +74,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        // 放行websocket请求
+        web.ignoring().antMatchers("/websocket/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         // 处理跨域请求中的Preflight请求,响应头中附带允许跨域的请求头
         http.cors().and().csrf().disable().authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
+
+        // 授权异常处理器
+        http.authorizeRequests().and().exceptionHandling()
+                .authenticationEntryPoint(myAuthenticationEntryPoint);
 
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http.authorizeRequests();
 
