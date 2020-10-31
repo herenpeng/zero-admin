@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.LogMapper">
+
+    <resultMap id="resultMap" type="com.zero.sys.domain.Log">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="access_time" jdbcType="TIMESTAMP" property="accessTime"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="uri" jdbcType="VARCHAR" property="uri"/>
+        <result column="method_type" jdbcType="VARCHAR" property="methodType"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="execution_time" jdbcType="BIGINT" property="executionTime"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="exception_name" jdbcType="VARCHAR" property="exceptionName"/>
+        <result column="exception_message" jdbcType="VARCHAR" property="exceptionMessage"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        id, username, access_time, ip, uri, method_type, `method`, execution_time, description,
+        exception_name, exception_message, create_time, update_time
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select sl.id as id,sl.username as username,sl.access_time as access_time,
+        sl.uri as uri,sl.method_type as method_type,sl.method as method,
+        sl.execution_time as execution_time,sl.description as description,
+        sl.exception_name s exception_name,sl.exception_message as exception_message
+        from sys_log sl
+        where sl.deleted = 0
+        <if test="queryLog.username != null and queryUser.username != ''">
+            and sl.username like concat('%', #{queryLog.username}, '%')
+        </if>
+        <if test="queryLog.uri != null and queryLog.uri != ''">
+            and sl.uri like concat('%', #{queryLog.uri}, '%')
+        </if>
+        <if test="queryLog.methodType">
+            and sl.method_type = #{queryLog.methodType}
+        </if>
+    </select>
+
+
+</mapper>

@@ -2,7 +2,7 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zero.common.service.impl.BaseServiceImpl;
 import com.zero.sys.domain.Resources;
 import com.zero.sys.domain.ResourcesRole;
 import com.zero.sys.domain.Role;
@@ -26,10 +26,7 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ResourcesServiceImpl extends ServiceImpl<ResourcesMapper, Resources> implements ResourcesService {
-
-    @Autowired
-    private ResourcesMapper resourcesMapper;
+public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resources> implements ResourcesService {
 
     @Autowired
     private RoleMapper roleMapper;
@@ -40,7 +37,7 @@ public class ResourcesServiceImpl extends ServiceImpl<ResourcesMapper, Resources
     @Override
     public IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources) throws Exception {
         Page page = new Page(currentPage, size);
-        IPage<Resources> pageInfo = resourcesMapper.getPage(page, queryResources);
+        IPage<Resources> pageInfo = baseMapper.getPage(page, queryResources);
         for (Resources resources : pageInfo.getRecords()) {
             resources.setRoles(roleMapper.getByResourcesId(resources.getId()));
         }
@@ -49,7 +46,7 @@ public class ResourcesServiceImpl extends ServiceImpl<ResourcesMapper, Resources
 
     @Override
     public void deleteResourcesRole(Integer resourcesId, Integer roleId) throws Exception {
-        resourcesMapper.deleteResourcesRole(resourcesId, roleId);
+        baseMapper.deleteResourcesRole(resourcesId, roleId);
     }
 
     @Override

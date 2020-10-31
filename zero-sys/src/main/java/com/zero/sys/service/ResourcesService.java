@@ -1,9 +1,9 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.zero.sys.domain.Role;
+import com.zero.common.service.BaseService;
 import com.zero.sys.domain.Resources;
+import com.zero.sys.domain.Role;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-10-20 21:56
  */
-public interface ResourcesService extends IService<Resources> {
+public interface ResourcesService extends BaseService<Resources> {
 
     /**
      * 分页查询系统资源数据

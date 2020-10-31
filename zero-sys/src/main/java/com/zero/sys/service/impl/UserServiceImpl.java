@@ -2,8 +2,9 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zero.common.request.util.RequestUtils;
+import com.zero.common.service.impl.BaseServiceImpl;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
 import com.zero.sys.domain.UserRole;
@@ -30,10 +31,7 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-
-    @Autowired
-    private UserMapper userMapper;
+public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
     private RoleMapper roleMapper;
@@ -51,12 +49,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private JwtUtils jwtUtils;
 
     @Autowired
+    private RequestUtils requestUtils;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
         Page page = new Page(currentPage, size);
-        IPage<User> pageInfo = userMapper.getPage(page, queryUser);
+        IPage<User> pageInfo = baseMapper.getPage(page, queryUser);
         for (User user : pageInfo.getRecords()) {
             user.setRoles(roleMapper.getByUserId(user.getId()));
         }
@@ -68,7 +69,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String defaultPassword = userProperties.getDefaultPassword();
         String encodePassword = passwordEncoder.encode(defaultPassword);
         user.setPassword(encodePassword);
-        return retBool(userMapper.insert(user));
+        return retBool(baseMapper.insert(user));
     }
 
     @Override
@@ -76,7 +77,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         user.setId(id);
         user.setEnabled(enabled);
-        userMapper.updateById(user);
+        baseMapper.updateById(user);
     }
 
 
@@ -88,7 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public void deleteUserRole(Integer userId, Integer roleId) throws Exception {
-        userMapper.deleteUserRole(userId, roleId);
+        baseMapper.deleteUserRole(userId, roleId);
     }
 
     @Override

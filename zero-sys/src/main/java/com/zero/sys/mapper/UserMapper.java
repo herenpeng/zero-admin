@@ -35,7 +35,7 @@ public interface UserMapper extends BaseMapper<User> {
     IPage<User> getPage(IPage page, @Param("queryUser") User queryUser) throws Exception;
 
     /**
-     * 删除用户的角色
+     * 删除用户的角色（彻底删除）
      *
      * @param userId 用户主键
      * @param roleId 角色主键

@@ -1,6 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.common.annotation.LogOperation;
 import com.zero.common.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.domain.Role;
@@ -25,6 +26,7 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController extends BaseController<UserService, User> {
 
+    @LogOperation
     @ApiOperation(value = "分页查询用户数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
@@ -40,6 +42,8 @@ public class UserController extends BaseController<UserService, User> {
         return ResponseData.ok(page);
     }
 
+
+    @LogOperation
     @ApiOperation(value = "启用或者禁用一个用户账号")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户ID", required = true),
@@ -54,6 +58,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
+    @LogOperation
     @ApiOperation(value = "获取请求头上的accessToken，并根据accessToken返回用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "用户请求token", required = true)
@@ -65,6 +70,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
+    @LogOperation
     @ApiOperation(value = "删除用户角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户主键", required = true),
@@ -79,6 +85,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
+    @LogOperation
     @ApiOperation(value = "获取该用户未拥有的角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户主键", required = true)
@@ -90,6 +97,7 @@ public class UserController extends BaseController<UserService, User> {
         return ResponseData.ok(roleList);
     }
 
+    @LogOperation
     @ApiOperation(value = "添加用户角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户主键", required = true),

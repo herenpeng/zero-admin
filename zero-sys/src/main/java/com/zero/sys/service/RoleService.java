@@ -1,7 +1,7 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.zero.common.service.BaseService;
 import com.zero.sys.domain.Role;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-09-14 20:28
  */
-public interface RoleService extends IService<Role> {
+public interface RoleService extends BaseService<Role> {
 
     /**
      * 分页查询角色信息

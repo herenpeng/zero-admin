@@ -1,6 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.common.annotation.LogOperation;
 import com.zero.common.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.domain.Resources;
@@ -25,6 +26,7 @@ import java.util.List;
 @RequestMapping("resources")
 public class ResourcesController extends BaseController<ResourcesService, Resources> {
 
+    @LogOperation
     @ApiOperation(value = "分页查询系统资源数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
@@ -41,6 +43,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     }
 
 
+    @LogOperation
     @ApiOperation(value = "删除系统资源角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ResourcesId", value = "系统资源主键", required = true),
@@ -55,6 +58,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     }
 
 
+    @LogOperation
     @ApiOperation(value = "获取未拥有该系统资源的角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "resourcesId", value = "系统资源主键", required = true)
@@ -66,6 +70,8 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
         return ResponseData.ok(roleList);
     }
 
+
+    @LogOperation
     @ApiOperation(value = "添加系统资源角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ResourcesId", value = "系统资源主键", required = true),

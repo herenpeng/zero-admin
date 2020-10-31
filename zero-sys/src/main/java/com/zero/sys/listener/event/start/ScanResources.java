@@ -3,15 +3,20 @@ package com.zero.sys.listener.event.start;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.common.listener.event.StartEvent;
 import com.zero.sys.domain.Resources;
+import com.zero.sys.domain.ResourcesRole;
 import com.zero.sys.mapper.ResourcesMapper;
+import com.zero.sys.mapper.ResourcesRoleMapper;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.aop.framework.AdvisedSupport;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
@@ -48,6 +53,9 @@ public class ScanResources implements StartEvent {
     @Autowired
     private ResourcesMapper resourcesMapper;
 
+    @Autowired
+    private ResourcesRoleMapper resourcesRoleMapper;
+
     @Override
     public void doEvent() throws Exception {
         scanResources(run);
@@ -60,86 +68,136 @@ public class ScanResources implements StartEvent {
         // 获取类对象名称
         for (String beanName : restControllerBeanNameList) {
             Object bean = run.getBean(beanName);
-            Class<?> beanClass = bean.getClass();
-
-            // 类路径
-            String beanPath = "";
-
-            // 获取类上的@RequestMapping注解
-            RequestMapping beanRequestMapping = beanClass.getAnnotation(RequestMapping.class);
-            if (ObjectUtils.allNotNull(beanRequestMapping)) {
-                String[] value = beanRequestMapping.value();
-                if (value.length > 0) {
-                    beanPath = value[0];
-                }
-            }
-
+            Object target = getTarget(bean);
+            Class<?> beanClass = target.getClass();
+            // 获取类路径
+            String beanPath = getBeanPath(beanClass);
             Method[] methods = beanClass.getMethods();
             for (Method method : methods) {
-                // 方法路径
-                String methodPath = "";
-                // 方法类型
-                String methodType = null;
-                // 资源描述
-                String description = null;
-                // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
-                GetMapping getMapping = method.getAnnotation(GetMapping.class);
-                PostMapping postMapping = method.getAnnotation(PostMapping.class);
-                PutMapping putMapping = method.getAnnotation(PutMapping.class);
-                DeleteMapping deleteMapping = method.getAnnotation(DeleteMapping.class);
-                if (!ObjectUtils.anyNotNull(getMapping, postMapping, putMapping, deleteMapping)) {
-                    continue;
-                }
-                String[] value = null;
-                if (ObjectUtils.allNotNull(getMapping)) {
-                    methodType = "GET";
-                    value = getMapping.value();
-                    if (value.length > 0) {
-                        methodPath = value[0];
-                    }
-                } else if (ObjectUtils.allNotNull(postMapping)) {
-                    methodType = "POST";
-                    value = postMapping.value();
-                    if (value.length > 0) {
-                        methodPath = value[0];
-                    }
-                } else if (ObjectUtils.allNotNull(putMapping)) {
-                    methodType = "PUT";
-                    value = putMapping.value();
-                    if (value.length > 0) {
-                        methodPath = value[0];
-                    }
-                } else if (ObjectUtils.allNotNull(deleteMapping)) {
-                    methodType = "DELETE";
-                    value = deleteMapping.value();
-                    if (value.length > 0) {
-                        methodPath = value[0];
-                    }
-                }
-
-                ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
-                if (ObjectUtils.allNotNull(apiOperation)) {
-                    description = apiOperation.value();
-                }
-                Resources resources = new Resources();
-                resources.setUri(splicingUri(beanPath, methodPath));
-                resources.setRegex(splicingRegex(beanPath, methodPath));
-                resources.setMethodType(methodType);
-
-                // 先在数据库里面进行查找，如果有对应的路径和方法，我们不插入，而是进行更新
-                QueryWrapper<Resources> queryWrapper = new QueryWrapper<>(resources);
-                Resources res = resourcesMapper.selectOne(queryWrapper);
-                if (ObjectUtils.allNotNull(res)) {
-                    res.setDescription(description);
-                    resourcesMapper.updateById(res);
-                } else {
-                    resources.setDescription(description);
-                    resourcesMapper.insert(resources);
-                }
+                insertResources(method, beanPath);
             }
         }
     }
 
+    private String getBeanPath(Class<?> beanClass) {
+        // 类路径
+        String beanPath = "";
+        // 获取类上的@RequestMapping注解
+        RequestMapping beanRequestMapping = beanClass.getAnnotation(RequestMapping.class);
+        if (ObjectUtils.allNotNull(beanRequestMapping)) {
+            String[] value = beanRequestMapping.value();
+            if (value.length > 0) {
+                beanPath = value[0];
+            }
+        }
+        return beanPath;
+    }
+
+
+    private void insertResources(Method method, String beanPath) {
+        // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
+        GetMapping getMapping = method.getAnnotation(GetMapping.class);
+        PostMapping postMapping = method.getAnnotation(PostMapping.class);
+        PutMapping putMapping = method.getAnnotation(PutMapping.class);
+        DeleteMapping deleteMapping = method.getAnnotation(DeleteMapping.class);
+        if (!ObjectUtils.anyNotNull(getMapping, postMapping, putMapping, deleteMapping)) {
+            return;
+        }
+        // 方法路径
+        String methodPath = "";
+        // 方法类型
+        String methodType = null;
+        // 资源描述
+        String description = null;
+        String[] value = null;
+        if (ObjectUtils.allNotNull(getMapping)) {
+            methodType = "GET";
+            value = getMapping.value();
+            if (value.length > 0) {
+                methodPath = value[0];
+            }
+        } else if (ObjectUtils.allNotNull(postMapping)) {
+            methodType = "POST";
+            value = postMapping.value();
+            if (value.length > 0) {
+                methodPath = value[0];
+            }
+        } else if (ObjectUtils.allNotNull(putMapping)) {
+            methodType = "PUT";
+            value = putMapping.value();
+            if (value.length > 0) {
+                methodPath = value[0];
+            }
+        } else if (ObjectUtils.allNotNull(deleteMapping)) {
+            methodType = "DELETE";
+            value = deleteMapping.value();
+            if (value.length > 0) {
+                methodPath = value[0];
+            }
+        }
+        ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+        if (ObjectUtils.allNotNull(apiOperation)) {
+            description = apiOperation.value();
+        }
+        Resources resources = new Resources();
+        resources.setUri(splicingUri(beanPath, methodPath));
+        resources.setRegex(splicingRegex(beanPath, methodPath));
+        resources.setMethodType(methodType);
+
+        // 先在数据库里面进行查找，如果有对应的路径和方法，我们不插入，而是进行更新
+        QueryWrapper<Resources> queryWrapper = new QueryWrapper<>(resources);
+        Resources res = resourcesMapper.selectOne(queryWrapper);
+        if (ObjectUtils.allNotNull(res)) {
+            res.setDescription(description);
+            resourcesMapper.updateById(res);
+        } else {
+            resources.setDescription(description);
+            resourcesMapper.insert(resources);
+
+            ResourcesRole resourcesRole = new ResourcesRole();
+            resourcesRole.setResourcesId(resources.getId());
+            resourcesRole.setRoleId(1);
+            resourcesRoleMapper.insert(resourcesRole);
+        }
+    }
+
+    /**
+     * 获取SpringAOP代理类的原始类
+     *
+     * @param beanInstance 代理类实例
+     * @return 原始类实例
+     */
+    private Object getTarget(Object beanInstance) {
+        if (!AopUtils.isAopProxy(beanInstance)) {
+            return beanInstance;
+        } else if (AopUtils.isCglibProxy(beanInstance)) {
+            try {
+                Field h = beanInstance.getClass().getDeclaredField("CGLIB$CALLBACK_0");
+                h.setAccessible(true);
+                Object dynamicAdvisedInterceptor = h.get(beanInstance);
+                Field advised = dynamicAdvisedInterceptor.getClass().getDeclaredField("advised");
+                advised.setAccessible(true);
+                Object target = ((AdvisedSupport) advised.get(dynamicAdvisedInterceptor)).getTargetSource().getTarget();
+                return target;
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * 拼接对应regex表达式
+     *
+     * @param beanPath
+     * @param methodPath
+     * @return
+     */
     private String splicingRegex(String beanPath, String methodPath) {
         String uri = splicingUri(beanPath, methodPath);
         String regex = REGEX_START + uri.replaceAll(REGEX, REPLACE) + REGEX_END;
