@@ -76,7 +76,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 放行websocket请求
-        web.ignoring().antMatchers("/websocket/**");
+        web.ignoring().antMatchers("/websocket/**",
+                "/swagger-resources/**", "/webjars/**",
+                "/swagger-ui.html/**", "/v2/**");
     }
 
     @Override
