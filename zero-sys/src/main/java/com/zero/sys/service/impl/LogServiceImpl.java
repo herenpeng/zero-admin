@@ -23,6 +23,6 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements L
     public IPage<Log> page(Integer currentPage, Integer size, Log queryLog) throws Exception {
         Page page = new Page(currentPage, size);
         IPage<Log> pageInfo = baseMapper.getPage(page, queryLog);
-        return null;
+        return pageInfo;
     }
 }

@@ -44,13 +44,13 @@
         sre.method_type as method_type
         from sys_resources sre
         where sre.deleted = 0
-        <if test="queryResources.uri != null">
+        <if test="queryResources.uri != null and queryResources.uri != ''">
             and sre.uri like concat('%', #{queryResources.uri}, '%')
         </if>
-        <if test="queryResources.description != null">
+        <if test="queryResources.description != null and queryResources.description != ''">
             and sre.description like concat('%', #{queryResources.description}, '%')
         </if>
-        <if test="queryResources.methodType != null">
+        <if test="queryResources.methodType != null and queryResources.methodType != ''">
             and sre.method_type = #{queryResources.methodType}
         </if>
     </select>

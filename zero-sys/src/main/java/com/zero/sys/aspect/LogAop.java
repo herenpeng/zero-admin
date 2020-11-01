@@ -78,7 +78,6 @@ public class LogAop {
     }
 
 
-
     @After("logOperationAop()")
     public void doAfter() {
         logMapper.insert(log);
@@ -86,7 +85,28 @@ public class LogAop {
 
 
     @AfterThrowing(value = "logOperationAop()", throwing = "e")
-    public void doAfterThrowing(Exception e) {
+    public void doAfterThrowing(JoinPoint joinPoint, Exception e) throws JsonProcessingException {
+        String token = requestUtils.getToken(request);
+        String username = jwtUtils.getUsername(token);
+        log.setUsername(username);
+        log.setIp(request.getRemoteAddr());
+        log.setUri(request.getRequestURI());
+        log.setMethodType(request.getMethod().toUpperCase());
+        log.setMethod(joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
+
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        Method method = methodSignature.getMethod();
+        LogOperation logOperation = method.getAnnotation(LogOperation.class);
+        if (ObjectUtils.allNotNull(logOperation) && StringUtils.isNotBlank(logOperation.value())) {
+            log.setDescription(logOperation.value());
+        } else {
+            ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+            if (ObjectUtils.allNotNull(apiOperation)) {
+                log.setDescription(apiOperation.value());
+            }
+        }
+
         log.setExceptionName(e.getClass().getName());
         log.setExceptionMessage(e.getMessage());
         logMapper.insert(log);
