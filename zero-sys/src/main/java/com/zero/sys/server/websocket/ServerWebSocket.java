@@ -8,7 +8,6 @@ import com.zero.sys.server.domain.ServerPieChart;
 import com.zero.sys.server.util.OshiUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 @Component
-@EnableScheduling
 @ServerEndpoint("/websocket/server/piechart")
 public class ServerWebSocket {
 
