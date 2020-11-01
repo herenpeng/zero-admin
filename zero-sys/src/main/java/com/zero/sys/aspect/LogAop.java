@@ -55,26 +55,16 @@ public class LogAop {
 
     @AfterReturning("logOperationAop()")
     public void doAfterReturning(JoinPoint joinPoint) throws JsonProcessingException {
-        String token = requestUtils.getToken(request);
-        String username = jwtUtils.getUsername(token);
-        log.setUsername(username);
-        log.setIp(request.getRemoteAddr());
-        log.setUri(request.getRequestURI());
-        log.setMethodType(request.getMethod().toUpperCase());
-        log.setMethod(joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
-        log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
+        setLog(joinPoint);
+    }
 
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Method method = methodSignature.getMethod();
-        LogOperation logOperation = method.getAnnotation(LogOperation.class);
-        if (ObjectUtils.allNotNull(logOperation) && StringUtils.isNotBlank(logOperation.value())) {
-            log.setDescription(logOperation.value());
-        } else {
-            ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
-            if (ObjectUtils.allNotNull(apiOperation)) {
-                log.setDescription(apiOperation.value());
-            }
-        }
+
+    @AfterThrowing(value = "logOperationAop()", throwing = "e")
+    public void doAfterThrowing(JoinPoint joinPoint, Exception e) throws JsonProcessingException {
+        setLog(joinPoint);
+
+        log.setExceptionName(e.getClass().getName());
+        log.setExceptionMessage(e.getMessage());
     }
 
 
@@ -84,8 +74,13 @@ public class LogAop {
     }
 
 
-    @AfterThrowing(value = "logOperationAop()", throwing = "e")
-    public void doAfterThrowing(JoinPoint joinPoint, Exception e) throws JsonProcessingException {
+    /**
+     * 封装日志记录
+     *
+     * @param joinPoint
+     * @throws JsonProcessingException
+     */
+    private void setLog(JoinPoint joinPoint) throws JsonProcessingException {
         String token = requestUtils.getToken(request);
         String username = jwtUtils.getUsername(token);
         log.setUsername(username);
@@ -106,11 +101,6 @@ public class LogAop {
                 log.setDescription(apiOperation.value());
             }
         }
-
-        log.setExceptionName(e.getClass().getName());
-        log.setExceptionMessage(e.getMessage());
-        logMapper.insert(log);
     }
-
 
 }
