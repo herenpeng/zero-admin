@@ -2,11 +2,11 @@ package com.zero.sys.security.filter;
 
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
-import com.zero.common.jwt.peoperty.JwtProperties;
-import com.zero.common.request.util.RequestUtils;
 import com.zero.sys.domain.Resources;
 import com.zero.sys.domain.Role;
 import com.zero.sys.mapper.ResourcesMapper;
+import com.zero.sys.request.util.RequestUtils;
+import com.zero.sys.security.jwt.peoperty.JwtProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;

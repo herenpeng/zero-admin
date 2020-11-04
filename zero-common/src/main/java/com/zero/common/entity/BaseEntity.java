@@ -1,9 +1,6 @@
 package com.zero.common.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -32,11 +29,25 @@ public class BaseEntity implements Serializable {
     private Date createTime;
 
     /**
+     * 数据库数据插入用户主键，由MyBatisPlus拦截器处理，在数据插入时更新
+     */
+    @ApiModelProperty(value = "数据库数据插入用户主键")
+    @TableField(value = "create_user_id", fill = FieldFill.INSERT)
+    private Integer createUserId;
+
+    /**
      * 数据库数据更新时间
      */
     @ApiModelProperty(value = "数据库数据更新时间")
     @TableField(value = "update_time", el = "updateTime")
     private Date updateTime;
+
+    /**
+     * 数据库数据更新用户主键，由MyBatisPlus拦截器处理，在数据更新时更新
+     */
+    @ApiModelProperty(value = "数据库数据更新用户主键")
+    @TableField(value = "update_user_id", fill = FieldFill.INSERT_UPDATE)
+    private Integer updateUserId;
 
     /**
      * 数据库数据标识逻辑删除字段

@@ -1,4 +1,4 @@
-package com.zero.common.response.util;
+package com.zero.sys.response.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,9 +2,9 @@ package com.zero.sys.security.jwt.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zero.common.jwt.peoperty.JwtProperties;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
+import com.zero.sys.security.jwt.peoperty.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

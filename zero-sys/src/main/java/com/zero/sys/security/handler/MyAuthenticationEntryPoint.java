@@ -1,9 +1,9 @@
 package com.zero.sys.security.handler;
 
-import com.zero.common.request.util.RequestUtils;
 import com.zero.common.response.domain.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
-import com.zero.common.response.util.ResponseUtils;
+import com.zero.sys.request.util.RequestUtils;
+import com.zero.sys.response.util.ResponseUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
         String token = requestUtils.getToken(httpServletRequest);
         String username = jwtUtils.getUsername(token);
         log.info("[权限管理]用户【{}】访问权限不足", username);
-        ResponseData responseData = ResponseData.code(CodeEnum.INSUFFICIENT_PERMISSIONS.getValue()).message("您的访问权限不足，无法进行此操作");
+        ResponseData responseData = ResponseData.code(CodeEnum.INSUFFICIENT_PERMISSIONS.getValue()).message("您的访问权限不足，无法访问该页面数据，或进行该操作");
         responseUtils.responseJson(httpServletResponse, responseData);
     }
 }

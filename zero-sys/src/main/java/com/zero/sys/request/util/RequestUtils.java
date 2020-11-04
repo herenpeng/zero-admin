@@ -1,6 +1,6 @@
-package com.zero.common.request.util;
+package com.zero.sys.request.util;
 
-import com.zero.common.jwt.peoperty.JwtProperties;
+import com.zero.sys.security.jwt.peoperty.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

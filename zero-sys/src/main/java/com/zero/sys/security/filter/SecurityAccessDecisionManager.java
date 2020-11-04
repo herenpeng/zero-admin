@@ -1,7 +1,7 @@
 package com.zero.sys.security.filter;
 
-import com.zero.common.request.util.RequestUtils;
 import com.zero.sys.domain.Role;
+import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;

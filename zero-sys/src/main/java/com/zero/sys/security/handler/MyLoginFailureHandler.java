@@ -2,7 +2,7 @@ package com.zero.sys.security.handler;
 
 import com.zero.common.response.domain.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
-import com.zero.common.response.util.ResponseUtils;
+import com.zero.sys.response.util.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;

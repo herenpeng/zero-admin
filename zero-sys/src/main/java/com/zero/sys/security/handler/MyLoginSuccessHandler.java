@@ -1,9 +1,9 @@
 package com.zero.sys.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zero.common.jwt.peoperty.JwtProperties;
 import com.zero.common.response.domain.ResponseData;
-import com.zero.common.response.util.ResponseUtils;
+import com.zero.sys.response.util.ResponseUtils;
+import com.zero.sys.security.jwt.peoperty.JwtProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import com.zero.sys.security.userdetails.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;

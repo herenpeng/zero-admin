@@ -1,4 +1,4 @@
-package com.zero.common.jwt.peoperty;
+package com.zero.sys.security.jwt.peoperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -2,9 +2,9 @@ package com.zero.sys.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zero.common.annotation.LogOperation;
-import com.zero.common.request.util.RequestUtils;
 import com.zero.sys.domain.Log;
 import com.zero.sys.mapper.LogMapper;
+import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
