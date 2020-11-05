@@ -39,7 +39,6 @@ public class ServerWebSocket {
     @OnOpen
     public void onOpen(Session session) throws Exception {
         webSocketClients.put(session.getId(), session);
-        sendServerPieChartInfo();
     }
 
     /**
