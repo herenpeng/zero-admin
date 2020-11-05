@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 登录成功的处理器
@@ -52,7 +53,9 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 创建JWT
         String jwt = jwtUtils.createJWT(tokenId, subject);
         // 将jwt存放入redis中
-        redisTemplate.opsForHash().put(jwtProperties.getName(), tokenId, jwt);
+        String tokenRedisKey = jwtProperties.getName() + ":" + tokenId;
+        Long tokenRedisTtl = jwtProperties.getTtl() / 1000;
+        redisTemplate.opsForValue().set(tokenRedisKey, jwt, tokenRedisTtl, TimeUnit.SECONDS);
         ResponseData<Object> responseData = ResponseData.ok(jwt);
         responseUtils.responseJson(response, responseData);
     }

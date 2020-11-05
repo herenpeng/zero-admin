@@ -66,7 +66,8 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
             log.error("[系统登录功能]解析token失败");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
-        Object redisToken = redisTemplate.opsForHash().get(jwtProperties.getName(), tokenId);
+        String tokenRedisKey = jwtProperties.getName() + ":" + tokenId;
+        Object redisToken = redisTemplate.opsForValue().get(tokenRedisKey);
         if (!StringUtils.equalsIgnoreCase(token, String.valueOf(redisToken))) {
             log.error("[系统登录功能]该token已失效或已过期");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
