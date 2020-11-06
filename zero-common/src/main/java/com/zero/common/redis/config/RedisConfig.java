@@ -14,18 +14,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
 
-
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
         redisTemplate.setConnectionFactory(factory);
 
-        /**
-         * 在这里，改用StringRedisSerializer序列化方式
-         *      a、setKeySerializer：对redis的key值 设置序列化方式
-         *      b、setValueSerializer：对redis的value值 设置序列化方式
-         *                            (若配置则只能接受String类型，其他类型需转为String类型)
-         */
+        // 在这里，改用StringRedisSerializer序列化方式
+        // a、setKeySerializer：对redis的key值 设置序列化方式
+        // b、setValueSerializer：对redis的value值 设置序列化方式
+        // (若配置则只能接受String类型，其他类型需转为String类型)
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
         // String
