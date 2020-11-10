@@ -1,4 +1,4 @@
-package com.zero.sys.listener.event.start;
+package com.zero.listener.event.start;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.common.listener.event.StartEvent;
@@ -48,7 +48,7 @@ public class ScanResources implements StartEvent {
     public static final String REGEX_END = "$";
 
     @Autowired
-    ConfigurableApplicationContext run;
+    private ConfigurableApplicationContext run;
 
     @Autowired
     private ResourcesMapper resourcesMapper;
@@ -61,6 +61,11 @@ public class ScanResources implements StartEvent {
         scanResources(run);
     }
 
+    /**
+     * 扫描系统资源
+     *
+     * @param run
+     */
     private void scanResources(ConfigurableApplicationContext run) {
         // 获取@RestController注解的类名集合
         String[] restControllerBeanNameList = run.getBeanNamesForAnnotation(RestController.class);
@@ -79,6 +84,12 @@ public class ScanResources implements StartEvent {
         }
     }
 
+    /**
+     * 获取类上的@RequestMapping注解路径
+     *
+     * @param beanClass Controller类的字节码对象
+     * @return 类上的@RequestMapping注解的路径
+     */
     private String getBeanPath(Class<?> beanClass) {
         // 类路径
         String beanPath = "";
@@ -94,6 +105,12 @@ public class ScanResources implements StartEvent {
     }
 
 
+    /**
+     * 插入Resources对象
+     *
+     * @param method   方法
+     * @param beanPath Controller上的路径
+     */
     private void insertResources(Method method, String beanPath) {
         // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
         GetMapping getMapping = method.getAnnotation(GetMapping.class);
@@ -194,9 +211,9 @@ public class ScanResources implements StartEvent {
     /**
      * 拼接对应regex表达式
      *
-     * @param beanPath
-     * @param methodPath
-     * @return
+     * @param beanPath   Controller上的路径
+     * @param methodPath 方法上面的路径
+     * @return 对应regex表达式
      */
     private String splicingRegex(String beanPath, String methodPath) {
         String uri = splicingUri(beanPath, methodPath);

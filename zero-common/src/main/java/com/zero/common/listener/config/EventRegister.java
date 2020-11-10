@@ -39,7 +39,7 @@ public abstract class EventRegister {
             return flag;
         } else {
             // 如果对应的属性为空，说明没有找到该属性，即该属性配置未配置或者未按照事件类名首字母小写的规则配置
-            log.warn("[系统事件配置错误]{}事件未配置对应的事件开关，{}开关配置错误，默认禁用该事件", eventName, flagName);
+            log.warn("[系统事件配置]{}事件未配置对应的事件开关，{}开关配置错误，默认禁用该事件", eventName, flagName);
             return false;
         }
     }

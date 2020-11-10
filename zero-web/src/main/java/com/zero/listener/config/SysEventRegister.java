@@ -1,4 +1,4 @@
-package com.zero.sys.listener.config;
+package com.zero.listener.config;
 
 import com.zero.common.listener.config.EventRegister;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class MyEventRegister extends EventRegister {
+public class SysEventRegister extends EventRegister {
 
     /**
      * 注册扫描资源事件，在系统启动时，扫描系统资源

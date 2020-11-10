@@ -3,6 +3,7 @@ package com.zero.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.sys.domain.Role;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-09-07 22:34
  */
+@Mapper
 @Repository
 public interface RoleMapper extends BaseMapper<Role> {
 

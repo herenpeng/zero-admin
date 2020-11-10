@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.sys.domain.Resources;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author herenpeng
  * @since 2020-09-07 22:38
  */
+@Mapper
 @Repository
 public interface ResourcesMapper extends BaseMapper<Resources> {
 

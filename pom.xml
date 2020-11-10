@@ -12,6 +12,7 @@
         <module>zero-web</module>
         <module>zero-sys</module>
         <module>zero-common</module>
+        <module>zero-code-generation</module>
     </modules>
 
     <properties>

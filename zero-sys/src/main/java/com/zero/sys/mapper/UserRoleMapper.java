@@ -2,6 +2,7 @@ package com.zero.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zero.sys.domain.UserRole;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
  * @author herenpeng
  * @since 2020-10-09 22:37
  */
+@Mapper
 @Repository
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 

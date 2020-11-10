@@ -3,6 +3,7 @@ package com.zero.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zero.sys.domain.ResourcesRole;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
  * @author herenpeng
  * @since 2020-10-20 22:44
  */
+@Mapper
 @Repository
 public interface ResourcesRoleMapper extends BaseMapper<ResourcesRole> {
 

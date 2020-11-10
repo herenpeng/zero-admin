@@ -1,6 +1,7 @@
 package com.zero.sys.mybatisplus.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zero.sys.domain.User;
 import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * MyBatisPlus拦截器，用于自动配置数据库数据的创建人和更新人
+ *
  * @author herenpeng
  * @since 2020-11-03 23:10
  */
@@ -32,31 +35,35 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @SneakyThrows
     @Override
     public void insertFill(MetaObject metaObject) {
-        Integer userId = null;
-        try {
-            String token = requestUtils.getToken(request);
-            User user = jwtUtils.getUserInfo(token);
-            userId = user.getId();
-        }catch (Exception e) {
-            userId = 0;
-        }finally {
-            this.setFieldValByName("createUserId", userId, metaObject);
-            this.setFieldValByName("updateUserId", userId, metaObject);
-        }
+        this.setFieldValByName("createUserId", getUserId(), metaObject);
+        this.setFieldValByName("updateUserId", getUserId(), metaObject);
     }
 
     @SneakyThrows
     @Override
     public void updateFill(MetaObject metaObject) {
-        Integer userId = null;
+        this.setFieldValByName("updateUserId", getUserId(), metaObject);
+    }
+
+    /**
+     * 获取当前登录系统的用户主键信息
+     *
+     * @return 当前登录系统用户的主键
+     * @throws JsonProcessingException
+     */
+    private Integer getUserId() throws JsonProcessingException {
+        // 用户Id为0，表示为系统
+        Integer userId = 0;
         try {
             String token = requestUtils.getToken(request);
             User user = jwtUtils.getUserInfo(token);
             userId = user.getId();
-        }catch (Exception e) {
-            userId = 0;
-        }finally {
-            this.setFieldValByName("updateUserId", userId, metaObject);
+        } catch (Exception e) {
+            log.info("[数据操作用户拦截器]当前数据操作为系统执行");
+        } finally {
+            return userId;
         }
+
     }
+
 }

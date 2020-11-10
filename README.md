@@ -50,3 +50,12 @@ github下载地址:https://github.com/herenpeng/zero-admin.git
 - JWT
 - WebSocket
 - Swagger2
+
+
+## 项目开发
+1、本项目代码开发规范遵循阿里巴巴Java代码开发规约，在进行开发前，请下载阿里巴巴Java代码开发约束插件，保证项目代码质量。
+
+2、本项目功能使用分模块开发，如果需要在本项目的基础上进行开发，请按照以下的三个步骤进行：
+- 请在zero-admin项目下新建模块，并以zero-admin为父项目，需要的第三方依赖，请在zero-admin父模块的pom.xml文件中添加。
+- 在新建模块的pom.xml文件中添加zero-sys模块的依赖。
+- 在zero-web模块的pom.xml文件中添加新建模块的依赖。

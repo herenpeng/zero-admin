@@ -15,10 +15,6 @@ spring:
     active: dev
 # MyBatisPlus的相关配置
 mybatis-plus:
-  # 实体类别名扫描，多个包可以使用”,;\t\n“进行隔开
-  type-aliases-package: com.zero.sys.domain
-  # mapper.xml配置文件路径
-  mapper-locations: classpath:/com/zero/*/mapper/*Mapper.xml  #xml的路径
   configuration:
     # 下划线转驼峰命名
     map-underscore-to-camel-case: true

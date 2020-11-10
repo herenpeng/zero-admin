@@ -1,4 +1,4 @@
-package com.zero.sys.listener.event.stop;
+package com.zero.listener.event.stop;
 
 import com.zero.common.listener.event.StopEvent;
 import com.zero.sys.mapper.ResourcesMapper;
@@ -23,7 +23,9 @@ public class DestroyResources implements StopEvent {
 
     @Override
     public void doEvent() throws Exception {
+        // 删除所有系统资源，物理删除
         resourcesMapper.deleteAll();
+        // 删除所有系统资源和角色关系，物理删除
         resourcesRoleMapper.deleteAll();
     }
 

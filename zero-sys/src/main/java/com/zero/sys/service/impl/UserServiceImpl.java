@@ -2,7 +2,6 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.common.service.impl.BaseServiceImpl;
 import com.zero.sys.domain.Role;
 import com.zero.sys.domain.User;
@@ -11,7 +10,6 @@ import com.zero.sys.mapper.RoleMapper;
 import com.zero.sys.mapper.UserMapper;
 import com.zero.sys.mapper.UserRoleMapper;
 import com.zero.sys.property.UserProperties;
-import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import com.zero.sys.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,12 +45,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Autowired
     private JwtUtils jwtUtils;
-
-    @Autowired
-    private RequestUtils requestUtils;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
