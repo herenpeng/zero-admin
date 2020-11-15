@@ -2,8 +2,8 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.common.service.impl.BaseServiceImpl;
-import com.zero.sys.domain.Log;
+import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
 import com.zero.sys.service.LogService;
 import lombok.extern.slf4j.Slf4j;

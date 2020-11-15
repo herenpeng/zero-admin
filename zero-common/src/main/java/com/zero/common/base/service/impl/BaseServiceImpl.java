@@ -1,4 +1,4 @@
-package com.zero.common.service.impl;
+package com.zero.common.base.service.impl;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

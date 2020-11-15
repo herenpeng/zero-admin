@@ -2,10 +2,10 @@ package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.common.service.impl.BaseServiceImpl;
-import com.zero.sys.domain.Resources;
-import com.zero.sys.domain.ResourcesRole;
-import com.zero.sys.domain.Role;
+import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.sys.entity.Resources;
+import com.zero.sys.entity.ResourcesRole;
+import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.mapper.ResourcesRoleMapper;
 import com.zero.sys.mapper.RoleMapper;

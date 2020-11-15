@@ -1,7 +1,7 @@
 package com.zero.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zero.sys.domain.UserRole;
+import com.zero.sys.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

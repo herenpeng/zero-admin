@@ -1,8 +1,8 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.service.BaseService;
-import com.zero.sys.domain.Log;
+import com.zero.common.base.service.BaseService;
+import com.zero.sys.entity.Log;
 
 /**
  * @author herenpeng

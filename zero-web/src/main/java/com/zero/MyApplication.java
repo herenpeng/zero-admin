@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * zero-admin项目的入口启动类
- * @author 何任鹏
+ * @author herenpeng
  * @since 2020/8/2 22:04
  */
 @EnableScheduling

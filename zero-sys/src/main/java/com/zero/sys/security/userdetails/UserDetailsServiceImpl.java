@@ -1,6 +1,6 @@
 package com.zero.sys.security.userdetails;
 
-import com.zero.sys.domain.User;
+import com.zero.sys.entity.User;
 import com.zero.sys.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

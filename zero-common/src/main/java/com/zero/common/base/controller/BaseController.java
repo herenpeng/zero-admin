@@ -1,4 +1,4 @@
-package com.zero.common.controller;
+package com.zero.common.base.controller;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zero.common.annotation.LogOperation;

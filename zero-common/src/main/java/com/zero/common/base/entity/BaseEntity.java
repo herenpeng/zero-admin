@@ -1,4 +1,4 @@
-package com.zero.common.entity;
+package com.zero.common.base.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
@@ -50,10 +50,10 @@ public class BaseEntity implements Serializable {
     private Integer updateUserId;
 
     /**
-     * 数据库数据标识逻辑删除字段
+     * 数据库数据标识逻辑删除字段，0(false)为正常，1(true)为逻辑删除，默认为0(false)
      */
     @ApiModelProperty(value = "数据库数据标识逻辑删除字段")
     @TableLogic
-    private Integer deleted;
+    private Boolean deleted;
 
 }

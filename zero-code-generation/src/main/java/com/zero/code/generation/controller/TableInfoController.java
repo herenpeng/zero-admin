@@ -1,10 +1,10 @@
 package com.zero.code.generation.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.code.generation.domain.TableInfo;
+import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.service.TableInfoService;
 import com.zero.common.annotation.LogOperation;
-import com.zero.common.controller.BaseController;
+import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -48,6 +48,15 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     public ResponseData getNotAddList() throws Exception {
         List<TableInfo> list = baseService.getNotAddList();
         return ResponseData.ok(list);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "生成代码")
+    @PostMapping("code/generation/{id}")
+    public ResponseData codeGeneration(@PathVariable("id") Integer id) throws Exception {
+        baseService.codeGeneration(id);
+        return ResponseData.ok().message("代码生成成功");
     }
 
 

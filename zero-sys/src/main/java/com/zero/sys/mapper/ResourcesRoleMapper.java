@@ -1,7 +1,7 @@
 package com.zero.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zero.sys.domain.ResourcesRole;
+import com.zero.sys.entity.ResourcesRole;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

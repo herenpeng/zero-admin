@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zero.code.generation.mapper.TableInfoMapper">
 
-    <resultMap id="resultMap" type="com.zero.code.generation.domain.TableInfo">
+    <resultMap id="resultMap" type="com.zero.code.generation.entity.TableInfo">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="comment" jdbcType="VARCHAR" property="comment"/>
@@ -14,11 +14,11 @@
         <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
     </resultMap>
 
     <sql id="baseColumn">
-        id, `name`, comment, entity_name, code_generation_path, base_package_name,code_author,
-        create_time, create_user_id, update_time, update_user_id
+        id, `name`, comment, entity_name, code_generation_path, base_package_name, code_author
     </sql>
 
     <select id="getTableInfoListByInformationSchema" resultMap="resultMap">
@@ -57,7 +57,6 @@
             and dti.code_author like concat('%', #{queryTableInfo.codeAuthor}, '%')
         </if>
     </select>
-
 
 
 </mapper>

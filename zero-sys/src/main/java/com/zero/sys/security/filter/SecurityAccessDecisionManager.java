@@ -1,6 +1,6 @@
 package com.zero.sys.security.filter;
 
-import com.zero.sys.domain.Role;
+import com.zero.sys.entity.Role;
 import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;

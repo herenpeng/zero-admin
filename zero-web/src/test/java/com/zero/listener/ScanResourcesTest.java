@@ -2,7 +2,7 @@ package com.zero.listener;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.MyApplication;
-import com.zero.sys.domain.Resources;
+import com.zero.sys.entity.Resources;
 import com.zero.sys.mapper.ResourcesMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;

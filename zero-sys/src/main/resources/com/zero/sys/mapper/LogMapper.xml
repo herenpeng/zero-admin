@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zero.sys.mapper.LogMapper">
 
-    <resultMap id="resultMap" type="com.zero.sys.domain.Log">
+    <resultMap id="resultMap" type="com.zero.sys.entity.Log">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="access_time" jdbcType="TIMESTAMP" property="accessTime"/>
@@ -15,12 +15,15 @@
         <result column="exception_name" jdbcType="VARCHAR" property="exceptionName"/>
         <result column="exception_message" jdbcType="VARCHAR" property="exceptionMessage"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
     </resultMap>
 
     <sql id="baseColumn">
         id, username, access_time, ip, uri, method_type, `method`, execution_time, description,
-        exception_name, exception_message, create_time, update_time
+        exception_name, exception_message
     </sql>
 
     <select id="getPage" resultMap="resultMap">

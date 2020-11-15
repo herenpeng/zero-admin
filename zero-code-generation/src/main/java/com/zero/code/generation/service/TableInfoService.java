@@ -1,8 +1,8 @@
 package com.zero.code.generation.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.code.generation.domain.TableInfo;
-import com.zero.common.service.BaseService;
+import com.zero.code.generation.entity.TableInfo;
+import com.zero.common.base.service.BaseService;
 
 import java.util.List;
 
@@ -34,4 +34,11 @@ public interface TableInfoService extends BaseService<TableInfo> {
     List<TableInfo> getNotAddList() throws Exception;
 
 
+    /**
+     * 生成代码
+     *
+     * @param id 数据表信息表主键
+     * @throws Exception 抛出异常
+     */
+    void codeGeneration(Integer id) throws Exception;
 }

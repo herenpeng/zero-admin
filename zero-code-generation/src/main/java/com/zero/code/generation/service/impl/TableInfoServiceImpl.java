@@ -2,11 +2,17 @@ package com.zero.code.generation.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.code.generation.domain.TableInfo;
+import com.zero.code.generation.constant.DataBaseTypeConst;
+import com.zero.code.generation.entity.TableColumn;
+import com.zero.code.generation.entity.TableInfo;
+import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.code.generation.service.TableInfoService;
-import com.zero.common.service.impl.BaseServiceImpl;
+import com.zero.code.generation.util.CamelCaseUtils;
+import com.zero.code.generation.util.CodeGenerationUtils;
+import com.zero.common.base.service.impl.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +29,18 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, TableInfo> implements TableInfoService {
 
+    @Autowired
+    private TableColumnMapper tableColumnMapper;
+
+    @Autowired
+    private DataBaseTypeConst dataBaseTypeConst;
+
+    @Autowired
+    private CamelCaseUtils camelCaseUtils;
+
+    @Autowired
+    private CodeGenerationUtils codeGenerationUtils;
+
     @Override
     public IPage<TableInfo> page(Integer currentPage, Integer size, TableInfo queryTableInfo) throws Exception {
         Page page = new Page(currentPage, size);
@@ -33,5 +51,24 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
     @Override
     public List<TableInfo> getNotAddList() throws Exception {
         return baseMapper.getNotAddList();
+    }
+
+    @Override
+    public boolean save(TableInfo tableInfo) {
+        boolean result = retBool(baseMapper.insert(tableInfo));
+        List<TableColumn> tableColumnList = tableColumnMapper.getTableColumnByInformationSchema(tableInfo.getName());
+        for (TableColumn tableColumn : tableColumnList) {
+            tableColumn.setTableInfoId(tableInfo.getId());
+            tableColumn.setJavaName(camelCaseUtils.toCamelCase(tableColumn.getName()));
+            tableColumn.setJdbcType(dataBaseTypeConst.getJdbcType(tableColumn.getDatabaseType()));
+            tableColumn.setJavaType(dataBaseTypeConst.getJavaType(tableColumn.getDatabaseType()));
+            tableColumnMapper.insert(tableColumn);
+        }
+        return result;
+    }
+
+    @Override
+    public void codeGeneration(Integer id) throws Exception {
+        codeGenerationUtils.generation(id);
     }
 }

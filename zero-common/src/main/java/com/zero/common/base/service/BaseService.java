@@ -1,4 +1,4 @@
-package com.zero.common.service;
+package com.zero.common.base.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 

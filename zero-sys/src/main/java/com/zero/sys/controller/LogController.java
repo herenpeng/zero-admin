@@ -2,9 +2,9 @@ package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
-import com.zero.common.controller.BaseController;
+import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
-import com.zero.sys.domain.Log;
+import com.zero.sys.entity.Log;
 import com.zero.sys.service.LogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

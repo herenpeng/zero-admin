@@ -1,7 +1,7 @@
 package com.zero.sys.security.userdetails;
 
-import com.zero.sys.domain.Role;
-import com.zero.sys.domain.User;
+import com.zero.sys.entity.Role;
+import com.zero.sys.entity.User;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.code.generation.mapper.TableColumnMapper">
+
+    <resultMap id="resultMap" type="com.zero.code.generation.entity.TableColumn">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="java_name" jdbcType="VARCHAR" property="javaName"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
+        <result column="database_type" jdbcType="VARCHAR" property="databaseType"/>
+        <result column="jdbc_type" jdbcType="VARCHAR" property="jdbcType"/>
+        <result column="java_type" jdbcType="VARCHAR" property="javaType"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="table_info_id" jdbcType="INTEGER" property="tableInfoId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        id, `name`, java_name, `comment`, database_type, jdbc_type, java_type, sort, table_info_id
+    </sql>
+
+
+    <select id="getTableColumnByInformationSchema" resultMap="resultMap">
+        select column_name as name, ordinal_position as sort,
+        column_comment as comment, column_type as database_type
+		from information_schema.COLUMNS
+		where table_schema = (select DATABASE())
+		AND table_name = #{tableName}
+		order by ORDINAL_POSITION
+    </select>
+
+    <select id="getByTableInfoId" resultMap="resultMap">
+        select dtc.id as id, dtc.name as name, dtc.java_name as java_name,
+        dtc.comment as comment, dtc.database_type as database_type, dtc.jdbc_type as jdbc_type,
+        dtc.java_type as java_type, dtc.sort as sort, dtc.table_info_id as table_info_id
+        from dev_table_column dtc
+        where dtc.table_info_id = #{tableInfoId}
+        order by dtc.sort;
+    </select>
+
+
+</mapper>

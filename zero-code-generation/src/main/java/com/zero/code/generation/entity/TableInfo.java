@@ -1,13 +1,15 @@
-package com.zero.code.generation.domain;
+package com.zero.code.generation.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zero.common.entity.BaseEntity;
+import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * 系统数据库表信息实体类
@@ -44,9 +46,9 @@ public class TableInfo extends BaseEntity {
     private String entityName;
 
     /**
-     * 基础包名称
+     * 包前缀名称
      */
-    @ApiModelProperty(value = "基础包名称")
+    @ApiModelProperty(value = "包前缀名称")
     @TableField(value = "base_package_name", el = "basePackageName")
     private String basePackageName;
 
@@ -57,7 +59,6 @@ public class TableInfo extends BaseEntity {
     @TableField(value = "code_generation_path", el = "codeGenerationPath")
     private String codeGenerationPath;
 
-
     /**
      * 代码作者
      */
@@ -65,5 +66,11 @@ public class TableInfo extends BaseEntity {
     @TableField(value = "code_author", el = "codeAuthor")
     private String codeAuthor;
 
+    /**
+     * 数据库表的字段信息
+     */
+    @ApiModelProperty(value = "数据库表的字段信息")
+    @TableField(exist = false)
+    private List<TableColumn> tableColumnList;
 
 }

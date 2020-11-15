@@ -1,9 +1,9 @@
 package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.service.BaseService;
-import com.zero.sys.domain.Resources;
-import com.zero.sys.domain.Role;
+import com.zero.common.base.service.BaseService;
+import com.zero.sys.entity.Resources;
+import com.zero.sys.entity.Role;
 
 import java.util.List;
 

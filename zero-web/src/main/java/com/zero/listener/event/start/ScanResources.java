@@ -2,8 +2,8 @@ package com.zero.listener.event.start;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.common.listener.event.StartEvent;
-import com.zero.sys.domain.Resources;
-import com.zero.sys.domain.ResourcesRole;
+import com.zero.sys.entity.Resources;
+import com.zero.sys.entity.ResourcesRole;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.mapper.ResourcesRoleMapper;
 import io.swagger.annotations.ApiOperation;

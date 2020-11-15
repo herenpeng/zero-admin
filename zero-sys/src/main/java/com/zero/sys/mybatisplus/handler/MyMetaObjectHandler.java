@@ -2,7 +2,7 @@ package com.zero.sys.mybatisplus.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.zero.sys.domain.User;
+import com.zero.sys.entity.User;
 import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;

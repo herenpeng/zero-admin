@@ -2,8 +2,8 @@ package com.zero.sys.security.filter;
 
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
-import com.zero.sys.domain.Resources;
-import com.zero.sys.domain.Role;
+import com.zero.sys.entity.Resources;
+import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.peoperty.JwtProperties;

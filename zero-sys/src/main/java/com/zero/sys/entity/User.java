@@ -1,9 +1,9 @@
-package com.zero.sys.domain;
+package com.zero.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.zero.common.entity.BaseEntity;
+import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ import java.util.List;
 public class User extends BaseEntity {
 
     /**
-     * 用户名陈
+     * 用户名称
      */
     @ApiModelProperty(value = "用户名称")
     @TableField(value = "username", el = "username")
