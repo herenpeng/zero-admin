@@ -18,15 +18,6 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper extends BaseMapper<User> {
 
     /**
-     * 通过用户名查找对应的用户，以及用户所拥有的角色信息
-     *
-     * @param username 用户名，需要在数据库中保证唯一
-     * @return 用户信息
-     * @throws Exception 抛出异常
-     */
-    User loadUserByUsername(@Param("username") String username);
-
-    /**
      * 分页获取用户数据，区别于selectPage的是，该方法添加了查询条件
      *
      * @param page      分页查询
@@ -35,6 +26,15 @@ public interface UserMapper extends BaseMapper<User> {
      * @throws Exception 抛出异常
      */
     IPage<User> getPage(IPage page, @Param("queryUser") User queryUser) throws Exception;
+
+    /**
+     * 通过用户名查找对应的用户，以及用户所拥有的角色信息
+     *
+     * @param username 用户名，需要在数据库中保证唯一
+     * @return 用户信息
+     * @throws Exception 抛出异常
+     */
+    User loadUserByUsername(@Param("username") String username);
 
     /**
      * 删除用户的角色（彻底删除）

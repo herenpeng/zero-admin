@@ -23,8 +23,35 @@
     </resultMap>
 
     <sql id="baseColumn">
-        id, username, `password`, enabled, locked, account_expire, password_expire
+        `id`, `username`, `password`, `enabled`, `locked`, `account_expire`, `password_expire`
     </sql>
+
+    <sql id="baseQuery">
+        <if test="queryUser.username != null and queryUser.username != ''">
+            and username like concat('%', #{queryUser.username}, '%')
+        </if>
+        <if test="queryUser.enabled != null">
+            and enabled = #{queryUser.enabled}
+        </if>
+        <if test="queryUser.locked != null">
+            and locked = #{queryUser.locked}
+        </if>
+        <if test="queryUser.accountExpire != null">
+            and account_expire = #{queryUser.accountExpire}
+        </if>
+        <if test="queryUser.passwordExpire != null">
+            and password_expire = #{queryUser.passwordExpire}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`username` as username,`password` as password,
+        `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
+        `password_expire` as password_expire
+        from sys_user
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
 
     <select id="loadUserByUsername" resultMap="resultMap">
         select su.id as id,su.username as username,su.password as password,
@@ -35,29 +62,6 @@
         left join sys_user_role sur on sur.user_id = su.id
         left join sys_role sr on sr.id = sur.role_id
         where su.deleted = 0 and su.username = #{username}
-    </select>
-
-    <select id="getPage" resultMap="resultMap">
-        select su.id as id,su.username as username,su.password as password,
-        su.enabled as enabled,su.locked as locked,su.account_expire as account_expire,
-        su.password_expire as password_expire
-        from sys_user su
-        where su.deleted = 0
-        <if test="queryUser.username != null and queryUser.username != ''">
-            and su.username like concat('%', #{queryUser.username}, '%')
-        </if>
-        <if test="queryUser.enabled != null">
-            and su.enabled = #{queryUser.enabled}
-        </if>
-        <if test="queryUser.locked != null">
-            and su.locked = #{queryUser.locked}
-        </if>
-        <if test="queryUser.accountExpire != null">
-            and su.account_expire = #{queryUser.accountExpire}
-        </if>
-        <if test="queryUser.passwordExpire != null">
-            and su.password_expire = #{queryUser.passwordExpire}
-        </if>
     </select>
 
     <delete id="deleteUserRole">

@@ -14,8 +14,24 @@
     </resultMap>
 
     <sql id="baseColumn">
-        id, `name`, description
+        `id`, `name`, `description`
     </sql>
+
+    <sql id="baseQuery">
+        <if test="queryRole.name != null and queryRole.name != ''">
+            and name like concat('%', #{queryRole.name}, '%')
+        </if>
+        <if test="queryRole.description != null and queryRole.description != ''">
+            and description like concat('%', #{queryRole.description}, '%')
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id, `name` as name, `description` as description
+        from sys_role
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
 
     <select id="getByUserId" resultMap="resultMap">
         select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
@@ -50,19 +66,5 @@
         where sr.deleted = 0 and sr.id not in
         (select srer.role_id from sys_resources_role srer where srer.resources_id = #{resourcesId})
     </select>
-
-    <select id="getPage" resultMap="resultMap">
-        select sr.id, sr.name, sr.description
-        from sys_role sr
-        where sr.deleted = 0
-        <if test="queryRole.name != null and queryRole.name != ''">
-            and sr.name like concat('%', #{queryRole.name}, '%')
-        </if>
-        <if test="queryRole.description != null and queryRole.description != ''">
-            and sr.description like concat('%', #{queryRole.description}, '%')
-        </if>
-    </select>
-
-
 
 </mapper>

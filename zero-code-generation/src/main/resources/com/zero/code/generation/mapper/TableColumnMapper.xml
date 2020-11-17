@@ -20,9 +20,8 @@
     </resultMap>
 
     <sql id="baseColumn">
-        id, `name`, java_name, `comment`, database_type, jdbc_type, java_type, sort, table_info_id
+        `id`, `name`, `java_name`, `comment`, `database_type`, `jdbc_type`, `java_type`, `sort`, `table_info_id`
     </sql>
-
 
     <select id="getTableColumnByInformationSchema" resultMap="resultMap">
         select column_name as name, ordinal_position as sort,
@@ -34,12 +33,12 @@
     </select>
 
     <select id="getByTableInfoId" resultMap="resultMap">
-        select dtc.id as id, dtc.name as name, dtc.java_name as java_name,
-        dtc.comment as comment, dtc.database_type as database_type, dtc.jdbc_type as jdbc_type,
-        dtc.java_type as java_type, dtc.sort as sort, dtc.table_info_id as table_info_id
-        from dev_table_column dtc
-        where dtc.table_info_id = #{tableInfoId}
-        order by dtc.sort;
+        select `id` as id, `name` as name, `java_name` as java_name,
+        `comment` as comment, `database_type` as database_type, `jdbc_type` as jdbc_type,
+        `java_type` as java_type, `sort` as sort, `table_info_id` as table_info_id
+        from dev_table_column
+        where table_info_id = #{tableInfoId}
+        order by sort;
     </select>
 
 

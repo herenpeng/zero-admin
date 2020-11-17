@@ -20,6 +20,16 @@ import java.util.List;
 public interface RoleMapper extends BaseMapper<Role> {
 
     /**
+     * 分页获取角色数据，区别于selectPage的是，该方法添加了查询条件
+     *
+     * @param page      分页查询
+     * @param queryRole 用户查询条件
+     * @return 角色分页集合
+     * @throws Exception 抛出异常
+     */
+    IPage<Role> getPage(IPage page, @Param("queryRole") Role queryRole) throws Exception;
+
+    /**
      * 通过用户主键信息获取该用户所有的角色，需要关联中间表sys_user_role
      *
      * @param userId 用户主键
@@ -55,16 +65,5 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @throws Exception 抛出异常
      */
     List<Role> getResourcesNotRoleList(@Param("resourcesId") Integer resourcesId) throws Exception;
-
-    /**
-     * 分页获取角色数据，区别于selectPage的是，该方法添加了查询条件
-     *
-     * @param page      分页查询
-     * @param queryRole 用户查询条件
-     * @return 角色分页集合
-     * @throws Exception 抛出异常
-     */
-    IPage<Role> getPage(IPage page, @Param("queryRole") Role queryRole) throws Exception;
-
 
 }

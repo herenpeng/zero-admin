@@ -21,17 +21,28 @@
     </resultMap>
 
     <sql id="baseColumn">
-        id, uri, regex, description, method_type
+        `id`, `uri`, `regex`, `description`, `method_type`
     </sql>
 
-    <sql id="baseSelectSql">
-        select sre.id as id,sre.uri as uri,sre.regex, sre.description as description,
-        sr.id as rid,sr.name as role_name,sr.description as role_description
-        from sys_resources sre
-        left join sys_resources_role srer on srer.resources_id = sre.id
-        left join sys_role sr on sr.id = srer.role_id
+    <sql id="baseQuery">
+        <if test="queryResources.uri != null and queryResources.uri != ''">
+            and uri like concat('%', #{queryResources.uri}, '%')
+        </if>
+        <if test="queryResources.description != null and queryResources.description != ''">
+            and description like concat('%', #{queryResources.description}, '%')
+        </if>
+        <if test="queryResources.methodType != null and queryResources.methodType != ''">
+            and method_type = #{queryResources.methodType}
+        </if>
     </sql>
 
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`uri` as uri,`description` as description,
+        `method_type` as method_type
+        from sys_resources
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
 
     <select id="getByRegexUriAndMethodType" resultMap="resultMap">
         select sre.id as id,sre.uri as uri,sre.regex as regex,sre.description as description,
@@ -40,22 +51,6 @@
         left join sys_resources_role srer on srer.resources_id = sre.id
         left join sys_role sr on sr.id = srer.role_id
         where #{uri} regexp sre.regex and sre.method_type = #{methodType}
-    </select>
-
-    <select id="getPage" resultMap="resultMap">
-        select sre.id as id,sre.uri as uri,sre.description as description,
-        sre.method_type as method_type
-        from sys_resources sre
-        where sre.deleted = 0
-        <if test="queryResources.uri != null and queryResources.uri != ''">
-            and sre.uri like concat('%', #{queryResources.uri}, '%')
-        </if>
-        <if test="queryResources.description != null and queryResources.description != ''">
-            and sre.description like concat('%', #{queryResources.description}, '%')
-        </if>
-        <if test="queryResources.methodType != null and queryResources.methodType != ''">
-            and sre.method_type = #{queryResources.methodType}
-        </if>
     </select>
 
     <delete id="deleteAll">

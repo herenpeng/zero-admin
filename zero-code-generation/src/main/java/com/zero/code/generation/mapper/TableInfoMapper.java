@@ -19,6 +19,15 @@ import java.util.List;
 @Repository
 public interface TableInfoMapper extends BaseMapper<TableInfo> {
 
+    /**
+     * 分页获取数据库表信息数据，区别于selectPage的是，该方法添加了查询条件
+     *
+     * @param page           分页查询
+     * @param queryTableInfo 数据库表信息查询条件
+     * @return 数据库表信息集合
+     * @throws Exception 抛出异常
+     */
+    IPage<TableInfo> getPage(IPage page, @Param("queryTableInfo") TableInfo queryTableInfo) throws Exception;
 
     /**
      * 获取数据的所有表信息
@@ -37,14 +46,5 @@ public interface TableInfoMapper extends BaseMapper<TableInfo> {
      */
     List<TableInfo> getNotAddList() throws Exception;
 
-    /**
-     * 分页获取数据库表信息数据，区别于selectPage的是，该方法添加了查询条件
-     *
-     * @param page           分页查询
-     * @param queryTableInfo 数据库表信息查询条件
-     * @return 数据库表信息集合
-     * @throws Exception 抛出异常
-     */
-    IPage<TableInfo> getPage(IPage page, @Param("queryTableInfo") TableInfo queryTableInfo) throws Exception;
 
 }

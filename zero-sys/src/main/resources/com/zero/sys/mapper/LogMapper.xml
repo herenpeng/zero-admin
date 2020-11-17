@@ -22,35 +22,40 @@
     </resultMap>
 
     <sql id="baseColumn">
-        id, username, access_time, ip, uri, method_type, `method`, execution_time, description,
-        exception_name, exception_message
+        `id`, `username`, `access_time`, `ip`, `uri`, `method_type`, `method`, `execution_time`, `description`,
+        `exception_name`, `exception_message`
     </sql>
 
-    <select id="getPage" resultMap="resultMap">
-        select sl.id as id,sl.username as username,sl.access_time as access_time,
-        sl.ip as ip, sl.uri as uri,sl.method_type as method_type,sl.method as method,
-        sl.execution_time as execution_time,sl.description as description,
-        sl.exception_name as exception_name,sl.exception_message as exception_message
-        from sys_log sl
-        where sl.deleted = 0
+    <sql id="baseQuery">
         <if test="queryLog.username != null and queryLog.username != ''">
-            and sl.username like concat('%', #{queryLog.username}, '%')
+            and username like concat('%', #{queryLog.username}, '%')
         </if>
         <if test="queryLog.ip != null and queryLog.ip != ''">
-            and sl.ip like concat('%', #{queryLog.ip}, '%')
+            and ip like concat('%', #{queryLog.ip}, '%')
         </if>
         <if test="queryLog.uri != null and queryLog.uri != ''">
-            and sl.uri like concat('%', #{queryLog.uri}, '%')
+            and uri like concat('%', #{queryLog.uri}, '%')
         </if>
         <if test="queryLog.methodType != null and queryLog.methodType != ''">
-            and sl.method_type = #{queryLog.methodType}
+            and method_type = #{queryLog.methodType}
         </if>
         <if test="queryLog.queryStartDate">
-            and sl.access_time &gt; #{queryLog.queryStartDate}
+            and access_time &gt; #{queryLog.queryStartDate}
         </if>
         <if test="queryLog.queryEndDate">
-            and sl.access_time &lt; #{queryLog.queryEndDate}
+            and access_time &lt; #{queryLog.queryEndDate}
         </if>
+    </sql>
+    
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`username` as username,`access_time` as access_time,
+        `ip` as ip, `uri` as uri,`method_type` as method_type,`method` as method,
+        `execution_time` as execution_time,`description` as description,
+        `exception_name` as exception_name,`exception_message` as exception_message
+        from sys_log
+        where deleted = 0
+        <include refid="baseQuery"></include>
     </select>
 
 

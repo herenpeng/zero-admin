@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.*;
  * @author ${codeAuthor}
  * @since ${.now?string("yyyy-MM-dd HH:mm")}
  */
-@Api(value = "${entityName}操作接口", tags = "${entityName}Controller")
+@Api(value = "${comment}操作接口", tags = "${entityName}Controller")
 @RestController
 @RequestMapping("${entityName?uncap_first}")
 public class ${entityName}Controller extends BaseController<${entityName}Service, ${entityName}> {
 
     @LogOperation
-    @ApiOperation(value = "分页查询${entityName}数据")
+    @ApiOperation(value = "分页查询${comment}数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
             @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
-            @ApiImplicitParam(name = "query${entityName}", value = "${entityName}查询条件")
+            @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
