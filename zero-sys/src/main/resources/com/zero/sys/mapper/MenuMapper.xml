@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.MenuMapper">
+
+    <resultMap id="resultMap" type="com.zero.sys.entity.Menu">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="component" jdbcType="VARCHAR" property="component"/>
+        <result column="meta_title" jdbcType="VARCHAR" property="metaTitle"/>
+        <result column="meta_icon" jdbcType="VARCHAR" property="metaIcon"/>
+        <result column="redirect" jdbcType="VARCHAR" property="redirect"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="hidden" jdbcType="BOOLEAN" property="hidden"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`path`,`name`,`component`,`meta_title`,`meta_icon`,`redirect`,`sort`,`hidden`,`parent_id`,
+        `create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryMenu.path != null and queryMenu.path != ''">
+            and path like concat('%', #{queryMenu.path, '%')
+        </if>
+        <if test="queryMenu.name != null and queryMenu.name != ''">
+            and name like concat('%', #{queryMenu.name, '%')
+        </if>
+        <if test="queryMenu.component != null and queryMenu.component != ''">
+            and component like concat('%', #{queryMenu.component, '%')
+        </if>
+        <if test="queryMenu.metaTitle != null and queryMenu.metaTitle != ''">
+            and meta_title like concat('%', #{queryMenu.metaTitle, '%')
+        </if>
+        <if test="queryMenu.metaIcon != null and queryMenu.metaIcon != ''">
+            and meta_icon like concat('%', #{queryMenu.metaIcon, '%')
+        </if>
+        <if test="queryMenu.redirect != null and queryMenu.redirect != ''">
+            and redirect like concat('%', #{queryMenu.redirect, '%')
+        </if>
+        <if test="queryMenu.hidden != null">
+            and hidden = #{queryMenu.hidden}
+        </if>
+        <if test="queryMenu.parentId != null">
+            and parent_id = #{queryMenu.parentId}
+        </if>
+        <if test="queryMenu.parentId == null">
+            and parent_id = 0
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`path` as path,`name` as name,`component` as component,
+        `meta_title` as meta_title,`meta_icon` as meta_icon,`redirect` as redirect,
+        `sort` as sort,`hidden` as hidden,`parent_id` as parent_id
+        from sys_menu
+        where deleted = 0
+        <include refid="baseQuery"></include>
+        order by sort
+    </select>
+
+    <select id="getChildrenMenuList" resultMap="resultMap">
+        select `id` as id,`path` as path,`name` as name,`component` as component,
+        `meta_title` as meta_title,`meta_icon` as meta_icon,`redirect` as redirect,
+        `sort` as sort,`hidden` as hidden,`parent_id` as parent_id
+        from sys_menu
+        where deleted = 0
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+        order by sort
+    </select>
+
+    <select id="getParentList" resultMap="resultMap">
+        select `id` as id,`path` as path,`name` as name,`component` as component,
+        `meta_title` as meta_title,`meta_icon` as meta_icon,`redirect` as redirect,
+        `sort` as sort,`hidden` as hidden,`parent_id` as parent_id
+        from sys_menu
+        where deleted = 0
+        and parent_id = 0
+        order by sort
+    </select>
+
+</mapper>
