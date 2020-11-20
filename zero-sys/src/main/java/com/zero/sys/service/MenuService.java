@@ -27,10 +27,19 @@ public interface MenuService extends BaseService<Menu> {
 
 
     /**
-     * 获取所有的父级菜单信息，以及菜单的子菜单
+     * [动态路由]获取所有启用（enabled=1）的父级菜单信息，以及菜单的子菜单
      *
      * @return 所有的父级菜单信息，以及菜单的子菜单
      * @throws Exception 抛出异常
      */
     List<Menu> getList() throws Exception;
+
+    /**
+     * 启用或者禁用该系统菜单
+     *
+     * @param id      菜单id
+     * @param enabled true为启用，false为禁用
+     * @throws Exception 抛出异常
+     */
+    void enabled(Integer id, Boolean enabled) throws Exception;
 }

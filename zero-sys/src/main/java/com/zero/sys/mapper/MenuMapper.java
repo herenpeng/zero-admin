@@ -30,20 +30,29 @@ public interface MenuMapper extends BaseMapper<Menu> {
     IPage<Menu> getPage(IPage page, @Param("queryMenu") Menu queryMenu) throws Exception;
 
     /**
-     * 获取菜单的所有下级子菜单
+     * 通过父菜单主键，获取菜单的所有下级子菜单
      *
      * @param parentId 菜单主键Id
      * @return 菜单下级的所有子菜单
      * @throws Exception 抛出异常
      */
-    List<Menu> getChildrenMenuList(@Param("parentId") Integer parentId) throws Exception;
+    List<Menu> getByParentId(@Param("parentId") Integer parentId) throws Exception;
 
 
     /**
-     * 获取所有的父级菜单信息
+     * [动态路由]获取所有的启用（enabled=1）的父级菜单信息
      *
      * @return 所有的父级菜单信息
      * @throws Exception 抛出异常
      */
     List<Menu> getParentList() throws Exception;
+
+    /**
+     * [动态路由]通过父菜单主键，获取菜单下启用（enabled=1）的子菜单
+     *
+     * @param parentId
+     * @return
+     * @throws Exception
+     */
+    List<Menu> getChildrenMenuList(@Param("parentId") Integer parentId) throws Exception;
 }

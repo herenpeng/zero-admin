@@ -69,9 +69,9 @@ public class Menu extends BaseEntity {
     /**
      * 菜单是否显示，0(false)为显示，1(true)为隐藏
      */
-    @ApiModelProperty(value = "菜单是否显示，0为显示，1为隐藏")
-    @TableField(value = "hidden", el = "hidden")
-    private Boolean hidden;
+    @ApiModelProperty(value = "菜单是否启用，0为禁用，1为启用")
+    @TableField(value = "enabled", el = "enabled")
+    private Boolean enabled;
     /**
      * 父级菜单主键，如果为顶级菜单，值为0
      */

@@ -42,11 +42,26 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
     @LogOperation
-    @ApiOperation(value = "获取所有的系统菜单表数据")
+    @ApiOperation(value = "[动态路由]获取所有启用的系统菜单")
     @GetMapping("list")
     public ResponseData list() throws Exception {
         List<Menu> list = baseService.getList();
         return ResponseData.ok(list);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "启用或者禁用一个菜单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "菜单ID", required = true),
+            @ApiImplicitParam(name = "enabled", value = "true为启用，false为禁用", required = true)
+    })
+    @PutMapping("enabled/{id}")
+    public ResponseData enabled(
+            @PathVariable("id") Integer id,
+            @RequestParam("enabled") Boolean enabled) throws Exception {
+        baseService.enabled(id, enabled);
+        return ResponseData.ok();
     }
 
 }

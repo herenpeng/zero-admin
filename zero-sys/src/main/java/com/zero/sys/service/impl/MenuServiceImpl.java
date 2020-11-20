@@ -28,7 +28,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         Page page = new Page(currentPage, size);
         IPage<Menu> pageInfo = baseMapper.getPage(page, queryMenu);
         for (Menu menu : pageInfo.getRecords()) {
-            menu.setChildrenMenuList(baseMapper.getChildrenMenuList(menu.getId()));
+            menu.setChildrenMenuList(baseMapper.getByParentId(menu.getId()));
         }
         return pageInfo;
     }
@@ -40,6 +40,14 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
             menu.setChildrenMenuList(baseMapper.getChildrenMenuList(menu.getId()));
         }
         return parentList;
+    }
+
+    @Override
+    public void enabled(Integer id, Boolean enabled) throws Exception {
+        Menu menu = new Menu();
+        menu.setId(id);
+        menu.setEnabled(enabled);
+        baseMapper.updateById(menu);
     }
 
 }
