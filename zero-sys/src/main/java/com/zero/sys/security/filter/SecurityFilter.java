@@ -8,6 +8,7 @@ import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.peoperty.JwtProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.List;
 
@@ -46,11 +48,13 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @SneakyThrows
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。
         FilterInvocation filterInvocation = (FilterInvocation) object;
         HttpServletRequest request = filterInvocation.getRequest();
+        HttpServletResponse response = filterInvocation.getHttpResponse();
         // 获取token
         String token = requestUtils.getToken(request);
         if (StringUtils.isBlank(token)) {

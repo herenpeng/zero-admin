@@ -4,9 +4,8 @@ import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.response.domain.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author herenpeng
  * @since 2020-09-13 15:45
  */
-@ControllerAdvice(value = {"com.zero"})
-public class MyExceptionHandler {
+@RestControllerAdvice(value = {"com.zero"})
+public class GlobalExceptionHandler {
 
     /**
      * 拦截所有自定义异常
@@ -26,7 +25,6 @@ public class MyExceptionHandler {
      * @param e
      * @return
      */
-    @ResponseBody
     @ExceptionHandler(MyException.class)
     public ResponseData myExceptionHandler(HttpServletRequest request, MyException e) {
         e.printStackTrace();
@@ -36,7 +34,6 @@ public class MyExceptionHandler {
     }
 
 
-    @ResponseBody
     @ExceptionHandler(Exception.class)
     public ResponseData exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
