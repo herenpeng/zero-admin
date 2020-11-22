@@ -46,7 +46,7 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
 
     @Override
     public void deleteResourcesRole(Integer resourcesId, Integer roleId) throws Exception {
-        baseMapper.deleteResourcesRole(resourcesId, roleId);
+        resourcesRoleMapper.deleteResourcesRole(resourcesId, roleId);
     }
 
     @Override

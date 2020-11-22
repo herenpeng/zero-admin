@@ -5,6 +5,7 @@ import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.entity.Menu;
+import com.zero.sys.entity.Role;
 import com.zero.sys.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -43,10 +44,10 @@ public class MenuController extends BaseController<MenuService, Menu> {
 
     @LogOperation
     @ApiOperation(value = "[动态路由]获取所有启用的系统菜单")
-    @GetMapping("list")
-    public ResponseData list() throws Exception {
-        List<Menu> list = baseService.getList();
-        return ResponseData.ok(list);
+    @GetMapping("routes")
+    public ResponseData routes() throws Exception {
+        List<Menu> routes = baseService.getRoutes();
+        return ResponseData.ok(routes);
     }
 
 
@@ -62,6 +63,49 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @RequestParam("enabled") Boolean enabled) throws Exception {
         baseService.enabled(id, enabled);
         return ResponseData.ok();
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "删除菜单角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuId", value = "菜单主键", required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+    })
+    @DeleteMapping("role/{menuId}")
+    public ResponseData deleteMenuRole(
+            @PathVariable("menuId") Integer menuId,
+            @RequestParam("roleId") Integer roleId) throws Exception {
+        baseService.deleteMenuRole(menuId, roleId);
+        return ResponseData.ok().message("删除菜单角色成功");
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "获取该菜单未拥有的角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuId", value = "菜单主键", required = true)
+    })
+    @GetMapping("role/{menuId}")
+    public ResponseData getMenuNotRoleList(
+            @PathVariable("menuId") Integer menuId) throws Exception {
+        List<Role> roleList = baseService.getMenuNotRoleList(menuId);
+        return ResponseData.ok(roleList);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "添加菜单角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuId", value = "菜单主键", required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+    })
+    @PostMapping("role/{menuId}")
+    public ResponseData addUserRole(
+            @PathVariable("menuId") Integer menuId,
+            @RequestParam Integer roleId) throws Exception {
+        baseService.addMenuRole(menuId, roleId);
+        return ResponseData.ok().message("添加菜单角色成功");
     }
 
 }

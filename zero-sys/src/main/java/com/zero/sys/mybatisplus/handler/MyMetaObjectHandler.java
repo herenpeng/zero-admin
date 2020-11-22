@@ -55,8 +55,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         // 用户Id为0，表示为系统
         Integer userId = 0;
         try {
-            String token = requestUtils.getToken(request);
-            User user = jwtUtils.getUserInfo(token);
+            User user = jwtUtils.getUserInfo(request);
             userId = user.getId();
         } catch (Exception e) {
             log.info("[数据操作用户拦截器]当前数据操作为系统执行");

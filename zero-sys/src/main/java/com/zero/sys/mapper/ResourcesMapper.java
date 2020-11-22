@@ -45,14 +45,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      */
     void deleteAll() throws Exception;
 
-    /**
-     * 删除系统资源角色
-     *
-     * @param resourcesId 系统资源主键
-     * @param roleId      角色主键
-     * @throws Exception 抛出异常
-     */
-    void deleteResourcesRole(@Param("resourcesId") Integer resourcesId, @Param("roleId") Integer roleId) throws Exception;
+
 
 
 }

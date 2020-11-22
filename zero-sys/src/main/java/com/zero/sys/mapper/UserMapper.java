@@ -36,14 +36,5 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User loadUserByUsername(@Param("username") String username);
 
-    /**
-     * 删除用户的角色（彻底删除）
-     *
-     * @param userId 用户主键
-     * @param roleId 角色主键
-     * @throws Exception 抛出异常
-     */
-    void deleteUserRole(@Param("userId") Integer userId, @Param("roleId") Integer roleId) throws Exception;
-
 
 }

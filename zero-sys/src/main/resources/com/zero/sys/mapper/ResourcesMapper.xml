@@ -57,8 +57,4 @@
         delete from sys_resources
     </delete>
 
-    <delete id="deleteResourcesRole">
-        delete from sys_resources_role where resources_id = #{resourcesId} and role_id = #{roleId}
-    </delete>
-
 </mapper>

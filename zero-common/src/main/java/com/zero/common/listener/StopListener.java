@@ -37,6 +37,7 @@ public class StopListener implements ApplicationListener<ContextClosedEvent>, Ap
     @SneakyThrows
     @Override
     public void onApplicationEvent(ContextClosedEvent contextClosedEvent) {
+        log.info("[系统停止]系统停止中……");
         // 如果系统不执行系统停止事件，我们直接return方法，不继续执行下面的代码
         if (!listenerConfig.isExecutionStop()) {
             log.info("[系统停止事件]系统停止事件未开启");
@@ -61,6 +62,7 @@ public class StopListener implements ApplicationListener<ContextClosedEvent>, Ap
                 }
             }
         }
+        log.info("[系统停止]系统停止完毕……");
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.zero.sys.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
 import com.zero.sys.entity.Menu;
+import com.zero.sys.entity.Role;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public interface MenuService extends BaseService<Menu> {
      * @return 所有的父级菜单信息，以及菜单的子菜单
      * @throws Exception 抛出异常
      */
-    List<Menu> getList() throws Exception;
+    List<Menu> getRoutes() throws Exception;
 
     /**
      * 启用或者禁用该系统菜单
@@ -42,4 +43,31 @@ public interface MenuService extends BaseService<Menu> {
      * @throws Exception 抛出异常
      */
     void enabled(Integer id, Boolean enabled) throws Exception;
+
+    /**
+     * 删除菜单角色
+     *
+     * @param menuId 菜单主键
+     * @param roleId 角色主键
+     * @throws Exception 抛出异常
+     */
+    void deleteMenuRole(Integer menuId, Integer roleId) throws Exception;
+
+    /**
+     * 获取该菜单未拥有的角色
+     *
+     * @param menuId 菜单主键
+     * @return 该菜单没有的角色列表
+     * @throws Exception 抛出异常
+     */
+    List<Role> getMenuNotRoleList(Integer menuId) throws Exception;
+
+    /**
+     * 添加拥有该菜单的角色信息
+     *
+     * @param menuId 菜单主键
+     * @param roleId 角色主键
+     * @throws Exception 抛出异常
+     */
+    void addMenuRole(Integer menuId, Integer roleId) throws Exception;
 }

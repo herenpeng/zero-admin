@@ -34,7 +34,7 @@
     </select>
 
     <select id="getByUserId" resultMap="resultMap">
-        select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
+        select sr.id, sr.name, sr.description
         from sys_role sr
         left join sys_user_role sur on sur.role_id = sr.id
         where sr.deleted = 0
@@ -51,7 +51,7 @@
     </select>
 
     <select id="getByResourcesId" resultMap="resultMap">
-        select sr.id, sr.name, sr.description, sr.create_time, sr.update_time
+        select sr.id, sr.name, sr.description
         from sys_role sr
         left join sys_resources_role srer on srer.role_id = sr.id
         where sr.deleted = 0
@@ -65,6 +65,23 @@
         from sys_role sr
         where sr.deleted = 0 and sr.id not in
         (select srer.role_id from sys_resources_role srer where srer.resources_id = #{resourcesId})
+    </select>
+
+    <select id="getByMenuId" resultMap="resultMap">
+        select sr.id, sr.name, sr.description
+        from sys_role sr
+        left join sys_menu_role smr on smr.role_id = sr.id
+        where sr.deleted = 0
+        <if test="menuId != null">
+            and smr.menu_id = #{menuId}
+        </if>
+    </select>
+
+    <select id="getMenuNotRoleList" resultMap="resultMap">
+        select sr.id, sr.name, sr.description
+        from sys_role sr
+        where sr.deleted = 0 and sr.id not in
+        (select smr.role_id from sys_menu_role smr where smr.menu_id = #{menuId})
     </select>
 
 </mapper>

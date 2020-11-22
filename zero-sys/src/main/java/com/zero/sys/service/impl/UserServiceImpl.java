@@ -81,7 +81,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public void deleteUserRole(Integer userId, Integer roleId) throws Exception {
-        baseMapper.deleteUserRole(userId, roleId);
+        userRoleMapper.deleteUserRole(userId, roleId);
     }
 
     @Override

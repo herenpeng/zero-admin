@@ -84,6 +84,13 @@ public class Menu extends BaseEntity {
      */
     @ApiModelProperty(value = "菜单下级的子菜单")
     @TableField(exist = false)
-    private List<Menu> childrenMenuList;
+    private List<Menu> children;
+
+    /**
+     * 拥有该菜单的角色信息，非数据库字段
+     */
+    @ApiModelProperty(value = "拥有该菜单的角色信息")
+    @TableField(exist = false)
+    private List<Role> roles;
 
 }

@@ -77,28 +77,36 @@
         order by sort
     </select>
 
-    <select id="getParentList" resultMap="resultMap">
-        select `id` as id,`path` as path,`name` as name,`component` as component,
-        `meta_title` as meta_title,`meta_icon` as meta_icon,`redirect` as redirect,
-        `sort` as sort,`enabled` as enabled,`parent_id` as parent_id
-        from sys_menu
-        where deleted = 0
-        and enabled = 1
-        and parent_id = 0
-        order by sort
+    <select id="getParentRoutes" resultMap="resultMap">
+        select sm.id as id,sm.path as path,sm.name as name,sm.component as component,
+        sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
+        sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
+        from sys_menu sm
+        left join sys_menu_role smr on smr.menu_id = sm.id
+        where sm.deleted = 0
+        and sm.enabled = 1
+        and sm.parent_id = 0
+        <if test="userId != null">
+            and smr.role_id in (select role_id from sys_user_role where user_id = #{userId})
+        </if>
+        order by sm.sort
     </select>
 
-    <select id="getChildrenMenuList" resultType="com.zero.sys.entity.Menu">
-        select `id` as id,`path` as path,`name` as name,`component` as component,
-        `meta_title` as meta_title,`meta_icon` as meta_icon,`redirect` as redirect,
-        `sort` as sort,`enabled` as enabled,`parent_id` as parent_id
-        from sys_menu
-        where deleted = 0
-        and enabled = 1
+    <select id="getChildrenRoutes" resultType="com.zero.sys.entity.Menu">
+        select sm.id as id,sm.path as path,sm.name as name,sm.component as component,
+        sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
+        sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
+        from sys_menu sm
+        left join sys_menu_role smr on smr.menu_id = sm.id
+        where sm.deleted = 0
+        and sm.enabled = 1
         <if test="parentId != null">
-            and parent_id = #{parentId}
+            and sm.parent_id = #{parentId}
         </if>
-        order by sort
+        <if test="userId != null">
+            and smr.role_id in (select role_id from sys_user_role where user_id = #{userId})
+        </if>
+        order by sm.sort
     </select>
 
 </mapper>

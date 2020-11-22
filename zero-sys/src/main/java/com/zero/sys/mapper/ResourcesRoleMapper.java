@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zero.sys.entity.ResourcesRole;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,4 +24,15 @@ public interface ResourcesRoleMapper extends BaseMapper<ResourcesRole> {
      */
     @Delete("delete from sys_resources_role")
     void deleteAll() throws Exception;
+
+
+    /**
+     * 删除系统资源角色
+     *
+     * @param resourcesId 系统资源主键
+     * @param roleId      角色主键
+     * @throws Exception 抛出异常
+     */
+    @Delete("delete from sys_resources_role where resources_id = #{resourcesId} and role_id = #{roleId}")
+    void deleteResourcesRole(@Param("resourcesId") Integer resourcesId, @Param("roleId") Integer roleId) throws Exception;
 }

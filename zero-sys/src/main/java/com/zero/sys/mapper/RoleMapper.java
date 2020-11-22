@@ -66,4 +66,22 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     List<Role> getResourcesNotRoleList(@Param("resourcesId") Integer resourcesId) throws Exception;
 
+    /**
+     * 获取拥有该菜单的所有角色信息
+     *
+     * @param menuId 菜单主键
+     * @return
+     * @throws Exception 抛出异常
+     */
+    List<Role> getByMenuId(@Param("menuId") Integer menuId) throws Exception;
+
+    /**
+     * 获取该菜单没有的角色信息
+     *
+     * @param menuId 菜单主键
+     * @return 该菜单没有的角色信息
+     * @throws Exception 抛出异常
+     */
+    List<Role> getMenuNotRoleList(@Param("menuId") Integer menuId) throws Exception;
+
 }

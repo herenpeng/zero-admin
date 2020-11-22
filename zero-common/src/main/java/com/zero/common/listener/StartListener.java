@@ -36,6 +36,7 @@ public class StartListener implements ApplicationListener<ApplicationReadyEvent>
     @SneakyThrows
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        log.info("[系统启动]系统启动中……");
         // 如果系统不执行系统启动事件，我们直接return方法，不继续执行下面的代码
         if (!listenerConfig.isExecutionStart()) {
             log.info("[系统启动事件]系统启动事件未开启");
@@ -58,6 +59,7 @@ public class StartListener implements ApplicationListener<ApplicationReadyEvent>
                 }
             }
         }
+        log.info("[系统启动]系统启动完毕……");
     }
 
     @Override

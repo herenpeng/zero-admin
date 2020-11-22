@@ -62,7 +62,7 @@ CREATE TABLE `base_table` (
   `update_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '数据库数据更新用户主键',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除标识，0为正常，1为逻辑删除，默认为0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='数据库基本表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='数据库基本表';
 ```
 
 ## 补充说明

@@ -64,9 +64,5 @@
         where su.deleted = 0 and su.username = #{username}
     </select>
 
-    <delete id="deleteUserRole">
-        delete from sys_user_role where user_id = #{userId} and role_id = #{roleId}
-    </delete>
-
 
 </mapper>
