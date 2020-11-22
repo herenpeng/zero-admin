@@ -21,7 +21,7 @@
         <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
         <#if column.javaType == "String">
         <if test="query${entityName}.${column.javaName} != null and query${entityName}.${column.javaName} != ''">
-            and ${column.name} like concat('%', ${"#"}{query${entityName}.${column.javaName}, '%')
+            and ${column.name} like concat('%', ${"#"}{query${entityName}.${column.javaName}}, '%')
         </if>
         <#else>
         <if test="query${entityName}.${column.javaName} != null">

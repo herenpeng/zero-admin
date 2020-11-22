@@ -42,19 +42,11 @@ public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * [动态路由]获取所有的启用（enabled=1）的父级菜单信息
      *
-     * @param userId 用户主键
-     * @return 所有的父级菜单信息
+     * @param userId   用户主键
+     * @param parentId 父级菜单主键，如果为null，则默认获取顶级菜单
+     * @return 所有的菜单信息
      * @throws Exception 抛出异常
      */
-    List<Menu> getParentRoutes(@Param("userId") Integer userId) throws Exception;
+    List<Menu> getRoutes(@Param("userId") Integer userId, @Param("parentId") Integer parentId) throws Exception;
 
-    /**
-     * [动态路由]通过父菜单主键，获取菜单下启用（enabled=1）的子菜单
-     *
-     * @param parentId 父级菜单主键
-     * @param userId   用户主键
-     * @return
-     * @throws Exception
-     */
-    List<Menu> getChildrenRoutes(@Param("parentId") Integer parentId, @Param("userId") Integer userId) throws Exception;
 }

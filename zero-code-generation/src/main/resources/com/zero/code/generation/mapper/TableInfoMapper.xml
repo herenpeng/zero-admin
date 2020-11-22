@@ -51,14 +51,14 @@
     <select id="getTableInfoListByInformationSchema" resultMap="resultMap">
         select table_name as name,table_comment as comment
         from information_schema.tables
-        where table_schema = (select DATABASE())
+        where table_schema = (select database())
     </select>
 
 
     <select id="getNotAddList" resultMap="resultMap">
         select table_name as name,table_comment as comment
         from information_schema.tables
-        where table_schema = (select DATABASE())
+        where table_schema = (select database())
         and table_name not in (select name from dev_table_info dti where dti.deleted = 0)
     </select>
 

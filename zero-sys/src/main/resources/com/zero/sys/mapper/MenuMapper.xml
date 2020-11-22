@@ -27,42 +27,49 @@
 
     <sql id="baseQuery">
         <if test="queryMenu.path != null and queryMenu.path != ''">
-            and path like concat('%', #{queryMenu.path, '%')
+            and (sm.path like concat('%', #{queryMenu.path}, '%')
+            or csm.path like concat('%', #{queryMenu.path}, '%'))
         </if>
         <if test="queryMenu.name != null and queryMenu.name != ''">
-            and name like concat('%', #{queryMenu.name, '%')
+            and (sm.name like concat('%', #{queryMenu.name}, '%')
+            or csm.name like concat('%', #{queryMenu.name}, '%'))
         </if>
         <if test="queryMenu.component != null and queryMenu.component != ''">
-            and component like concat('%', #{queryMenu.component, '%')
+            and (sm.component like concat('%', #{queryMenu.component}, '%')
+            or csm.component like concat('%', #{queryMenu.component}, '%'))
         </if>
         <if test="queryMenu.metaTitle != null and queryMenu.metaTitle != ''">
-            and meta_title like concat('%', #{queryMenu.metaTitle, '%')
+            and (sm.meta_title like concat('%', #{queryMenu.metaTitle}, '%')
+            or csm.meta_title like concat('%', #{queryMenu.metaTitle}, '%'))
         </if>
         <if test="queryMenu.metaIcon != null and queryMenu.metaIcon != ''">
-            and meta_icon like concat('%', #{queryMenu.metaIcon, '%')
+            and (sm.meta_icon like concat('%', #{queryMenu.metaIcon}, '%')
+            or csm.meta_icon like concat('%', #{queryMenu.metaIcon}, '%'))
         </if>
         <if test="queryMenu.redirect != null and queryMenu.redirect != ''">
-            and redirect like concat('%', #{queryMenu.redirect, '%')
+            and (sm.redirect like concat('%', #{queryMenu.redirect}, '%')
+            or csm.redirect like concat('%', #{queryMenu.redirect}, '%'))
         </if>
         <if test="queryMenu.enabled != null">
-            and enabled = #{queryMenu.enabled}
+            and sm.enabled = #{queryMenu.enabled}
         </if>
         <if test="queryMenu.parentId != null">
-            and parent_id = #{queryMenu.parentId}
+            and sm.parent_id = #{queryMenu.parentId}
         </if>
         <if test="queryMenu.parentId == null">
-            and parent_id = 0
+            and sm.parent_id = 0
         </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`path` as path,`name` as name,`component` as component,
-        `meta_title` as meta_title,`meta_icon` as meta_icon,`redirect` as redirect,
-        `sort` as sort,`enabled` as enabled,`parent_id` as parent_id
-        from sys_menu
-        where deleted = 0
+        select distinct sm.id as id,sm.path as path,sm.name as name,sm.component as component,
+        sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
+        sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
+        from sys_menu sm
+        inner join sys_menu csm on csm.parent_id = sm.id
+        where sm.deleted = 0
         <include refid="baseQuery"></include>
-        order by sort
+        order by sm.sort
     </select>
 
     <select id="getByParentId" resultMap="resultMap">
@@ -77,23 +84,8 @@
         order by sort
     </select>
 
-    <select id="getParentRoutes" resultMap="resultMap">
-        select sm.id as id,sm.path as path,sm.name as name,sm.component as component,
-        sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
-        sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
-        from sys_menu sm
-        left join sys_menu_role smr on smr.menu_id = sm.id
-        where sm.deleted = 0
-        and sm.enabled = 1
-        and sm.parent_id = 0
-        <if test="userId != null">
-            and smr.role_id in (select role_id from sys_user_role where user_id = #{userId})
-        </if>
-        order by sm.sort
-    </select>
-
-    <select id="getChildrenRoutes" resultType="com.zero.sys.entity.Menu">
-        select sm.id as id,sm.path as path,sm.name as name,sm.component as component,
+    <select id="getRoutes" resultMap="resultMap">
+        select distinct sm.id as id,sm.path as path,sm.name as name,sm.component as component,
         sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
         sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
         from sys_menu sm
@@ -102,6 +94,9 @@
         and sm.enabled = 1
         <if test="parentId != null">
             and sm.parent_id = #{parentId}
+        </if>
+        <if test="parentId == null">
+            and sm.parent_id = 0
         </if>
         <if test="userId != null">
             and smr.role_id in (select role_id from sys_user_role where user_id = #{userId})

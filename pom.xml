@@ -7,7 +7,7 @@
     <groupId>com.zero</groupId>
     <artifactId>zero-admin</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${zero-admin.version}</version>
     <modules>
         <module>zero-web</module>
         <module>zero-sys</module>
@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <zero-admin.version>1.0-SNAPSHOT</zero-admin.version>
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
         <mybatis-plus.version>3.0.5</mybatis-plus.version>
         <jjwt.version>0.9.0</jjwt.version>

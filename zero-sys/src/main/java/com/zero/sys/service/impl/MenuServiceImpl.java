@@ -59,9 +59,9 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @Override
     public List<Menu> getRoutes() throws Exception {
         Integer userId = jwtUtils.getUserId(requestUtils.getToken(request));
-        List<Menu> parentList = baseMapper.getParentRoutes(userId);
+        List<Menu> parentList = baseMapper.getRoutes(userId,null);
         for (Menu menu : parentList) {
-            menu.setChildren(baseMapper.getChildrenRoutes(menu.getId(), userId));
+            menu.setChildren(baseMapper.getRoutes(userId, menu.getId()));
         }
         return parentList;
     }
