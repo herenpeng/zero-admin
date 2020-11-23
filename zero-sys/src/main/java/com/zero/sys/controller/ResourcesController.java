@@ -30,13 +30,13 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @ApiOperation(value = "分页查询系统资源数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
             @ApiImplicitParam(name = "queryResources", value = "系统资源查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             Resources queryResources) throws Exception {
         IPage<Resources> page = baseService.page(currentPage, size, queryResources);
         return ResponseData.ok(page);

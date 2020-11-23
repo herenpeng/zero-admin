@@ -30,13 +30,13 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @ApiOperation(value = "分页查询系统菜单表数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
             @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             Menu queryMenu) throws Exception {
         IPage<Menu> page = baseService.page(currentPage, size, queryMenu);
         return ResponseData.ok(page);

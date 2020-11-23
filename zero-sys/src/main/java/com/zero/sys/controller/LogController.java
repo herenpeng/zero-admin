@@ -26,13 +26,13 @@ public class LogController extends BaseController<LogService, Log> {
     @ApiOperation(value = "分页查询操作日志数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
             @ApiImplicitParam(name = "queryLog", value = "操作日志查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             Log queryLog) throws Exception {
         IPage<Log> page = baseService.page(currentPage, size, queryLog);
         return ResponseData.ok(page);

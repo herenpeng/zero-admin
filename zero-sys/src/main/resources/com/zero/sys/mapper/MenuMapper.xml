@@ -66,7 +66,7 @@
         sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
         sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
         from sys_menu sm
-        inner join sys_menu csm on csm.parent_id = sm.id
+        left join sys_menu csm on csm.parent_id = sm.id
         where sm.deleted = 0
         <include refid="baseQuery"></include>
         order by sm.sort

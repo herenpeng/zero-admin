@@ -27,13 +27,13 @@ public class RoleController extends BaseController<RoleService, Role> {
     @ApiOperation(value = "分页查询角色数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
             @ApiImplicitParam(name = "queryRole", value = "角色查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             Role queryRole) throws Exception {
         IPage<Role> page = baseService.page(currentPage, size, queryRole);
         return ResponseData.ok(page);

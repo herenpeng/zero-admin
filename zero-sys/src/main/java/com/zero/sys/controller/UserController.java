@@ -30,13 +30,13 @@ public class UserController extends BaseController<UserService, User> {
     @ApiOperation(value = "分页查询用户数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
             @ApiImplicitParam(name = "queryUser", value = "用户查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             User queryUser) throws Exception {
         IPage<User> page = baseService.page(currentPage, size, queryUser);
         return ResponseData.ok(page);

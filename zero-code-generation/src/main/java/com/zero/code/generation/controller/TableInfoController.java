@@ -29,13 +29,13 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     @ApiOperation(value = "分页查询系统数据库表信息数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
             @ApiImplicitParam(name = "queryUser", value = "系统数据库表信息查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             TableInfo queryTableInfo) throws Exception {
         IPage<TableInfo> page = baseService.page(currentPage, size, queryTableInfo);
         return ResponseData.ok(page);
