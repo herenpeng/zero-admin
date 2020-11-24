@@ -39,4 +39,14 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
         return ResponseData.ok(page);
     }
 
+    @LogOperation
+    @ApiOperation(value = "查询所有的${comment}数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
+    })
+    @GetMapping("list")
+    public ResponseData page(${entityName} query${entityName}) throws Exception {
+        return ResponseData.ok(baseService.list(query${entityName}));
+    }
+
 }

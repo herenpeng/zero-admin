@@ -69,6 +69,9 @@
         left join sys_menu csm on csm.parent_id = sm.id
         where sm.deleted = 0
         <include refid="baseQuery"></include>
+        <if test="queryMenu.roleId != null">
+            and sm.id in (select menu_id from sys_menu_role where role_id = #{queryMenu.roleId})
+        </if>
         order by sm.sort
     </select>
 

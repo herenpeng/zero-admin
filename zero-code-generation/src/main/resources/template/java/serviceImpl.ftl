@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * ${comment}业务逻辑层的实现类
  *
@@ -26,6 +28,11 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
         Page page = new Page(currentPage, size);
         IPage<${entityName}> pageInfo = baseMapper.getPage(page, query${entityName});
         return pageInfo;
+    }
+
+    @Override
+    public List<${entityName}> list(${entityName} query${entityName}) throws Exception {
+        return baseMapper.getList(page, query${entityName});
     }
 
 }

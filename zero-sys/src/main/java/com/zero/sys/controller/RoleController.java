@@ -46,9 +46,12 @@ public class RoleController extends BaseController<RoleService, Role> {
      */
     @LogOperation
     @ApiOperation(value = "获取所有的用户角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "queryRole", value = "角色查询条件")
+    })
     @GetMapping("list")
-    public ResponseData list() throws Exception {
-        return ResponseData.ok(baseService.list());
+    public ResponseData list(Role queryRole) throws Exception {
+        return ResponseData.ok(baseService.list(queryRole));
     }
 
 

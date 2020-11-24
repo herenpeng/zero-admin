@@ -28,10 +28,11 @@ public interface RoleService extends BaseService<Role> {
     /**
      * 获取所有的用户角色信息
      *
+     * @param queryRole 角色查询条件
      * @return
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
-    List<Role> list() throws Exception;
+    List<Role> list(Role queryRole) throws Exception;
 
 
 }

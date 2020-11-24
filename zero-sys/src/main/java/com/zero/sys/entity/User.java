@@ -75,4 +75,11 @@ public class User extends BaseEntity {
     @TableField(exist = false)
     private List<Role> roles;
 
+    /**
+     * 通过角色主键查询用户
+     */
+    @ApiModelProperty(value = "通过角色主键查询用户")
+    @TableField(exist = false)
+    private Integer roleId;
+
 }

@@ -58,4 +58,12 @@ public class Resources extends BaseEntity {
     @ApiModelProperty(value = "拥有该资源的角色信息")
     @TableField(exist = false)
     private List<Role> roles;
+
+    /**
+     * 通过角色主键查询系统资源
+     */
+    @ApiModelProperty(value = "通过角色主键查询系统资源")
+    @TableField(exist = false)
+    private Integer roleId;
+
 }

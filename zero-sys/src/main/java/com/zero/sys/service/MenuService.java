@@ -16,7 +16,7 @@ import java.util.List;
 public interface MenuService extends BaseService<Menu> {
 
     /**
-     * 分页查询用户数据
+     * 分页查询菜单数据
      *
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10

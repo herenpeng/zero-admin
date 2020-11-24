@@ -33,6 +33,13 @@
         <include refid="baseQuery"></include>
     </select>
 
+    <select id="getList" resultMap="resultMap">
+        select `id` as id, `name` as name, `description` as description
+        from sys_role
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
     <select id="getByUserId" resultMap="resultMap">
         select sr.id, sr.name, sr.description
         from sys_role sr

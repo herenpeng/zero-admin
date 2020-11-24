@@ -93,4 +93,11 @@ public class Menu extends BaseEntity {
     @TableField(exist = false)
     private List<Role> roles;
 
+    /**
+     * 通过角色主键查询菜单
+     */
+    @ApiModelProperty(value = "通过角色主键查询菜单")
+    @TableField(exist = false)
+    private Integer roleId;
+
 }

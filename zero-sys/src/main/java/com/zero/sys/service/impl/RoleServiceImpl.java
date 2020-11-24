@@ -32,8 +32,8 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     }
 
     @Override
-    public List<Role> list() throws Exception {
-        return baseMapper.selectList(null);
+    public List<Role> list(Role queryRole) throws Exception {
+        return baseMapper.getList(queryRole);
     }
 
 }

@@ -51,6 +51,9 @@
         from sys_user
         where deleted = 0
         <include refid="baseQuery"></include>
+        <if test="queryUser.roleId != null">
+            and id in (select user_id from sys_user_role where role_id = #{queryUser.roleId})
+        </if>
     </select>
 
     <select id="loadUserByUsername" resultMap="resultMap">
