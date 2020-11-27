@@ -13,10 +13,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 /**
+ * 系统资源测试用例
+ *
  * @author herenpeng
  * @since 2020-10-22 11:38
  */
-@SpringBootTest(classes = {MyApplication.class})
+@SpringBootTest(classes = {MyApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class ScanResourcesTest {
 

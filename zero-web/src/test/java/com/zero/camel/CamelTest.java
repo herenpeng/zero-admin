@@ -7,15 +7,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
+ * 变量命名风格转换工具类测试用例
+ *
  * @author herenpeng
  * @since 2020-11-15 16:18
  */
-@SpringBootTest(classes = {MyApplication.class})
+@SpringBootTest(classes = {MyApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class CamelTest {
 
     @Test
-    public void test01 () {
+    public void test01() {
         String str = "helloWorld";
         System.out.println(toUnderlineName(str));
         str = "aaa_bbb_Cdc_WA";

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 用户-角色关联表
+ *
  * @author herenpeng
  * @since 2020-09-07 08:05
  */

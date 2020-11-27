@@ -10,10 +10,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * 测试密码加密算法
+ *
  * @author herenpeng
  * @since 2020-09-13 18:45
  */
-@SpringBootTest(classes = {MyApplication.class})
+@SpringBootTest(classes = {MyApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class EncodePasswordTest {
 
@@ -24,7 +25,7 @@ public class EncodePasswordTest {
     public void test01() {
         // PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encode = passwordEncoder.encode("111111");
-        System.out.println(encode);
+        System.out.println("加密后的密码" + encode);
     }
 
 

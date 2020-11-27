@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 角色实体类信息
+ *
  * @author herenpeng
  * @since 2020-09-07 08:05
  */

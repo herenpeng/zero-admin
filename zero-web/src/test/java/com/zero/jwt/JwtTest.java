@@ -19,10 +19,12 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * JwtUtils测试用例
+ *
  * @author herenpeng
  * @since 2020-09-28 20:59
  */
-@SpringBootTest(classes = {MyApplication.class})
+@SpringBootTest(classes = {MyApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class JwtTest {
 
