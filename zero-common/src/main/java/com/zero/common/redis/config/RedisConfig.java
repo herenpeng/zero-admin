@@ -8,6 +8,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
+ * Redis配置类
+ *
  * @author herenpeng
  * @since 2020-11-05 23:53
  */
