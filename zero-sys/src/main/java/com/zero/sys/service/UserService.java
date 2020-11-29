@@ -83,7 +83,7 @@ public interface UserService extends BaseService<User> {
     void addUserRole(Integer userId, Integer roleId) throws Exception;
 
     /**
-     * 通过用户主键恢复逻辑删除的用户数据
+     * 通过主键恢复逻辑删除的用户数据
      *
      * @param id 用户主键
      * @throws Exception 抛出异常

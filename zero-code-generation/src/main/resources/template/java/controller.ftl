@@ -41,6 +41,17 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
 
 
     @LogOperation
+    @ApiOperation(value = "查询所有的${comment}数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
+    })
+    @GetMapping("list")
+    public ResponseData list(${entityName} query${entityName}) throws Exception {
+        return ResponseData.ok(baseService.list(query${entityName}));
+    }
+
+
+    @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的${comment}数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
@@ -58,13 +69,14 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
 
 
     @LogOperation
-    @ApiOperation(value = "查询所有的${comment}数据")
+    @ApiOperation(value = "通过主键恢复逻辑删除的${comment}数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
+            @ApiImplicitParam(name = "id", value = "${comment}ID", required = true)
     })
-    @GetMapping("list")
-    public ResponseData list(${entityName} query${entityName}) throws Exception {
-        return ResponseData.ok(baseService.list(query${entityName}));
+    @PutMapping("recover/{id}")
+    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+        baseService.recover(id);
+        return ResponseData.ok();
     }
 
 }

@@ -130,7 +130,7 @@ public class UserController extends BaseController<UserService, User> {
 
 
     @LogOperation
-    @ApiOperation(value = "通过用户主键恢复逻辑删除的用户数据")
+    @ApiOperation(value = "通过主键恢复逻辑删除的用户数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户ID", required = true)
     })

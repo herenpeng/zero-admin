@@ -26,6 +26,15 @@ public interface ${entityName}Service extends BaseService<${entityName}> {
     IPage<${entityName}> page(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception;
 
     /**
+     * 查询所有的${comment}数据
+     *
+     * @param query${entityName}   查询${comment}的条件
+     * @return 查询所有的${comment}数据
+     * @throws Exception 抛出异常
+     */
+    List<${entityName}> list(${entityName} query${entityName}) throws Exception;
+
+    /**
      * 分页查询逻辑删除的${comment}数据
      *
      * @param currentPage 当前页面数，页面从1开始
@@ -37,12 +46,11 @@ public interface ${entityName}Service extends BaseService<${entityName}> {
     IPage<${entityName}> getDeletePage(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception;
 
     /**
-     * 查询所有的${comment}数据
+     * 通过主键恢复逻辑删除的${comment}数据
      *
-     * @param query${entityName}   查询${comment}的条件
-     * @return 查询所有的${comment}数据
+     * @param id ${comment}主键
      * @throws Exception 抛出异常
      */
-    List<${entityName}> list(${entityName} query${entityName}) throws Exception;
+    void recover(Integer id) throws Exception;
 
 }

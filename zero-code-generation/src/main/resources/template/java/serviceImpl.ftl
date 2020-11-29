@@ -31,17 +31,20 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     }
 
     @Override
+    public List<${entityName}> list(${entityName} query${entityName}) throws Exception {
+        return baseMapper.getList(page, query${entityName});
+    }
+
+    @Override
     public IPage<${entityName}> getDeletePage(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
         Page page = new Page(currentPage, size);
         IPage<${entityName}> pageInfo = baseMapper.getDeletePage(page, query${entityName});
         return pageInfo;
     }
 
-
-
     @Override
-    public List<${entityName}> list(${entityName} query${entityName}) throws Exception {
-        return baseMapper.getList(page, query${entityName});
+    public void recover(Integer id) throws Exception {
+        baseMapper.recoverById(id);
     }
 
 }

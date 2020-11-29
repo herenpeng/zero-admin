@@ -29,6 +29,14 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      */
     IPage<${entityName}> getPage(IPage page, @Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
+    /**
+     * 获取所有的${comment}数据，区别于selectList的是，该方法添加了查询条件
+     *
+     * @param query${entityName} ${entityName}查询条件
+     * @return ${entityName}集合
+     * @throws Exception 抛出异常
+     */
+    List<${entityName}> getList(@Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
     /**
      * 分页查询逻辑删除的${comment}数据
@@ -40,14 +48,12 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      */
     IPage<${entityName}> getDeletePage(IPage page, @Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
-
     /**
-     * 获取所有的${comment}数据，区别于selectList的是，该方法添加了查询条件
+     * 通过主键恢复逻辑删除的${comment}数据
      *
-     * @param query${entityName} ${entityName}查询条件
-     * @return ${entityName}集合
+     * @param id ${comment}主键
      * @throws Exception 抛出异常
      */
-    List<${entityName}> getList(@Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
+    void recoverById(@Param("id") Integer id) throws Exception;
 
 }
