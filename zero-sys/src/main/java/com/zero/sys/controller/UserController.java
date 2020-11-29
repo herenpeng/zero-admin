@@ -44,6 +44,23 @@ public class UserController extends BaseController<UserService, User> {
 
 
     @LogOperation
+    @ApiOperation(value = "分页查询逻辑删除的用户数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
+            @ApiImplicitParam(name = "queryUser", value = "用户查询条件")
+    })
+    @GetMapping("delete/page/{currentPage}")
+    public ResponseData getDeletePage(
+            @PathVariable("currentPage") Integer currentPage,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
+            User queryUser) throws Exception {
+        IPage<User> page = baseService.getDeletePage(currentPage, size, queryUser);
+        return ResponseData.ok(page);
+    }
+
+
+    @LogOperation
     @ApiOperation(value = "启用或者禁用一个用户账号")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户ID", required = true),
@@ -109,6 +126,18 @@ public class UserController extends BaseController<UserService, User> {
             @RequestParam Integer roleId) throws Exception {
         baseService.addUserRole(userId, roleId);
         return ResponseData.ok().message("添加用户角色成功");
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "通过用户主键恢复逻辑删除的用户数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    })
+    @PutMapping("recover/{id}")
+    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+        baseService.recover(id);
+        return ResponseData.ok();
     }
 
 }

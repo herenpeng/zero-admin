@@ -21,7 +21,7 @@ public interface MenuService extends BaseService<Menu> {
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
      * @param queryMenu   查询系统菜单表的条件
-     * @return 分页查询的所有系统菜单表数据
+     * @return 分页查询所有的系统菜单表数据
      * @throws Exception 抛出异常
      */
     IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu) throws Exception;

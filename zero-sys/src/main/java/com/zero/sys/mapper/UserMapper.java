@@ -28,6 +28,16 @@ public interface UserMapper extends BaseMapper<User> {
     IPage<User> getPage(IPage page, @Param("queryUser") User queryUser) throws Exception;
 
     /**
+     * 分页查询逻辑删除的用户数据
+     *
+     * @param page      分页查询
+     * @param queryUser 用户查询条件
+     * @return 用户集合
+     * @throws Exception 抛出异常
+     */
+    IPage<User> getDeletePage(IPage page, @Param("queryUser") User queryUser) throws Exception;
+
+    /**
      * 通过用户名查找对应的用户，以及用户所拥有的角色信息
      *
      * @param username 用户名，需要在数据库中保证唯一
@@ -36,5 +46,11 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User loadUserByUsername(@Param("username") String username);
 
-
+    /**
+     * 通过用户主键恢复逻辑删除的用户数据
+     *
+     * @param id 用户主键
+     * @throws Exception 抛出异常
+     */
+    void recoverById(@Param("id") Integer id) throws Exception;
 }

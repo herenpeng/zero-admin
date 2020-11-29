@@ -21,10 +21,21 @@ public interface UserService extends BaseService<User> {
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
      * @param queryUser   查询用户的条件
-     * @return 分页查询的所有用户数据
+     * @return 分页查询所有的用户数据
      * @throws Exception 抛出异常
      */
     IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception;
+
+    /**
+     * 分页查询逻辑删除的用户数据
+     *
+     * @param currentPage 当前页面数，页面从1开始
+     * @param size        当前页的大小，默认为10
+     * @param queryUser   查询用户的条件
+     * @return 分页查询逻辑删除的用户数据
+     * @throws Exception 抛出异常
+     */
+    IPage<User> getDeletePage(Integer currentPage, Integer size, User queryUser) throws Exception;
 
     /**
      * 启用或者禁用该用户账号
@@ -71,5 +82,11 @@ public interface UserService extends BaseService<User> {
      */
     void addUserRole(Integer userId, Integer roleId) throws Exception;
 
-
+    /**
+     * 通过用户主键恢复逻辑删除的用户数据
+     *
+     * @param id 用户主键
+     * @throws Exception 抛出异常
+     */
+    void recover(Integer id) throws Exception;
 }

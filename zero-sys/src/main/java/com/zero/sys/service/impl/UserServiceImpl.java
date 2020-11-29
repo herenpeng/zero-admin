@@ -57,6 +57,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    public IPage<User> getDeletePage(Integer currentPage, Integer size, User queryUser) throws Exception {
+        Page page = new Page(currentPage, size);
+        IPage<User> pageInfo = baseMapper.getDeletePage(page, queryUser);
+        for (User user : pageInfo.getRecords()) {
+            user.setRoles(roleMapper.getByUserId(user.getId()));
+        }
+        return pageInfo;
+    }
+
+    @Override
     public boolean save(User user) {
         String defaultPassword = userProperties.getDefaultPassword();
         String encodePassword = passwordEncoder.encode(defaultPassword);
@@ -95,6 +105,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         userRole.setUserId(userId);
         userRole.setRoleId(roleId);
         userRoleMapper.insert(userRole);
+    }
+
+    @Override
+    public void recover(Integer id) throws Exception {
+        baseMapper.recoverById(id);
     }
 
 

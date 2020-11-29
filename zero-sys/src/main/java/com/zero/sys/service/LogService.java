@@ -16,7 +16,7 @@ public interface LogService extends BaseService<Log> {
      * @param currentPage 当前页面数，页面从1开始
      * @param size        前页的大小，默认为8
      * @param queryLog    查询操作日志的条件
-     * @return 分页查询的所有操作日志数据
+     * @return 分页查询所有的操作日志数据
      * @throws Exception 抛出异常
      */
     IPage<Log> page(Integer currentPage, Integer size, Log queryLog) throws Exception;

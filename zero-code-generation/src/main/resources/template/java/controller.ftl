@@ -39,13 +39,31 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
         return ResponseData.ok(page);
     }
 
+
+    @LogOperation
+    @ApiOperation(value = "分页查询逻辑删除的${comment}数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
+            @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
+    })
+    @GetMapping("delete/page/{currentPage}")
+    public ResponseData getDeletePage(
+            @PathVariable("currentPage") Integer currentPage,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
+            ${entityName} query${entityName}) throws Exception {
+        IPage<${entityName}> page = baseService.getDeletePage(currentPage, size, queryUser);
+        return ResponseData.ok(page);
+    }
+
+
     @LogOperation
     @ApiOperation(value = "查询所有的${comment}数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
     })
     @GetMapping("list")
-    public ResponseData page(${entityName} query${entityName}) throws Exception {
+    public ResponseData list(${entityName} query${entityName}) throws Exception {
         return ResponseData.ok(baseService.list(query${entityName}));
     }
 

@@ -39,6 +39,13 @@
         <include refid="baseQuery"></include>
     </select>
 
+    <select id="getDeletePage" resultMap="resultMap">
+        select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
+        from ${name}
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
     <select id="getList" resultMap="resultMap">
         select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
         from ${name}

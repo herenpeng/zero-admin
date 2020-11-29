@@ -20,7 +20,7 @@ import java.util.List;
 public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
 
     /**
-     * 分页获取${comment}数据，区别于selectPage的是，该方法添加了查询条件
+     * 分页查询${comment}数据，区别于selectPage的是，该方法添加了查询条件
      *
      * @param page      分页查询
      * @param query${entityName} ${entityName}查询条件
@@ -28,6 +28,17 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      * @throws Exception 抛出异常
      */
     IPage<${entityName}> getPage(IPage page, @Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
+
+
+    /**
+     * 分页查询逻辑删除的${comment}数据
+     *
+     * @param page      分页查询
+     * @param query${entityName} ${entityName}查询条件
+     * @return ${entityName}集合
+     * @throws Exception 抛出异常
+     */
+    IPage<${entityName}> getDeletePage(IPage page, @Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
 
     /**

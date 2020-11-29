@@ -21,7 +21,7 @@ public interface ResourcesService extends BaseService<Resources> {
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
      * @param queryResources   查询系统资源的条件
-     * @return 分页查询的所有系统资源数据
+     * @return 分页查询所有的系统资源数据
      * @throws Exception 抛出异常
      */
     IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources) throws Exception;

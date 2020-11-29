@@ -23,10 +23,10 @@ mybatis-plus:
   # 配置逻辑删除字段
   global-config:
     db-config:
-      # 删除状态为1
-      logic-delete-value: 1
-      # 没有删除状态为0
-      logic-not-delete-value: 0
+      # 删除状态为1(true)
+      logic-delete-value: true
+      # 没有删除状态为0(false)
+      logic-not-delete-value: false
 zero:
   sys:
     user:
