@@ -36,15 +36,20 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     }
 
     @Override
-    public IPage<${entityName}> getDeletePage(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
+    public IPage<${entityName}> recoverPage(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
         Page page = new Page(currentPage, size);
-        IPage<${entityName}> pageInfo = baseMapper.getDeletePage(page, query${entityName});
+        IPage<${entityName}> pageInfo = baseMapper.getRecoverPage(page, query${entityName});
         return pageInfo;
     }
 
     @Override
     public void recover(Integer id) throws Exception {
         baseMapper.recoverById(id);
+    }
+
+    @Override
+    public void recoverDelete(Integer id) throws Exception {
+        baseMapper.recoverDelete(id);
     }
 
 }

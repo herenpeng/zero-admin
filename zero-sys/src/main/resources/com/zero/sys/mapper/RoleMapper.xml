@@ -40,6 +40,13 @@
         <include refid="baseQuery"></include>
     </select>
 
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`description` as description,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_role
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
     <select id="getByUserId" resultMap="resultMap">
         select sr.id, sr.name, sr.description
         from sys_role sr

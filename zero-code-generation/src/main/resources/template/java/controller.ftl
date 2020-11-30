@@ -58,12 +58,12 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
             @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
             @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
     })
-    @GetMapping("delete/page/{currentPage}")
-    public ResponseData getDeletePage(
+    @GetMapping("recover/page/{currentPage}")
+    public ResponseData recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             ${entityName} query${entityName}) throws Exception {
-        IPage<${entityName}> page = baseService.getDeletePage(currentPage, size, queryUser);
+        IPage<${entityName}> page = baseService.recoverPage(currentPage, size, query${entityName});
         return ResponseData.ok(page);
     }
 
@@ -77,6 +77,17 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
         return ResponseData.ok();
+    }
+
+    @LogOperation
+    @ApiOperation(value = "通过主键彻底删除一条${comment}数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "${comment}ID", required = true)
+    })
+    @DeleteMapping("recover/{id}")
+    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+        baseService.recoverDelete(id);
+        return ResponseData.ok("彻底删除该${comment}数据");
     }
 
 }

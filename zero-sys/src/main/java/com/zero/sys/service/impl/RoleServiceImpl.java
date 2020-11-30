@@ -36,4 +36,22 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
         return baseMapper.getList(queryRole);
     }
 
+
+    @Override
+    public IPage<Role> recoverPage(Integer currentPage, Integer size, Role queryRole) throws Exception {
+        Page page = new Page(currentPage, size);
+        IPage<Role> pageInfo = baseMapper.getRecoverPage(page, queryRole);
+        return pageInfo;
+    }
+
+    @Override
+    public void recover(Integer id) throws Exception {
+        baseMapper.recoverById(id);
+    }
+
+    @Override
+    public void recoverDelete(Integer id) throws Exception {
+        baseMapper.recoverDelete(id);
+    }
+
 }

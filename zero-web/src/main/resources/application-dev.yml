@@ -12,8 +12,8 @@ spring:
     restart:
       enabled: true  #设置开启热部署
       additional-paths: src/main/java #重启目录
-logging:
-  level:
-    root: info
-  file:
-    name: logs/sys-info.log
+#logging:
+#  level:
+#    root: info
+#  file:
+#    name: logs/sys-info.log

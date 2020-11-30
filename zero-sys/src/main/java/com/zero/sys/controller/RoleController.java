@@ -55,4 +55,43 @@ public class RoleController extends BaseController<RoleService, Role> {
     }
 
 
+    @LogOperation
+    @ApiOperation(value = "分页查询逻辑删除的系统角色表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
+            @ApiImplicitParam(name = "queryRole", value = "系统角色表查询条件")
+    })
+    @GetMapping("recover/page/{currentPage}")
+    public ResponseData recoverPage(
+            @PathVariable("currentPage") Integer currentPage,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
+            Role queryRole) throws Exception {
+        IPage<Role> page = baseService.recoverPage(currentPage, size, queryRole);
+        return ResponseData.ok(page);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "通过主键恢复逻辑删除的系统角色表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "系统角色表ID", required = true)
+    })
+    @PutMapping("recover/{id}")
+    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+        baseService.recover(id);
+        return ResponseData.ok();
+    }
+
+    @LogOperation
+    @ApiOperation(value = "通过主键彻底删除一条系统角色表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "系统角色表ID", required = true)
+    })
+    @DeleteMapping("recover/{id}")
+    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+        baseService.recoverDelete(id);
+        return ResponseData.ok().message("彻底删除该角色数据");
+    }
+
 }
