@@ -27,4 +27,5 @@ public interface MenuRoleMapper extends BaseMapper<MenuRole> {
     @Delete("delete from sys_menu_role where menu_id = #{menuId} and role_id = #{roleId}")
     void deleteMenuRole(@Param("menuId") Integer menuId, @Param("roleId") Integer roleId) throws Exception;
 
+
 }

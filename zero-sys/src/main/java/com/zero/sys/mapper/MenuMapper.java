@@ -3,8 +3,10 @@ package com.zero.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.sys.entity.Menu;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -48,5 +50,34 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @throws Exception 抛出异常
      */
     List<Menu> getRoutes(@Param("userId") Integer userId, @Param("parentId") Integer parentId) throws Exception;
+
+
+    /**
+     * 分页查询逻辑删除的系统菜单表数据
+     *
+     * @param page      分页查询
+     * @param queryMenu Menu查询条件
+     * @return Menu集合
+     * @throws Exception 抛出异常
+     */
+    IPage<Menu> getRecoverPage(IPage page, @Param("queryMenu") Menu queryMenu) throws Exception;
+
+    /**
+     * 通过主键恢复逻辑删除的系统菜单表数据
+     *
+     * @param id 系统菜单表主键
+     * @throws Exception 抛出异常
+     */
+    @Update("update sys_menu set deleted = 0 where id = #{id}")
+    void recoverById(@Param("id") Integer id) throws Exception;
+
+    /**
+     * 回收站删除，通过系统菜单表主键彻底删除系统菜单表数据
+     *
+     * @param id 系统菜单表主键
+     * @throws Exception 抛出异常
+     */
+    @Delete("delete from sys_menu where id = #{id}")
+    void recoverDelete(@Param("id") Integer id) throws Exception;
 
 }

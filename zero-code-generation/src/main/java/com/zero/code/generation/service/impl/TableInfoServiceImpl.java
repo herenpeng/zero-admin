@@ -71,4 +71,21 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
     public void codeGeneration(Integer id) throws Exception {
         codeGenerationUtils.generation(id);
     }
+
+    @Override
+    public IPage<TableInfo> recoverPage(Integer currentPage, Integer size, TableInfo queryTableInfo) throws Exception {
+        Page page = new Page(currentPage, size);
+        IPage<TableInfo> pageInfo = baseMapper.getRecoverPage(page, queryTableInfo);
+        return pageInfo;
+    }
+
+    @Override
+    public void recover(Integer id) throws Exception {
+        baseMapper.recoverById(id);
+    }
+
+    @Override
+    public void recoverDelete(Integer id) throws Exception {
+        baseMapper.recoverDelete(id);
+    }
 }

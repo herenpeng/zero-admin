@@ -107,4 +107,38 @@
         order by sm.sort
     </select>
 
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`path` as path,`name` as name,`component` as component,`meta_title` as meta_title,
+        `meta_icon` as meta_icon,`redirect` as redirect,`sort` as sort,`enabled` as enabled,`parent_id` as parent_id
+        from sys_menu
+        where deleted = 1
+        <if test="queryMenu.path != null and queryMenu.path != ''">
+            and path like concat('%', #{queryMenu.path}, '%')
+        </if>
+        <if test="queryMenu.name != null and queryMenu.name != ''">
+            and name like concat('%', #{queryMenu.name}, '%')
+        </if>
+        <if test="queryMenu.component != null and queryMenu.component != ''">
+            and component like concat('%', #{queryMenu.component}, '%')
+        </if>
+        <if test="queryMenu.metaTitle != null and queryMenu.metaTitle != ''">
+            and meta_title like concat('%', #{queryMenu.metaTitle}, '%')
+        </if>
+        <if test="queryMenu.metaIcon != null and queryMenu.metaIcon != ''">
+            and meta_icon like concat('%', #{queryMenu.metaIcon}, '%')
+        </if>
+        <if test="queryMenu.redirect != null and queryMenu.redirect != ''">
+            and redirect like concat('%', #{queryMenu.redirect}, '%')
+        </if>
+        <if test="queryMenu.enabled != null">
+            and enabled = #{queryMenu.enabled}
+        </if>
+        <if test="queryMenu.parentId != null">
+            and parent_id = #{queryMenu.parentId}
+        </if>
+        <if test="queryMenu.roleId != null">
+            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.roleId})
+        </if>
+    </select>
+
 </mapper>

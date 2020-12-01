@@ -62,5 +62,25 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
         resourcesRoleMapper.insert(resourcesRole);
     }
 
+    @Override
+    public IPage<Resources> recoverPage(Integer currentPage, Integer size, Resources queryResources) throws Exception {
+        Page page = new Page(currentPage, size);
+        IPage<Resources> pageInfo = baseMapper.getRecoverPage(page, queryResources);
+        for (Resources resources : pageInfo.getRecords()) {
+            resources.setRoles(roleMapper.getByResourcesId(resources.getId()));
+        }
+        return pageInfo;
+    }
+
+    @Override
+    public void recover(Integer id) throws Exception {
+        baseMapper.recoverById(id);
+    }
+
+    @Override
+    public void recoverDelete(Integer id) throws Exception {
+        baseMapper.recoverDelete(id);
+    }
+
 
 }

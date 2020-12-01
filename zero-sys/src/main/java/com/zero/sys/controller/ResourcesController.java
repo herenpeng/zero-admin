@@ -85,4 +85,44 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
         return ResponseData.ok().message("添加系统资源角色成功");
     }
 
+
+    @LogOperation
+    @ApiOperation(value = "分页查询逻辑删除的系统资源表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
+            @ApiImplicitParam(name = "queryResources", value = "系统资源表查询条件")
+    })
+    @GetMapping("recover/page/{currentPage}")
+    public ResponseData recoverPage(
+            @PathVariable("currentPage") Integer currentPage,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
+            Resources queryResources) throws Exception {
+        IPage<Resources> page = baseService.recoverPage(currentPage, size, queryResources);
+        return ResponseData.ok(page);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "通过主键恢复逻辑删除的系统资源表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "系统资源表ID", required = true)
+    })
+    @PutMapping("recover/{id}")
+    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+        baseService.recover(id);
+        return ResponseData.ok();
+    }
+
+    @LogOperation
+    @ApiOperation(value = "通过主键彻底删除一条系统资源表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "系统资源表ID", required = true)
+    })
+    @DeleteMapping("recover/{id}")
+    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+        baseService.recoverDelete(id);
+        return ResponseData.ok().message("彻底删除该系统资源数据");
+    }
+
 }

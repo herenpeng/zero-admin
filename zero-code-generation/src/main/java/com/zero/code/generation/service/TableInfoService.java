@@ -41,4 +41,31 @@ public interface TableInfoService extends BaseService<TableInfo> {
      * @throws Exception 抛出异常
      */
     void codeGeneration(Integer id) throws Exception;
+
+    /**
+     * 分页查询逻辑删除的系统数据库表信息表数据
+     *
+     * @param currentPage 当前页面数，页面从1开始
+     * @param size        当前页的大小，默认为10
+     * @param queryTableInfo   查询系统数据库表信息表的条件
+     * @return 分页查询逻辑删除的系统数据库表信息表数据
+     * @throws Exception 抛出异常
+     */
+    IPage<TableInfo> recoverPage(Integer currentPage, Integer size, TableInfo queryTableInfo) throws Exception;
+
+    /**
+     * 通过主键恢复逻辑删除的系统数据库表信息表数据
+     *
+     * @param id 系统数据库表信息表主键
+     * @throws Exception 抛出异常
+     */
+    void recover(Integer id) throws Exception;
+
+    /**
+     * 回收站删除，通过系统数据库表信息表主键彻底删除系统数据库表信息表数据
+     *
+     * @param id 系统数据库表信息表主键
+     * @throws Exception 抛出异常
+     */
+    void recoverDelete(Integer id) throws Exception;
 }

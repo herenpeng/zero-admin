@@ -56,8 +56,15 @@
         where #{uri} regexp sre.regex and sre.method_type = #{methodType}
     </select>
 
-    <delete id="deleteAll">
-        delete from sys_resources
-    </delete>
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`uri` as uri,`description` as description,
+        `method_type` as method_type
+        from sys_resources
+        where deleted = 1
+        <include refid="baseQuery"></include>
+        <if test="queryResources.roleId != null">
+            and id in (select resources_id from sys_resources_role where role_id = #{queryResources.roleId})
+        </if>
+    </select>
 
 </mapper>

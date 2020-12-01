@@ -3,8 +3,10 @@ package com.zero.code.generation.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.code.generation.entity.TableInfo;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,6 +47,34 @@ public interface TableInfoMapper extends BaseMapper<TableInfo> {
      * @throws Exception
      */
     List<TableInfo> getNotAddList() throws Exception;
+
+    /**
+     * 分页查询逻辑删除的系统数据库表信息表数据
+     *
+     * @param page           分页查询
+     * @param queryTableInfo TableInfo查询条件
+     * @return TableInfo集合
+     * @throws Exception 抛出异常
+     */
+    IPage<TableInfo> getRecoverPage(IPage page, @Param("queryTableInfo") TableInfo queryTableInfo) throws Exception;
+
+    /**
+     * 通过主键恢复逻辑删除的系统数据库表信息表数据
+     *
+     * @param id 系统数据库表信息表主键
+     * @throws Exception 抛出异常
+     */
+    @Update("update dev_table_info set deleted = 0 where id = #{id}")
+    void recoverById(@Param("id") Integer id) throws Exception;
+
+    /**
+     * 回收站删除，通过系统数据库表信息表主键彻底删除系统数据库表信息表数据
+     *
+     * @param id 系统数据库表信息表主键
+     * @throws Exception 抛出异常
+     */
+    @Delete("delete from dev_table_info where id = #{id}")
+    void recoverDelete(@Param("id") Integer id) throws Exception;
 
 
 }

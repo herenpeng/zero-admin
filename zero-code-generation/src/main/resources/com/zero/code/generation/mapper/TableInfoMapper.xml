@@ -62,5 +62,13 @@
         and table_name not in (select name from dev_table_info dti where dti.deleted = 0)
     </select>
 
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,
+        `base_package_name` as base_package_name,`code_generation_path` as code_generation_path,
+        `code_author` as code_author
+        from dev_table_info
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
 
 </mapper>

@@ -87,7 +87,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     @DeleteMapping("recover/{id}")
     public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok("彻底删除该${comment}数据");
+        return ResponseData.ok().message("彻底删除该${comment}数据");
     }
 
 }

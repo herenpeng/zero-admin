@@ -108,4 +108,44 @@ public class MenuController extends BaseController<MenuService, Menu> {
         return ResponseData.ok().message("添加菜单角色成功");
     }
 
+
+    @LogOperation
+    @ApiOperation(value = "分页查询逻辑删除的系统菜单表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
+            @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件")
+    })
+    @GetMapping("recover/page/{currentPage}")
+    public ResponseData recoverPage(
+            @PathVariable("currentPage") Integer currentPage,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
+            Menu queryMenu) throws Exception {
+        IPage<Menu> page = baseService.recoverPage(currentPage, size, queryMenu);
+        return ResponseData.ok(page);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "通过主键恢复逻辑删除的系统菜单表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "系统菜单表ID", required = true)
+    })
+    @PutMapping("recover/{id}")
+    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+        baseService.recover(id);
+        return ResponseData.ok();
+    }
+
+    @LogOperation
+    @ApiOperation(value = "通过主键彻底删除一条系统菜单表数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "系统菜单表ID", required = true)
+    })
+    @DeleteMapping("recover/{id}")
+    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+        baseService.recoverDelete(id);
+        return ResponseData.ok().message("彻底删除该系统菜单表数据");
+    }
+
 }

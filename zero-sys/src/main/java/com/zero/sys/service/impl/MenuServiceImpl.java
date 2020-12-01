@@ -59,7 +59,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @Override
     public List<Menu> getRoutes() throws Exception {
         Integer userId = jwtUtils.getUserId(requestUtils.getToken(request));
-        List<Menu> parentList = baseMapper.getRoutes(userId,null);
+        List<Menu> parentList = baseMapper.getRoutes(userId, null);
         for (Menu menu : parentList) {
             menu.setChildren(baseMapper.getRoutes(userId, menu.getId()));
         }
@@ -90,6 +90,26 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         menuRole.setMenuId(menuId);
         menuRole.setRoleId(roleId);
         menuRoleMapper.insert(menuRole);
+    }
+
+    @Override
+    public IPage<Menu> recoverPage(Integer currentPage, Integer size, Menu queryMenu) throws Exception {
+        Page page = new Page(currentPage, size);
+        IPage<Menu> pageInfo = baseMapper.getRecoverPage(page, queryMenu);
+        for (Menu menu : pageInfo.getRecords()) {
+            menu.setRoles(roleMapper.getByMenuId(menu.getId()));
+        }
+        return pageInfo;
+    }
+
+    @Override
+    public void recover(Integer id) throws Exception {
+        baseMapper.recoverById(id);
+    }
+
+    @Override
+    public void recoverDelete(Integer id) throws Exception {
+        baseMapper.recoverDelete(id);
     }
 
 }
