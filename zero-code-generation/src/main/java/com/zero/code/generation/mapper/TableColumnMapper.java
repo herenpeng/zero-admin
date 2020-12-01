@@ -2,6 +2,7 @@ package com.zero.code.generation.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zero.code.generation.entity.TableColumn;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -36,5 +37,12 @@ public interface TableColumnMapper extends BaseMapper<TableColumn> {
      */
     List<TableColumn> getByTableInfoId(@Param("tableInfoId") Integer tableInfoId) throws Exception;
 
-
+    /**
+     * 通过数据库表主键彻底删除表对应的字段信息
+     *
+     * @param tableInfoId 数据库表主键
+     * @throws Exception 抛出异常
+     */
+    @Delete("delete from dev_table_column where table_info_id = #{tableInfoId}")
+    void deleteByTableInfoId(@Param("tableInfoId") Integer tableInfoId) throws Exception;
 }

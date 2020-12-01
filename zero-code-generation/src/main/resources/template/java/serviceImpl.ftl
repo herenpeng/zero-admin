@@ -32,7 +32,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
 
     @Override
     public List<${entityName}> list(${entityName} query${entityName}) throws Exception {
-        return baseMapper.getList(page, query${entityName});
+        return baseMapper.getList(query${entityName});
     }
 
     @Override

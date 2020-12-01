@@ -18,17 +18,19 @@
         <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
-        <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
     </resultMap>
 
     <sql id="baseColumn">
-        `id`, `username`, `access_time`, `ip`, `uri`, `method_type`, `method`, `execution_time`, `description`,
-        `exception_name`, `exception_message`
+        `id`,`username`,`access_time`,`ip`,`uri`,`method_type`,`method`,`execution_time`,`description`,`exception_name`,`exception_message`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
     </sql>
 
     <sql id="baseQuery">
         <if test="queryLog.username != null and queryLog.username != ''">
             and username like concat('%', #{queryLog.username}, '%')
+        </if>
+        <if test="queryLog.accessTime != null">
+            and access_time = #{queryLog.accessTime}
         </if>
         <if test="queryLog.ip != null and queryLog.ip != ''">
             and ip like concat('%', #{queryLog.ip}, '%')
@@ -37,26 +39,44 @@
             and uri like concat('%', #{queryLog.uri}, '%')
         </if>
         <if test="queryLog.methodType != null and queryLog.methodType != ''">
-            and method_type = #{queryLog.methodType}
+            and method_type like concat('%', #{queryLog.methodType}, '%')
         </if>
-        <if test="queryLog.queryStartDate">
-            and access_time &gt; #{queryLog.queryStartDate}
+        <if test="queryLog.method != null and queryLog.method != ''">
+            and method like concat('%', #{queryLog.method}, '%')
         </if>
-        <if test="queryLog.queryEndDate">
-            and access_time &lt; #{queryLog.queryEndDate}
+        <if test="queryLog.executionTime != null">
+            and execution_time = #{queryLog.executionTime}
+        </if>
+        <if test="queryLog.description != null and queryLog.description != ''">
+            and description like concat('%', #{queryLog.description}, '%')
+        </if>
+        <if test="queryLog.exceptionName != null and queryLog.exceptionName != ''">
+            and exception_name like concat('%', #{queryLog.exceptionName}, '%')
+        </if>
+        <if test="queryLog.exceptionMessage != null and queryLog.exceptionMessage != ''">
+            and exception_message like concat('%', #{queryLog.exceptionMessage}, '%')
         </if>
     </sql>
-    
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`username` as username,`access_time` as access_time,
-        `ip` as ip, `uri` as uri,`method_type` as method_type,`method` as method,
-        `execution_time` as execution_time,`description` as description,
-        `exception_name` as exception_name,`exception_message` as exception_message
+        select `id` as id,`username` as username,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
         from sys_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`username` as username,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_log
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`username` as username,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_log
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
 
 </mapper>

@@ -10,9 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
+ * 系统操作日志表业务逻辑层的实现类
+ *
  * @author herenpeng
- * @since 2020-10-30 22:27
+ * @since 2020-12-01 22:31
  */
 @Slf4j
 @Service
@@ -25,4 +29,27 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements L
         IPage<Log> pageInfo = baseMapper.getPage(page, queryLog);
         return pageInfo;
     }
+
+    @Override
+    public List<Log> list(Log queryLog) throws Exception {
+        return baseMapper.getList(queryLog);
+    }
+
+    @Override
+    public IPage<Log> recoverPage(Integer currentPage, Integer size, Log queryLog) throws Exception {
+        Page page = new Page(currentPage, size);
+        IPage<Log> pageInfo = baseMapper.getRecoverPage(page, queryLog);
+        return pageInfo;
+    }
+
+    @Override
+    public void recover(Integer id) throws Exception {
+        baseMapper.recoverById(id);
+    }
+
+    @Override
+    public void recoverDelete(Integer id) throws Exception {
+        baseMapper.recoverDelete(id);
+    }
+
 }

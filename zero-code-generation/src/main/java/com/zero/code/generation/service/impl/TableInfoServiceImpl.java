@@ -87,5 +87,6 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
     @Override
     public void recoverDelete(Integer id) throws Exception {
         baseMapper.recoverDelete(id);
+        tableColumnMapper.deleteByTableInfoId(id);
     }
 }
