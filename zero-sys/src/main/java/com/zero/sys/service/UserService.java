@@ -27,6 +27,15 @@ public interface UserService extends BaseService<User> {
     IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception;
 
     /**
+     * 查询所有的用户数据
+     *
+     * @param queryUser 查询用户的条件
+     * @return 查询所有的用户数据
+     * @throws Exception 抛出异常
+     */
+    List<User> list(User queryUser) throws Exception;
+
+    /**
      * 启用或者禁用该用户账号
      *
      * @param id      用户id
@@ -97,4 +106,6 @@ public interface UserService extends BaseService<User> {
      * @throws Exception 抛出异常
      */
     void recoverDelete(Integer id) throws Exception;
+
+
 }

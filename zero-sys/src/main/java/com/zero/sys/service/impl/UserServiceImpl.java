@@ -57,6 +57,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    public List<User> list(User queryUser) throws Exception {
+        return baseMapper.getList(queryUser);
+    }
+
+    @Override
     public boolean save(User user) {
         String defaultPassword = userProperties.getDefaultPassword();
         String encodePassword = passwordEncoder.encode(defaultPassword);

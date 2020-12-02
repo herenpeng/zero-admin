@@ -11,6 +11,8 @@ spring:
     default-property-inclusion: ALWAYS
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  main:
+    allow-bean-definition-overriding: true
   profiles:
     active: dev
 # MyBatisPlus的相关配置

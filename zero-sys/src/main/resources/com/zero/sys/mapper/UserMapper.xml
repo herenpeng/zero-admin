@@ -56,6 +56,18 @@
         </if>
     </select>
 
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`username` as username,`password` as password,
+        `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
+        `password_expire` as password_expire
+        from sys_user
+        where deleted = 0
+        <include refid="baseQuery"></include>
+        <if test="queryUser.roleId != null">
+            and id in (select user_id from sys_user_role where role_id = #{queryUser.roleId})
+        </if>
+    </select>
+
     <select id="loadUserByUsername" resultMap="resultMap">
         select su.id as id,su.username as username,su.password as password,
         su.enabled as enabled,su.locked as locked,su.account_expire as account_expire,

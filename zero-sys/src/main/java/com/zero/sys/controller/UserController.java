@@ -3,6 +3,7 @@ package com.zero.sys.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
+import com.zero.common.export.utils.ExcelUtils;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.entity.Role;
 import com.zero.sys.entity.User;
@@ -11,8 +12,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -25,6 +28,9 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 public class UserController extends BaseController<UserService, User> {
+
+    @Autowired
+    private ExcelUtils excelUtils;
 
     @LogOperation
     @ApiOperation(value = "分页查询用户数据")
@@ -151,6 +157,19 @@ public class UserController extends BaseController<UserService, User> {
     public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该用户数据");
+    }
+
+    @LogOperation
+    @ApiOperation(value = "导出用户列表数据的Excel文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "queryUser", value = "用户查询条件"),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+    })
+    @GetMapping("export/excel")
+    public ResponseData exportExcel(User queryUser, HttpServletResponse response) throws Exception {
+        List<User> exportData = baseService.list(queryUser);
+        excelUtils.exportExcel("用户列表", User.class, exportData, response);
+        return ResponseData.ok();
     }
 
 }

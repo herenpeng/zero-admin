@@ -1,5 +1,6 @@
 package com.zero.sys.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,6 +30,7 @@ public class User extends BaseEntity {
      * 用户名称
      */
     @ApiModelProperty(value = "用户名称")
+    @Excel(name = "用户名称", orderNum = "0", width = 15)
     @TableField(value = "username", el = "username")
     private String username;
 
@@ -36,6 +38,7 @@ public class User extends BaseEntity {
      * 用户密码，如果password为null，则在序列化为json的时候不进行序列化
      */
     @ApiModelProperty(value = "用户密码")
+    @Excel(name = "用户密码", orderNum = "0", width = 15)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @TableField(value = "password", el = "password")
     private String password;
@@ -44,6 +47,7 @@ public class User extends BaseEntity {
      * 账号是否启用，true为启用，false为禁用，默认为true
      */
     @ApiModelProperty(value = "用户账号是否启用")
+    @Excel(name = "账号是否启用", orderNum = "0", width = 15)
     @TableField(value = "enabled", el = "enabled")
     private Boolean enabled;
 
@@ -51,6 +55,7 @@ public class User extends BaseEntity {
      * 账号是否锁定，true为锁定，false为未锁定，默认为false
      */
     @ApiModelProperty(value = "用户账号是否锁定")
+    @Excel(name = "账号是否锁定", orderNum = "0", width = 15)
     @TableField(value = "locked", el = "locked")
     private Boolean locked;
 
@@ -58,6 +63,7 @@ public class User extends BaseEntity {
      * 账号是否过期，true为过期，false为未过期，默认为false
      */
     @ApiModelProperty(value = "用户账号是否过期")
+    @Excel(name = "账号是否过期", orderNum = "0", width = 15)
     @TableField(value = "account_expire", el = "accountExpire")
     private Boolean accountExpire;
 
@@ -65,6 +71,7 @@ public class User extends BaseEntity {
      * 密码是否过期，true为过期，false为未过期，默认为false
      */
     @ApiModelProperty(value = "用户密码是否过期")
+    @Excel(name = "密码是否过期", orderNum = "0", width = 15)
     @TableField(value = "password_expire", el = "passwordExpire")
     private Boolean passwordExpire;
 

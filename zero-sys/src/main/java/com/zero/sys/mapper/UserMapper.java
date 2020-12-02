@@ -3,11 +3,13 @@ package com.zero.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.sys.entity.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 用户的Mapper接口
@@ -28,6 +30,15 @@ public interface UserMapper extends BaseMapper<User> {
      * @throws Exception 抛出异常
      */
     IPage<User> getPage(IPage page, @Param("queryUser") User queryUser) throws Exception;
+
+    /**
+     * 查询所有的用户数据
+     *
+     * @param queryUser 查询用户的条件
+     * @return 查询所有的用户数据
+     * @throws Exception 抛出异常
+     */
+    List<User> getList(@Param("queryUser") User queryUser) throws Exception;
 
     /**
      * 通过用户名查找对应的用户，以及用户所拥有的角色信息
@@ -65,4 +76,5 @@ public interface UserMapper extends BaseMapper<User> {
      */
     @Delete("delete from sys_user where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
+
 }
