@@ -166,10 +166,9 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
     })
     @GetMapping("export/excel")
-    public ResponseData exportExcel(User queryUser, HttpServletResponse response) throws Exception {
+    public void exportExcel(User queryUser, HttpServletResponse response) throws Exception {
         List<User> exportData = baseService.list(queryUser);
         excelUtils.exportExcel("用户列表", User.class, exportData, response);
-        return ResponseData.ok();
     }
 
 }

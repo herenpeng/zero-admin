@@ -1,6 +1,7 @@
 package com.zero.sys.request.util;
 
 import com.zero.sys.security.jwt.peoperty.JwtProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,9 @@ public class RequestUtils {
      */
     public String getToken(HttpServletRequest request) {
         String accessToken = request.getHeader(jwtProperties.getName());
+        if(StringUtils.isBlank(accessToken)) {
+            accessToken = request.getParameter(jwtProperties.getName());
+        }
         return accessToken;
     }
 
