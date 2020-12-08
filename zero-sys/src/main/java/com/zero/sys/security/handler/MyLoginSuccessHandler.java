@@ -53,7 +53,7 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 创建JWT
         String jwt = jwtUtils.createJWT(tokenId, subject);
         // 将jwt存放入redis中
-        String tokenRedisKey = jwtProperties.getName() + ":" + tokenId;
+        String tokenRedisKey = jwtProperties.getKey() + ":" + tokenId;
         Long tokenRedisTtl = jwtProperties.getTtl() / 1000;
         redisTemplate.opsForValue().set(tokenRedisKey, jwt, tokenRedisTtl, TimeUnit.SECONDS);
         ResponseData<Object> responseData = ResponseData.ok(jwt);

@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 系统资源的Mapper接口
  *
@@ -25,10 +27,19 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      *
      * @param page           分页查询
      * @param queryResources 系统资源查询条件
-     * @return 系统集合
+     * @return 系统资源集合
      * @throws Exception 抛出异常
      */
     IPage<Resources> getPage(Page page, @Param("queryResources") Resources queryResources) throws Exception;
+
+    /**
+     * 查询所有的系统资源数据
+     *
+     * @param queryResources 系统资源查询条件
+     * @return 系统资源集合
+     * @throws Exception 抛出异常
+     */
+    List<Resources> getList(Resources queryResources) throws Exception;
 
     /**
      * 通过uri正则表达式字段（regex）匹配获取对应的资源
@@ -51,7 +62,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
     /**
      * 分页查询逻辑删除的系统资源表数据
      *
-     * @param page      分页查询
+     * @param page           分页查询
      * @param queryResources Resources查询条件
      * @return Resources集合
      * @throws Exception 抛出异常
@@ -75,8 +86,5 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      */
     @Delete("delete from sys_resources where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
-
-
-
 
 }

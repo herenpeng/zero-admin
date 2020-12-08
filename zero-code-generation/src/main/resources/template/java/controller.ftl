@@ -90,4 +90,16 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
         return ResponseData.ok().message("彻底删除该${comment}数据");
     }
 
+    @LogOperation
+    @ApiOperation(value = "导出${comment}数据的Excel文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件"),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+    })
+    @GetMapping("export/excel")
+    public void exportExcel(${entityName} query${entityName}, HttpServletResponse response) throws Exception {
+        List<${entityName}> exportData = baseService.list(query${entityName});
+        excelUtils.exportExcel("${comment}", ${entityName}.class, exportData, response);
+    }
+
 }

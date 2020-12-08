@@ -18,19 +18,28 @@ public interface ResourcesService extends BaseService<Resources> {
     /**
      * 分页查询系统资源数据
      *
-     * @param currentPage 当前页面数，页面从1开始
-     * @param size        当前页的大小，默认为10
-     * @param queryResources   查询系统资源的条件
+     * @param currentPage    当前页面数，页面从1开始
+     * @param size           当前页的大小，默认为10
+     * @param queryResources 查询系统资源的条件
      * @return 分页查询所有的系统资源数据
      * @throws Exception 抛出异常
      */
     IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources) throws Exception;
 
     /**
+     * 查询所有的系统资源数据
+     *
+     * @param queryResources 查询系统资源的条件
+     * @return 查询所有的系统资源数据
+     * @throws Exception 抛出异常
+     */
+    List<Resources> list(Resources queryResources) throws Exception;
+
+    /**
      * 删除系统资源的角色
      *
      * @param resourcesId 系统资源主键
-     * @param roleId 角色主键
+     * @param roleId      角色主键
      * @throws Exception
      */
     void deleteResourcesRole(Integer resourcesId, Integer roleId) throws Exception;
@@ -48,7 +57,7 @@ public interface ResourcesService extends BaseService<Resources> {
      * 添加系统资源角色关系
      *
      * @param resourcesId 系统资源主键
-     * @param roleId 角色主键
+     * @param roleId      角色主键
      * @throws Exception 抛出异常
      */
     void addResourcesRole(Integer resourcesId, Integer roleId) throws Exception;
@@ -56,9 +65,9 @@ public interface ResourcesService extends BaseService<Resources> {
     /**
      * 分页查询逻辑删除的系统资源表数据
      *
-     * @param currentPage 当前页面数，页面从1开始
-     * @param size        当前页的大小，默认为10
-     * @param queryResources   查询系统资源表的条件
+     * @param currentPage    当前页面数，页面从1开始
+     * @param size           当前页的大小，默认为10
+     * @param queryResources 查询系统资源表的条件
      * @return 分页查询逻辑删除的系统资源表数据
      * @throws Exception 抛出异常
      */

@@ -12,6 +12,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 /**
  * 用户角色的控制器
  *
@@ -92,6 +95,18 @@ public class RoleController extends BaseController<RoleService, Role> {
     public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该角色数据");
+    }
+
+    @LogOperation
+    @ApiOperation(value = "导出角色列表数据的Excel文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "queryRole", value = "角色查询条件"),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+    })
+    @GetMapping("export/excel")
+    public void exportExcel(Role queryRole, HttpServletResponse response) throws Exception {
+        List<Role> exportData = baseService.list(queryRole);
+        excelUtils.exportExcel("角色列表", Role.class, exportData, response);
     }
 
 }

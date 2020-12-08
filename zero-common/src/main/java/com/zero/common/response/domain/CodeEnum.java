@@ -1,5 +1,6 @@
 package com.zero.common.response.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Getter;
  * @since 2020-09-13 20:00
  */
 @Getter
+@AllArgsConstructor
 public enum CodeEnum {
     /**
      * code为20000，代表正常返回数据
@@ -32,9 +34,5 @@ public enum CodeEnum {
     SYS_EXCEPTION(50000);
 
     private Integer value;
-
-    CodeEnum(Integer value) {
-        this.value = value;
-    }
 
 }

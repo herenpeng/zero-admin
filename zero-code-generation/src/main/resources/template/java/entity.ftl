@@ -28,6 +28,7 @@ public class ${entityName} extends BaseEntity {
      * ${column.comment}
      */
     @ApiModelProperty(value = "${column.comment}")
+    @Excel(name = "${column.comment}", width = 15, needMerge = true, replace = {"_null"})
     @TableField(value = "${column.name}", el = "${column.javaName}")
     private ${column.javaType} ${column.javaName};
 </#if>

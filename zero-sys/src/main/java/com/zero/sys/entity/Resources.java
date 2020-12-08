@@ -1,5 +1,6 @@
 package com.zero.sys.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
@@ -28,6 +29,7 @@ public class Resources extends BaseEntity {
      * 资源定位符
      */
     @ApiModelProperty(value = "资源定位符")
+    @Excel(name = "资源定位符", width = 15)
     @TableField(value = "uri", el = "uri")
     private String uri;
 
@@ -42,6 +44,7 @@ public class Resources extends BaseEntity {
      * 资源描述信息
      */
     @ApiModelProperty(value = "资源描述信息")
+    @Excel(name = "资源描述信息", width = 30)
     @TableField(value = "description", el = "description")
     private String description;
 
@@ -49,6 +52,7 @@ public class Resources extends BaseEntity {
      * 资源方法类型
      */
     @ApiModelProperty(value = "资源方法类型")
+    @Excel(name = "资源方法类型", width = 30)
     @TableField(value = "method_type", el = "methodType")
     private String methodType;
 

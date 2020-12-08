@@ -45,6 +45,11 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
     }
 
     @Override
+    public List<Resources> list(Resources queryResources) throws Exception {
+        return baseMapper.getList(queryResources);
+    }
+
+    @Override
     public void deleteResourcesRole(Integer resourcesId, Integer roleId) throws Exception {
         resourcesRoleMapper.deleteResourcesRole(resourcesId, roleId);
     }

@@ -1,8 +1,10 @@
-package com.zero.common.export.utils;
+package com.zero.common.export.excel.utils;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import com.zero.common.export.excel.enums.ExcelStyleEnum;
+import com.zero.common.export.excel.enums.ExcelSuffixEnum;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 
@@ -58,7 +60,7 @@ public class ExcelUtils {
     }
 
     /**
-     * 对外的导出excel方法，exportExcel重载方法（简化方法）
+     * 对外的导出excel方法，exportExcel重载方法（简化方法，推荐使用）
      * 该方法可以指定文件名称，默认标题和表名称为文件名称
      *
      * @param fileName    文件名称
@@ -73,6 +75,7 @@ public class ExcelUtils {
         exportParams.setCreateHeadRows(true);
         exportParams.setSheetName(fileName);
         exportParams.setType(ExcelType.XSSF);
+        exportParams.setStyle(ExcelStyleEnum.BORDER.getStyleClass());
         defaultExport(fileName, exportParams, exportClass, exportData, response);
     }
 
@@ -103,7 +106,8 @@ public class ExcelUtils {
     private void downloadExcel(String fileName, Workbook workbook, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+        response.setHeader("Content-Disposition",
+                "attachment;filename=" + URLEncoder.encode(fileName + ExcelSuffixEnum.XLSX.getSuffix(), "UTF-8"));
         workbook.write(response.getOutputStream());
     }
 

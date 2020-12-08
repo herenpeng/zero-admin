@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -123,6 +124,18 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该系统资源数据");
+    }
+
+    @LogOperation
+    @ApiOperation(value = "导出系统资源列表数据的Excel文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "queryResources", value = "系统资源查询条件"),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+    })
+    @GetMapping("export/excel")
+    public void exportExcel(Resources queryResources, HttpServletResponse response) throws Exception {
+        List<Resources> exportData = baseService.list(queryResources);
+        excelUtils.exportExcel("系统资源列表", Resources.class, exportData, response);
     }
 
 }

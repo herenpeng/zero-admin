@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -146,6 +147,18 @@ public class MenuController extends BaseController<MenuService, Menu> {
     public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该系统菜单表数据");
+    }
+
+    @LogOperation
+    @ApiOperation(value = "导出系统菜单列表数据的Excel文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "queryMenu", value = "系统菜单查询条件"),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+    })
+    @GetMapping("export/excel")
+    public void exportExcel(Menu queryMenu, HttpServletResponse response) throws Exception {
+        List<Menu> exportData = baseService.list(queryMenu);
+        excelUtils.exportExcel("系统菜单列表", Menu.class, exportData, response);
     }
 
 }

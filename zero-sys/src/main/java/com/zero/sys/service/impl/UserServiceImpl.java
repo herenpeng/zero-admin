@@ -58,7 +58,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public List<User> list(User queryUser) throws Exception {
-        return baseMapper.getList(queryUser);
+        List<User> list = baseMapper.getList(queryUser);
+        for (User user : list) {
+            user.setRoles(roleMapper.getByUserId(user.getId()));
+        }
+        return list;
     }
 
     @Override

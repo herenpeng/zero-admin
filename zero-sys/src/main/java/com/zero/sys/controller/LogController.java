@@ -12,6 +12,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 /**
  * 系统操作日志表的数据交互控制器
  *
@@ -88,6 +91,18 @@ public class LogController extends BaseController<LogService, Log> {
     public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该系统操作日志数据");
+    }
+
+    @LogOperation
+    @ApiOperation(value = "导出操作日志列表数据的Excel文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "queryLog", value = "操作日志查询条件"),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+    })
+    @GetMapping("export/excel")
+    public void exportExcel(Log queryLog, HttpServletResponse response) throws Exception {
+        List<Log> exportData = baseService.list(queryLog);
+        excelUtils.exportExcel("操作日志列表", Log.class, exportData, response);
     }
 
 }

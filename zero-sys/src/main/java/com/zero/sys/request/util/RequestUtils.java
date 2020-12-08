@@ -19,16 +19,25 @@ public class RequestUtils {
     @Autowired
     private JwtProperties jwtProperties;
 
+    @Autowired
+    private CookieUtils cookieUtils;
+
     /**
-     * 获取请求头上的accessToken
+     * 获取请求头上的accessToken，如果请求头中没有，
+     * 则获取cookie中的accessToken，
+     * 如果cookie中也没有，则获取参数中的accessToken
+     * 如果三个地方都没有accessToken，则返回null
      *
      * @param request HTTP请求
      * @return accessToken字符串
      */
     public String getToken(HttpServletRequest request) {
-        String accessToken = request.getHeader(jwtProperties.getName());
-        if(StringUtils.isBlank(accessToken)) {
-            accessToken = request.getParameter(jwtProperties.getName());
+        String accessToken = request.getHeader(jwtProperties.getKey());
+        if (StringUtils.isBlank(accessToken)) {
+            accessToken = cookieUtils.getCookie(request, jwtProperties.getKey());
+        }
+        if (StringUtils.isBlank(accessToken)) {
+            accessToken = request.getParameter(jwtProperties.getKey());
         }
         return accessToken;
     }

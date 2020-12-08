@@ -37,6 +37,6 @@ public class JwtProperties {
     /**
      * token名称；accessToken
      */
-    private String name;
+    private String key;
 
 }

@@ -26,6 +26,14 @@ public interface MenuService extends BaseService<Menu> {
      */
     IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu) throws Exception;
 
+    /**
+     * 查询所有的系统菜单数据
+     *
+     * @param queryMenu 查询系统菜单的条件
+     * @return 查询所有的系统菜单数据
+     * @throws Exception 抛出异常
+     */
+    List<Menu> list(Menu queryMenu) throws Exception;
 
     /**
      * [动态路由]获取所有启用（enabled=1）的父级菜单信息，以及菜单的子菜单

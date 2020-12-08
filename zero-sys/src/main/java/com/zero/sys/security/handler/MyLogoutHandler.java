@@ -44,7 +44,7 @@ public class MyLogoutHandler implements LogoutHandler {
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String token = requestUtils.getToken(request);
         String tokenId = jwtUtils.getId(token);
-        redisTemplate.opsForHash().delete(jwtProperties.getName(), tokenId);
+        redisTemplate.opsForHash().delete(jwtProperties.getKey(), tokenId);
         ResponseData<Object> responseData = ResponseData.ok().message("退出成功");
         responseUtils.responseJson(response, responseData);
     }

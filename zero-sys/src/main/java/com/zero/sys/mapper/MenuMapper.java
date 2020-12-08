@@ -63,6 +63,15 @@ public interface MenuMapper extends BaseMapper<Menu> {
     IPage<Menu> getRecoverPage(IPage page, @Param("queryMenu") Menu queryMenu) throws Exception;
 
     /**
+     * 查询所有的系统菜单数据
+     *
+     * @param queryMenu 系统菜单查询条件
+     * @return 系统菜单集合
+     * @throws Exception 抛出异常
+     */
+    List<Menu> getList(Menu queryMenu) throws Exception;
+
+    /**
      * 通过主键恢复逻辑删除的系统菜单表数据
      *
      * @param id 系统菜单表主键
