@@ -21,7 +21,6 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.List;
 
@@ -54,7 +53,28 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
         // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。
         FilterInvocation filterInvocation = (FilterInvocation) object;
         HttpServletRequest request = filterInvocation.getRequest();
-        HttpServletResponse response = filterInvocation.getHttpResponse();
+        // 校验token是否合法
+        checkToken(request);
+        // 授权
+        String requestURI = request.getRequestURI();
+        Resources resources = resourcesMapper.getByRegexUriAndMethodType(requestURI, request.getMethod().toUpperCase());
+        if (ObjectUtils.allNotNull(resources)) {
+            List<Role> roles = resources.getRoles();
+            String[] roleNameList = new String[roles.size()];
+            for (int i = 0; i < roles.size(); i++) {
+                roleNameList[i] = roles.get(i).getName();
+            }
+            // 传递的是需要的角色名数组
+            return SecurityConfig.createList(roleNameList);
+        }
+        return SecurityConfig.createList("ACCESS_DENIED");
+    }
+
+    /**
+     * @param request HttpServletRequest请求对象
+     * @return 如果token合法，返回token，否则抛出异常信息
+     */
+    private String checkToken(HttpServletRequest request) {
         // 获取token
         String token = requestUtils.getToken(request);
         if (StringUtils.isBlank(token)) {
@@ -76,20 +96,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
             log.error("[系统登录功能]该token已失效或已过期");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
-
-        // 授权
-        String requestURI = request.getRequestURI();
-        Resources resources = resourcesMapper.getByRegexUriAndMethodType(requestURI, request.getMethod().toUpperCase());
-        if (ObjectUtils.allNotNull(resources)) {
-            List<Role> roles = resources.getRoles();
-            String[] roleNameList = new String[roles.size()];
-            for (int i = 0; i < roles.size(); i++) {
-                roleNameList[i] = roles.get(i).getName();
-            }
-            // 传递的是需要的角色名数组
-            return SecurityConfig.createList(roleNameList);
-        }
-        return SecurityConfig.createList("ACCESS_DENIED");
+        return token;
     }
 
 
