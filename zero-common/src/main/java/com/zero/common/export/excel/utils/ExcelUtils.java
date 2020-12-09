@@ -102,8 +102,7 @@ public class ExcelUtils {
     private void downloadExcel(String fileName, Workbook workbook, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition",
-                "attachment;filename=" + URLEncoder.encode(fileName + ExcelSuffixEnum.XLSX.getSuffix(), "UTF-8"));
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + ExcelSuffixEnum.XLSX.getSuffix(), "UTF-8"));
         workbook.write(response.getOutputStream());
         workbook.close();
     }
