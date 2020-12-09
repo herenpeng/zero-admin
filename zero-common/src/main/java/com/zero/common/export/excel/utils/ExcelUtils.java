@@ -38,6 +38,21 @@ public class ExcelUtils {
         downloadExcel(fileName, workbook, response);
     }
 
+
+    /**
+     * 对外的导出excel方法，exportExcel重载方法（简化方法，推荐使用）
+     * 该方法可以指定文件名称，默认标题和表名称为文件名称
+     *
+     * @param fileName    文件名称
+     * @param exportClass 导出对象的字节码对象
+     * @param exportData  导出的数据
+     * @param response    HttpServletResponse对象
+     * @throws IOException IO异常
+     */
+    public void exportExcel(String fileName, Class<?> exportClass, List<?> exportData, HttpServletResponse response) throws IOException {
+        exportExcel(fileName, fileName, fileName, exportClass, exportData, response);
+    }
+
     /**
      * 对外的导出excel方法，exportExcel重载方法
      * 该方法可以指定文件名称、标题名称、表名称
@@ -56,27 +71,8 @@ public class ExcelUtils {
         exportParams.setCreateHeadRows(true);
         exportParams.setSheetName(sheetName);
         exportParams.setType(ExcelType.XSSF);
-        defaultExport(fileName, exportParams, exportClass, exportData, response);
-    }
-
-    /**
-     * 对外的导出excel方法，exportExcel重载方法（简化方法，推荐使用）
-     * 该方法可以指定文件名称，默认标题和表名称为文件名称
-     *
-     * @param fileName    文件名称
-     * @param exportClass 导出对象的字节码对象
-     * @param exportData  导出的数据
-     * @param response    HttpServletResponse对象
-     * @throws IOException IO异常
-     */
-    public void exportExcel(String fileName, Class<?> exportClass, List<?> exportData, HttpServletResponse response) throws IOException {
-        ExportParams exportParams = new ExportParams();
-        exportParams.setTitle(fileName);
-        exportParams.setCreateHeadRows(true);
-        exportParams.setSheetName(fileName);
-        exportParams.setType(ExcelType.XSSF);
         exportParams.setStyle(ExcelStyleEnum.BORDER.getStyleClass());
-        defaultExport(fileName, exportParams, exportClass, exportData, response);
+        defaultExport("", exportParams, exportClass, exportData, response);
     }
 
     /**
@@ -109,6 +105,7 @@ public class ExcelUtils {
         response.setHeader("Content-Disposition",
                 "attachment;filename=" + URLEncoder.encode(fileName + ExcelSuffixEnum.XLSX.getSuffix(), "UTF-8"));
         workbook.write(response.getOutputStream());
+        workbook.close();
     }
 
 }
