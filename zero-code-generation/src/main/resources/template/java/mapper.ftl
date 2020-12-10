@@ -38,7 +38,9 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      * @return ${entityName}集合
      * @throws Exception 抛出异常
      */
-    List<${entityName}> getList(@Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
+    List<${entityName}> getList(@Param("query${
+
+}") ${entityName} query${entityName}) throws Exception;
 
     /**
      * 分页查询逻辑删除的${comment}数据

@@ -39,7 +39,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @return 系统资源集合
      * @throws Exception 抛出异常
      */
-    List<Resources> getList(Resources queryResources) throws Exception;
+    List<Resources> getList(@Param("queryResources") Resources queryResources) throws Exception;
 
     /**
      * 通过uri正则表达式字段（regex）匹配获取对应的资源

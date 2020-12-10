@@ -31,7 +31,7 @@ public class User extends BaseEntity {
      * 用户名称
      */
     @ApiModelProperty(value = "用户名称")
-    @Excel(name = "用户名称", width = 15, needMerge = true, replace = {"_null"})
+    @Excel(name = "用户名称", width = 15, needMerge = true)
     @TableField(value = "username", el = "username")
     private String username;
 
@@ -47,7 +47,7 @@ public class User extends BaseEntity {
      * 账号是否启用，true为启用，false为禁用，默认为true
      */
     @ApiModelProperty(value = "用户账号是否启用")
-    @Excel(name = "账号是否启用", width = 15, needMerge = true, replace = {"启用_true","禁用_false","_null"})
+    @Excel(name = "账号是否启用", width = 15, needMerge = true, replace = {"启用_true","禁用_false"})
     @TableField(value = "enabled", el = "enabled")
     private Boolean enabled;
 
@@ -55,7 +55,7 @@ public class User extends BaseEntity {
      * 账号是否锁定，true为锁定，false为未锁定，默认为false
      */
     @ApiModelProperty(value = "用户账号是否锁定")
-    @Excel(name = "账号是否锁定", width = 15, needMerge = true, replace = {"锁定_true","未锁定_false","_null"})
+    @Excel(name = "账号是否锁定", width = 15, needMerge = true, replace = {"锁定_true","未锁定_false"})
     @TableField(value = "locked", el = "locked")
     private Boolean locked;
 
@@ -63,7 +63,7 @@ public class User extends BaseEntity {
      * 账号是否过期，true为过期，false为未过期，默认为false
      */
     @ApiModelProperty(value = "用户账号是否过期")
-    @Excel(name = "账号是否过期", width = 15, needMerge = true, replace = {"过期_true","未过期_false","_null"})
+    @Excel(name = "账号是否过期", width = 15, needMerge = true, replace = {"过期_true","未过期_false"})
     @TableField(value = "account_expire", el = "accountExpire")
     private Boolean accountExpire;
 
@@ -71,7 +71,7 @@ public class User extends BaseEntity {
      * 密码是否过期，true为过期，false为未过期，默认为false
      */
     @ApiModelProperty(value = "用户密码是否过期")
-    @Excel(name = "密码是否过期", width = 15, needMerge = true, replace = {"过期_true","未过期_false","_null"})
+    @Excel(name = "密码是否过期", width = 15, needMerge = true, replace = {"过期_true","未过期_false"})
     @TableField(value = "password_expire", el = "passwordExpire")
     private Boolean passwordExpire;
 

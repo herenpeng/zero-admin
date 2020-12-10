@@ -69,7 +69,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return 系统菜单集合
      * @throws Exception 抛出异常
      */
-    List<Menu> getList(Menu queryMenu) throws Exception;
+    List<Menu> getList(@Param("queryMenu") Menu queryMenu) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统菜单表数据

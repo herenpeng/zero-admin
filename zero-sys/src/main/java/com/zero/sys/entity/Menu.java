@@ -1,6 +1,7 @@
 package com.zero.sys.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
@@ -29,63 +30,63 @@ public class Menu extends BaseEntity {
      * 菜单路由路径
      */
     @ApiModelProperty(value = "菜单路由路径")
-    @Excel(name = "菜单路由路径", width = 15)
+    @Excel(name = "菜单路由路径", width = 15, needMerge = true)
     @TableField(value = "path", el = "path")
     private String path;
     /**
      * 菜单模块名称
      */
     @ApiModelProperty(value = "菜单模块名称")
-    @Excel(name = "菜单模块名称", width = 15)
+    @Excel(name = "菜单模块名称", width = 15, needMerge = true)
     @TableField(value = "name", el = "name")
     private String name;
     /**
      * 菜单模块路径
      */
     @ApiModelProperty(value = "菜单模块路径")
-    @Excel(name = "菜单模块路径", width = 15)
+    @Excel(name = "菜单模块路径", width = 15, needMerge = true)
     @TableField(value = "component", el = "component")
     private String component;
     /**
      * 菜单名称
      */
     @ApiModelProperty(value = "菜单名称")
-    @Excel(name = "菜单名称", width = 15)
+    @Excel(name = "菜单名称", width = 15, needMerge = true)
     @TableField(value = "meta_title", el = "metaTitle")
     private String metaTitle;
     /**
      * 菜单图标
      */
     @ApiModelProperty(value = "菜单图标")
-    @Excel(name = "菜单图标", width = 15)
+    @Excel(name = "菜单图标", width = 15, needMerge = true)
     @TableField(value = "meta_icon", el = "metaIcon")
     private String metaIcon;
     /**
      * 父级菜单定向路由路径
      */
     @ApiModelProperty(value = "父级菜单定向路由路径")
-    @Excel(name = "父级菜单定向路由路径", width = 15)
+    @Excel(name = "父级菜单定向路由路径", width = 15, needMerge = true)
     @TableField(value = "redirect", el = "redirect")
     private String redirect;
     /**
      * 菜单排序
      */
     @ApiModelProperty(value = "菜单排序")
-    @Excel(name = "菜单排序", width = 15)
+    @Excel(name = "菜单排序", width = 15, needMerge = true)
     @TableField(value = "sort", el = "sort")
     private Integer sort;
     /**
      * 菜单是否显示，0(false)为显示，1(true)为隐藏
      */
     @ApiModelProperty(value = "菜单是否启用，0为禁用，1为启用")
-    @Excel(name = "菜单是否启用", width = 15)
+    @Excel(name = "菜单是否启用", width = 15, needMerge = true)
     @TableField(value = "enabled", el = "enabled")
     private Boolean enabled;
     /**
      * 父级菜单主键，如果为顶级菜单，值为0
      */
     @ApiModelProperty(value = "父级菜单主键，如果为顶级菜单，值为0")
-    @Excel(name = "父级菜单主键", width = 15)
+    @Excel(name = "父级菜单主键", width = 15, needMerge = true)
     @TableField(value = "parent_id", el = "parentId")
     private Integer parentId;
 
@@ -100,6 +101,7 @@ public class Menu extends BaseEntity {
      * 拥有该菜单的角色信息，非数据库字段
      */
     @ApiModelProperty(value = "拥有该菜单的角色信息")
+    @ExcelCollection(name = "拥有该菜单的角色信息")
     @TableField(exist = false)
     private List<Role> roles;
 

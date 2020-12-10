@@ -1,6 +1,7 @@
 package com.zero.sys.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
@@ -29,7 +30,7 @@ public class Resources extends BaseEntity {
      * 资源定位符
      */
     @ApiModelProperty(value = "资源定位符")
-    @Excel(name = "资源定位符", width = 15)
+    @Excel(name = "资源定位符", width = 15, needMerge = true)
     @TableField(value = "uri", el = "uri")
     private String uri;
 
@@ -44,7 +45,7 @@ public class Resources extends BaseEntity {
      * 资源描述信息
      */
     @ApiModelProperty(value = "资源描述信息")
-    @Excel(name = "资源描述信息", width = 30)
+    @Excel(name = "资源描述信息", width = 30, needMerge = true)
     @TableField(value = "description", el = "description")
     private String description;
 
@@ -52,7 +53,7 @@ public class Resources extends BaseEntity {
      * 资源方法类型
      */
     @ApiModelProperty(value = "资源方法类型")
-    @Excel(name = "资源方法类型", width = 30)
+    @Excel(name = "资源方法类型", width = 30, needMerge = true)
     @TableField(value = "method_type", el = "methodType")
     private String methodType;
 
@@ -60,6 +61,7 @@ public class Resources extends BaseEntity {
      * 拥有该资源的角色信息，非数据库字段
      */
     @ApiModelProperty(value = "拥有该资源的角色信息")
+    @ExcelCollection(name = "拥有该资源的角色信息")
     @TableField(exist = false)
     private List<Role> roles;
 
