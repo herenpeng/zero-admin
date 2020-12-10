@@ -27,7 +27,6 @@ public class SwaggerConfig {
                 .pathMapping("/")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.zero"))
-                // .paths(PathSelectors.any())
                 .paths(PathSelectors.any())
                 .build().apiInfo(apiInfo());
     }
@@ -42,7 +41,7 @@ public class SwaggerConfig {
                 .version("1.0.0")
                 .contact(new Contact("herenpeng", "https://herenpeng.github.io", "he.ren.peng@qq.com"))
                 .license("前往系统")
-                .licenseUrl("https://www.baidu.com/")
+                .licenseUrl("https://www.herenpeng.com/")
                 .build();
     }
 

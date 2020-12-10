@@ -13,6 +13,7 @@ import com.zero.sys.property.UserProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import com.zero.sys.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public boolean save(User user) {
+        // 删除用户名中的所有空格字符
+        user.setUsername(StringUtils.deleteWhitespace(user.getUsername()));
         String defaultPassword = userProperties.getDefaultPassword();
         String encodePassword = passwordEncoder.encode(defaultPassword);
         user.setPassword(encodePassword);
