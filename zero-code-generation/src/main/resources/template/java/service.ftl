@@ -61,4 +61,13 @@ public interface ${entityName}Service extends BaseService<${entityName}> {
      */
     void recoverDelete(Integer id) throws Exception;
 
+    /**
+     * 导出${comment}列表数据的Excel文件
+     *
+     * @param query${entityName} 查询${comment}的条件
+     * @param response  HttpServletResponse对象
+     * @throws Exception 抛出异常
+     */
+    void exportExcel(${entityName} query${entityName}, HttpServletResponse response) throws Exception;
+
 }

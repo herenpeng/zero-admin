@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * 系统操作日志表的数据交互控制器
@@ -101,8 +100,7 @@ public class LogController extends BaseController<LogService, Log> {
     })
     @GetMapping("export/excel")
     public void exportExcel(Log queryLog, HttpServletResponse response) throws Exception {
-        List<Log> exportData = baseService.list(queryLog);
-        excelUtils.exportExcel("操作日志列表", Log.class, exportData, response);
+        baseService.exportExcel(queryLog, response);
     }
 
 }

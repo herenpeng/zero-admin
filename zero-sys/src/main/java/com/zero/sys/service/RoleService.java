@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
 import com.zero.sys.entity.Role;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -62,4 +63,12 @@ public interface RoleService extends BaseService<Role> {
     void recoverDelete(Integer id) throws Exception;
 
 
+    /**
+     * 导出角色列表数据的Excel文件
+     *
+     * @param queryRole 查询角色的条件
+     * @param response  HttpServletResponse对象
+     * @throws Exception 抛出异常
+     */
+    void exportExcel(Role queryRole, HttpServletResponse response) throws Exception;
 }

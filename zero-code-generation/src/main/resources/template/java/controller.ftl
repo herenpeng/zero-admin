@@ -98,8 +98,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     })
     @GetMapping("export/excel")
     public void exportExcel(${entityName} query${entityName}, HttpServletResponse response) throws Exception {
-        List<${entityName}> exportData = baseService.list(query${entityName});
-        excelUtils.exportExcel("${comment}", ${entityName}.class, exportData, response);
+        baseService.exportExcel(query${entityName}, response);
     }
 
 }

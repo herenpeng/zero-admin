@@ -2,7 +2,6 @@ package com.zero.common.base.controller;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zero.common.annotation.LogOperation;
-import com.zero.common.export.excel.utils.ExcelUtils;
 import com.zero.common.response.domain.ResponseData;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,9 +19,6 @@ public class BaseController<S extends IService<E>, E> {
 
     @Autowired
     protected S baseService;
-
-    @Autowired
-    protected ExcelUtils excelUtils;
 
     @LogOperation
     @ApiOperation(value = "[通用方法]插入一条对应实体类的数据库记录")

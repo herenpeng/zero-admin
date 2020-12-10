@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -58,11 +59,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public List<User> list(User queryUser) throws Exception {
-        List<User> list = baseMapper.getList(queryUser);
-        for (User user : list) {
-            user.setRoles(roleMapper.getByUserId(user.getId()));
-        }
-        return list;
+        return baseMapper.getList(queryUser);
     }
 
     @Override
@@ -125,6 +122,15 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public void recoverDelete(Integer id) throws Exception {
         baseMapper.recoverDelete(id);
         userRoleMapper.deleteByUserId(id);
+    }
+
+    @Override
+    public void exportExcel(User queryUser, HttpServletResponse response) throws Exception {
+        List<User> exportData = list(queryUser);
+        for (User user : exportData) {
+            user.setRoles(roleMapper.getByUserId(user.getId()));
+        }
+        excelUtils.exportExcel("用户列表", User.class, exportData, response);
     }
 
 

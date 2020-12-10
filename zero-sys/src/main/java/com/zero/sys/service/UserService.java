@@ -5,6 +5,7 @@ import com.zero.common.base.service.BaseService;
 import com.zero.sys.entity.Role;
 import com.zero.sys.entity.User;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public interface UserService extends BaseService<User> {
     /**
      * 通过accessToken解析用户信息并返回
      *
-     * @param accessToken cookie中的accessToken信息
+     * @param accessToken 请求头中的accessToken信息
      * @return 用户信息
      * @throws Exception 抛出异常
      */
@@ -108,4 +109,12 @@ public interface UserService extends BaseService<User> {
     void recoverDelete(Integer id) throws Exception;
 
 
+    /**
+     * 导出用户列表数据的Excel文件
+     *
+     * @param queryUser 查询用户的条件
+     * @param response  HttpServletResponse对象
+     * @throws Exception 抛出异常
+     */
+    void exportExcel(User queryUser, HttpServletResponse response) throws Exception;
 }

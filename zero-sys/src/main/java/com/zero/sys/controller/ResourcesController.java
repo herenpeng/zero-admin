@@ -134,8 +134,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     })
     @GetMapping("export/excel")
     public void exportExcel(Resources queryResources, HttpServletResponse response) throws Exception {
-        List<Resources> exportData = baseService.list(queryResources);
-        excelUtils.exportExcel("系统资源列表", Resources.class, exportData, response);
+        baseService.exportExcel(queryResources, response);
     }
 
 }

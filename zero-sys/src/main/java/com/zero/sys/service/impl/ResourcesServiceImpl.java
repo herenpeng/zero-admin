@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -87,5 +88,12 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
         baseMapper.recoverDelete(id);
     }
 
-
+    @Override
+    public void exportExcel(Resources queryResources, HttpServletResponse response) throws Exception {
+        List<Resources> exportData = list(queryResources);
+        for (Resources resources : exportData) {
+            resources.setRoles(roleMapper.getByResourcesId(resources.getId()));
+        }
+        excelUtils.exportExcel("系统资源列表", Resources.class, exportData, response);
+    }
 }

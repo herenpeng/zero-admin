@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -52,4 +53,9 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements L
         baseMapper.recoverDelete(id);
     }
 
+    @Override
+    public void exportExcel(Log queryLog, HttpServletResponse response) throws Exception {
+        List<Log> exportData = list(queryLog);
+        excelUtils.exportExcel("操作日志列表", Log.class, exportData, response);
+    }
 }

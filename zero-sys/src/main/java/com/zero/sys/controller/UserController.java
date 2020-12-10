@@ -162,8 +162,7 @@ public class UserController extends BaseController<UserService, User> {
     })
     @GetMapping("export/excel")
     public void exportExcel(User queryUser, HttpServletResponse response) throws Exception {
-        List<User> exportData = baseService.list(queryUser);
-        excelUtils.exportExcel("用户列表", User.class, exportData, response);
+        baseService.exportExcel(queryUser, response);
     }
 
 }

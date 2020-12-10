@@ -32,8 +32,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
 
     @Override
     public List<${entityName}> list(${entityName} query${entityName}) throws Exception {
-        List<${entityName}> list = baseMapper.getList(query${entityName});
-        return list;
+        return baseMapper.getList(query${entityName});
     }
 
     @Override
@@ -51,6 +50,12 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     @Override
     public void recoverDelete(Integer id) throws Exception {
         baseMapper.recoverDelete(id);
+    }
+
+    @Override
+    public void exportExcel(${entityName} query${entityName}, HttpServletResponse response) throws Exception {
+        List<${entityName}> exportData = list(query${entityName});
+        excelUtils.exportExcel("${comment}", ${entityName}.class, exportData, response);
     }
 
 }

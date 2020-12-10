@@ -157,8 +157,8 @@ public class MenuController extends BaseController<MenuService, Menu> {
     })
     @GetMapping("export/excel")
     public void exportExcel(Menu queryMenu, HttpServletResponse response) throws Exception {
-        List<Menu> exportData = baseService.list(queryMenu);
-        excelUtils.exportExcel("系统菜单列表", Menu.class, exportData, response);
+        baseService.exportExcel(queryMenu, response);
+
     }
 
 }

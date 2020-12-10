@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -54,4 +55,9 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
         baseMapper.recoverDelete(id);
     }
 
+    @Override
+    public void exportExcel(Role queryRole, HttpServletResponse response) throws Exception {
+        List<Role> exportData = list(queryRole);
+        excelUtils.exportExcel("角色列表", Role.class, exportData, response);
+    }
 }

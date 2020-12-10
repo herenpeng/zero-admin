@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
 import com.zero.sys.entity.Log;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface LogService extends BaseService<Log> {
      *
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
-     * @param queryLog   查询系统操作日志表的条件
+     * @param queryLog    查询系统操作日志表的条件
      * @return 分页查询所有的系统操作日志表数据
      * @throws Exception 抛出异常
      */
@@ -28,7 +29,7 @@ public interface LogService extends BaseService<Log> {
     /**
      * 查询所有的系统操作日志表数据
      *
-     * @param queryLog   查询系统操作日志表的条件
+     * @param queryLog 查询系统操作日志表的条件
      * @return 查询所有的系统操作日志表数据
      * @throws Exception 抛出异常
      */
@@ -39,7 +40,7 @@ public interface LogService extends BaseService<Log> {
      *
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
-     * @param queryLog   查询系统操作日志表的条件
+     * @param queryLog    查询系统操作日志表的条件
      * @return 分页查询逻辑删除的系统操作日志表数据
      * @throws Exception 抛出异常
      */
@@ -61,4 +62,12 @@ public interface LogService extends BaseService<Log> {
      */
     void recoverDelete(Integer id) throws Exception;
 
+    /**
+     * 导出操作日志列表数据的Excel文件
+     *
+     * @param queryLog 查询系统操作日志表的条件
+     * @param response HttpServletResponse对象
+     * @throws Exception 抛出异常
+     */
+    void exportExcel(Log queryLog, HttpServletResponse response) throws Exception;
 }

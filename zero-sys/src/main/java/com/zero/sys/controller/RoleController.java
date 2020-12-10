@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * 用户角色的控制器
@@ -105,8 +104,7 @@ public class RoleController extends BaseController<RoleService, Role> {
     })
     @GetMapping("export/excel")
     public void exportExcel(Role queryRole, HttpServletResponse response) throws Exception {
-        List<Role> exportData = baseService.list(queryRole);
-        excelUtils.exportExcel("角色列表", Role.class, exportData, response);
+        baseService.exportExcel(queryRole, response);
     }
 
 }

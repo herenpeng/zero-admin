@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -117,4 +118,13 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         baseMapper.recoverDelete(id);
     }
 
+
+    @Override
+    public void exportExcel(Menu queryMenu, HttpServletResponse response) throws Exception {
+        List<Menu> exportData = list(queryMenu);
+        for (Menu menu : exportData) {
+            menu.setRoles(roleMapper.getByMenuId(menu.getId()));
+        }
+        excelUtils.exportExcel("系统菜单列表", Menu.class, exportData, response);
+    }
 }
