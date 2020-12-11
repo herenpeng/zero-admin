@@ -82,6 +82,15 @@ public interface UserService extends BaseService<User> {
     void addUserRole(Integer userId, Integer roleId) throws Exception;
 
     /**
+     * 检测用户名是否已存在
+     *
+     * @param username 用户名
+     * @return 如果该用户名已存在，返回true，否则返回false
+     * @throws Exception 抛出异常
+     */
+    Boolean checkUsername(String username) throws Exception;
+
+    /**
      * 分页查询逻辑删除的用户数据
      *
      * @param currentPage 当前页面数，页面从1开始
@@ -117,4 +126,5 @@ public interface UserService extends BaseService<User> {
      * @throws Exception 抛出异常
      */
     void exportExcel(User queryUser, HttpServletResponse response) throws Exception;
+
 }

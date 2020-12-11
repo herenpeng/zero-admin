@@ -107,6 +107,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    public Boolean checkUsername(String username) throws Exception {
+        return baseMapper.checkUsername(username);
+    }
+
+    @Override
     public IPage<User> recoverPage(Integer currentPage, Integer size, User queryUser) throws Exception {
         Page page = new Page(currentPage, size);
         IPage<User> pageInfo = baseMapper.getRecoverPage(page, queryUser);

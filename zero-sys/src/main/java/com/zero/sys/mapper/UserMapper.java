@@ -3,10 +3,7 @@ package com.zero.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.sys.entity.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -77,4 +74,12 @@ public interface UserMapper extends BaseMapper<User> {
     @Delete("delete from sys_user where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
+    /**
+     * 检测用户名是否已存在
+     * @param username 用户名
+     * @return 如果该用户名已存在，返回true，否则返回false
+     * @throws Exception 抛出异常
+     */
+    @Select("select count(*) from sys_user where username = #{username}")
+    Boolean checkUsername(@Param("username") String username) throws Exception;
 }

@@ -115,6 +115,19 @@ public class UserController extends BaseController<UserService, User> {
 
 
     @LogOperation
+    @ApiOperation(value = "检测用户名是否已存在")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true)
+    })
+    @GetMapping("check/username")
+    public ResponseData checkUsername(@RequestParam("username") String username) throws Exception {
+        Boolean result = baseService.checkUsername(username);
+        return ResponseData.ok(result);
+    }
+
+
+
+    @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的用户数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
@@ -153,6 +166,7 @@ public class UserController extends BaseController<UserService, User> {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该用户数据");
     }
+
 
     @LogOperation
     @ApiOperation(value = "导出用户列表数据的Excel文件")
