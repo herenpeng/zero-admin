@@ -32,7 +32,11 @@ mybatis-plus:
 zero:
   sys:
     user:
+      root-username: root
+      root-password: root
       default-password: 111111
+    role:
+      root-name: root
     security:
       jwt:
         secret: HdGkiOiI4ODgiLCJzdWIiOiLlsI

@@ -3,10 +3,7 @@ package com.zero.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.sys.entity.Role;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,6 +30,7 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     /**
      * 获取所有的用户角色信息
+     *
      * @param queryRole 角色查询条件
      * @return 所有用户集合
      * @throws Exception 抛出异常
@@ -94,6 +92,15 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     List<Role> getMenuNotRoleList(@Param("menuId") Integer menuId) throws Exception;
 
+    /**
+     * 检测角色名称是否已存在
+     *
+     * @param name 角色名称
+     * @return 如果该角色名称已存在，返回true，否则返回false
+     * @throws Exception 抛出异常
+     */
+    @Select("select count(*) from sys_role where name = #{name}")
+    Boolean checkName(String name) throws Exception;
 
     /**
      * 分页查询逻辑删除的系统角色表数据
@@ -122,5 +129,6 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     @Delete("delete from sys_role where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
+
 
 }

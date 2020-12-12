@@ -3,6 +3,8 @@ package com.zero.sys.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.exception.MyException;
+import com.zero.common.exception.MyExceptionEnum;
 import com.zero.sys.entity.Role;
 import com.zero.sys.entity.User;
 import com.zero.sys.entity.UserRole;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -75,6 +78,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public void enabled(Integer id, Boolean enabled) throws Exception {
+        verifyRootPermissions(id);
         User user = new User();
         user.setId(id);
         user.setEnabled(enabled);
@@ -89,7 +93,20 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    public boolean updateById(User user) {
+        verifyRootPermissions(user.getId());
+        return super.updateById(user);
+    }
+
+    @Override
+    public boolean removeById(Serializable id) {
+        verifyRootPermissions(id);
+        return super.removeById(id);
+    }
+
+    @Override
     public void deleteUserRole(Integer userId, Integer roleId) throws Exception {
+        verifyRootPermissions(userId);
         userRoleMapper.deleteUserRole(userId, roleId);
     }
 
@@ -100,6 +117,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public void addUserRole(Integer userId, Integer roleId) throws Exception {
+        verifyRootPermissions(userId);
         UserRole userRole = new UserRole();
         userRole.setUserId(userId);
         userRole.setRoleId(roleId);
@@ -139,6 +157,18 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
             user.setRoles(roleMapper.getByUserId(user.getId()));
         }
         excelUtils.exportExcel("用户列表", User.class, exportData, response);
+    }
+
+    /**
+     * 校验Root用户的权限，不允许所有用户对该Root账号进行修改，删除，增删角色等等操作
+     *
+     * @param id 用户主键
+     */
+    private void verifyRootPermissions(Serializable id) {
+        User user = baseMapper.selectById(id);
+        if (userProperties.getRootUsername().equals(user.getUsername())) {
+            throw new MyException(MyExceptionEnum.ACCESS_DENIED);
+        }
     }
 
 

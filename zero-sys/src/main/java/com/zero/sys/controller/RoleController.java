@@ -56,6 +56,17 @@ public class RoleController extends BaseController<RoleService, Role> {
         return ResponseData.ok(baseService.list(queryRole));
     }
 
+    @LogOperation
+    @ApiOperation(value = "检测角色名称是否已存在")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "角色名称", required = true)
+    })
+    @GetMapping("check/name")
+    public ResponseData checkName(@RequestParam("name") String name) throws Exception {
+        Boolean result = baseService.checkName(name);
+        return ResponseData.ok(result);
+    }
+
 
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统角色表数据")

@@ -126,7 +126,6 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的用户数据")
     @ApiImplicitParams({
