@@ -1,6 +1,5 @@
 package com.zero.code.generation.util;
 
-import com.zero.code.generation.constant.FileConst;
 import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.enums.TemplateEnum;
@@ -29,6 +28,11 @@ public class CodeGenerationUtils {
 
     @Autowired
     private TableColumnMapper tableColumnMapper;
+
+    /**
+     * Java包分隔符
+     */
+    public static final String PACKAGE_SEPARATOR = ".";
 
     /**
      * 代码生成方法
@@ -78,7 +82,7 @@ public class CodeGenerationUtils {
      * @return 文件路径名称
      */
     private String packageNameToPath(String packageName) {
-        return FileConst.FILE_SEPARATOR + packageName.replace(FileConst.PACKAGE_SEPARATOR, FileConst.FILE_SEPARATOR) + FileConst.FILE_SEPARATOR;
+        return File.separator + packageName.replace(PACKAGE_SEPARATOR, File.separator) + File.separator;
     }
 
 
