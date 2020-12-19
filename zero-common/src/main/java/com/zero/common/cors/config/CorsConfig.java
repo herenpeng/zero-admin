@@ -21,8 +21,8 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         //1) 允许的域,不要写*，否则cookie就无法使用了
         config.addAllowedOrigin("http://127.0.0.1:20000");
-        config.addAllowedOrigin("http://47.114.99.214:20000");
-        config.addAllowedOrigin("http://192.168.8.128:20000");
+        config.addAllowedOrigin("http://47.114.99.214");
+        config.addAllowedOrigin("http://192.168.8.128");
         config.addAllowedOrigin("http://www.herenpeng.com");
         //2) 是否发送Cookie信息
         config.setAllowCredentials(true);
