@@ -23,7 +23,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://127.0.0.1:20000");
         config.addAllowedOrigin("http://47.114.99.214");
         config.addAllowedOrigin("http://192.168.8.128");
-        config.addAllowedOrigin("http://www.herenpeng.com");
+        config.addAllowedOrigin("http://zeroadmin.herenpeng.com");
         //2) 是否发送Cookie信息
         config.setAllowCredentials(true);
         //3) 允许的请求方式
