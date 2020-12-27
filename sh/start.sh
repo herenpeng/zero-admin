@@ -1,2 +1,0 @@
-# 该脚本文件为Linux环境启动项目的脚本文件，其中zero-web-1.0-SNAPSHOT.jar为当前版本的jar包名称，如果名称发生变化，请修改名称
-nohup java -Dfile.encoding=UTF-8 -jar zero-web-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/usr/web-project/zero-admin/log.log 2>&1 &
