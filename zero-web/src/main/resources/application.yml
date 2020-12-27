@@ -1,7 +1,7 @@
 server:
   port: 10000
   servlet:
-    context-path: /
+    context-path: /api
   tomcat:
     uri-encoding: UTF-8
 spring:

@@ -39,9 +39,9 @@ public class SwaggerConfig {
                 .description("该篇接口文档是关于zero-admin通用后台管理系统的接口说明文档，对于该系统中的所有接口进行了详细的描述！")
                 // 系统版本
                 .version("1.0.0")
-                .contact(new Contact("herenpeng", "https://herenpeng.github.io", "he.ren.peng@qq.com"))
+                .contact(new Contact("herenpeng", "https://blog.csdn.net/qq_45193304", "he.ren.peng@qq.com"))
                 .license("前往系统")
-                .licenseUrl("https://www.herenpeng.com/")
+                .licenseUrl("http://zeroadmin.herenpeng.com")
                 .build();
     }
 

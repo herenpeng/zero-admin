@@ -57,7 +57,8 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
         checkToken(request);
         // 授权
         String requestURI = request.getRequestURI();
-        Resources resources = resourcesMapper.getByRegexUriAndMethodType(requestURI, request.getMethod().toUpperCase());
+        String uri = requestURI.substring(request.getContextPath().length());
+        Resources resources = resourcesMapper.getByRegexUriAndMethodType(uri, request.getMethod().toUpperCase());
         if (ObjectUtils.allNotNull(resources)) {
             List<Role> roles = resources.getRoles();
             String[] roleNameList = new String[roles.size()];
