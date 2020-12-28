@@ -26,7 +26,6 @@
 
 
     <build>
-        <finalName>zero-admin</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
