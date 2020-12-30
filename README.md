@@ -9,14 +9,18 @@ github下载地址:https://github.com/herenpeng/zero-admin.git
 - JDK   1.8
 - Maven 3.6.3
 - MySQL 5.7.30
-- Redis:(Windows)3.2.100
+- Redis(Windows) 3.2.100
 
-## 项目建议运行环境
-如果可以和项目开发环境保持一致是最好的，如果无法保持一致，可以使用建议运行环境
-
-- JDK1.8版本或以上
-- Maven 3.0.0版本或以上
-- MySQL 5.7版本或以上（不建议使用MySQL5.7以下的版本，因为使用5.7以下的版本，需要修改数据库的连接驱动）
+## 项目技术栈
+- SpringBoot
+- MyBatisPlus
+- JWT
+- WebSocket
+- Swagger2
+- FreeMarker
+- SpringDataRedis
+- easyPoi
+- oshi
 
 ## 运行项目
 1、从github地址上将项目下载下来。
@@ -31,15 +35,8 @@ github下载地址:https://github.com/herenpeng/zero-admin.git
 
 6、运行MyApplication的main()方法，启动项目
 
-## 项目相关技术栈
-- SpringBoot
-- MyBatisPlus
-- JWT
-- WebSocket
-- Swagger2
 
-
-## 项目开发
+## 项目开发约束
 1、本项目代码开发规范遵循阿里巴巴Java代码开发规约，在进行开发前，请下载阿里巴巴Java代码开发约束插件，保证项目代码质量。
 
 2、本项目功能使用分模块开发，如果需要在本项目的基础上进行开发，请按照以下的三个步骤进行：
