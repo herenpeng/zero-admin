@@ -130,6 +130,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    public Boolean checkPassword(String password) throws Exception {
+        Integer id = jwtUtils.getUserId(request);
+        User user = baseMapper.selectById(id);
+        return passwordEncoder.matches(password, user.getPassword());
+    }
+
+    @Override
     public IPage<User> recoverPage(Integer currentPage, Integer size, User queryUser) throws Exception {
         Page page = new Page(currentPage, size);
         IPage<User> pageInfo = baseMapper.getRecoverPage(page, queryUser);
@@ -157,6 +164,20 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
             user.setRoles(roleMapper.getByUserId(user.getId()));
         }
         excelUtils.exportExcel("用户列表", User.class, exportData, response);
+    }
+
+    @Override
+    public void resetPassword(String oldPassword, String newPassword) throws Exception {
+        Integer id = jwtUtils.getUserId(request);
+        User user = baseMapper.selectById(id);
+        if (!checkPassword(oldPassword)) {
+            log.error("[重置用户密码]用户{}密码输入错误", user.getUsername());
+            throw new MyException(MyExceptionEnum.PASSWORD_ERROR);
+        }
+        // 删除用户名中的所有空格字符
+        String encodeNewPassword = passwordEncoder.encode(StringUtils.deleteWhitespace(newPassword));
+        user.setPassword(encodeNewPassword);
+        baseMapper.updateById(user);
     }
 
     /**

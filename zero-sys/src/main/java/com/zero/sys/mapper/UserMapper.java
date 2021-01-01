@@ -76,10 +76,12 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 检测用户名是否已存在
+     *
      * @param username 用户名
      * @return 如果该用户名已存在，返回true，否则返回false
      * @throws Exception 抛出异常
      */
     @Select("select count(*) from sys_user where username = #{username}")
     Boolean checkUsername(@Param("username") String username) throws Exception;
+
 }

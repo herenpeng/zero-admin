@@ -91,6 +91,15 @@ public interface UserService extends BaseService<User> {
     Boolean checkUsername(String username) throws Exception;
 
     /**
+     * 检测用户密码是否正确
+     *
+     * @param password 用户密码
+     * @return 如果该用户密码正确，返回true，否则返回false
+     * @throws Exception 抛出异常
+     */
+    Boolean checkPassword(String password) throws Exception;
+
+    /**
      * 分页查询逻辑删除的用户数据
      *
      * @param currentPage 当前页面数，页面从1开始
@@ -127,4 +136,12 @@ public interface UserService extends BaseService<User> {
      */
     void exportExcel(User queryUser, HttpServletResponse response) throws Exception;
 
+    /**
+     * 重置用户账号密码
+     *
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @throws Exception 抛出异常
+     */
+    void resetPassword(String oldPassword, String newPassword) throws Exception;
 }

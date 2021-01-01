@@ -21,7 +21,9 @@ public enum MyExceptionEnum {
     /**
      * 40003，访问权限不足
      */
-    ACCESS_DENIED(40003, "您的访问权限不足");
+    ACCESS_DENIED(40003, "您的访问权限不足"),
+
+    PASSWORD_ERROR(50001, "密码错误");
 
     private int code;
     private String message;

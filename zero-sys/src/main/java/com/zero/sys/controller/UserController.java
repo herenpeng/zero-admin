@@ -125,6 +125,16 @@ public class UserController extends BaseController<UserService, User> {
         return ResponseData.ok(result);
     }
 
+    @LogOperation
+    @ApiOperation(value = "检测用户密码是否正确")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "password", value = "用户密码", required = true)
+    })
+    @GetMapping("check/password")
+    public ResponseData checkPassword(@RequestParam("password") String password) throws Exception {
+        Boolean result = baseService.checkPassword(password);
+        return ResponseData.ok(result);
+    }
 
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的用户数据")
@@ -176,6 +186,21 @@ public class UserController extends BaseController<UserService, User> {
     @GetMapping("export/excel")
     public void exportExcel(User queryUser, HttpServletResponse response) throws Exception {
         baseService.exportExcel(queryUser, response);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "重置用户账号密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "oldPassword", value = "旧密码"),
+            @ApiImplicitParam(name = "newPassword", value = "新密码"),
+    })
+    @PutMapping("reset/password")
+    public ResponseData resetPassword(
+            @RequestParam("oldPassword") String oldPassword,
+            @RequestParam("newPassword") String newPassword) throws Exception {
+        baseService.resetPassword(oldPassword, newPassword);
+        return ResponseData.ok().message("账号密码重置成功");
     }
 
 }

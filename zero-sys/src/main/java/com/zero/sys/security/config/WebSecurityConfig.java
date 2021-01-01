@@ -43,19 +43,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityAccessDecisionManager securityAccessDecisionManager;
 
     /**
-     * 登录成功
+     * 登录成功处理器
      */
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     /**
-     * 登录失败
+     * 登录失败处理器
      */
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
 
     /**
-     * 退出登录
+     * 退出登录处理器
      */
     @Autowired
     private LogoutHandler logoutHandler;
