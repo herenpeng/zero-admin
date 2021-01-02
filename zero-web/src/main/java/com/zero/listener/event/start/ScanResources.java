@@ -1,6 +1,8 @@
 package com.zero.listener.event.start;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zero.common.constant.MethodTypeConst;
+import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import com.zero.sys.entity.Resources;
 import com.zero.sys.entity.ResourcesRole;
@@ -26,6 +28,7 @@ import java.lang.reflect.Method;
  * @author herenpeng
  * @since 2020-10-16 20:41
  */
+@EventSort
 @Component
 public class ScanResources implements StartEvent {
 
@@ -126,27 +129,27 @@ public class ScanResources implements StartEvent {
         String methodType = null;
         // 资源描述
         String description = null;
-        String[] value = null;
+        String[] value;
         if (ObjectUtils.allNotNull(getMapping)) {
-            methodType = "GET";
+            methodType = MethodTypeConst.GET;
             value = getMapping.value();
             if (value.length > 0) {
                 methodPath = value[0];
             }
         } else if (ObjectUtils.allNotNull(postMapping)) {
-            methodType = "POST";
+            methodType = MethodTypeConst.POST;
             value = postMapping.value();
             if (value.length > 0) {
                 methodPath = value[0];
             }
         } else if (ObjectUtils.allNotNull(putMapping)) {
-            methodType = "PUT";
+            methodType = MethodTypeConst.PUT;
             value = putMapping.value();
             if (value.length > 0) {
                 methodPath = value[0];
             }
         } else if (ObjectUtils.allNotNull(deleteMapping)) {
-            methodType = "DELETE";
+            methodType = MethodTypeConst.DELETE;
             value = deleteMapping.value();
             if (value.length > 0) {
                 methodPath = value[0];

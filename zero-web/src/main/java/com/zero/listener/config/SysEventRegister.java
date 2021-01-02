@@ -21,12 +21,14 @@ public class SysEventRegister extends EventRegister {
     /**
      * 注册扫描资源事件，在系统启动时，扫描系统资源
      */
-    private boolean scanResources;
+    private boolean scanResources = true;
 
     /**
      * 销毁所有的系统资源
      */
-    private boolean destroyResources;
+    private boolean destroyResources = false;
+
+    private boolean rootUser = true;
 
 
 }

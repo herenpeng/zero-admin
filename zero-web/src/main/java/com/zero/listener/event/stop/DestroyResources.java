@@ -1,5 +1,6 @@
 package com.zero.listener.event.stop;
 
+import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StopEvent;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.mapper.ResourcesRoleMapper;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
  * @author herenpeng
  * @since 2020-10-18 9:22
  */
+@EventSort
 @Component
 public class DestroyResources implements StopEvent {
 

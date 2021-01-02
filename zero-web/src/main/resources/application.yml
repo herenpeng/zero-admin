@@ -46,7 +46,4 @@ zero:
     listener:
       execution-start: true
       execution-stop: true
-      event:
-        scan-resources: true
-        destroy-resources: false
 

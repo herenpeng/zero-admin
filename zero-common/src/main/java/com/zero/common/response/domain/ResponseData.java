@@ -53,6 +53,13 @@ public class ResponseData<T> {
         return responseData;
     }
 
+    /**
+     * 非静态方法，设置响应体的业务提示消息
+     *
+     * @param message 业务提示消息
+     * @param <T>     返回数据的泛型
+     * @return 返回一个返回数据为data的ResponseData对象
+     */
     public <T> ResponseData<T> message(String message) {
         responseData.setMessage(message);
         return responseData;
