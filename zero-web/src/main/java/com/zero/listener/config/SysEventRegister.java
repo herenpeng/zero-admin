@@ -28,7 +28,15 @@ public class SysEventRegister extends EventRegister {
      */
     private boolean destroyResources = false;
 
+    /**
+     * root用户事件，在系统启动时，插入root角色和root用户，并关联两者的关系
+     */
     private boolean rootUser = true;
+
+    /**
+     * root用户菜单事件，插入root用户的所有菜单权限
+     */
+    private boolean rootMenu = true;
 
 
 }

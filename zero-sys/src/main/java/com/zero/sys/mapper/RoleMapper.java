@@ -100,7 +100,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @throws Exception 抛出异常
      */
     @Select("select count(*) from sys_role where name = #{name}")
-    Boolean checkName(String name) throws Exception;
+    Boolean checkName(@Param("name") String name) throws Exception;
 
     /**
      * 分页查询逻辑删除的系统角色表数据
@@ -129,6 +129,16 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     @Delete("delete from sys_role where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
+
+    /**
+     * 通过角色名称获取角色对象
+     *
+     * @param name 角色名称
+     * @return 角色对象
+     * @throws Exception 抛出异常
+     */
+    @Select("select id,name,description from sys_role where name = #{name}")
+    Role getByName(@Param("name") String name);
 
 
 }

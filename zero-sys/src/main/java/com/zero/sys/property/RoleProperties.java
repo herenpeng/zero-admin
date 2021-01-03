@@ -24,4 +24,9 @@ public class RoleProperties {
      */
     private String rootName;
 
+    /**
+     * root用户的描述
+     */
+    private String rootDescription;
+
 }

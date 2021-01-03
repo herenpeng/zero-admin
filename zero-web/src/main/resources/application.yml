@@ -33,10 +33,11 @@ zero:
   sys:
     user:
       root-username: root
-      root-password: root
+      root-password: 111111
       default-password: 111111
     role:
       root-name: root
+      root-description: root权限，系统的最高权限
     security:
       jwt:
         secret: HdGkiOiI4ODgiLCJzdWIiOiLlsI

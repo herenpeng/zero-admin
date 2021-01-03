@@ -6,8 +6,11 @@ import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import com.zero.sys.entity.Resources;
 import com.zero.sys.entity.ResourcesRole;
+import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.mapper.ResourcesRoleMapper;
+import com.zero.sys.mapper.RoleMapper;
+import com.zero.sys.property.RoleProperties;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,6 +57,12 @@ public class ScanResources implements StartEvent {
     private ConfigurableApplicationContext run;
 
     @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private RoleProperties roleProperties;
+
+    @Autowired
     private ResourcesMapper resourcesMapper;
 
     @Autowired
@@ -72,7 +81,7 @@ public class ScanResources implements StartEvent {
     private void scanResources(ConfigurableApplicationContext run) {
         // 获取@RestController注解的类名集合
         String[] restControllerBeanNameList = run.getBeanNamesForAnnotation(RestController.class);
-
+        Role rootRole = roleMapper.getByName(roleProperties.getRootName());
         // 获取类对象名称
         for (String beanName : restControllerBeanNameList) {
             Object bean = run.getBean(beanName);
@@ -82,7 +91,7 @@ public class ScanResources implements StartEvent {
             String beanPath = getBeanPath(beanClass);
             Method[] methods = beanClass.getMethods();
             for (Method method : methods) {
-                insertResources(method, beanPath);
+                insertResources(method, beanPath, rootRole);
             }
         }
     }
@@ -113,8 +122,9 @@ public class ScanResources implements StartEvent {
      *
      * @param method   方法
      * @param beanPath Controller上的路径
+     * @param rootRole root角色
      */
-    private void insertResources(Method method, String beanPath) {
+    private void insertResources(Method method, String beanPath, Role rootRole) {
         // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
         GetMapping getMapping = method.getAnnotation(GetMapping.class);
         PostMapping postMapping = method.getAnnotation(PostMapping.class);
@@ -164,21 +174,26 @@ public class ScanResources implements StartEvent {
         resources.setRegex(splicingRegex(beanPath, methodPath));
         resources.setMethodType(methodType);
 
-        // 先在数据库里面进行查找，如果有对应的路径和方法，我们不插入，而是进行更新
+        // 先在数据库里面进行查找，如果有对应的路径和方法，不插入，而是进行更新
         QueryWrapper<Resources> queryWrapper = new QueryWrapper<>(resources);
         Resources res = resourcesMapper.selectOne(queryWrapper);
+        ResourcesRole resourcesRole = new ResourcesRole();
         if (ObjectUtils.allNotNull(res)) {
             res.setDescription(description);
             resourcesMapper.updateById(res);
+            resourcesRole.setResourcesId(res.getId());
         } else {
             resources.setDescription(description);
             resourcesMapper.insert(resources);
-
-            ResourcesRole resourcesRole = new ResourcesRole();
             resourcesRole.setResourcesId(resources.getId());
-            resourcesRole.setRoleId(1);
+        }
+        resourcesRole.setRoleId(rootRole.getId());
+        QueryWrapper<ResourcesRole> resourcesRoleQueryWrapper = new QueryWrapper<>(resourcesRole);
+        ResourcesRole resourcesRole1 = resourcesRoleMapper.selectOne(resourcesRoleQueryWrapper);
+        if (!ObjectUtils.allNotNull(resourcesRole1)) {
             resourcesRoleMapper.insert(resourcesRole);
         }
+
     }
 
     /**
