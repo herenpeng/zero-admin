@@ -27,13 +27,13 @@ github下载地址:https://github.com/herenpeng/zero-admin.git
 
 2、将项目设置为Maven项目，并使用Maven下载相关依赖。
 
-3、修改application-dev.yml里面的MySQL数据库和Redis数据库的连接信息
+3、修改application-dev.yml里面的MySQL数据库和Redis数据库的连接信息。
 
-4、启动MySQL数据库，并导入sql脚本文件
+4、启动MySQL数据库，并导入sql脚本文件。
 
-5、启动Redis数据库
+5、启动Redis数据库。
 
-6、运行MyApplication的main()方法，启动项目
+6、运行MyApplication的main()方法，启动项目。
 
 
 ## 项目开发约束
@@ -52,7 +52,7 @@ github下载地址:https://github.com/herenpeng/zero-admin.git
 -- 这是通用的表数据结构字段
 CREATE TABLE `base_table` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-	-- 在这里添加表数据字段
+	-- 在这里添加表数据业务功能字段
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '数据库数据插入时间',
   `create_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '数据库数据插入用户主键',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据库数据更新时间',
@@ -73,3 +73,22 @@ CREATE TABLE `base_table` (
 具体关于SpringAop执行顺序问题，可以参考作者博客：[不同版本的SpringAop执行顺序变化](https://blog.csdn.net/qq_45193304/article/details/109430545)
 
 3、系统内部集成了Swagger2接口文档，直接通过项目系统【项目文档】菜单或者/swagger-ui.html路径，可以直接访问接口说明文档
+
+
+## 项目效果图
+
+![系统首页](./assets/image/01.png)
+
+![用户管理](./assets/image/02.png)
+
+![新增用户](./assets/image/03.png)
+
+![菜单管理](./assets/image/04.png)
+
+![系统监控](./assets/image/05.png)
+
+![日志管理](./assets/image/06.png)
+
+![密码重置](./assets/image/07.png)
+
+![系统文档](./assets/image/08.png)
