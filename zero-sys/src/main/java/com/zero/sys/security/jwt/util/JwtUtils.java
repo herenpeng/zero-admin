@@ -186,7 +186,7 @@ public class JwtUtils {
      * @return User对象
      * @throws JsonProcessingException 抛出Json格式化异常
      */
-    public User getUserInfo(String jwt) throws JsonProcessingException {
+    public User getUser(String jwt) throws JsonProcessingException {
         Claims claims = parseJWT(jwt);
         String subject = claims.getSubject();
         User user = objectMapper.readValue(subject, User.class);
@@ -200,8 +200,8 @@ public class JwtUtils {
      * @return User对象
      * @throws JsonProcessingException 抛出Json格式化异常
      */
-    public User getUserInfo(HttpServletRequest request) throws JsonProcessingException {
-        return getUserInfo(requestUtils.getToken(request));
+    public User getUser(HttpServletRequest request) throws JsonProcessingException {
+        return getUser(requestUtils.getToken(request));
     }
 
     /**
@@ -212,7 +212,7 @@ public class JwtUtils {
      * @throws JsonProcessingException 抛出Json格式化异常
      */
     public String getUsername(String jwt) throws JsonProcessingException {
-        User user = getUserInfo(jwt);
+        User user = getUser(jwt);
         return user.getUsername();
     }
 
@@ -235,7 +235,7 @@ public class JwtUtils {
      * @throws JsonProcessingException 抛出Json格式化异常
      */
     public Integer getUserId(String jwt) throws JsonProcessingException {
-        User user = getUserInfo(jwt);
+        User user = getUser(jwt);
         return user.getId();
     }
 
@@ -258,7 +258,7 @@ public class JwtUtils {
      * @throws JsonProcessingException 抛出Json格式化异常
      */
     public List<Role> getRoleList(String jwt) throws JsonProcessingException {
-        User user = getUserInfo(jwt);
+        User user = getUser(jwt);
         return user.getRoles();
     }
 

@@ -88,7 +88,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public User info(String accessToken) throws Exception {
-        User user = jwtUtils.getUserInfo(accessToken);
+        User user = jwtUtils.getUser(accessToken);
         return user;
     }
 
