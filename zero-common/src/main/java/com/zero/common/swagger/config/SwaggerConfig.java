@@ -23,12 +23,13 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.zero"))
                 .paths(PathSelectors.any())
-                .build().apiInfo(apiInfo());
+                .build();
     }
 
     private ApiInfo apiInfo() {

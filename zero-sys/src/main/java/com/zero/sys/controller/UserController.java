@@ -35,7 +35,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "queryUser", value = "用户查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData page(
+    public ResponseData<IPage<User>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             User queryUser) throws Exception {
@@ -51,7 +51,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "enabled", value = "true为启用，false为禁用", required = true)
     })
     @PutMapping("enabled/{id}")
-    public ResponseData enabled(
+    public ResponseData<Void> enabled(
             @PathVariable("id") Integer id,
             @RequestParam("enabled") Boolean enabled) throws Exception {
         baseService.enabled(id, enabled);
@@ -65,7 +65,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "accessToken", value = "用户请求token", required = true)
     })
     @GetMapping("info")
-    public ResponseData info(@RequestHeader("accessToken") String accessToken) throws Exception {
+    public ResponseData<User> info(@RequestHeader("accessToken") String accessToken) throws Exception {
         User user = baseService.info(accessToken);
         return ResponseData.ok(user);
     }
@@ -78,7 +78,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
     })
     @DeleteMapping("role/{userId}")
-    public ResponseData deleteUserRole(
+    public ResponseData<Void> deleteUserRole(
             @PathVariable("userId") Integer userId,
             @RequestParam("roleId") Integer roleId) throws Exception {
         baseService.deleteUserRole(userId, roleId);
@@ -92,7 +92,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "userId", value = "用户主键", required = true)
     })
     @GetMapping("role/{userId}")
-    public ResponseData getUserNotRoleList(
+    public ResponseData<List<Role>> getUserNotRoleList(
             @PathVariable("userId") Integer userId) throws Exception {
         List<Role> roleList = baseService.getUserNotRoleList(userId);
         return ResponseData.ok(roleList);
@@ -106,7 +106,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
     })
     @PostMapping("role/{userId}")
-    public ResponseData addUserRole(
+    public ResponseData<Void> addUserRole(
             @PathVariable("userId") Integer userId,
             @RequestParam Integer roleId) throws Exception {
         baseService.addUserRole(userId, roleId);
@@ -120,7 +120,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "username", value = "用户名", required = true)
     })
     @GetMapping("check/username")
-    public ResponseData checkUsername(@RequestParam("username") String username) throws Exception {
+    public ResponseData<Boolean> checkUsername(@RequestParam("username") String username) throws Exception {
         Boolean result = baseService.checkUsername(username);
         return ResponseData.ok(result);
     }
@@ -131,7 +131,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "password", value = "用户密码", required = true)
     })
     @GetMapping("check/password")
-    public ResponseData checkPassword(@RequestParam("password") String password) throws Exception {
+    public ResponseData<Boolean> checkPassword(@RequestParam("password") String password) throws Exception {
         Boolean result = baseService.checkPassword(password);
         return ResponseData.ok(result);
     }
@@ -144,7 +144,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "queryUser", value = "用户查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData recoverPage(
+    public ResponseData<IPage<User>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             User queryUser) throws Exception {
@@ -159,7 +159,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "id", value = "用户ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
         return ResponseData.ok();
     }
@@ -171,7 +171,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "id", value = "用户ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该用户数据");
     }
@@ -196,7 +196,7 @@ public class UserController extends BaseController<UserService, User> {
             @ApiImplicitParam(name = "newPassword", value = "新密码"),
     })
     @PutMapping("reset/password")
-    public ResponseData resetPassword(
+    public ResponseData<Void> resetPassword(
             @RequestParam("oldPassword") String oldPassword,
             @RequestParam("newPassword") String newPassword) throws Exception {
         baseService.resetPassword(oldPassword, newPassword);

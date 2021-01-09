@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 用户角色的控制器
@@ -33,7 +34,7 @@ public class RoleController extends BaseController<RoleService, Role> {
             @ApiImplicitParam(name = "queryRole", value = "角色查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData page(
+    public ResponseData<IPage<Role>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Role queryRole) throws Exception {
@@ -52,7 +53,7 @@ public class RoleController extends BaseController<RoleService, Role> {
             @ApiImplicitParam(name = "queryRole", value = "角色查询条件")
     })
     @GetMapping("list")
-    public ResponseData list(Role queryRole) throws Exception {
+    public ResponseData<List<Role>> list(Role queryRole) throws Exception {
         return ResponseData.ok(baseService.list(queryRole));
     }
 
@@ -62,7 +63,7 @@ public class RoleController extends BaseController<RoleService, Role> {
             @ApiImplicitParam(name = "name", value = "角色名称", required = true)
     })
     @GetMapping("check/name")
-    public ResponseData checkName(@RequestParam("name") String name) throws Exception {
+    public ResponseData<Boolean> checkName(@RequestParam("name") String name) throws Exception {
         Boolean result = baseService.checkName(name);
         return ResponseData.ok(result);
     }
@@ -76,7 +77,7 @@ public class RoleController extends BaseController<RoleService, Role> {
             @ApiImplicitParam(name = "queryRole", value = "系统角色表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData recoverPage(
+    public ResponseData<IPage<Role>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Role queryRole) throws Exception {
@@ -91,7 +92,7 @@ public class RoleController extends BaseController<RoleService, Role> {
             @ApiImplicitParam(name = "id", value = "系统角色表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
         return ResponseData.ok();
     }
@@ -102,7 +103,7 @@ public class RoleController extends BaseController<RoleService, Role> {
             @ApiImplicitParam(name = "id", value = "系统角色表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该角色数据");
     }

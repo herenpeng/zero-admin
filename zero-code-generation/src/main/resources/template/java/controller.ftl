@@ -31,7 +31,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
             @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData page(
+    public ResponseData<IPage<${entityName}>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "8") Integer size,
             ${entityName} query${entityName}) throws Exception {
@@ -46,7 +46,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
             @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件")
     })
     @GetMapping("list")
-    public ResponseData list(${entityName} query${entityName}) throws Exception {
+    public ResponseData<List<${entityName}>> list(${entityName} query${entityName}) throws Exception {
         return ResponseData.ok(baseService.list(query${entityName}));
     }
 

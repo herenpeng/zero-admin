@@ -35,7 +35,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @ApiImplicitParam(name = "queryResources", value = "系统资源查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData page(
+    public ResponseData<IPage<Resources>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Resources queryResources) throws Exception {
@@ -51,7 +51,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
     })
     @DeleteMapping("role/{resourcesId}")
-    public ResponseData deleteResourcesRole(
+    public ResponseData<Void> deleteResourcesRole(
             @PathVariable("resourcesId") Integer resourcesId,
             @RequestParam("roleId") Integer roleId) throws Exception {
         baseService.deleteResourcesRole(resourcesId, roleId);
@@ -65,7 +65,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @ApiImplicitParam(name = "resourcesId", value = "系统资源主键", required = true)
     })
     @GetMapping("role/{resourcesId}")
-    public ResponseData getResourcesNotRoleList(
+    public ResponseData<List<Role>> getResourcesNotRoleList(
             @PathVariable("resourcesId") Integer resourcesId) throws Exception {
         List<Role> roleList = baseService.getResourcesNotRoleList(resourcesId);
         return ResponseData.ok(roleList);
@@ -79,7 +79,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
     })
     @PostMapping("role/{resourcesId}")
-    public ResponseData addResourcesRole(
+    public ResponseData<Void> addResourcesRole(
             @PathVariable("resourcesId") Integer resourcesId,
             @RequestParam Integer roleId) throws Exception {
         baseService.addResourcesRole(resourcesId, roleId);
@@ -95,7 +95,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @ApiImplicitParam(name = "queryResources", value = "系统资源表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData recoverPage(
+    public ResponseData<IPage<Resources>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Resources queryResources) throws Exception {
@@ -110,7 +110,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @ApiImplicitParam(name = "id", value = "系统资源表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
         return ResponseData.ok();
     }
@@ -121,7 +121,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @ApiImplicitParam(name = "id", value = "系统资源表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该系统资源数据");
     }

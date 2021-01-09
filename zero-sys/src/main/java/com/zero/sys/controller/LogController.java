@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 系统操作日志表的数据交互控制器
@@ -33,7 +34,7 @@ public class LogController extends BaseController<LogService, Log> {
             @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData page(
+    public ResponseData<IPage<Log>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "8") Integer size,
             Log queryLog) throws Exception {
@@ -48,7 +49,7 @@ public class LogController extends BaseController<LogService, Log> {
             @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件")
     })
     @GetMapping("list")
-    public ResponseData list(Log queryLog) throws Exception {
+    public ResponseData<List<Log>> list(Log queryLog) throws Exception {
         return ResponseData.ok(baseService.list(queryLog));
     }
 
@@ -61,7 +62,7 @@ public class LogController extends BaseController<LogService, Log> {
             @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData recoverPage(
+    public ResponseData<IPage<Log>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Log queryLog) throws Exception {
@@ -76,7 +77,7 @@ public class LogController extends BaseController<LogService, Log> {
             @ApiImplicitParam(name = "id", value = "系统操作日志表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
         return ResponseData.ok();
     }
@@ -87,7 +88,7 @@ public class LogController extends BaseController<LogService, Log> {
             @ApiImplicitParam(name = "id", value = "系统操作日志表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该系统操作日志数据");
     }

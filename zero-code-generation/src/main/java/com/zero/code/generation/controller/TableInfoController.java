@@ -33,7 +33,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
             @ApiImplicitParam(name = "queryUser", value = "系统数据库表信息查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData page(
+    public ResponseData<IPage<TableInfo>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             TableInfo queryTableInfo) throws Exception {
@@ -45,7 +45,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     @LogOperation
     @ApiOperation(value = "获取还没有插入数据库中的数据库表信息")
     @GetMapping("not/list")
-    public ResponseData getNotAddList() throws Exception {
+    public ResponseData<List<TableInfo>> getNotAddList() throws Exception {
         List<TableInfo> list = baseService.getNotAddList();
         return ResponseData.ok(list);
     }
@@ -54,7 +54,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     @LogOperation
     @ApiOperation(value = "生成代码")
     @PostMapping("code/generation/{id}")
-    public ResponseData codeGeneration(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> codeGeneration(@PathVariable("id") Integer id) throws Exception {
         baseService.codeGeneration(id);
         return ResponseData.ok().message("代码生成成功");
     }
@@ -67,7 +67,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
             @ApiImplicitParam(name = "queryTableInfo", value = "系统数据库表信息表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData recoverPage(
+    public ResponseData<IPage<TableInfo>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             TableInfo queryTableInfo) throws Exception {
@@ -82,7 +82,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
             @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
         return ResponseData.ok();
     }
@@ -93,7 +93,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
             @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该系统数据库表信息数据");
     }

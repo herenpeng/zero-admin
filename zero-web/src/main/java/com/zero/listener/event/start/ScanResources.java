@@ -89,6 +89,9 @@ public class ScanResources implements StartEvent {
             Class<?> beanClass = target.getClass();
             // 获取类路径
             String beanPath = getBeanPath(beanClass);
+            if(beanPath.contains("springfox")) {
+                continue;
+            }
             Method[] methods = beanClass.getMethods();
             for (Method method : methods) {
                 insertResources(method, beanPath, rootRole);

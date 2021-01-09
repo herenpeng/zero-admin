@@ -8,6 +8,16 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+  resources:
+    static-locations: file:G:\temp\images   #访问系统外部资源，将该目录下的文件映射到系统下
+zero:
+  upload:
+    image:
+      path: G:\temp\images\   #文件上传目标路径
+      allowTypes:             #文件上传允许的类型
+        - image/jpeg
+        - image/png
+        - image/bmp
   devtools:
     restart:
       enabled: true  #设置开启热部署

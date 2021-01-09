@@ -35,7 +35,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData page(
+    public ResponseData<IPage<Menu>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Menu queryMenu) throws Exception {
@@ -46,7 +46,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "[动态路由]获取所有启用的系统菜单")
     @GetMapping("routes")
-    public ResponseData routes() throws Exception {
+    public ResponseData<List<Menu>> routes() throws Exception {
         List<Menu> routes = baseService.getRoutes();
         return ResponseData.ok(routes);
     }
@@ -59,7 +59,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "enabled", value = "true为启用，false为禁用", required = true)
     })
     @PutMapping("enabled/{id}")
-    public ResponseData enabled(
+    public ResponseData<Void> enabled(
             @PathVariable("id") Integer id,
             @RequestParam("enabled") Boolean enabled) throws Exception {
         baseService.enabled(id, enabled);
@@ -74,7 +74,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
     })
     @DeleteMapping("role/{menuId}")
-    public ResponseData deleteMenuRole(
+    public ResponseData<Void> deleteMenuRole(
             @PathVariable("menuId") Integer menuId,
             @RequestParam("roleId") Integer roleId) throws Exception {
         baseService.deleteMenuRole(menuId, roleId);
@@ -88,7 +88,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "menuId", value = "菜单主键", required = true)
     })
     @GetMapping("role/{menuId}")
-    public ResponseData getMenuNotRoleList(
+    public ResponseData<List<Role>> getMenuNotRoleList(
             @PathVariable("menuId") Integer menuId) throws Exception {
         List<Role> roleList = baseService.getMenuNotRoleList(menuId);
         return ResponseData.ok(roleList);
@@ -102,7 +102,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
     })
     @PostMapping("role/{menuId}")
-    public ResponseData addUserRole(
+    public ResponseData<Void> addUserRole(
             @PathVariable("menuId") Integer menuId,
             @RequestParam Integer roleId) throws Exception {
         baseService.addMenuRole(menuId, roleId);
@@ -118,7 +118,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData recoverPage(
+    public ResponseData<IPage<Menu>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Menu queryMenu) throws Exception {
@@ -133,7 +133,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "id", value = "系统菜单表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
         return ResponseData.ok();
     }
@@ -144,7 +144,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @ApiImplicitParam(name = "id", value = "系统菜单表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该系统菜单表数据");
     }
