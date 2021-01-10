@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * 系统鉴权处理器，对于SecurityFilter解析的权限和token中携带的权限进行鉴定，
+ *
  * @author herenpeng
  * 2020-9-13 18:50
  */

@@ -23,7 +23,7 @@ public class BaseController<S extends IService<E>, E> {
     @LogOperation
     @ApiOperation(value = "[通用方法]插入一条对应实体类的数据库记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "entity", value = "实体对象", required = true)
+            @ApiImplicitParam(name = "entity", value = "实体对象", dataTypeClass = Object.class, required = true)
     })
     @PostMapping
     public ResponseData save(@RequestBody E entity) throws Exception {
@@ -35,7 +35,7 @@ public class BaseController<S extends IService<E>, E> {
     @LogOperation
     @ApiOperation(value = "[通用方法]更新一条对应实体类的数据库记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "entity", value = "实体对象", required = true)
+            @ApiImplicitParam(name = "entity", value = "实体对象", dataTypeClass = Object.class, required = true)
     })
     @PutMapping
     public ResponseData updateById(@RequestBody E entity) throws Exception {
@@ -47,7 +47,7 @@ public class BaseController<S extends IService<E>, E> {
     @LogOperation
     @ApiOperation(value = "[通用方法]通过主键删除一条对应实体类的数据库记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "实体主键", required = true)
+            @ApiImplicitParam(name = "id", value = "实体主键", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("{id}")
     public ResponseData deleteById(@PathVariable("id") Integer id) throws Exception {

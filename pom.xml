@@ -30,7 +30,6 @@
         <easypoi.version>4.0.0</easypoi.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
-        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <springfox.version>3.0.0</springfox.version>
         <oshi-core.version>5.1.1</oshi-core.version>
     </properties>
@@ -125,16 +124,6 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>${springfox.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger-ui</artifactId>-->
-<!--            <version>${springfox-swagger2.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger2</artifactId>-->
-<!--            <version>${springfox-swagger2.version}</version>-->
-<!--        </dependency>-->
         <!--oshi的依赖-->
         <dependency>
             <groupId>com.github.oshi</groupId>

@@ -30,9 +30,9 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "分页查询系统资源数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryResources", value = "系统资源查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryResources", value = "系统资源查询条件", dataTypeClass = Resources.class)
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<Resources>> page(
@@ -47,8 +47,8 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "删除系统资源角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "ResourcesId", value = "系统资源主键", required = true),
-            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+            @ApiImplicitParam(name = "ResourcesId", value = "系统资源主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("role/{resourcesId}")
     public ResponseData<Void> deleteResourcesRole(
@@ -62,7 +62,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "获取未拥有该系统资源的角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "resourcesId", value = "系统资源主键", required = true)
+            @ApiImplicitParam(name = "resourcesId", value = "系统资源主键", dataTypeClass = Integer.class, required = true)
     })
     @GetMapping("role/{resourcesId}")
     public ResponseData<List<Role>> getResourcesNotRoleList(
@@ -75,8 +75,8 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "添加系统资源角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "ResourcesId", value = "系统资源主键", required = true),
-            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+            @ApiImplicitParam(name = "ResourcesId", value = "系统资源主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", dataTypeClass = Integer.class, required = true)
     })
     @PostMapping("role/{resourcesId}")
     public ResponseData<Void> addResourcesRole(
@@ -90,9 +90,9 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统资源表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryResources", value = "系统资源表查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryResources", value = "系统资源表查询条件", dataTypeClass = Resources.class)
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<Resources>> recoverPage(
@@ -107,7 +107,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "通过主键恢复逻辑删除的系统资源表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统资源表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统资源表ID", dataTypeClass = Integer.class, required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -118,7 +118,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条系统资源表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统资源表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统资源表ID", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
@@ -129,8 +129,8 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     @LogOperation
     @ApiOperation(value = "导出系统资源列表数据的Excel文件")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryResources", value = "系统资源查询条件"),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+            @ApiImplicitParam(name = "queryResources", value = "系统资源查询条件", dataTypeClass = Resources.class),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
     })
     @GetMapping("export/excel")
     public void exportExcel(Resources queryResources, HttpServletResponse response) throws Exception {

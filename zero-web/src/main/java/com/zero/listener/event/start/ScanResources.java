@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -85,13 +86,15 @@ public class ScanResources implements StartEvent {
         // 获取类对象名称
         for (String beanName : restControllerBeanNameList) {
             Object bean = run.getBean(beanName);
+            // 如果ControllerBean上有@ApiIgnore注解，不将该ControllerBean作为系统资源扫描
+            ApiIgnore apiIgnore = bean.getClass().getAnnotation(ApiIgnore.class);
+            if (ObjectUtils.allNotNull(apiIgnore)) {
+                continue;
+            }
             Object target = getTarget(bean);
             Class<?> beanClass = target.getClass();
             // 获取类路径
             String beanPath = getBeanPath(beanClass);
-            if(beanPath.contains("springfox")) {
-                continue;
-            }
             Method[] methods = beanClass.getMethods();
             for (Method method : methods) {
                 insertResources(method, beanPath, rootRole);

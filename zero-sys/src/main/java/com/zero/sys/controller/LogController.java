@@ -29,9 +29,9 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @ApiOperation(value = "分页查询系统操作日志表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8"),
-            @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件", dataTypeClass = Log.class)
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<Log>> page(
@@ -46,7 +46,7 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @ApiOperation(value = "查询所有的系统操作日志表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件")
+            @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件", dataTypeClass = Log.class)
     })
     @GetMapping("list")
     public ResponseData<List<Log>> list(Log queryLog) throws Exception {
@@ -57,9 +57,9 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统操作日志表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryLog", value = "系统操作日志表查询条件", dataTypeClass = Log.class)
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<Log>> recoverPage(
@@ -74,7 +74,7 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @ApiOperation(value = "通过主键恢复逻辑删除的系统操作日志表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统操作日志表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统操作日志表ID", dataTypeClass = Integer.class, required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -85,7 +85,7 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条系统操作日志表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统操作日志表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统操作日志表ID", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
@@ -96,8 +96,8 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @ApiOperation(value = "导出操作日志列表数据的Excel文件")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryLog", value = "操作日志查询条件"),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+            @ApiImplicitParam(name = "queryLog", value = "操作日志查询条件", dataTypeClass = Log.class),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
     })
     @GetMapping("export/excel")
     public void exportExcel(Log queryLog, HttpServletResponse response) throws Exception {

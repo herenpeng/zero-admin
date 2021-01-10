@@ -1,8 +1,18 @@
 package com.zero.upload.controller;
 
+import com.zero.common.annotation.LogOperation;
+import com.zero.common.response.domain.ResponseData;
+import com.zero.upload.service.UploadService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 文件上传控制器
@@ -15,17 +25,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("upload")
 public class UploadController {
 
-    // @Autowired
-    // private UploadService uploadService;
-    //
-    // @LogOperation
-    // @ApiOperation(value = "上传图片文件")
-    // @ApiImplicitParams({
-    //         @ApiImplicitParam(name = "file", value = "上传的图片文件", required = true)
-    // })
-    // @PostMapping("image")
-    // public ResponseData<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
-    //     String filePath = uploadService.uploadImage(file);
-    //     return ResponseData.ok(filePath);
-    // }
+    @Autowired
+    private UploadService uploadService;
+
+    @LogOperation
+    @ApiOperation(value = "上传图片文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "file", value = "上传的图片文件", dataTypeClass = MultipartFile.class, required = true)
+    })
+    @PostMapping("image")
+    public ResponseData<String> image(@RequestParam("file") MultipartFile file) throws Exception {
+        String filePath = uploadService.uploadImage(file);
+        return ResponseData.ok(filePath);
+    }
 }

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 系统认证接入点，用户 AuthenticationException 异常问题
+ *
  * @author herenpeng
  * @since 2020-10-26 21:45
  */

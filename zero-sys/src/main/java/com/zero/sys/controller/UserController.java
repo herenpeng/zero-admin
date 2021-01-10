@@ -30,9 +30,9 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "分页查询用户数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryUser", value = "用户查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryUser", value = "用户查询条件", dataTypeClass = User.class)
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<User>> page(
@@ -47,8 +47,8 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "启用或者禁用一个用户账号")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true),
-            @ApiImplicitParam(name = "enabled", value = "true为启用，false为禁用", required = true)
+            @ApiImplicitParam(name = "id", value = "用户ID", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "enabled", value = "true为启用，false为禁用", dataTypeClass = Boolean.class, required = true)
     })
     @PutMapping("enabled/{id}")
     public ResponseData<Void> enabled(
@@ -62,7 +62,7 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "获取请求头上的accessToken，并根据accessToken返回用户信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "用户请求token", required = true)
+            @ApiImplicitParam(name = "accessToken", value = "用户请求token", dataTypeClass = String.class, required = true)
     })
     @GetMapping("info")
     public ResponseData<User> info(@RequestHeader("accessToken") String accessToken) throws Exception {
@@ -74,8 +74,8 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "删除用户角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户主键", required = true),
-            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+            @ApiImplicitParam(name = "userId", value = "用户主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("role/{userId}")
     public ResponseData<Void> deleteUserRole(
@@ -89,7 +89,7 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "获取该用户未拥有的角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户主键", required = true)
+            @ApiImplicitParam(name = "userId", value = "用户主键", dataTypeClass = Integer.class, required = true)
     })
     @GetMapping("role/{userId}")
     public ResponseData<List<Role>> getUserNotRoleList(
@@ -102,8 +102,8 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "添加用户角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户主键", required = true),
-            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+            @ApiImplicitParam(name = "userId", value = "用户主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", dataTypeClass = Integer.class, required = true)
     })
     @PostMapping("role/{userId}")
     public ResponseData<Void> addUserRole(
@@ -117,7 +117,7 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "检测用户名是否已存在")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", required = true)
+            @ApiImplicitParam(name = "username", value = "用户名", dataTypeClass = String.class, required = true)
     })
     @GetMapping("check/username")
     public ResponseData<Boolean> checkUsername(@RequestParam("username") String username) throws Exception {
@@ -128,7 +128,7 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "检测用户密码是否正确")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "password", value = "用户密码", required = true)
+            @ApiImplicitParam(name = "password", value = "用户密码", dataTypeClass = String.class, required = true)
     })
     @GetMapping("check/password")
     public ResponseData<Boolean> checkPassword(@RequestParam("password") String password) throws Exception {
@@ -139,9 +139,9 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的用户数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryUser", value = "用户查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryUser", value = "用户查询条件", dataTypeClass = User.class)
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<User>> recoverPage(
@@ -156,7 +156,7 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "通过主键恢复逻辑删除的用户数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+            @ApiImplicitParam(name = "id", value = "用户ID", dataTypeClass = Integer.class, required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -168,7 +168,7 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条用户数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+            @ApiImplicitParam(name = "id", value = "用户ID", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
@@ -180,8 +180,8 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "导出用户列表数据的Excel文件")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryUser", value = "用户查询条件"),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+            @ApiImplicitParam(name = "queryUser", value = "用户查询条件", dataTypeClass = User.class),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
     })
     @GetMapping("export/excel")
     public void exportExcel(User queryUser, HttpServletResponse response) throws Exception {
@@ -192,8 +192,8 @@ public class UserController extends BaseController<UserService, User> {
     @LogOperation
     @ApiOperation(value = "重置用户账号密码")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "oldPassword", value = "旧密码"),
-            @ApiImplicitParam(name = "newPassword", value = "新密码"),
+            @ApiImplicitParam(name = "oldPassword", value = "旧密码", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "newPassword", value = "新密码", dataTypeClass = String.class),
     })
     @PutMapping("reset/password")
     public ResponseData<Void> resetPassword(

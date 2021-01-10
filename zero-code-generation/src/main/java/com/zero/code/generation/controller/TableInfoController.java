@@ -28,9 +28,9 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     @LogOperation
     @ApiOperation(value = "分页查询系统数据库表信息数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryUser", value = "系统数据库表信息查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryUser", value = "系统数据库表信息查询条件", dataTypeClass = TableInfo.class)
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<TableInfo>> page(
@@ -62,9 +62,9 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统数据库表信息表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryTableInfo", value = "系统数据库表信息表查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", dataTypeClass = Integer.class, defaultValue = "10"),
+            @ApiImplicitParam(name = "queryTableInfo", value = "系统数据库表信息表查询条件", dataTypeClass = TableInfo.class)
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<TableInfo>> recoverPage(
@@ -79,7 +79,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     @LogOperation
     @ApiOperation(value = "通过主键恢复逻辑删除的系统数据库表信息表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", dataTypeClass = Integer.class, required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -90,7 +90,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条系统数据库表信息表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {

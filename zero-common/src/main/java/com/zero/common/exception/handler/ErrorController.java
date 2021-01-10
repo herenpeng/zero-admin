@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @since 2020-11-21 22:14
  */
 @Api(value = "过滤器异常处理接口", tags = "ErrorController")
+@ApiIgnore
 @RestController
 public class ErrorController extends BasicErrorController {
 

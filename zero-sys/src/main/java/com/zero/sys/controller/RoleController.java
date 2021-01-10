@@ -29,9 +29,9 @@ public class RoleController extends BaseController<RoleService, Role> {
     @LogOperation
     @ApiOperation(value = "分页查询角色数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryRole", value = "角色查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryRole", value = "角色查询条件", dataTypeClass = Role.class)
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<Role>> page(
@@ -50,7 +50,7 @@ public class RoleController extends BaseController<RoleService, Role> {
     @LogOperation
     @ApiOperation(value = "获取所有的用户角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryRole", value = "角色查询条件")
+            @ApiImplicitParam(name = "queryRole", value = "角色查询条件", dataTypeClass = Role.class)
     })
     @GetMapping("list")
     public ResponseData<List<Role>> list(Role queryRole) throws Exception {
@@ -60,7 +60,7 @@ public class RoleController extends BaseController<RoleService, Role> {
     @LogOperation
     @ApiOperation(value = "检测角色名称是否已存在")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "角色名称", required = true)
+            @ApiImplicitParam(name = "name", value = "角色名称", dataTypeClass = String.class, required = true)
     })
     @GetMapping("check/name")
     public ResponseData<Boolean> checkName(@RequestParam("name") String name) throws Exception {
@@ -72,9 +72,9 @@ public class RoleController extends BaseController<RoleService, Role> {
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统角色表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryRole", value = "系统角色表查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryRole", value = "系统角色表查询条件", dataTypeClass = Role.class)
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<Role>> recoverPage(
@@ -89,7 +89,7 @@ public class RoleController extends BaseController<RoleService, Role> {
     @LogOperation
     @ApiOperation(value = "通过主键恢复逻辑删除的系统角色表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统角色表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统角色表ID", dataTypeClass = Integer.class, required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -100,7 +100,7 @@ public class RoleController extends BaseController<RoleService, Role> {
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条系统角色表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统角色表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统角色表ID", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
@@ -111,8 +111,8 @@ public class RoleController extends BaseController<RoleService, Role> {
     @LogOperation
     @ApiOperation(value = "导出角色列表数据的Excel文件")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryRole", value = "角色查询条件"),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+            @ApiImplicitParam(name = "queryRole", value = "角色查询条件", dataTypeClass = Role.class),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class)
     })
     @GetMapping("export/excel")
     public void exportExcel(Role queryRole, HttpServletResponse response) throws Exception {

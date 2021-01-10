@@ -25,6 +25,9 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * 系统访问授权过滤器
+ * 主要功能是解析请求中携带的token，解析请求所需要的权限或者拒绝访问
+ *
  * @author herenpeng
  * 2020-9-13 18:31
  */

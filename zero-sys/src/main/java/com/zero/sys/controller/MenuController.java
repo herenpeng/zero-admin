@@ -30,9 +30,9 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "分页查询系统菜单表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件", dataTypeClass = Menu.class)
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<Menu>> page(
@@ -55,8 +55,8 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "启用或者禁用一个菜单")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "菜单ID", required = true),
-            @ApiImplicitParam(name = "enabled", value = "true为启用，false为禁用", required = true)
+            @ApiImplicitParam(name = "id", value = "菜单ID", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "enabled", value = "true为启用，false为禁用", dataTypeClass = Boolean.class, required = true)
     })
     @PutMapping("enabled/{id}")
     public ResponseData<Void> enabled(
@@ -70,8 +70,8 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "删除菜单角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "menuId", value = "菜单主键", required = true),
-            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+            @ApiImplicitParam(name = "menuId", value = "菜单主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("role/{menuId}")
     public ResponseData<Void> deleteMenuRole(
@@ -85,7 +85,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "获取该菜单未拥有的角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "menuId", value = "菜单主键", required = true)
+            @ApiImplicitParam(name = "menuId", value = "菜单主键", dataTypeClass = Integer.class, required = true)
     })
     @GetMapping("role/{menuId}")
     public ResponseData<List<Role>> getMenuNotRoleList(
@@ -98,8 +98,8 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "添加菜单角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "menuId", value = "菜单主键", required = true),
-            @ApiImplicitParam(name = "roleId", value = "角色主键", required = true)
+            @ApiImplicitParam(name = "menuId", value = "菜单主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "roleId", value = "角色主键", dataTypeClass = Integer.class, required = true)
     })
     @PostMapping("role/{menuId}")
     public ResponseData<Void> addUserRole(
@@ -113,9 +113,9 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统菜单表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10"),
-            @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件")
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "queryMenu", value = "系统菜单表查询条件", dataTypeClass = Menu.class)
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<Menu>> recoverPage(
@@ -130,7 +130,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "通过主键恢复逻辑删除的系统菜单表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统菜单表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统菜单表ID", dataTypeClass = Integer.class, required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -141,7 +141,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条系统菜单表数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统菜单表ID", required = true)
+            @ApiImplicitParam(name = "id", value = "系统菜单表ID", dataTypeClass = Integer.class, required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
@@ -152,8 +152,8 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @LogOperation
     @ApiOperation(value = "导出系统菜单列表数据的Excel文件")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryMenu", value = "系统菜单查询条件"),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象"),
+            @ApiImplicitParam(name = "queryMenu", value = "系统菜单查询条件", dataTypeClass = Menu.class),
+            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
     })
     @GetMapping("export/excel")
     public void exportExcel(Menu queryMenu, HttpServletResponse response) throws Exception {
