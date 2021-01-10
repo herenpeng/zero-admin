@@ -11,7 +11,7 @@ import com.zero.sys.entity.UserRole;
 import com.zero.sys.mapper.RoleMapper;
 import com.zero.sys.mapper.UserMapper;
 import com.zero.sys.mapper.UserRoleMapper;
-import com.zero.sys.property.UserProperties;
+import com.zero.sys.properties.UserProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import com.zero.sys.service.UserService;
 import lombok.extern.slf4j.Slf4j;

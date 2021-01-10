@@ -26,7 +26,12 @@ public enum MyExceptionEnum {
     /**
      * 密码错误
      */
-    PASSWORD_ERROR(50001, "密码错误");
+    PASSWORD_ERROR(50001, "密码错误"),
+
+    /**
+     * 文件上传类型不允许
+     */
+    FILE_TYPE_NOT_ALLOW(50002, "文件上传类型错误");
 
     private int code;
     private String message;

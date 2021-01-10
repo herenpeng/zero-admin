@@ -6,7 +6,7 @@ import com.zero.sys.entity.Resources;
 import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.request.util.RequestUtils;
-import com.zero.sys.security.jwt.peoperty.JwtProperties;
+import com.zero.sys.security.jwt.properties.JwtProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

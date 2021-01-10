@@ -17,6 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class CookieUtils {
 
+    /**
+     * 获取对应的cookieName的cookie值
+     *
+     * @param request    HttpServletRequest对象
+     * @param cookieName cookie名称
+     * @return cookie名称对应的值
+     */
     public String getCookie(HttpServletRequest request, String cookieName) {
         if (StringUtils.isBlank(cookieName)) {
             log.error("[Cookie工具]传入的cookieName：{}为空，无法获取cookie", cookieName);

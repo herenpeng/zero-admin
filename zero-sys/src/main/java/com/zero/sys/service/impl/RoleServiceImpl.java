@@ -7,7 +7,7 @@ import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.RoleMapper;
-import com.zero.sys.property.RoleProperties;
+import com.zero.sys.properties.RoleProperties;
 import com.zero.sys.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.sys.entity.Role;
 import com.zero.sys.entity.User;
 import com.zero.sys.request.util.RequestUtils;
-import com.zero.sys.security.jwt.peoperty.JwtProperties;
+import com.zero.sys.security.jwt.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

@@ -1,6 +1,7 @@
 package com.zero.listener.event.start;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zero.common.constant.HttpConst;
 import com.zero.common.constant.MethodTypeConst;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
@@ -10,7 +11,7 @@ import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.mapper.ResourcesRoleMapper;
 import com.zero.sys.mapper.RoleMapper;
-import com.zero.sys.property.RoleProperties;
+import com.zero.sys.properties.RoleProperties;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,11 +38,6 @@ import java.lang.reflect.Method;
 public class ScanResources implements StartEvent {
 
     /**
-     * 请求路径前面的斜杠
-     */
-    public static final String PATH_PREFIX = "/";
-
-    /**
      * 匹配的正则表达式
      */
     public static final String REGEX = "\\{[A-Za-z0-9]+\\}";
@@ -51,7 +47,14 @@ public class ScanResources implements StartEvent {
      */
     public static final String REPLACE = "[A-Za-z0-9]+";
 
+    /**
+     * 正则匹配开始标志
+     */
     public static final String REGEX_START = "^";
+
+    /**
+     * 正则匹配结束标志
+     */
     public static final String REGEX_END = "$";
 
     @Autowired
@@ -253,11 +256,11 @@ public class ScanResources implements StartEvent {
      * @return 返回拼接之后的路径
      */
     private String splicingUri(String beanPath, String methodPath) {
-        if (StringUtils.isNoneBlank(beanPath) && !beanPath.startsWith(PATH_PREFIX)) {
-            beanPath = PATH_PREFIX + beanPath;
+        if (StringUtils.isNoneBlank(beanPath) && !beanPath.startsWith(HttpConst.PATH_SEPARATOR)) {
+            beanPath = HttpConst.PATH_SEPARATOR + beanPath;
         }
-        if (StringUtils.isNoneBlank(methodPath) && !methodPath.startsWith(PATH_PREFIX)) {
-            methodPath = PATH_PREFIX + methodPath;
+        if (StringUtils.isNoneBlank(methodPath) && !methodPath.startsWith(HttpConst.PATH_SEPARATOR)) {
+            methodPath = HttpConst.PATH_SEPARATOR + methodPath;
         }
         return beanPath + methodPath;
     }
