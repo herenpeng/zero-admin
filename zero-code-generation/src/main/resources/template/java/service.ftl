@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
 import ${basePackageName}.entity.${entityName};
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

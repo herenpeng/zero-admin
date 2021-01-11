@@ -12,6 +12,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 /**
  * ${comment}的数据交互控制器
  *
@@ -27,13 +30,13 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     @ApiOperation(value = "分页查询${comment}数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "8", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
             @ApiImplicitParam(name = "query${entityName}", value = "${comment}查询条件", dataTypeClass = ${entityName}.class)
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<${entityName}>> page(
             @PathVariable("currentPage") Integer currentPage,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             ${entityName} query${entityName}) throws Exception {
         IPage<${entityName}> page = baseService.page(currentPage, size, query${entityName});
         return ResponseData.ok(page);

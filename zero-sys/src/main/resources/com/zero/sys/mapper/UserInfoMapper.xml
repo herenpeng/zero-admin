@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.UserInfoMapper">
+
+    <resultMap id="resultMap" type="com.zero.sys.entity.UserInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="gender" jdbcType="BOOLEAN" property="gender"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="mail" jdbcType="VARCHAR" property="mail"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="identity_number" jdbcType="VARCHAR" property="identityNumber"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`gender`,`mobile`,`mail`,`birthday`,`identity_number`,`avatar`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryUserInfo.gender != null">
+            and gender = #{queryUserInfo.gender}
+        </if>
+        <if test="queryUserInfo.mobile != null and queryUserInfo.mobile != ''">
+            and mobile like concat('%', #{queryUserInfo.mobile}, '%')
+        </if>
+        <if test="queryUserInfo.mail != null and queryUserInfo.mail != ''">
+            and mail like concat('%', #{queryUserInfo.mail}, '%')
+        </if>
+        <if test="queryUserInfo.birthday != null">
+            and birthday = #{queryUserInfo.birthday}
+        </if>
+        <if test="queryUserInfo.identityNumber != null and queryUserInfo.identityNumber != ''">
+            and identity_number like concat('%', #{queryUserInfo.identityNumber}, '%')
+        </if>
+        <if test="queryUserInfo.avatar != null and queryUserInfo.avatar != ''">
+            and avatar like concat('%', #{queryUserInfo.avatar}, '%')
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,`identity_number` as identity_number,`avatar` as avatar,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_user_info
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,`identity_number` as identity_number,`avatar` as avatar,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_user_info
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,`identity_number` as identity_number,`avatar` as avatar,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_user_info
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
+</mapper>

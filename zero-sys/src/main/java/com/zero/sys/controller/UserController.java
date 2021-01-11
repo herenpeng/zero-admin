@@ -64,9 +64,9 @@ public class UserController extends BaseController<UserService, User> {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "用户请求token", dataTypeClass = String.class, required = true)
     })
-    @GetMapping("info")
-    public ResponseData<User> info(@RequestHeader("accessToken") String accessToken) throws Exception {
-        User user = baseService.info(accessToken);
+    @GetMapping("token")
+    public ResponseData<User> token(@RequestHeader("accessToken") String accessToken) throws Exception {
+        User user = baseService.token(accessToken);
         return ResponseData.ok(user);
     }
 

@@ -52,7 +52,7 @@ public interface UserService extends BaseService<User> {
      * @return 用户信息
      * @throws Exception 抛出异常
      */
-    User info(String accessToken) throws Exception;
+    User token(String accessToken) throws Exception;
 
     /**
      * 删除用户的角色
