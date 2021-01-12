@@ -66,7 +66,7 @@ public class UploadUtils {
         httpImage.append(zeroProperties.getDomainName());
         String contextPath = request.getContextPath();
         if (StringUtils.isNotBlank(contextPath)) {
-            httpImage.append(request.getContextPath());
+            httpImage.append(contextPath);
         }
         httpImage.append(HttpConst.PATH_SEPARATOR).append(fileUpload.getPath())
                 .append(HttpConst.PATH_SEPARATOR).append(fileName);

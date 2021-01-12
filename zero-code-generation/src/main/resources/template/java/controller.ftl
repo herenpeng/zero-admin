@@ -82,6 +82,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
         return ResponseData.ok();
     }
 
+
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条${comment}数据")
     @ApiImplicitParams({
@@ -92,6 +93,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
         baseService.recoverDelete(id);
         return ResponseData.ok().message("彻底删除该${comment}数据");
     }
+
 
     @LogOperation
     @ApiOperation(value = "导出${comment}数据的Excel文件")

@@ -16,7 +16,7 @@ import java.util.Date;
  * 系统用户信息表
  *
  * @author herenpeng
- * @since 2021-01-11 21:55
+ * @since 2021-01-12 22:19
  */
 @ApiModel(value = "系统用户信息表")
 @Data
@@ -26,10 +26,17 @@ import java.util.Date;
 public class UserInfo extends BaseEntity {
 
     /**
+     * 用户姓名
+     */
+    @ApiModelProperty(value = "用户姓名")
+    @Excel(name = "用户姓名", width = 15, needMerge = true)
+    @TableField(value = "name", el = "name")
+    private String name;
+    /**
      * 用户性别，1（true）为男，0（false）为女
      */
     @ApiModelProperty(value = "用户性别，1（true）为男，0（false）为女")
-    @Excel(name = "用户性别", width = 15, needMerge = true)
+    @Excel(name = "用户性别，1（true）为男，0（false）为女", width = 15, needMerge = true)
     @TableField(value = "gender", el = "gender")
     private Boolean gender;
     /**
@@ -60,6 +67,20 @@ public class UserInfo extends BaseEntity {
     @Excel(name = "用户身份证号码", width = 15, needMerge = true)
     @TableField(value = "identity_number", el = "identityNumber")
     private String identityNumber;
+    /**
+     * 用户QQ号码
+     */
+    @ApiModelProperty(value = "用户QQ号码")
+    @Excel(name = "用户QQ号码", width = 15, needMerge = true)
+    @TableField(value = "qq", el = "qq")
+    private String qq;
+    /**
+     * 用户微信号码
+     */
+    @ApiModelProperty(value = "用户微信号码")
+    @Excel(name = "用户微信号码", width = 15, needMerge = true)
+    @TableField(value = "we_chat", el = "weChat")
+    private String weChat;
     /**
      * 用户头像路径
      */

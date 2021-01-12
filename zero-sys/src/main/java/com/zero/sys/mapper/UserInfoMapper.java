@@ -15,7 +15,7 @@ import java.util.List;
  * 系统用户信息表的Mapper接口
  *
  * @author herenpeng
- * @since 2021-01-11 21:55
+ * @since 2021-01-12 22:19
  */
 @Mapper
 @Repository
@@ -24,7 +24,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     /**
      * 分页查询系统用户信息表数据，区别于selectPage的是，该方法添加了查询条件
      *
-     * @param page          分页查询
+     * @param page      分页查询
      * @param queryUserInfo UserInfo查询条件
      * @return UserInfo集合
      * @throws Exception 抛出异常
@@ -43,7 +43,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     /**
      * 分页查询逻辑删除的系统用户信息表数据
      *
-     * @param page          分页查询
+     * @param page      分页查询
      * @param queryUserInfo UserInfo查询条件
      * @return UserInfo集合
      * @throws Exception 抛出异常

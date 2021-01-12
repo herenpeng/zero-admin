@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * 系统用户信息表的数据交互控制器
  *
  * @author herenpeng
- * @since 2021-01-11 21:55
+ * @since 2021-01-12 22:19
  */
 @Api(value = "系统用户信息表操作接口", tags = "UserInfoController")
 @RestController
@@ -82,6 +83,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
         return ResponseData.ok();
     }
 
+
     @LogOperation
     @ApiOperation(value = "通过主键彻底删除一条系统用户信息表数据")
     @ApiImplicitParams({
@@ -90,8 +92,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok().message("彻底删除该系统用户信息数据");
+        return ResponseData.ok().message("彻底删除该系统用户信息表数据");
     }
+
 
     @LogOperation
     @ApiOperation(value = "导出系统用户信息表数据的Excel文件")
@@ -102,6 +105,18 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     @GetMapping("export/excel")
     public void exportExcel(UserInfo queryUserInfo, HttpServletResponse response) throws Exception {
         baseService.exportExcel(queryUserInfo, response);
+    }
+
+
+    @LogOperation
+    @ApiOperation(value = "上传用户头像")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "file", value = "上传的用户头像", dataTypeClass = MultipartFile.class, required = true)
+    })
+    @PostMapping("avatar")
+    public ResponseData<String> avatar(@RequestParam("file") MultipartFile file) throws Exception {
+        String avatar = baseService.avatar(file);
+        return ResponseData.ok(avatar);
     }
 
 }

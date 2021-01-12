@@ -3,6 +3,7 @@ package com.zero.sys.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
 import com.zero.sys.entity.UserInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * 系统用户信息表业务逻辑层接口
  *
  * @author herenpeng
- * @since 2021-01-11 21:55
+ * @since 2021-01-12 22:19
  */
 public interface UserInfoService extends BaseService<UserInfo> {
 
@@ -71,4 +72,12 @@ public interface UserInfoService extends BaseService<UserInfo> {
      */
     void exportExcel(UserInfo queryUserInfo, HttpServletResponse response) throws Exception;
 
+    /**
+     * 上传用户头像，并将用户头像路径更新至UserInfo对象中
+     *
+     * @param file 用户头像文件
+     * @return 用户头像路径
+     * @throws Exception 抛出异常
+     */
+    String avatar(MultipartFile file) throws Exception;
 }
