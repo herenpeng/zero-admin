@@ -119,4 +119,13 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
         return ResponseData.ok(avatar);
     }
 
+
+    @LogOperation
+    @ApiOperation(value = "获取用户头像路径")
+    @GetMapping("avatar")
+    public ResponseData<String> getAvatar() throws Exception {
+        String avatar = baseService.getAvatar();
+        return ResponseData.ok(avatar);
+    }
+
 }

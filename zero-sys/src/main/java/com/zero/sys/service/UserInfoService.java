@@ -80,4 +80,12 @@ public interface UserInfoService extends BaseService<UserInfo> {
      * @throws Exception 抛出异常
      */
     String avatar(MultipartFile file) throws Exception;
+
+    /**
+     * 获取用户头像路径
+     *
+     * @return 用户头像路径
+     * @throws Exception 抛出异常
+     */
+    String getAvatar() throws Exception;
 }
