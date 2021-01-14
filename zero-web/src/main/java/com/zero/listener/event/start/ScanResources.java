@@ -38,14 +38,14 @@ import java.lang.reflect.Method;
 public class ScanResources implements StartEvent {
 
     /**
-     * 匹配的正则表达式
+     * 匹配的正则表达式，例如{id}
      */
-    public static final String REGEX = "\\{[A-Za-z0-9]+\\}";
+    public static final String REGEX = "\\{[A-Za-z]+\\}";
 
     /**
      * 替换正则表达式内的内容，形成新的适用于正则表达式
      */
-    public static final String REPLACE = "[A-Za-z0-9]+";
+    public static final String REPLACE = "[0-9]+";
 
     /**
      * 正则匹配开始标志
