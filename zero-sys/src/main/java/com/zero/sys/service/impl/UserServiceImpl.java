@@ -78,7 +78,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         String defaultPassword = userProperties.getDefaultPassword();
         String encodePassword = passwordEncoder.encode(defaultPassword);
         user.setPassword(encodePassword);
-        return retBool(baseMapper.insert(user));
+        int result = baseMapper.insert(user);
+        // 插入User对象之后，同时插入一个UserInfo对象
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(user.getId());
+        userInfoMapper.insert(userInfo);
+        return retBool(result);
     }
 
     @Override
