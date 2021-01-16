@@ -94,4 +94,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         return userInfo.getAvatar();
     }
 
+    @Override
+    public UserInfo info() throws Exception {
+        Integer userId = jwtUtils.getUserId(request);
+        UserInfo userInfo = baseMapper.selectById(userId);
+        return userInfo;
+    }
+
 }

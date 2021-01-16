@@ -7,8 +7,10 @@ import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.sys.entity.Role;
 import com.zero.sys.entity.User;
+import com.zero.sys.entity.UserInfo;
 import com.zero.sys.entity.UserRole;
 import com.zero.sys.mapper.RoleMapper;
+import com.zero.sys.mapper.UserInfoMapper;
 import com.zero.sys.mapper.UserMapper;
 import com.zero.sys.mapper.UserRoleMapper;
 import com.zero.sys.properties.UserProperties;
@@ -41,6 +43,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Autowired
     private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -89,6 +94,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Override
     public User token(String accessToken) throws Exception {
         User user = jwtUtils.getUser(accessToken);
+        UserInfo userInfo = userInfoMapper.selectById(user.getId());
+        user.setUserInfo(userInfo);
         return user;
     }
 

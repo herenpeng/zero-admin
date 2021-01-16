@@ -56,6 +56,12 @@
         <if test="queryLog.exceptionMessage != null and queryLog.exceptionMessage != ''">
             and exception_message like concat('%', #{queryLog.exceptionMessage}, '%')
         </if>
+        <if test="queryLog.queryStartDate">
+            and access_time &gt;= #{queryLog.queryStartDate}
+        </if>
+        <if test="queryLog.queryEndDate">
+            and access_time &lt;= #{queryLog.queryEndDate}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">

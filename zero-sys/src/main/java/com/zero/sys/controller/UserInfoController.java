@@ -54,6 +54,14 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
         return ResponseData.ok(baseService.list(queryUserInfo));
     }
 
+    @LogOperation
+    @ApiOperation(value = "查询当前登录用户的信息数据")
+    @GetMapping
+    public ResponseData<UserInfo> info() throws Exception {
+        UserInfo userInfo = baseService.info();
+        return ResponseData.ok(userInfo);
+    }
+
 
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统用户信息表数据")

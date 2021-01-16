@@ -88,4 +88,12 @@ public interface UserInfoService extends BaseService<UserInfo> {
      * @throws Exception 抛出异常
      */
     String getAvatar() throws Exception;
+
+    /**
+     * 查询当前登录用户的信息数据
+     *
+     * @return 前登录用户的信息数据
+     * @throws Exception 抛出异常
+     */
+    UserInfo info() throws Exception;
 }

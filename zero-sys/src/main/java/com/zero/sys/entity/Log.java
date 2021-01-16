@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -95,5 +96,15 @@ public class Log extends BaseEntity {
     @Excel(name = "异常信息", width = 50)
     @TableField(value = "exception_message", el = "exceptionMessage")
     private String exceptionMessage;
+
+    @ApiModelProperty(value = "非数据库字段，查询日志时间范围开始时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(exist = false, el = "queryStartDate")
+    private Date queryStartDate;
+
+    @ApiModelProperty(value = "非数据库字段，查询日志时间范围结束时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(exist = false, el = "queryEndDate")
+    private Date queryEndDate;
 
 }

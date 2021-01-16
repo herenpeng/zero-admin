@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -58,6 +59,7 @@ public class UserInfo extends BaseEntity {
      */
     @ApiModelProperty(value = "用户出生日期")
     @Excel(name = "用户出生日期", width = 15, needMerge = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @TableField(value = "birthday", el = "birthday")
     private Date birthday;
     /**
@@ -65,8 +67,8 @@ public class UserInfo extends BaseEntity {
      */
     @ApiModelProperty(value = "用户身份证号码")
     @Excel(name = "用户身份证号码", width = 15, needMerge = true)
-    @TableField(value = "identity_number", el = "identityNumber")
-    private String identityNumber;
+    @TableField(value = "id_number", el = "idNumber")
+    private String idNumber;
     /**
      * 用户QQ号码
      */
