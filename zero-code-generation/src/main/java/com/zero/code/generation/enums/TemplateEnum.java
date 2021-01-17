@@ -16,7 +16,7 @@ public enum TemplateEnum {
     /**
      * 实体类相关信息枚举
      */
-    ENTITY("/template/java",
+    ENTITY("/templates/java",
             "entity.ftl",
             "/src/main/java",
             ".entity",
@@ -26,7 +26,7 @@ public enum TemplateEnum {
     /**
      * Mapper层接口相关信息枚举
      */
-    MAPPER("/template/java",
+    MAPPER("/templates/java",
             "mapper.ftl",
             "/src/main/java",
             ".mapper",
@@ -36,7 +36,7 @@ public enum TemplateEnum {
     /**
      * Mapper层XML文件相关信息枚举
      */
-    MAPPER_XML("/template/resources",
+    MAPPER_XML("/templates/resources",
             "mapperXml.ftl",
             "/src/main/resources",
             ".mapper",
@@ -46,7 +46,7 @@ public enum TemplateEnum {
     /**
      * Service层接口相关信息枚举
      */
-    SERVICE("/template/java",
+    SERVICE("/templates/java",
             "service.ftl",
             "/src/main/java",
             ".service",
@@ -56,7 +56,7 @@ public enum TemplateEnum {
     /**
      * Service层接口实现类相关信息枚举
      */
-    SERVICE_IMPL("/template/java",
+    SERVICE_IMPL("/templates/java",
             "serviceImpl.ftl",
             "/src/main/java",
             ".service.impl",
@@ -66,7 +66,7 @@ public enum TemplateEnum {
     /**
      * Controller层相关信息枚举
      */
-    CONTROLLER("/template/java",
+    CONTROLLER("/templates/java",
             "controller.ftl",
             "/src/main/java",
             ".controller",

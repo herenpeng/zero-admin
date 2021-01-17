@@ -3,13 +3,13 @@ package com.zero.sys.entity;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -59,7 +59,7 @@ public class UserInfo extends BaseEntity {
      */
     @ApiModelProperty(value = "用户出生日期")
     @Excel(name = "用户出生日期", width = 15, needMerge = true)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(value = "birthday", el = "birthday")
     private Date birthday;
     /**

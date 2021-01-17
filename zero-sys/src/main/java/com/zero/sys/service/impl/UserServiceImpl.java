@@ -58,7 +58,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<User> page = new Page<>(currentPage, size);
         IPage<User> pageInfo = baseMapper.getPage(page, queryUser);
         for (User user : pageInfo.getRecords()) {
             user.setRoles(roleMapper.getByUserId(user.getId()));
@@ -186,7 +186,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
             log.error("[重置用户密码]用户{}密码输入错误", user.getUsername());
             throw new MyException(MyExceptionEnum.PASSWORD_ERROR);
         }
-        // 删除用户名中的所有空格字符
+        // 删除密码中的所有空格字符
         String encodeNewPassword = passwordEncoder.encode(StringUtils.deleteWhitespace(newPassword));
         user.setPassword(encodeNewPassword);
         baseMapper.updateById(user);

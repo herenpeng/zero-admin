@@ -1,6 +1,5 @@
-package com.zero.code.generation.util;
+package com.zero.common.util;
 
-import com.zero.code.generation.entity.TableInfo;
 import com.zero.common.enums.EncodingEnums;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -20,28 +19,27 @@ import java.io.StringWriter;
 @Component
 public class FreeMarkerUtils {
 
-
     /**
      * 模板渲染并返回内容
      *
-     * @param tableInfo          数据库表信息
+     * @param object             模板参数对象
      * @param templateLoaderPath FreeMarker模板文件加载路径
      * @param ftlFileName        FreeMarker模板文件名称
-     * @return FreeMarker模板内容内容
+     * @return FreeMarker模板内容内容字符串
      */
-    public static String getTemplateContent(TableInfo tableInfo, String templateLoaderPath, String ftlFileName) {
+    public String getTemplateContent(Object object, String templateLoaderPath, String ftlFileName) {
         StringWriter out = null;
         try {
-            Configuration cfg = new Configuration(Configuration.getVersion());
+            Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
             cfg.setClassForTemplateLoading(FreeMarkerUtils.class, templateLoaderPath);
             cfg.setDefaultEncoding(EncodingEnums.UTF_8.getValue());
             Template template = cfg.getTemplate(ftlFileName);
             out = new StringWriter();
-            template.process(tableInfo, out);
+            template.process(object, out);
             return out.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("[代码生成功能]FreeMarker读取模板文件异常");
+            log.error("[freemarker工具类]FreeMarker读取模板文件异常");
         } finally {
             if (out != null) {
                 try {
@@ -49,7 +47,7 @@ public class FreeMarkerUtils {
                     out.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    log.error("[代码生成功能]FreeMarker读取模板文件输出流关闭异常");
+                    log.error("[freemarker工具类]FreeMarker读取模板文件输出流关闭异常");
                 }
             }
         }

@@ -6,6 +6,7 @@ import com.zero.code.generation.enums.TemplateEnum;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.common.enums.EncodingEnums;
+import com.zero.common.util.FreeMarkerUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,9 @@ public class CodeGenerationUtils {
 
     @Autowired
     private TableColumnMapper tableColumnMapper;
+
+    @Autowired
+    private FreeMarkerUtils freeMarkerUtils;
 
     /**
      * Java包分隔符
@@ -53,7 +57,6 @@ public class CodeGenerationUtils {
     }
 
 
-
     /**
      * 通过模板文件生成对应的文件
      *
@@ -66,7 +69,7 @@ public class CodeGenerationUtils {
         String packagePath = packageNameToPath(tableInfo.getBasePackageName() + templateEnum.getPackageName());
         // 拼接文件的全路径
         String generationFile = tableInfo.getCodeGenerationPath() + templateEnum.getFileBasePath() + packagePath + tableInfo.getEntityName() + templateEnum.getClassSuffix() + templateEnum.getFileSuffix();
-        String content = FreeMarkerUtils.getTemplateContent(tableInfo, templateEnum.getTemplateLoaderPath(), templateEnum.getFtlTemplateFile());
+        String content = freeMarkerUtils.getTemplateContent(tableInfo, templateEnum.getTemplateLoaderPath(), templateEnum.getFtlTemplateFile());
         File file = new File(generationFile);
         file.getParentFile().mkdirs();
         OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), EncodingEnums.UTF_8.getValue());

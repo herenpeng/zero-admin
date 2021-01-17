@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * HTTP协议response对象的返回体，其中包含了返回的具体数据
  *
@@ -12,7 +14,7 @@ import lombok.Data;
  */
 @ApiModel(value = "响应数据实体类")
 @Data
-public class ResponseData<T> {
+public class ResponseData<T> implements Serializable {
 
     /**
      * 业务状态码，区别于HTTP协议状态码，

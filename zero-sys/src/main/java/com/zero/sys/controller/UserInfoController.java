@@ -136,4 +136,16 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
         return ResponseData.ok(avatar);
     }
 
+
+    @LogOperation
+    @ApiOperation(value = "发送电子邮件号码验证邮件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "mail", value = "电子邮件号码", dataTypeClass = String.class, required = true)}
+    )
+    @PostMapping("mail/verify")
+    public ResponseData<Boolean> verifyMail(String mail) throws Exception {
+        boolean result = baseService.verifyMail(mail);
+        return ResponseData.ok(result);
+    }
+
 }

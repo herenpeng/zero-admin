@@ -1,11 +1,13 @@
-package com.zero.code.generation.util;
+package com.zero.common.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
  * @author herenpeng
  * @since 2020-11-15 15:58
  */
+@Slf4j
 @Component
 public class CamelCaseUtils {
 

@@ -96,4 +96,13 @@ public interface UserInfoService extends BaseService<UserInfo> {
      * @throws Exception 抛出异常
      */
     UserInfo info() throws Exception;
+
+    /**
+     * 发送校验邮箱的校验邮件
+     *
+     * @param mail 接受者的邮箱号码
+     * @return 发送成功返回true，发送失败返回false
+     * @throws Exception 抛出异常
+     */
+    boolean verifyMail(String mail) throws Exception;
 }

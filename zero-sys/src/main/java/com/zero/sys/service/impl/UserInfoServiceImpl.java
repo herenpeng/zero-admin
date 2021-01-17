@@ -3,6 +3,11 @@ package com.zero.sys.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.util.FreeMarkerUtils;
+import com.zero.mail.domain.ToMail;
+import com.zero.mail.template.verify.VerifyParams;
+import com.zero.mail.template.verify.VerifyProperties;
+import com.zero.mail.util.MailUtils;
 import com.zero.sys.entity.UserInfo;
 import com.zero.sys.mapper.UserInfoMapper;
 import com.zero.sys.security.jwt.util.JwtUtils;
@@ -35,9 +40,18 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private VerifyProperties verifyProperties;
+
+    @Autowired
+    private FreeMarkerUtils freeMarkerUtils;
+
+    @Autowired
+    private MailUtils mailUtils;
+
     @Override
     public IPage<UserInfo> page(Integer currentPage, Integer size, UserInfo queryUserInfo) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<UserInfo> page = new Page<>(currentPage, size);
         IPage<UserInfo> pageInfo = baseMapper.getPage(page, queryUserInfo);
         return pageInfo;
     }
@@ -49,7 +63,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
 
     @Override
     public IPage<UserInfo> recoverPage(Integer currentPage, Integer size, UserInfo queryUserInfo) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<UserInfo> page = new Page<>(currentPage, size);
         IPage<UserInfo> pageInfo = baseMapper.getRecoverPage(page, queryUserInfo);
         return pageInfo;
     }
@@ -99,6 +113,27 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         Integer userId = jwtUtils.getUserId(request);
         UserInfo userInfo = baseMapper.selectById(userId);
         return userInfo;
+    }
+
+
+    @Override
+    public boolean verifyMail(String mail) throws Exception {
+        ToMail toMail = new ToMail();
+        // 设置邮箱接收者的邮箱账号
+        toMail.setToMails(new String[]{mail});
+        // 设置发送邮件的主题信息
+        toMail.setSubject(verifyProperties.getSubject());
+        // 准备邮件模板参数
+        VerifyParams verifyParams = new VerifyParams();
+        String username = jwtUtils.getUsername(request);
+        verifyParams.setUsername(username);
+        verifyParams.setToMail(mail);
+        verifyParams.setVerify("123456");
+        // 通过邮件模板参数和属性，获取模板内容字符串
+        String content = freeMarkerUtils.getTemplateContent(verifyParams, verifyProperties.getPath(), verifyProperties.getFile());
+        toMail.setContent(content);
+        boolean result = mailUtils.sendTemplateMail(toMail);
+        return result;
     }
 
 }

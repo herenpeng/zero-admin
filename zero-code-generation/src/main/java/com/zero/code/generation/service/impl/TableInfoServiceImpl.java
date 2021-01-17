@@ -8,7 +8,7 @@ import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.code.generation.service.TableInfoService;
-import com.zero.code.generation.util.CamelCaseUtils;
+import com.zero.common.util.CamelCaseUtils;
 import com.zero.code.generation.util.CodeGenerationUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
