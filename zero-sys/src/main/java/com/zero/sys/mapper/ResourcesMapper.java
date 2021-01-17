@@ -2,7 +2,6 @@ package com.zero.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.sys.entity.Resources;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,7 +29,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @return 系统资源集合
      * @throws Exception 抛出异常
      */
-    IPage<Resources> getPage(Page page, @Param("queryResources") Resources queryResources) throws Exception;
+    IPage<Resources> getPage(IPage page, @Param("queryResources") Resources queryResources) throws Exception;
 
     /**
      * 查询所有的系统资源数据

@@ -150,7 +150,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public IPage<User> recoverPage(Integer currentPage, Integer size, User queryUser) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<User> page = new Page<>(currentPage, size);
         IPage<User> pageInfo = baseMapper.getRecoverPage(page, queryUser);
         for (User user : pageInfo.getRecords()) {
             user.setRoles(roleMapper.getByUserId(user.getId()));

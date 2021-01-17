@@ -37,7 +37,7 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
 
     @Override
     public IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<Resources> page = new Page<>(currentPage, size);
         IPage<Resources> pageInfo = baseMapper.getPage(page, queryResources);
         for (Resources resources : pageInfo.getRecords()) {
             resources.setRoles(roleMapper.getByResourcesId(resources.getId()));

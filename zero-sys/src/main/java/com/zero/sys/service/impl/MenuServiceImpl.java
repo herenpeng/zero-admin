@@ -45,7 +45,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<Menu> page = new Page<>(currentPage, size);
         IPage<Menu> pageInfo = baseMapper.getPage(page, queryMenu);
         for (Menu menu : pageInfo.getRecords()) {
             menu.setRoles(roleMapper.getByMenuId(menu.getId()));
@@ -100,7 +100,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public IPage<Menu> recoverPage(Integer currentPage, Integer size, Menu queryMenu) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<Menu> page = new Page<>(currentPage, size);
         IPage<Menu> pageInfo = baseMapper.getRecoverPage(page, queryMenu);
         for (Menu menu : pageInfo.getRecords()) {
             menu.setRoles(roleMapper.getByMenuId(menu.getId()));

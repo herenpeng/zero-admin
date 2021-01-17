@@ -26,7 +26,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
 
     @Override
     public IPage<${entityName}> page(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<${entityName}> page = new Page<>(currentPage, size);
         IPage<${entityName}> pageInfo = baseMapper.getPage(page, query${entityName});
         return pageInfo;
     }
@@ -38,7 +38,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
 
     @Override
     public IPage<${entityName}> recoverPage(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
-        Page page = new Page(currentPage, size);
+        IPage<${entityName}> page = new Page<>(currentPage, size);
         IPage<${entityName}> pageInfo = baseMapper.getRecoverPage(page, query${entityName});
         return pageInfo;
     }
