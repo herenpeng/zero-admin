@@ -104,5 +104,15 @@ public interface UserInfoService extends BaseService<UserInfo> {
      * @return 发送成功返回true，发送失败返回false
      * @throws Exception 抛出异常
      */
-    boolean verifyMail(String mail) throws Exception;
+    boolean sendVerifyMail(String mail) throws Exception;
+
+    /**
+     * 验证邮件验证码
+     *
+     * @param mail 电子邮件号码
+     * @param verify 电子邮件验证码
+     * @return 验证成功返回true，否则返回false
+     * @throws Exception 抛出异常
+     */
+    boolean verify(String mail, String verify) throws Exception;
 }

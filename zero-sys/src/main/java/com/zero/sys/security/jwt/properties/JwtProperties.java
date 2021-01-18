@@ -25,7 +25,7 @@ public class JwtProperties {
     private String secret;
 
     /**
-     * Token过期时间，默认为1个小时
+     * Token过期时间，单位为毫秒，默认为1个小时
      */
     private Long ttl;
 

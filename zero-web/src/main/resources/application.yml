@@ -27,9 +27,9 @@ spring:
     # 编码集
     default-encoding: UTF-8
     # 发送邮件的账号名
-    username: xxxxxxxxxxxx@qq.com
+    username: he.ren.peng@qq.com
     # 授权码
-    password: xxxxxxxxxxxx
+    password: qkqppjibijyedhia
     properties:
       mail:
         smtp:
@@ -80,6 +80,9 @@ zero:
   mail:
     template:
       verify:
+        key: mail:verify
+        length: 6
+        ttl: 300000
         subject: 邮箱验证码
         path: /templates/mail
         file: verify.ftl

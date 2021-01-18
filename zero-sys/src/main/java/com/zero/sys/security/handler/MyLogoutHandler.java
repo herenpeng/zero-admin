@@ -1,5 +1,6 @@
 package com.zero.sys.security.handler;
 
+import com.zero.common.constant.StringConst;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.response.util.ResponseUtils;
@@ -44,7 +45,8 @@ public class MyLogoutHandler implements LogoutHandler {
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String token = requestUtils.getToken(request);
         String tokenId = jwtUtils.getId(token);
-        redisTemplate.opsForHash().delete(jwtProperties.getKey(), tokenId);
+        String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
+        redisTemplate.delete(tokenRedisKey);
         ResponseData<Object> responseData = ResponseData.ok().message("退出成功");
         responseUtils.responseJson(response, responseData);
     }

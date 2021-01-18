@@ -1,5 +1,6 @@
 package com.zero.sys.security.filter;
 
+import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.sys.entity.Resources;
@@ -87,16 +88,16 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
         // 解析token
-        String tokenId = null;
+        String tokenId;
         try {
             tokenId = jwtUtils.getId(token);
         } catch (Exception e) {
             log.error("[系统登录功能]解析token失败");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
-        String tokenRedisKey = jwtProperties.getKey() + ":" + tokenId;
+        String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
         Object redisToken = redisTemplate.opsForValue().get(tokenRedisKey);
-        if (!StringUtils.equalsIgnoreCase(token, String.valueOf(redisToken))) {
+        if (!StringUtils.equals(token, String.valueOf(redisToken))) {
             log.error("[系统登录功能]该token已失效或已过期");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
