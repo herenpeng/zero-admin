@@ -27,9 +27,9 @@ spring:
     # 编码集
     default-encoding: UTF-8
     # 发送邮件的账号名
-    username: he.ren.peng@qq.com
+    username: xxxxxxxxxx@qq.com
     # 授权码
-    password: qkqppjibijyedhia
+    password: xxxxxxxxxx
     properties:
       mail:
         smtp:
