@@ -74,17 +74,25 @@ zero:
         issuer: http://zeroadmin.herenpeng.com
         key: accessToken
     listener:
+      # 系统启动事件开关，true为开启，false为关闭
       execution-start: true
+      # 系统停止事件开关，true为开启，false为关闭
       execution-stop: true
   # 邮件模板内容
   mail:
     template:
       verify:
+        # 邮箱验证码redisKey前缀
         key: mail:verify
+        # 邮箱验证码长度
         length: 6
+        # 邮箱验证码有效时长
         ttl: 300000
+        # 邮箱验证码邮件主题
         subject: 邮箱验证码
+        # 邮箱验证码邮件模板路径
         path: /templates/mail
+        # 邮箱验证码邮件模板文件
         file: verify.ftl
 
 
