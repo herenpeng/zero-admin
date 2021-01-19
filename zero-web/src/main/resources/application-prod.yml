@@ -8,3 +8,17 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+  resources:
+    static-locations: file:/usr/web-project/zero-admin/static/   #访问系统外部资源，将该目录下的文件映射到系统下
+zero:
+  domain-name: http://zeroadmin.herenpeng.com
+  upload:
+    #文件上传目标路径
+    path: /usr/web-project/zero-admin/static/
+    image:
+      #图片文件上传目标路径
+      path: image
+      #图片文件上传允许的类型
+      allowTypes:
+        - image/jpeg
+        - image/png

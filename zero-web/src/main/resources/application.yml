@@ -20,20 +20,26 @@ spring:
     allow-bean-definition-overriding: true
   # SpringMail发送邮件相关配置
   mail:
+    # 发送邮件的账号名
+    username: xxxxxxxxxxxx@qq.com
+    # 授权码
+    password: xxxxxxxxxxxx
     # smtp服务主机  qq邮箱的服务主机为smtp.qq.com
     host: smtp.qq.com
     # 服务协议
     protocol: smtp
     # 编码集
     default-encoding: UTF-8
-    # 发送邮件的账号名
-    username: xxxxxxxxxx@qq.com
-    # 授权码
-    password: xxxxxxxxxx
+    # 服务端口
+    port: 465
     properties:
       mail:
         smtp:
           auth: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
           starttls:
             enable: true
             required: true
