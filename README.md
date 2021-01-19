@@ -2,8 +2,9 @@
 一个通用的后台管理系统（Java）
 
 该项目是一个通用的后台管理系统，使用Java开发，项目已托管至github平台。
+项目地址：http://zeroadmin.herenpeng.com （用户名/密码：user/111111）
 
-github下载地址:https://github.com/herenpeng/zero-admin.git
+github下载地址：https://github.com/herenpeng/zero-admin.git
 
 ## 项目开发环境
 - JDK   1.8
