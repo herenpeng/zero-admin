@@ -13,7 +13,15 @@ cd ${SERVICE_DIR}
 
 case ${1} in
     "")
-        echo "=== 参数错误  ==="
+        echo "=== 参数错误 ==="
+        ;;
+
+    help)
+        echo "=== spring-boot shell help start==="
+        echo "start 启动服务"
+        echo "stop 停止服务"
+        echo "restart 重启服务"
+        echo "=== spring-boot shell help end==="
         ;;
 
     start)
@@ -23,7 +31,7 @@ case ${1} in
         ;;
 
     stop)
-        P_ID=`cat ${SERVICE_DIR}/${PID}`
+        P_ID=$(cat ${SERVICE_DIR}/${PID})
         if [ "$P_ID" == "" ]; then
             echo "=== 服务${SERVICE_NAME}不存在或者已停止 ==="
         else

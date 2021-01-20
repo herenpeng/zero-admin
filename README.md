@@ -70,10 +70,10 @@ CREATE TABLE `base_table` (
 前端项目github下载地址：https://github.com/herenpeng/zero-admin-vue.git
 
 
-2、该项目的SpringBoot版本为2.3.2.RELEASE，请不要降低SpringBoot的依赖版本，否则可能会因为SpringAop的执行顺序变化问题，导致系统日志功能发生异常。
+2、该项目的SpringBoot版本为2.3.8.RELEASE，请不要降低SpringBoot的依赖版本，否则可能会因为SpringAop的执行顺序变化问题，导致系统日志功能发生异常。
 具体关于SpringAop执行顺序问题，可以参考作者博客：[不同版本的SpringAop执行顺序变化](https://blog.csdn.net/qq_45193304/article/details/109430545)
 
-3、系统内部集成了Swagger2接口文档，直接通过项目系统【项目文档】菜单或者/swagger-ui.html路径，可以直接访问接口说明文档
+3、系统内部集成了Swagger2接口文档，直接通过项目系统【项目文档】菜单或者/swagger-ui/index.html路径，可以直接访问接口说明文档
 
 
 ## 项目效果图
