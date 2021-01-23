@@ -30,7 +30,6 @@ public class EventHelper<T> {
      * @throws IllegalAccessException
      */
     public List<T> sortAsc(Map<String, T> eventMap) throws NoSuchFieldException, IllegalAccessException {
-        int defaultSort = 5;
         List<T> eventList = new ArrayList<>();
         for (Map.Entry<String, T> eventEntry : eventMap.entrySet()) {
             boolean flag = eventRegister.checkSwitch(eventEntry.getKey());

@@ -10,7 +10,6 @@ import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.util.Util;
 
-import java.net.UnknownHostException;
 import java.util.Properties;
 
 /**
@@ -36,7 +35,7 @@ public class OshiUtils {
      * @return
      * @throws Exception
      */
-    public static Cpu getCpuInfo() throws Exception {
+    public static Cpu getCpuInfo() {
         Cpu cpu = new Cpu();
         setCpuInfo(cpu, hardware.getProcessor());
         return cpu;
@@ -75,7 +74,7 @@ public class OshiUtils {
      * @return
      * @throws Exception
      */
-    public static Mem getMenInfo() throws Exception {
+    public static Mem getMemInfo() {
         Mem mem = new Mem();
         setMemInfo(mem, hardware.getMemory());
         return mem;
@@ -99,7 +98,7 @@ public class OshiUtils {
      * @return
      * @throws Exception
      */
-    public static Jvm getJvmInfo() throws Exception {
+    public static Jvm getJvmInfo() {
         Jvm jvm = new Jvm();
         setJvmInfo(jvm);
         return jvm;
@@ -108,7 +107,7 @@ public class OshiUtils {
     /**
      * 设置Java虚拟机
      */
-    public static void setJvmInfo(Jvm jvm) throws UnknownHostException {
+    public static void setJvmInfo(Jvm jvm) {
         Properties props = System.getProperties();
         jvm.setTotal(Runtime.getRuntime().totalMemory());
         jvm.setMax(Runtime.getRuntime().maxMemory());

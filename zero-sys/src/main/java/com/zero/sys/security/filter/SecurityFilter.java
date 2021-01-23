@@ -7,6 +7,7 @@ import com.zero.sys.entity.Resources;
 import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.ResourcesMapper;
 import com.zero.sys.request.util.RequestUtils;
+import com.zero.sys.security.constant.SecurityConst;
 import com.zero.sys.security.jwt.properties.JwtProperties;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;
@@ -72,7 +73,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
             // 传递的是需要的角色名数组
             return SecurityConfig.createList(roleNameList);
         }
-        return SecurityConfig.createList("ACCESS_DENIED");
+        return SecurityConfig.createList(SecurityConst.ACCESS_DENIED);
     }
 
     /**

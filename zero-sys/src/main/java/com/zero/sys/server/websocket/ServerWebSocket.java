@@ -113,7 +113,7 @@ public class ServerWebSocket {
      */
     private void sendServerPieChartInfo() throws Exception {
         Cpu cpu = OshiUtils.getCpuInfo();
-        Mem mem = OshiUtils.getMenInfo();
+        Mem mem = OshiUtils.getMemInfo();
         Jvm jvm = OshiUtils.getJvmInfo();
         ServerPieChart pieChart = new ServerPieChart(cpu, mem, jvm);
         sendMessageAll(objectMapper.writeValueAsString(pieChart));

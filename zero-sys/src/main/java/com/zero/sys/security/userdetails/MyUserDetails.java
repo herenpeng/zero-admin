@@ -2,6 +2,7 @@ package com.zero.sys.security.userdetails;
 
 import com.zero.sys.entity.Role;
 import com.zero.sys.entity.User;
+import com.zero.sys.security.constant.SecurityConst;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.util.List;
 
 /**
  * SpringSecurity用户详情封装对象
+ *
  * @author herenpeng
  * @since 2020-10-20 19:49
  */
@@ -32,7 +34,7 @@ public class MyUserDetails implements UserDetails {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Role role : user.getRoles()) {
             // 要以ROLE_开头
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+            authorities.add(new SimpleGrantedAuthority(SecurityConst.ROLE_ + role.getName()));
         }
         return authorities;
     }

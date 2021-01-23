@@ -26,7 +26,7 @@ public class ServerController {
     @GetMapping("piechart")
     public ResponseData<ServerPieChart> getServerPirChartInfo() throws Exception {
         Cpu cpu = OshiUtils.getCpuInfo();
-        Mem mem = OshiUtils.getMenInfo();
+        Mem mem = OshiUtils.getMemInfo();
         Jvm jvm = OshiUtils.getJvmInfo();
         ServerPieChart serverPieChart = new ServerPieChart(cpu, mem, jvm);
         return ResponseData.ok(serverPieChart);

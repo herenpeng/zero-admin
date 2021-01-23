@@ -1,5 +1,6 @@
 package com.zero.sys.security.config;
 
+import com.zero.sys.security.constant.SecurityConst;
 import com.zero.sys.security.handler.MyAuthenticationEntryPoint;
 import com.zero.sys.security.filter.SecurityAccessDecisionManager;
 import com.zero.sys.security.filter.SecurityFilter;
@@ -65,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
+        // Security密码加密算法
         return new BCryptPasswordEncoder();
     }
 
@@ -75,16 +77,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        // 放行websocket，swagger相关的请求
-        web.ignoring().antMatchers("/websocket/**",
-                "/swagger-resources/**", "/swagger-ui/**", "/v3/**",
-                "/image/**");
+        // 放行请求名单配置
+        web.ignoring().antMatchers(SecurityConst.RELEASE_LIST);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // 处理跨域请求中的Preflight请求,响应头中附带允许跨域的请求头
+        // 处理跨域请求中的Preflight请求,响应头中附带允许跨域的请求头，这个配置必须放置前面
         http.cors().and().csrf().disable().authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
@@ -107,7 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authorizeRequests.anyRequest().authenticated();
 
         // 定义登录请求的表单提交处理接口，Security默认帮我们实现了
-        http.formLogin().loginProcessingUrl("/login")
+        http.formLogin().loginProcessingUrl(SecurityConst.LOGIN_PATH)
                 // 登录成功的处理器
                 .successHandler(authenticationSuccessHandler)
                 // 登录失败的处理器
@@ -115,7 +115,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 和表单登录相关的接口统统都直接通过,不进行拦截
                 .permitAll();
 
-        http.logout().logoutUrl("/logout")
+        http.logout().logoutUrl(SecurityConst.LOGOUT_PATH)
                 // 退出登录的处理器
                 .addLogoutHandler(logoutHandler)
                 .permitAll();

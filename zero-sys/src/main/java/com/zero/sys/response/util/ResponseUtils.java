@@ -1,6 +1,7 @@
 package com.zero.sys.response.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zero.common.constant.HttpConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +29,7 @@ public class ResponseUtils {
      * @throws IOException IO异常
      */
     public void responseJson(HttpServletResponse response, Object object) throws IOException {
-        response.setContentType("application/json;charset=utf-8");
+        response.setContentType(HttpConst.CONTENT_TYPE_APPLICATION_JSON);
         PrintWriter writer = response.getWriter();
         writer.write(objectMapper.writeValueAsString(object));
         writer.flush();

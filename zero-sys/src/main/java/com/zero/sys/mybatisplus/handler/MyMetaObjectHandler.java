@@ -1,9 +1,7 @@
 package com.zero.sys.mybatisplus.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zero.sys.entity.User;
-import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -27,31 +25,37 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     private HttpServletRequest request;
 
     @Autowired
-    private RequestUtils requestUtils;
-
-    @Autowired
     private JwtUtils jwtUtils;
+
+    /**
+     * 数据的创建用户的属性名称
+     */
+    private static final String CREATE_USER_ID = "createUserId";
+    /**
+     * 数据的更新用户的属性名称
+     */
+    private static final String UPDATE_USER_ID = "updateUserId";
+
 
     @SneakyThrows
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("createUserId", getUserId(), metaObject);
-        this.setFieldValByName("updateUserId", getUserId(), metaObject);
+        this.setFieldValByName(CREATE_USER_ID, getUserId(), metaObject);
+        this.setFieldValByName(UPDATE_USER_ID, getUserId(), metaObject);
     }
 
     @SneakyThrows
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("updateUserId", getUserId(), metaObject);
+        this.setFieldValByName(UPDATE_USER_ID, getUserId(), metaObject);
     }
 
     /**
      * 获取当前登录系统的用户主键信息
      *
      * @return 当前登录系统用户的主键
-     * @throws JsonProcessingException
      */
-    private Integer getUserId() throws JsonProcessingException {
+    private Integer getUserId() {
         // 用户Id为0，表示为系统
         Integer userId = 0;
         try {
