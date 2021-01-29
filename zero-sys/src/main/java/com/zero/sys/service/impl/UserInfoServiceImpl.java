@@ -134,13 +134,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         toMail.setToMails(new String[]{mail});
         // 设置发送邮件的主题信息
         toMail.setSubject(verifyProperties.getSubject());
-        // 准备邮件模板参数
-        VerifyParams verifyParams = new VerifyParams();
-        verifyParams.setUsername(jwtUtils.getUsername(request));
-        verifyParams.setToMail(mail);
         // 通过随机数生成邮件验证码
         String verify = numberUtils.generateRandomNumberString(verifyProperties.getLength());
-        verifyParams.setVerify(verify);
+        // 准备邮件模板参数
+        VerifyParams verifyParams = new VerifyParams(jwtUtils.getUsername(request), mail, verify);
         // 将邮箱验证码存放入Redis中，以指定配置的key值前缀和邮箱账号名称作为key值，
         String verifyRedisKey = verifyProperties.getKey() + StringConst.COLON + mail;
         Long verifyRedisTtl = verifyProperties.getTtl() / 1000;
@@ -148,8 +145,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         // 通过邮件模板参数和属性，获取模板内容字符串
         String content = freeMarkerUtils.getTemplateContent(verifyParams, verifyProperties.getPath(), verifyProperties.getFile());
         toMail.setContent(content);
-        boolean result = mailUtils.sendTemplateMail(toMail);
-        return result;
+        return mailUtils.sendTemplateMail(toMail);
     }
 
     @Override

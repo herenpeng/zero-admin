@@ -1,17 +1,16 @@
 package com.zero.upload.util;
 
 import com.zero.common.constant.HttpConst;
+import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.properties.ZeroProperties;
 import com.zero.upload.properties.FileUpload;
 import com.zero.upload.properties.UploadProperties;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -30,9 +29,6 @@ public class UploadUtils {
 
     @Autowired
     private UploadProperties uploadProperties;
-
-    @Autowired
-    private HttpServletRequest request;
 
     /**
      * 上传图片类型文件
@@ -63,12 +59,8 @@ public class UploadUtils {
         file.transferTo(new File(path));
 
         StringBuilder httpImage = new StringBuilder();
-        httpImage.append(zeroProperties.getDomainName());
-        String contextPath = request.getContextPath();
-        if (StringUtils.isNotBlank(contextPath)) {
-            httpImage.append(contextPath);
-        }
-        httpImage.append(HttpConst.PATH_SEPARATOR).append(fileUpload.getPath())
+        httpImage.append(zeroProperties.getApiPath())
+                .append(HttpConst.PATH_SEPARATOR).append(fileUpload.getPath())
                 .append(HttpConst.PATH_SEPARATOR).append(fileName);
         return httpImage.toString();
     }
@@ -80,7 +72,7 @@ public class UploadUtils {
      * @return
      */
     private String generateUniqueFileName(String oldName) {
-        String suffix = oldName.substring(oldName.lastIndexOf("."));
+        String suffix = oldName.substring(oldName.lastIndexOf(StringConst.POINT));
         return generateUniqueId() + suffix;
     }
 

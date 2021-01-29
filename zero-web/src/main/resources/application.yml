@@ -77,7 +77,7 @@ zero:
       jwt:
         secret: HdGkiOiI4ODgiLCJzdWIiOiLlsI
         ttl: 3600000
-        issuer: http://zeroadmin.herenpeng.com
+        issuer: ${zero.domain-name}
         key: accessToken
     listener:
       # 系统启动事件开关，true为开启，false为关闭

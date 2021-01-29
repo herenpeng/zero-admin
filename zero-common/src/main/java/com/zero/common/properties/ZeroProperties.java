@@ -23,4 +23,9 @@ public class ZeroProperties {
      * zero-admin该项目对应域名名称
      */
     private String domainName;
+
+    /**
+     * zero-admin该项目对应API路径，一般为域名加上contextPath的请求前缀
+     */
+    private String apiPath;
 }

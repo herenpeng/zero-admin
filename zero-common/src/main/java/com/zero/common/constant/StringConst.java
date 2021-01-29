@@ -13,4 +13,9 @@ public class StringConst {
      */
     public static final String COLON = ":";
 
+    /**
+     * 字符串常量：点，常用于文件后缀名
+     */
+    public static final String POINT = ".";
+
 }
