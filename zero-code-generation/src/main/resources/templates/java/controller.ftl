@@ -1,4 +1,4 @@
-package com.zero.sys.controller;
+package ${basePackageName}.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;

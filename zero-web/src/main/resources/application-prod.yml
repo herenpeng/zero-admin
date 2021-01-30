@@ -9,7 +9,8 @@ spring:
     host: 127.0.0.1
     port: 6379
   resources:
-    static-locations: file:/usr/web-project/zero-admin/static/   #访问系统外部资源，将该目录下的文件映射到系统下
+    # 访问系统外部资源，将该目录下的文件映射到系统下
+    static-locations: file:/usr/web-project/zero-admin/static/
 zero:
   domain-name: http://zeroadmin.herenpeng.com
   api-path: ${zero.domain-name}${server.servlet.context-path}

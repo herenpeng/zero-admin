@@ -25,8 +25,7 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
-        String filePath = uploadUtils.uploadImage(file);
-        return filePath;
+        return uploadUtils.uploadImage(file);
     }
 
 }

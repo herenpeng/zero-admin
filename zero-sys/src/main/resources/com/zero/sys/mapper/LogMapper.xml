@@ -4,7 +4,7 @@
 
     <resultMap id="resultMap" type="com.zero.sys.entity.Log">
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="operation_user_id" jdbcType="INTEGER" property="operationUserId"/>
         <result column="access_time" jdbcType="TIMESTAMP" property="accessTime"/>
         <result column="ip" jdbcType="VARCHAR" property="ip"/>
         <result column="uri" jdbcType="VARCHAR" property="uri"/>
@@ -22,12 +22,13 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`,`username`,`access_time`,`ip`,`uri`,`method_type`,`method`,`execution_time`,`description`,`exception_name`,`exception_message`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
+        `id`,`operation_user_id`,`access_time`,`ip`,`uri`,`method_type`,`method`,`execution_time`,`description`,
+        `exception_name`,`exception_message`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
     </sql>
 
     <sql id="baseQuery">
-        <if test="queryLog.username != null and queryLog.username != ''">
-            and username like concat('%', #{queryLog.username}, '%')
+        <if test="queryLog.queryUsername != null and queryLog.queryUsername != ''">
+            and operation_user_id in (select id from sys_user where username like concat('%', #{queryLog.queryUsername}, '%'))
         </if>
         <if test="queryLog.accessTime != null">
             and access_time = #{queryLog.accessTime}
@@ -65,21 +66,21 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`username` as username,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
         from sys_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id,`username` as username,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
         from sys_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`username` as username,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,`execution_time` as execution_time,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
         from sys_log
         where deleted = 1
         <include refid="baseQuery"></include>

@@ -18,4 +18,9 @@ public class StringConst {
      */
     public static final String POINT = ".";
 
+    /**
+     * 下划线分隔符
+     */
+    public static final char SEPARATOR = '_';
+
 }

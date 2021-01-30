@@ -83,8 +83,10 @@ public class User extends BaseEntity {
     @TableField(exist = false)
     private List<Role> roles;
 
+    /**
+     * 用户的详细信息
+     */
     @ApiModelProperty(value = "用户的详细信息")
-    @ExcelCollection(name = "用户的详细信息")
     @TableField(exist = false)
     private UserInfo userInfo;
 

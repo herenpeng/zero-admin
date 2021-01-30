@@ -29,16 +29,14 @@ public class GlobalExceptionHandler {
     public ResponseData myExceptionHandler(HttpServletRequest request, MyException e) {
         e.printStackTrace();
         MyExceptionEnum myExceptionEnum = e.getMyExceptionEnum();
-        ResponseData responseData = ResponseData.code(myExceptionEnum.getCode()).message(myExceptionEnum.getMessage());
-        return responseData;
+        return ResponseData.code(myExceptionEnum.getCode()).message(myExceptionEnum.getMessage());
     }
 
 
     @ExceptionHandler(Exception.class)
     public ResponseData exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
-        ResponseData<String> responseData = ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).message("系统发生异常");
-        return responseData;
+        return ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).<String>message("系统发生异常");
     }
 
 

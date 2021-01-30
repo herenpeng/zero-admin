@@ -30,9 +30,9 @@ public class Log extends BaseEntity {
      * 操作日志用户
      */
     @ApiModelProperty(value = "操作日志用户")
-    @Excel(name = "操作日志用户", width = 15)
-    @TableField(value = "username", el = "username")
-    private String username;
+    @Excel(name = "操作日志用户主键", width = 15)
+    @TableField(value = "operation_user_id", el = "operationUserId")
+    private Integer operationUserId;
     /**
      * 访问时间
      */
@@ -97,11 +97,31 @@ public class Log extends BaseEntity {
     @TableField(value = "exception_message", el = "exceptionMessage")
     private String exceptionMessage;
 
+    /**
+     * 非数据库字段，日志操作用户信息
+     */
+    @ApiModelProperty(value = "非数据库字段，日志操作用户信息")
+    @TableField(exist = false, el = "user")
+    private User user;
+
+    /**
+     * 非数据库字段，查询日志操作用户名称
+     */
+    @ApiModelProperty(value = "非数据库字段，查询日志操作用户名称")
+    @TableField(exist = false, el = "queryUsername")
+    private String queryUsername;
+
+    /**
+     * 非数据库字段，查询日志时间范围开始时间
+     */
     @ApiModelProperty(value = "非数据库字段，查询日志时间范围开始时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(exist = false, el = "queryStartDate")
     private Date queryStartDate;
 
+    /**
+     * 非数据库字段，查询日志时间范围结束时间
+     */
     @ApiModelProperty(value = "非数据库字段，查询日志时间范围结束时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(exist = false, el = "queryEndDate")

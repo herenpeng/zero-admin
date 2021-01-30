@@ -1,20 +1,18 @@
 package com.zero.common.util;
 
+import com.zero.common.constant.StringConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
+ * 命名风格转换工具类
+ *
  * @author herenpeng
  * @since 2020-11-15 15:58
  */
 @Slf4j
 @Component
 public class CamelCaseUtils {
-
-    /**
-     * 下划线分隔符
-     */
-    private static final char SEPARATOR = '_';
 
     /**
      * 小驼峰命名，转换为下划线命名
@@ -30,7 +28,7 @@ public class CamelCaseUtils {
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
             if ((i > 0) && Character.isUpperCase(ch)) {
-                sb.append(SEPARATOR);
+                sb.append(StringConst.SEPARATOR);
             }
             sb.append(Character.toLowerCase(ch));
         }
@@ -52,7 +50,7 @@ public class CamelCaseUtils {
         boolean upperCase = false;
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
-            if (ch == SEPARATOR) {
+            if (ch == StringConst.SEPARATOR) {
                 upperCase = true;
             } else if (upperCase) {
                 sb.append(Character.toUpperCase(ch));

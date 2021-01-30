@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.sys.entity.Log;
+import com.zero.sys.entity.User;
 import com.zero.sys.mapper.LogMapper;
+import com.zero.sys.mapper.UserMapper;
 import com.zero.sys.service.LogService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +27,17 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements LogService {
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public IPage<Log> page(Integer currentPage, Integer size, Log queryLog) throws Exception {
         IPage<Log> page = new Page<>(currentPage, size);
         IPage<Log> pageInfo = baseMapper.getPage(page, queryLog);
+        for (Log log : pageInfo.getRecords()) {
+            User user = userMapper.selectById(log.getOperationUserId());
+            log.setUser(user);
+        }
         return pageInfo;
     }
 
@@ -40,6 +50,10 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements L
     public IPage<Log> recoverPage(Integer currentPage, Integer size, Log queryLog) throws Exception {
         IPage<Log> page = new Page<>(currentPage, size);
         IPage<Log> pageInfo = baseMapper.getRecoverPage(page, queryLog);
+        for (Log log : pageInfo.getRecords()) {
+            User user = userMapper.selectById(log.getOperationUserId());
+            log.setUser(user);
+        }
         return pageInfo;
     }
 

@@ -2,9 +2,9 @@ package com.zero.sys.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zero.common.annotation.LogOperation;
+import com.zero.common.constant.StringConst;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
-import com.zero.sys.request.util.RequestUtils;
 import com.zero.sys.security.jwt.util.JwtUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
@@ -31,9 +31,6 @@ public class LogAop {
 
     @Autowired
     private HttpServletRequest request;
-
-    @Autowired
-    private RequestUtils requestUtils;
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -81,13 +78,12 @@ public class LogAop {
      * @throws JsonProcessingException
      */
     private void setLog(JoinPoint joinPoint) throws JsonProcessingException {
-        String token = requestUtils.getToken(request);
-        String username = jwtUtils.getUsername(token);
-        log.setUsername(username);
+        Integer userId = jwtUtils.getUserId(request);
+        log.setOperationUserId(userId);
         log.setIp(request.getRemoteAddr());
         log.setUri(request.getRequestURI());
         log.setMethodType(request.getMethod().toUpperCase());
-        log.setMethod(joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.setMethod(joinPoint.getTarget().getClass() + StringConst.POINT + joinPoint.getSignature().getName());
         log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
 
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
