@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Api(value = "文件资源管理表操作接口", tags = "FileManageController")
 @RestController
-@RequestMapping("fileManage")
+@RequestMapping("file/manage")
 public class FileManageController extends BaseController<FileManageService, FileManage> {
 
     @LogOperation

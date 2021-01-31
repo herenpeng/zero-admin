@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.security.jwt.util.JwtUtils;
-import com.zero.auth.util.RequestUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.sys.entity.Menu;
 import com.zero.sys.entity.MenuRole;
@@ -39,9 +38,6 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Autowired
     private JwtUtils jwtUtils;
-
-    @Autowired
-    private RequestUtils requestUtils;
 
     @Override
     public IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu) throws Exception {

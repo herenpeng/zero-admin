@@ -8,10 +8,10 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-  devtools:
-    restart:
-      enabled: true  #设置开启热部署
-      additional-paths: src/main/java #重启目录
+#  devtools:
+#    restart:
+#      enabled: true  #设置开启热部署
+#      additional-paths: src/main/java #重启目录
   resources:
     static-locations: file:G:\temp\   #访问系统外部资源，将该目录下的文件映射到系统下
 zero:

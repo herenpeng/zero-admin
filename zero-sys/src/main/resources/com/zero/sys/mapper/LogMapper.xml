@@ -57,10 +57,10 @@
         <if test="queryLog.exceptionMessage != null and queryLog.exceptionMessage != ''">
             and exception_message like concat('%', #{queryLog.exceptionMessage}, '%')
         </if>
-        <if test="queryLog.queryStartDate">
+        <if test="queryLog.queryStartDate != null">
             and access_time &gt;= #{queryLog.queryStartDate}
         </if>
-        <if test="queryLog.queryEndDate">
+        <if test="queryLog.queryEndDate != null">
             and access_time &lt;= #{queryLog.queryEndDate}
         </if>
     </sql>

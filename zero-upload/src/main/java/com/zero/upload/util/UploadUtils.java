@@ -1,10 +1,14 @@
 package com.zero.upload.util;
 
+import com.zero.auth.security.jwt.util.JwtUtils;
 import com.zero.common.constant.HttpConst;
 import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.properties.ZeroProperties;
+import com.zero.upload.entity.FileManage;
+import com.zero.upload.enums.FileTypeEnums;
+import com.zero.upload.mapper.FileManageMapper;
 import com.zero.upload.properties.FileUpload;
 import com.zero.upload.properties.UploadProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -32,6 +38,15 @@ public class UploadUtils {
 
     @Autowired
     private UploadProperties uploadProperties;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private FileManageMapper fileManageMapper;
 
     /**
      * 上传图片类型文件
@@ -74,7 +89,17 @@ public class UploadUtils {
         file.transferTo(newFile);
 
         // 生成http请求引用路径
-        return generateFileUri(fileUpload, fileName);
+        String uri = generateFileUri(fileUpload, fileName);
+
+        FileManage fileManage = new FileManage();
+        fileManage.setName(file.getOriginalFilename());
+        fileManage.setType(FileTypeEnums.IMAGE);
+        fileManage.setPath(newFile.getPath());
+        fileManage.setUri(uri);
+        fileManage.setUploadTime(new Date());
+        fileManage.setUploadUserId(jwtUtils.getUserId(request));
+        fileManageMapper.insert(fileManage);
+        return uri;
     }
 
 

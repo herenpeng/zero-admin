@@ -51,7 +51,6 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
         MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
         // 不应该把密码放入JWT的载荷中
         User user = myUserDetails.getUser();
-        user.setPassword(null);
         String tokenId = UUID.randomUUID().toString();
         String subject = objectMapper.writeValueAsString(user);
         // 创建JWT

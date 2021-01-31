@@ -24,7 +24,7 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
     /**
      * 分页查询文件资源管理表数据，区别于selectPage的是，该方法添加了查询条件
      *
-     * @param page      分页查询
+     * @param page            分页查询
      * @param queryFileManage FileManage查询条件
      * @return FileManage集合
      * @throws Exception 抛出异常
@@ -43,7 +43,7 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
     /**
      * 分页查询逻辑删除的文件资源管理表数据
      *
-     * @param page      分页查询
+     * @param page            分页查询
      * @param queryFileManage FileManage查询条件
      * @return FileManage集合
      * @throws Exception 抛出异常
@@ -68,4 +68,12 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
     @Delete("delete from upload_file_manage where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
+    /**
+     * 通过父主键，获取原文件的备份文件集合
+     *
+     * @param parentId 文件主键Id
+     * @return 文件的备份文件
+     * @throws Exception 抛出异常
+     */
+    List<FileManage> getByParentId(@Param("parentId") Integer parentId) throws Exception;
 }

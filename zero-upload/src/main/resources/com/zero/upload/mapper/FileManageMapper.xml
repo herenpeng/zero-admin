@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.upload.mapper.FileManageMapper">
+
+    <resultMap id="resultMap" type="com.zero.upload.entity.FileManage">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="uri" jdbcType="VARCHAR" property="uri"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime"/>
+        <result column="upload_user_id" jdbcType="INTEGER" property="uploadUserId"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`name`,`type`,`uri`,`path`,`upload_time`,`upload_user_id`,`parent_id`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryFileManage.name != null and queryFileManage.name != ''">
+            and name like concat('%', #{queryFileManage.name}, '%')
+        </if>
+        <if test="queryFileManage.type != null and queryFileManage.type != ''">
+            and type like concat('%', #{queryFileManage.type}, '%')
+        </if>
+        <if test="queryFileManage.uri != null and queryFileManage.uri != ''">
+            and uri like concat('%', #{queryFileManage.uri}, '%')
+        </if>
+        <if test="queryFileManage.path != null and queryFileManage.path != ''">
+            and path like concat('%', #{queryFileManage.path}, '%')
+        </if>
+        <if test="queryFileManage.uploadTime != null">
+            and upload_time = #{queryFileManage.uploadTime}
+        </if>
+        <if test="queryFileManage.parentId != null">
+            and parent_id = #{queryFileManage.parentId}
+        </if>
+        <if test="queryFileManage.parentId == null">
+            and parent_id = 0
+        </if>
+        <if test="queryFileManage.queryUsername != null and queryFileManage.queryUsername != ''">
+            and upload_user_id in (select id from sys_user where username like concat('%', #{queryFileManage.queryUsername}, '%'))
+        </if>
+        <if test="queryFileManage.queryStartDate != null">
+            and upload_time &gt;= #{queryFileManage.queryStartDate}
+        </if>
+        <if test="queryFileManage.queryEndDate != null">
+            and upload_time &lt;= #{queryFileManage.queryEndDate}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from upload_file_manage
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from upload_file_manage
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from upload_file_manage
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getByParentId" resultMap="resultMap">
+        select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from upload_file_manage
+        where deleted = 0
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+    </select>
+
+</mapper>

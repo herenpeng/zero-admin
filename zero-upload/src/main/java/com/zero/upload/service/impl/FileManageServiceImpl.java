@@ -2,11 +2,13 @@ package com.zero.upload.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zero.auth.mapper.UserMapper;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.mapper.FileManageMapper;
 import com.zero.upload.service.FileManageService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +26,20 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, FileManage> implements FileManageService {
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public IPage<FileManage> page(Integer currentPage, Integer size, FileManage queryFileManage) throws Exception {
         IPage<FileManage> page = new Page<>(currentPage, size);
         IPage<FileManage> pageInfo = baseMapper.getPage(page, queryFileManage);
+        for (FileManage fileManage : pageInfo.getRecords()) {
+            fileManage.setUser(userMapper.selectById(fileManage.getUploadUserId()));
+            fileManage.setBackupFiles(baseMapper.getByParentId(fileManage.getId()));
+            for (FileManage backupFile : fileManage.getBackupFiles()) {
+                backupFile.setUser(userMapper.selectById(backupFile.getUploadUserId()));
+            }
+        }
         return pageInfo;
     }
 
