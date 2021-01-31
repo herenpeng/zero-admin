@@ -5,7 +5,7 @@ import com.zero.common.annotation.LogOperation;
 import com.zero.common.constant.StringConst;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
-import com.zero.sys.security.jwt.util.JwtUtils;
+import com.zero.auth.security.jwt.util.JwtUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;

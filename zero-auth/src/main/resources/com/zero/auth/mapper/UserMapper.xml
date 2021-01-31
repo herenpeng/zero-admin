@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.auth.mapper.UserMapper">
+
+    <resultMap id="resultMap" type="com.zero.auth.entity.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
+        <result column="locked" jdbcType="BOOLEAN" property="locked"/>
+        <result column="account_expire" jdbcType="BOOLEAN" property="accountExpire"/>
+        <result column="password_expire" jdbcType="BOOLEAN" property="passwordExpire"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
+        <collection property="roles" ofType="com.zero.auth.entity.Role">
+            <id column="rid" jdbcType="INTEGER" property="id"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="description" jdbcType="VARCHAR" property="description"/>
+        </collection>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`, `username`, `password`, `enabled`, `locked`, `account_expire`, `password_expire`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryUser.username != null and queryUser.username != ''">
+            and username like concat('%', #{queryUser.username}, '%')
+        </if>
+        <if test="queryUser.enabled != null">
+            and enabled = #{queryUser.enabled}
+        </if>
+        <if test="queryUser.locked != null">
+            and locked = #{queryUser.locked}
+        </if>
+        <if test="queryUser.accountExpire != null">
+            and account_expire = #{queryUser.accountExpire}
+        </if>
+        <if test="queryUser.passwordExpire != null">
+            and password_expire = #{queryUser.passwordExpire}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`username` as username,`password` as password,
+        `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
+        `password_expire` as password_expire
+        from sys_user
+        where deleted = 0
+        <include refid="baseQuery"></include>
+        <if test="queryUser.queryRoleId != null">
+            and id in (select user_id from sys_user_role where role_id = #{queryUser.queryRoleId})
+        </if>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`username` as username,`password` as password,
+        `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
+        `password_expire` as password_expire
+        from sys_user
+        where deleted = 0
+        <include refid="baseQuery"></include>
+        <if test="queryUser.queryRoleId != null">
+            and id in (select user_id from sys_user_role where role_id = #{queryUser.queryRoleId})
+        </if>
+    </select>
+
+    <select id="loadUserByUsername" resultMap="resultMap">
+        select su.id as id,su.username as username,su.password as password,
+        su.enabled as enabled,su.locked as locked,su.account_expire as account_expire,
+        su.password_expire as password_expire,sr.id as rid,sr.name as name,
+        sr.description as description
+        from sys_user su
+        left join sys_user_role sur on sur.user_id = su.id
+        left join sys_role sr on sr.id = sur.role_id
+        where su.deleted = 0 and su.username = #{username}
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`username` as username,`password` as password,
+        `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
+        `password_expire` as password_expire
+        from sys_user
+        where deleted = 1
+        <include refid="baseQuery"></include>
+        <if test="queryUser.queryRoleId != null">
+            and id in (select user_id from sys_user_role where role_id = #{queryUser.queryRoleId})
+        </if>
+    </select>
+
+
+</mapper>

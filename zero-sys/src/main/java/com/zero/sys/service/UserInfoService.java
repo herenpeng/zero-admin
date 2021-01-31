@@ -1,8 +1,9 @@
 package com.zero.sys.service;
 
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.auth.entity.UserInfo;
 import com.zero.common.base.service.BaseService;
-import com.zero.sys.entity.UserInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;

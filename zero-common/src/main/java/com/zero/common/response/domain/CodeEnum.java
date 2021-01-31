@@ -29,6 +29,6 @@ public enum CodeEnum {
      */
     SYS_EXCEPTION(50000);
 
-    private Integer value;
+    private final Integer value;
 
 }

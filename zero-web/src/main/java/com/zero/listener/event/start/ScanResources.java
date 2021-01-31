@@ -1,17 +1,17 @@
 package com.zero.listener.event.start;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zero.auth.entity.Resources;
+import com.zero.auth.entity.ResourcesRole;
+import com.zero.auth.entity.Role;
+import com.zero.auth.mapper.ResourcesMapper;
+import com.zero.auth.mapper.ResourcesRoleMapper;
+import com.zero.auth.mapper.RoleMapper;
+import com.zero.auth.properties.RoleProperties;
 import com.zero.common.constant.HttpConst;
 import com.zero.common.constant.MethodTypeConst;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
-import com.zero.sys.entity.Resources;
-import com.zero.sys.entity.ResourcesRole;
-import com.zero.sys.entity.Role;
-import com.zero.sys.mapper.ResourcesMapper;
-import com.zero.sys.mapper.ResourcesRoleMapper;
-import com.zero.sys.mapper.RoleMapper;
-import com.zero.sys.properties.RoleProperties;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;

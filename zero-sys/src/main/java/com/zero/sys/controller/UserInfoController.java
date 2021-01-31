@@ -1,10 +1,10 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.auth.entity.UserInfo;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
-import com.zero.sys.entity.UserInfo;
 import com.zero.sys.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

@@ -4,6 +4,7 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zero.auth.entity.Role;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -110,6 +111,6 @@ public class Menu extends BaseEntity {
      */
     @ApiModelProperty(value = "通过角色主键查询菜单")
     @TableField(exist = false)
-    private Integer roleId;
+    private Integer queryRoleId;
 
 }

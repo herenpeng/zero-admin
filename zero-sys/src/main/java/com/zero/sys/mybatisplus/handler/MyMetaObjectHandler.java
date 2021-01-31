@@ -1,8 +1,8 @@
 package com.zero.sys.mybatisplus.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.zero.sys.entity.User;
-import com.zero.sys.security.jwt.util.JwtUtils;
+import com.zero.auth.entity.User;
+import com.zero.auth.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;

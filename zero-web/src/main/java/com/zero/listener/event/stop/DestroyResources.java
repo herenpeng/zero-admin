@@ -1,9 +1,9 @@
 package com.zero.listener.event.stop;
 
+import com.zero.auth.mapper.ResourcesMapper;
+import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StopEvent;
-import com.zero.sys.mapper.ResourcesMapper;
-import com.zero.sys.mapper.ResourcesRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

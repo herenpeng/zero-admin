@@ -15,6 +15,7 @@
         <module>zero-code-generation</module>
         <module>zero-upload</module>
         <module>zero-mail</module>
+        <module>zero-auth</module>
     </modules>
 
     <properties>

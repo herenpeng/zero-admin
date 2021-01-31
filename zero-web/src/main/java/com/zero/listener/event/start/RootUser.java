@@ -1,16 +1,16 @@
 package com.zero.listener.event.start;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zero.auth.entity.Role;
+import com.zero.auth.entity.User;
+import com.zero.auth.entity.UserRole;
+import com.zero.auth.mapper.RoleMapper;
+import com.zero.auth.mapper.UserMapper;
+import com.zero.auth.mapper.UserRoleMapper;
+import com.zero.auth.properties.RoleProperties;
+import com.zero.auth.properties.UserProperties;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
-import com.zero.sys.entity.Role;
-import com.zero.sys.entity.User;
-import com.zero.sys.entity.UserRole;
-import com.zero.sys.mapper.RoleMapper;
-import com.zero.sys.mapper.UserMapper;
-import com.zero.sys.mapper.UserRoleMapper;
-import com.zero.sys.properties.RoleProperties;
-import com.zero.sys.properties.UserProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

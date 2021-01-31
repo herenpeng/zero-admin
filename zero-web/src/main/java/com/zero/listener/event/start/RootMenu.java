@@ -1,15 +1,15 @@
 package com.zero.listener.event.start;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zero.auth.entity.Role;
+import com.zero.auth.mapper.RoleMapper;
+import com.zero.auth.properties.RoleProperties;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import com.zero.sys.entity.Menu;
 import com.zero.sys.entity.MenuRole;
-import com.zero.sys.entity.Role;
 import com.zero.sys.mapper.MenuMapper;
 import com.zero.sys.mapper.MenuRoleMapper;
-import com.zero.sys.mapper.RoleMapper;
-import com.zero.sys.properties.RoleProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;

@@ -25,6 +25,7 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
+                .enable(false)
                 .pathMapping("/")
                 .apiInfo(apiInfo())
                 .select()

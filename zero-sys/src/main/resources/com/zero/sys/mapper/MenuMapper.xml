@@ -92,8 +92,8 @@
         <if test="queryMenu.parentId == null">
             and sm.parent_id = 0
         </if>
-        <if test="queryMenu.roleId != null">
-            and sm.id in (select menu_id from sys_menu_role where role_id = #{queryMenu.roleId})
+        <if test="queryMenu.queryRoleId != null">
+            and sm.id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
         </if>
         order by sm.sort
     </select>
@@ -136,8 +136,8 @@
         from sys_menu
         where deleted = 1
         <include refid="baseQuery"></include>
-        <if test="queryMenu.roleId != null">
-            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.roleId})
+        <if test="queryMenu.queryRoleId != null">
+            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
         </if>
     </select>
 
@@ -147,8 +147,8 @@
         from sys_menu
         where deleted = 0
         <include refid="baseQuery"></include>
-        <if test="queryMenu.roleId != null">
-            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.roleId})
+        <if test="queryMenu.queryRoleId != null">
+            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
         </if>
     </select>
 
