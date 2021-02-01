@@ -43,6 +43,7 @@ spring:
           starttls:
             enable: true
             required: true
+  # 动态配置文件后缀
   profiles:
     active: dev
 # MyBatisPlus的相关配置

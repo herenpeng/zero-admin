@@ -85,7 +85,7 @@ public class FileManage extends BaseEntity {
      */
     @ApiModelProperty(value = "备份文件集合")
     @TableField(exist = false)
-    private List<FileManage> backupFiles;
+    private List<FileManage> bakFiles;
 
     /**
      * 非数据库字段，文件上传用户信息

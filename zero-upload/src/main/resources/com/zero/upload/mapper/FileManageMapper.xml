@@ -26,8 +26,8 @@
         <if test="queryFileManage.name != null and queryFileManage.name != ''">
             and name like concat('%', #{queryFileManage.name}, '%')
         </if>
-        <if test="queryFileManage.type != null and queryFileManage.type != ''">
-            and type like concat('%', #{queryFileManage.type}, '%')
+        <if test="queryFileManage.type != null">
+            and type like concat('%', #{queryFileManage.type.value}, '%')
         </if>
         <if test="queryFileManage.uri != null and queryFileManage.uri != ''">
             and uri like concat('%', #{queryFileManage.uri}, '%')
@@ -78,6 +78,15 @@
 
     <select id="getByParentId" resultMap="resultMap">
         select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from upload_file_manage
+        where deleted = 0
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+    </select>
+
+    <select id="countByParentId" resultType="java.lang.Integer">
+        select count(*) as count
         from upload_file_manage
         where deleted = 0
         <if test="parentId != null">

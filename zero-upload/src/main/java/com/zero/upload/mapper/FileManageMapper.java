@@ -76,4 +76,15 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
      * @throws Exception 抛出异常
      */
     List<FileManage> getByParentId(@Param("parentId") Integer parentId) throws Exception;
+
+    /**
+     * 通过父主键，统计原文件的备份文件个数
+     *
+     * @param parentId 文件主键Id
+     * @return 文件的备份文件个数
+     * @throws Exception 抛出异常
+     */
+    Integer countByParentId(@Param("parentId") Integer parentId) throws Exception;
+
+
 }

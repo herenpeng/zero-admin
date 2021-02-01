@@ -25,6 +25,11 @@ public class UploadProperties {
     private String path;
 
     /**
+     * 备份文件后缀名
+     */
+    private String bakSuffix;
+
+    /**
      * 需要上传的图片文件的属性
      */
     private FileUpload image;

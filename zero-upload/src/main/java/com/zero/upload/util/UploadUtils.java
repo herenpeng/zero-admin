@@ -102,7 +102,6 @@ public class UploadUtils {
         return uri;
     }
 
-
     /**
      * 生成日期形式的磁盘存储路径，
      * 例如：2021-01-30上传的文件，存放在2020\01\30的文件夹下面
@@ -111,7 +110,7 @@ public class UploadUtils {
      * @param fileName   文件名称
      * @return 文件存储路径
      */
-    private String generateFilePath(FileUpload fileUpload, String fileName) {
+    public String generateFilePath(FileUpload fileUpload, String fileName) {
         Calendar calendar = Calendar.getInstance();
         // 存储图片的路径
         return uploadProperties.getPath() + fileUpload.getPath() +
@@ -133,7 +132,7 @@ public class UploadUtils {
      * @param fileName   文件名称
      * @return 文件引用路径
      */
-    private String generateFileUri(FileUpload fileUpload, String fileName) {
+    public String generateFileUri(FileUpload fileUpload, String fileName) {
         Calendar calendar = Calendar.getInstance();
         // 项目http域名
         return zeroProperties.getApiPath() +
@@ -147,6 +146,24 @@ public class UploadUtils {
                 HttpConst.PATH_SEPARATOR + calendar.get(Calendar.DAY_OF_MONTH) +
                 // 存储文件名称
                 HttpConst.PATH_SEPARATOR + fileName;
+    }
+
+    /**
+     * 生成备份文件名称
+     *
+     * @param name     源文件名称
+     * @param bakCount 备份文件已有个数
+     * @return 备份文件名称
+     */
+    public String generateBakFileName(String name, int bakCount) {
+        // 获取源文件名称后缀
+        String suffix = name.substring(name.lastIndexOf(StringConst.POINT));
+        // 获取源文件名称，不含后缀
+        String fileName = name.substring(0, name.lastIndexOf(StringConst.POINT));
+        // 生成备份文件的名称
+        String bakFileName = fileName + StringConst.POINT + uploadProperties.getBakSuffix()
+                + StringConst.POINT + (bakCount + 1) + suffix;
+        return bakFileName;
     }
 
     /**

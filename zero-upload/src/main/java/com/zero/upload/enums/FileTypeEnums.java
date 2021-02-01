@@ -15,10 +15,17 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum FileTypeEnums {
 
-    IMAGE("IMAGE", "图片");
+    /**
+     * 图片类型的文件
+     */
+    IMAGE("IMAGE", "图片"),
+    /**
+     * PDF文件
+     */
+    PDF("PDF", "PDF");
 
     @EnumValue
-    private String fileType;
+    private String value;
 
     @JsonValue
     private String description;

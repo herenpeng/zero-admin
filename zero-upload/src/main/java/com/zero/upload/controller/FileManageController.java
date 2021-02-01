@@ -106,4 +106,15 @@ public class FileManageController extends BaseController<FileManageService, File
         baseService.exportExcel(queryFileManage, response);
     }
 
+    @LogOperation
+    @ApiOperation(value = "通过主键备份一个文件资源")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "文件资源管理表主键", dataTypeClass = Integer.class, required = true)
+    })
+    @PostMapping("bak/{id}")
+    public ResponseData<Void> bak(@PathVariable Integer id) throws Exception {
+        baseService.bak(id);
+        return ResponseData.ok().message("备份成功");
+    }
+
 }
