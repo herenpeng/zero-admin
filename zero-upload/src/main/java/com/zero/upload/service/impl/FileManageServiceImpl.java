@@ -10,11 +10,13 @@ import com.zero.upload.mapper.FileManageMapper;
 import com.zero.upload.service.FileManageService;
 import com.zero.upload.util.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -73,6 +75,8 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
 
     @Override
     public void recoverDelete(Integer id) throws Exception {
+        FileManage fileManage = baseMapper.selectRecoverById(id);
+        FileUtils.forceDelete(new File(fileManage.getPath()));
         baseMapper.recoverDelete(id);
     }
 

@@ -3,10 +3,7 @@ package com.zero.upload.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.upload.entity.FileManage;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -69,6 +66,15 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
     /**
+     * 通过主键查找被逻辑删除的数据
+     *
+     * @param id 文件管理主键
+     * @return 被逻辑删除的文件管理数据
+     * @throws Exception 抛出异常
+     */
+    FileManage selectRecoverById(@Param("id") Integer id) throws Exception;
+
+    /**
      * 通过父主键，获取原文件的备份文件集合
      *
      * @param parentId 文件主键Id
@@ -85,6 +91,5 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
      * @throws Exception 抛出异常
      */
     Integer countByParentId(@Param("parentId") Integer parentId) throws Exception;
-
 
 }
