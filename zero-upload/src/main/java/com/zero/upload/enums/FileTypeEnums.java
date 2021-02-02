@@ -16,6 +16,10 @@ import lombok.Getter;
 public enum FileTypeEnums {
 
     /**
+     * 默认文件类型的文件
+     */
+    DEFAULT_FILE("DEFAULT_FILE", "默认文件类型"),
+    /**
      * 图片类型的文件
      */
     IMAGE("IMAGE", "图片"),

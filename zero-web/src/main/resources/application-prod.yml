@@ -13,16 +13,6 @@ spring:
     static-locations: file:/usr/web-project/zero-admin/static/
 zero:
   domain-name: http://zeroadmin.herenpeng.com
-  api-path: ${zero.domain-name}${server.servlet.context-path}
   upload:
     # 文件上传目标路径
     path: /usr/web-project/zero-admin/static/
-    # 备份文件后缀
-    bak-suffix: bak
-    image:
-      # 图片文件上传目标路径
-      path: image
-      # 图片文件上传允许的类型
-      allowTypes:
-        - image/jpeg
-        - image/png

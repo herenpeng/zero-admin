@@ -30,8 +30,18 @@ public class UploadProperties {
     private String bakSuffix;
 
     /**
+     * 默认的文件类型
+     */
+    private FileUpload defaultFile;
+
+    /**
      * 需要上传的图片文件的属性
      */
     private FileUpload image;
+
+    /**
+     * 需要上传的图片文件的属性
+     */
+    private FileUpload pdf;
 
 }

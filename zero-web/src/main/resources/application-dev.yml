@@ -8,28 +8,18 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-#  devtools:
-#    restart:
-#      enabled: true  #设置开启热部署
-#      additional-paths: src/main/java #重启目录
+  #  devtools:
+  #    restart:
+  #      enabled: true  #设置开启热部署
+  #      additional-paths: src/main/java #重启目录
   resources:
     # 访问系统外部资源，将该目录下的文件映射到系统下
     static-locations: file:G:\temp\
 zero:
   domain-name: http://127.0.0.1:10000
-  api-path: ${zero.domain-name}${server.servlet.context-path}
   upload:
     # 文件上传目标路径
     path: G:\temp\
-    # 备份文件后缀
-    bak-suffix: bak
-    image:
-      # 图片文件上传目标路径
-      path: image
-      # 图片文件上传允许的类型
-      allowTypes:
-        - image/jpeg
-        - image/png
 #logging:
 #  level:
 #    root: info

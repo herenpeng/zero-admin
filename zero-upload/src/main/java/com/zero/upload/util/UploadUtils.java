@@ -12,16 +12,16 @@ import com.zero.upload.mapper.FileManageMapper;
 import com.zero.upload.properties.FileUpload;
 import com.zero.upload.properties.UploadProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 文件上传的工具类
@@ -110,7 +110,7 @@ public class UploadUtils {
      * @param fileName   文件名称
      * @return 文件存储路径
      */
-    public String generateFilePath(FileUpload fileUpload, String fileName) {
+    private String generateFilePath(FileUpload fileUpload, String fileName) {
         Calendar calendar = Calendar.getInstance();
         // 存储图片的路径
         return uploadProperties.getPath() + fileUpload.getPath() +
@@ -132,7 +132,7 @@ public class UploadUtils {
      * @param fileName   文件名称
      * @return 文件引用路径
      */
-    public String generateFileUri(FileUpload fileUpload, String fileName) {
+    private String generateFileUri(FileUpload fileUpload, String fileName) {
         Calendar calendar = Calendar.getInstance();
         // 项目http域名
         return zeroProperties.getApiPath() +
@@ -155,7 +155,7 @@ public class UploadUtils {
      * @param bakCount 备份文件已有个数
      * @return 备份文件名称
      */
-    public String generateBakFileName(String name, int bakCount) {
+    private String generateBakFileName(String name, int bakCount) {
         // 获取源文件名称后缀
         String suffix = name.substring(name.lastIndexOf(StringConst.POINT));
         // 获取源文件名称，不含后缀
@@ -185,6 +185,67 @@ public class UploadUtils {
      */
     private String generateUniqueId() {
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 通过源文件备份一个备份文件
+     *
+     * @param fileManage 需要备份的源文件对象
+     * @param bakCount   源文件已有的备份文件个数
+     * @return 备份文件的对象
+     * @throws IOException 抛出IO异常
+     */
+    public void bakFile(FileManage fileManage, Integer bakCount) throws IOException {
+        // 创建一个备份文件对象
+        FileManage bakFile = new FileManage();
+        bakFile.setParentId(fileManage.getId());
+        bakFile.setName(fileManage.getName());
+        bakFile.setType(fileManage.getType());
+        bakFile.setUploadTime(new Date());
+        bakFile.setUploadUserId(jwtUtils.getUserId(request));
+        // 源文件磁盘路径
+        String path = fileManage.getPath();
+        // 获取源文件
+        File srcFile = new File(path);
+        // 获取源文件名称
+        String name = srcFile.getName();
+        // 生成备份文件名称
+        String bakFileName = generateBakFileName(name, bakCount);
+        // 通过上传的文件类型获取对应的上传文件存储信息
+        FileUpload fileUpload = getFileUpload(fileManage.getType());
+        // 设置备份文件磁盘路径
+        bakFile.setPath(generateFilePath(fileUpload, bakFileName));
+        // 设置备份文件http引用路径
+        bakFile.setUri(generateFileUri(fileUpload, bakFileName));
+        File destFile = new File(bakFile.getPath());
+        FileUtils.copyFile(srcFile, destFile);
+        // 保存文件对象放在最后，防止未备份文件却生成了备份文件信息
+        fileManageMapper.insert(bakFile);
+    }
+
+
+    /**
+     * 文件枚举类型和文件上传信息的对照map结合
+     */
+    private static final Map<FileTypeEnums, FileUpload> fileTypeMap = new HashMap<>();
+
+    /**
+     * 实现文件类型枚举和文件类型信息对应的转换方法，如果新增新的文件类型，需要在这个方法下新增型的类型映射
+     *
+     * @param fileTypeEnums 文件类型枚举
+     * @return 文件类型信息
+     */
+    private FileUpload getFileUpload(FileTypeEnums fileTypeEnums) {
+        if (ObjectUtils.isEmpty(fileTypeMap)) {
+            fileTypeMap.put(FileTypeEnums.DEFAULT_FILE, uploadProperties.getDefaultFile());
+            fileTypeMap.put(FileTypeEnums.IMAGE, uploadProperties.getImage());
+            fileTypeMap.put(FileTypeEnums.PDF, uploadProperties.getPdf());
+        }
+        FileUpload fileUpload = fileTypeMap.get(fileTypeEnums);
+        if (ObjectUtils.isEmpty(fileUpload)) {
+            return uploadProperties.getDefaultFile();
+        }
+        return fileUpload;
     }
 
 }

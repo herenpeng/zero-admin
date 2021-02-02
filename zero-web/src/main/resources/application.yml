@@ -64,6 +64,7 @@ mybatis-plus:
   # 枚举类型包
   type-enums-package: com.zero.upload.enums
 zero:
+  api-path: ${zero.domain-name}${server.servlet.context-path}
   sys:
     user:
       # root用户默认用户名
@@ -104,5 +105,22 @@ zero:
         path: /templates/mail
         # 邮箱验证码邮件模板文件
         file: verify.ftl
+  # 文件上传通用的配置信息
+  upload:
+    # 备份文件后缀
+    bak-suffix: bak
+    # 默认的文件类型
+    default-file:
+      # 默认的文件类型上传目标路径
+      path: default
+      # 默认的文件类型上传允许的类型
+      allowTypes:
+    image:
+      # 图片文件上传目标路径
+      path: image
+      # 图片文件上传允许的类型
+      allowTypes:
+        - image/jpeg
+        - image/png
 
 
