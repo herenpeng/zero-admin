@@ -28,9 +28,15 @@ public enum FileTypeEnums {
      */
     PDF("PDF", "PDF");
 
+    /**
+     * 持久化到数据库中的值
+     */
     @EnumValue
     private String value;
 
+    /**
+     * 格式化为json字符串时展示的数据
+     */
     @JsonValue
     private String description;
 
