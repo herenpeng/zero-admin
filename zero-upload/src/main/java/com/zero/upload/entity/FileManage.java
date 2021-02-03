@@ -34,7 +34,7 @@ public class FileManage extends BaseEntity {
      * 文件名称
      */
     @ApiModelProperty(value = "文件名称")
-    @Excel(name = "文件名称", width = 15, needMerge = true)
+    @Excel(name = "文件名称", width = 30, needMerge = true)
     @TableField(value = "name", el = "name")
     private String name;
     /**
@@ -48,7 +48,7 @@ public class FileManage extends BaseEntity {
      * 文件http引用路径
      */
     @ApiModelProperty(value = "文件http引用路径")
-    @Excel(name = "文件http引用路径", width = 15, needMerge = true)
+    @Excel(name = "文件http引用路径", width = 50, needMerge = true)
     @TableField(value = "uri", el = "uri")
     private String uri;
     /**
@@ -62,21 +62,19 @@ public class FileManage extends BaseEntity {
      * 文件上传时间
      */
     @ApiModelProperty(value = "文件上传时间")
-    @Excel(name = "文件上传时间", width = 15, needMerge = true)
+    @Excel(name = "文件上传时间", width = 20, exportFormat = "yyyy-MM-dd HH:mm:ss", needMerge = true)
     @TableField(value = "upload_time", el = "uploadTime")
     private Date uploadTime;
     /**
      * 文件上传用户主键
      */
     @ApiModelProperty(value = "文件上传用户主键")
-    @Excel(name = "文件上传用户主键", width = 15, needMerge = true)
     @TableField(value = "upload_user_id", el = "uploadUserId")
     private Integer uploadUserId;
     /**
      * 主文件主键，源文件为0，其他值为对应的备份文件
      */
     @ApiModelProperty(value = "主文件主键，源文件为0，其他值为对应的备份文件")
-    @Excel(name = "主文件主键，源文件为0，其他值为对应的备份文件", width = 15, needMerge = true)
     @TableField(value = "parent_id", el = "parentId")
     private Integer parentId;
 
@@ -116,7 +114,6 @@ public class FileManage extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(exist = false, el = "queryEndDate")
     private Date queryEndDate;
-
 
 
 }

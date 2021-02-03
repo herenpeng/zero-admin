@@ -3,7 +3,6 @@ package com.zero.upload.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.security.jwt.util.JwtUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.mapper.FileManageMapper;
@@ -14,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -32,9 +32,6 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private JwtUtils jwtUtils;
 
     @Autowired
     private UploadUtils uploadUtils;
@@ -76,7 +73,8 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
     @Override
     public void recoverDelete(Integer id) throws Exception {
         FileManage fileManage = baseMapper.selectRecoverById(id);
-        FileUtils.forceDelete(new File(fileManage.getPath()));
+        String path = fileManage.getPath();
+        FileUtils.forceDelete(new File(path));
         baseMapper.recoverDelete(id);
     }
 
@@ -93,6 +91,20 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
         Integer bakCount = baseMapper.countByParentId(id);
         // 备份文件
         uploadUtils.bakFile(fileManage, bakCount);
+    }
+
+    @Override
+    public void replace(Integer id, MultipartFile file) throws Exception {
+        FileManage fileManage = baseMapper.selectById(id);
+        String path = fileManage.getPath();
+        File oldFile = new File(path);
+        // 如果旧文件存在，先将旧文件删除
+        if (oldFile.exists()) {
+            log.info("[文件管理功能]删除文件：{}", oldFile.getPath());
+            FileUtils.forceDelete(oldFile);
+        }
+        System.out.println(file.getOriginalFilename());
+        file.transferTo(new File(path));
     }
 
 }

@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -115,6 +116,18 @@ public class FileManageController extends BaseController<FileManageService, File
     public ResponseData<Void> bak(@PathVariable Integer id) throws Exception {
         baseService.bak(id);
         return ResponseData.ok().message("备份成功");
+    }
+
+    @LogOperation
+    @ApiOperation(value = "通过主键替换一个文件资源")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "文件资源管理表主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "file", value = "文件资源", dataTypeClass = MultipartFile.class, required = true)
+    })
+    @PostMapping("replace")
+    public ResponseData<Void> replace(@RequestParam("id") Integer id, @RequestParam("file") MultipartFile file) throws Exception {
+        baseService.replace(id, file);
+        return ResponseData.ok().message("替换成功");
     }
 
 }

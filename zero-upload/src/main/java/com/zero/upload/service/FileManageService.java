@@ -3,6 +3,7 @@ package com.zero.upload.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
 import com.zero.upload.entity.FileManage;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -78,4 +79,13 @@ public interface FileManageService extends BaseService<FileManage> {
      * @throws Exception 抛出异常
      */
     void bak(Integer id) throws Exception;
+
+    /**
+     * 通过主键替换一个文件资源
+     *
+     * @param id   文件资源管理表主键
+     * @param file 文件资源
+     * @throws Exception 抛出异常
+     */
+    void replace(Integer id, MultipartFile file) throws Exception;
 }
