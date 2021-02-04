@@ -28,7 +28,7 @@ stop(){
 	if [ "$P_ID" == "" ]; then
         	echo "=== 服务${SERVICE_NAME}不存在或者已停止 ==="
         else
-        	kill `cat ${SERVICE_DIR}/${PID}`
+        	kill $(cat ${SERVICE_DIR}/${PID})
 		rm -rf ${SERVICE_DIR}/${PID}
         	echo "=== 服务${SERVICE_NAME}已停止 ==="
         fi
