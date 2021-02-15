@@ -199,7 +199,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
      */
     private void verifyRootPermissions(Serializable id) {
         User user = baseMapper.selectById(id);
-        if (userProperties.getRootUsername().equals(user.getUsername())) {
+        if (StringUtils.equals(userProperties.getRootUsername(), user.getUsername())) {
             throw new MyException(MyExceptionEnum.ACCESS_DENIED);
         }
     }

@@ -19,8 +19,8 @@ public class StringConst {
     public static final String POINT = ".";
 
     /**
-     * 下划线分隔符
+     * 下划线分隔符 Underscore
      */
-    public static final char SEPARATOR = '_';
+    public static final char UNDERSCORE_SEPARATOR = '_';
 
 }

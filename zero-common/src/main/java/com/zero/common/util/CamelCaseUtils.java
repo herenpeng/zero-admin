@@ -28,7 +28,7 @@ public class CamelCaseUtils {
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
             if ((i > 0) && Character.isUpperCase(ch)) {
-                sb.append(StringConst.SEPARATOR);
+                sb.append(StringConst.UNDERSCORE_SEPARATOR);
             }
             sb.append(Character.toLowerCase(ch));
         }
@@ -50,7 +50,7 @@ public class CamelCaseUtils {
         boolean upperCase = false;
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
-            if (ch == StringConst.SEPARATOR) {
+            if (ch == StringConst.UNDERSCORE_SEPARATOR) {
                 upperCase = true;
             } else if (upperCase) {
                 sb.append(Character.toUpperCase(ch));

@@ -77,6 +77,13 @@ public class Log extends BaseEntity {
     @TableField(value = "execution_time", el = "executionTime")
     private Long executionTime;
     /**
+     * 执行结果标识，1(true)为正常，0(false)为执行异常
+     */
+    @ApiModelProperty(value = "执行结果标识")
+    @Excel(name = "执行结果标识", width = 30)
+    @TableField(value = "result", el = "result")
+    private Boolean result;
+    /**
      * 日志描述信息
      */
     @ApiModelProperty(value = "日志描述信息")

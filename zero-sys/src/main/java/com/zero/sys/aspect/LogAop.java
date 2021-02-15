@@ -46,13 +46,17 @@ public class LogAop {
 
     @Before("logOperationAop()")
     public void doBefore() {
+        // 创建一个日志记录
         log = new Log();
+        // 设置日志的访问时间
         log.setAccessTime(new Date());
     }
 
     @AfterReturning("logOperationAop()")
     public void doAfterReturning(JoinPoint joinPoint) throws JsonProcessingException {
         setLog(joinPoint);
+        // 设置执行结果为成功
+        log.setResult(true);
     }
 
 
@@ -60,6 +64,8 @@ public class LogAop {
     public void doAfterThrowing(JoinPoint joinPoint, Exception e) throws JsonProcessingException {
         setLog(joinPoint);
 
+        // 设置执行结果为失败
+        log.setResult(false);
         log.setExceptionName(e.getClass().getName());
         log.setExceptionMessage(e.getMessage());
     }
@@ -67,6 +73,7 @@ public class LogAop {
 
     @After("logOperationAop()")
     public void doAfter() {
+        // 将日志记录插入数据库中
         logMapper.insert(log);
     }
 
@@ -74,8 +81,8 @@ public class LogAop {
     /**
      * 封装日志记录
      *
-     * @param joinPoint
-     * @throws JsonProcessingException
+     * @param joinPoint AOP切入点
+     * @throws JsonProcessingException Json处理异常
      */
     private void setLog(JoinPoint joinPoint) throws JsonProcessingException {
         Integer userId = jwtUtils.getUserId(request);

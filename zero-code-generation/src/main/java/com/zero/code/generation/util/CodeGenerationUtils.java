@@ -5,6 +5,7 @@ import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.enums.TemplateEnum;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
+import com.zero.common.constant.StringConst;
 import com.zero.common.enums.EncodingEnums;
 import com.zero.common.util.FreeMarkerUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -33,10 +34,6 @@ public class CodeGenerationUtils {
     @Autowired
     private FreeMarkerUtils freeMarkerUtils;
 
-    /**
-     * Java包分隔符
-     */
-    public static final String PACKAGE_SEPARATOR = ".";
 
     /**
      * 代码生成方法
@@ -85,7 +82,7 @@ public class CodeGenerationUtils {
      * @return 文件路径名称
      */
     private String packageNameToPath(String packageName) {
-        return File.separator + packageName.replace(PACKAGE_SEPARATOR, File.separator) + File.separator;
+        return File.separator + packageName.replace(StringConst.POINT, File.separator) + File.separator;
     }
 
 
