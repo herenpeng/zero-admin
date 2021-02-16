@@ -125,7 +125,7 @@
             and sm.parent_id = 0
         </if>
         <if test="userId != null">
-            and smr.role_id in (select role_id from sys_user_role where user_id = #{userId})
+            and smr.role_id in (select role_id from auth_user_role where user_id = #{userId})
         </if>
         order by sm.sort
     </select>

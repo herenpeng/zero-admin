@@ -3,6 +3,7 @@ package com.zero.common.export.excel.utils;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import com.zero.common.enums.EncodingEnums;
 import com.zero.common.export.excel.enums.ExcelStyleEnum;
 import com.zero.common.export.excel.enums.ExcelSuffixEnum;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -100,9 +101,9 @@ public class ExcelUtils {
      * @throws IOException IO异常
      */
     private void downloadExcel(String fileName, Workbook workbook, HttpServletResponse response) throws IOException {
-        response.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding(EncodingEnums.UTF_8.getValue());
         response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + ExcelSuffixEnum.XLSX.getSuffix(), "UTF-8"));
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + ExcelSuffixEnum.XLSX.getSuffix(), EncodingEnums.UTF_8.getValue()));
         workbook.write(response.getOutputStream());
         workbook.close();
     }

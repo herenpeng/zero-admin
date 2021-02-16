@@ -1,4 +1,4 @@
-package com.zero.common.constant;
+package com.zero.common.http.constant;
 
 /**
  * 方法类型常量

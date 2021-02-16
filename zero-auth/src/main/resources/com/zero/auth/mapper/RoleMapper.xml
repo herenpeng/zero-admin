@@ -28,72 +28,72 @@
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id, `name` as name, `description` as description
-        from sys_role
+        from auth_role
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id, `name` as name, `description` as description
-        from sys_role
+        from auth_role
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getByUserId" resultMap="resultMap">
-        select sr.id, sr.name, sr.description
-        from sys_role sr
-        left join sys_user_role sur on sur.role_id = sr.id
-        where sr.deleted = 0
+        select ar.id, ar.name, ar.description
+        from auth_role ar
+        left join auth_user_role aur on aur.role_id = ar.id
+        where ar.deleted = 0
         <if test="userId != null">
-            and sur.user_id = #{userId}
+            and aur.user_id = #{userId}
         </if>
     </select>
 
     <select id="getUserNotRoleList" resultMap="resultMap">
-        select sr.id, sr.name, sr.description
-        from sys_role sr
-        where sr.deleted = 0 and sr.id not in
-        (select sur.role_id from sys_user_role sur where sur.user_id = #{userId})
+        select ar.id, ar.name, ar.description
+        from auth_role ar
+        where ar.deleted = 0 and ar.id not in
+        (select aur.role_id from auth_user_role aur where aur.user_id = #{userId})
     </select>
 
     <select id="getByResourcesId" resultMap="resultMap">
-        select sr.id, sr.name, sr.description
-        from sys_role sr
-        left join sys_resources_role srer on srer.role_id = sr.id
-        where sr.deleted = 0
+        select ar.id, ar.name, ar.description
+        from auth_role ar
+        left join auth_resources_role arer on arer.role_id = ar.id
+        where ar.deleted = 0
         <if test="resourcesId != null">
-            and srer.resources_id = #{resourcesId}
+            and arer.resources_id = #{resourcesId}
         </if>
     </select>
 
     <select id="getResourcesNotRoleList" resultMap="resultMap">
-        select sr.id, sr.name, sr.description
-        from sys_role sr
-        where sr.deleted = 0 and sr.id not in
-        (select srer.role_id from sys_resources_role srer where srer.resources_id = #{resourcesId})
+        select ar.id, ar.name, ar.description
+        from auth_role ar
+        where ar.deleted = 0 and ar.id not in
+        (select arer.role_id from auth_resources_role arer where arer.resources_id = #{resourcesId})
     </select>
 
     <select id="getByMenuId" resultMap="resultMap">
-        select sr.id, sr.name, sr.description
-        from sys_role sr
-        left join sys_menu_role smr on smr.role_id = sr.id
-        where sr.deleted = 0
+        select ar.id, ar.name, ar.description
+        from auth_role ar
+        left join sys_menu_role smr on smr.role_id = ar.id
+        where ar.deleted = 0
         <if test="menuId != null">
             and smr.menu_id = #{menuId}
         </if>
     </select>
 
     <select id="getMenuNotRoleList" resultMap="resultMap">
-        select sr.id, sr.name, sr.description
-        from sys_role sr
-        where sr.deleted = 0 and sr.id not in
+        select ar.id, ar.name, ar.description
+        from auth_role ar
+        where ar.deleted = 0 and ar.id not in
         (select smr.role_id from sys_menu_role smr where smr.menu_id = #{menuId})
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
         select `id` as id,`name` as name,`description` as description
-        from sys_role
+        from auth_role
         where deleted = 1
         <include refid="baseQuery"></include>
     </select>

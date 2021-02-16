@@ -1,4 +1,4 @@
-package com.zero.common.constant;
+package com.zero.common.http.constant;
 
 /**
  * 和Http请求相关的常量类型

@@ -11,8 +11,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ExcelSuffixEnum {
 
+    /**
+     * .xlsx格式的excel文件
+     */
     XLSX(".xlsx");
 
+    /**
+     * 文件后缀名
+     */
     String suffix;
 
 }

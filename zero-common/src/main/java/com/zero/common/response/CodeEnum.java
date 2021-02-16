@@ -1,4 +1,4 @@
-package com.zero.common.response.domain;
+package com.zero.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

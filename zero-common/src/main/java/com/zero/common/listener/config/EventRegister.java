@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
  */
 @Slf4j
 @Component
-@ConfigurationProperties(prefix = "zero.sys.listener.event")
+@ConfigurationProperties(prefix = "zero.common.listener.event")
 public abstract class EventRegister {
 
     /**

@@ -24,7 +24,7 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
      * @param roleId 角色主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from sys_user_role where user_id = #{userId} and role_id = #{roleId}")
+    @Delete("delete from auth_user_role where user_id = #{userId} and role_id = #{roleId}")
     void deleteUserRole(@Param("userId") Integer userId, @Param("roleId") Integer roleId) throws Exception;
 
     /**
@@ -33,7 +33,7 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
      * @param userId 用户主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from sys_user_role where user_id = #{userId}")
+    @Delete("delete from auth_user_role where user_id = #{userId}")
     void deleteByUserId(@Param("userId") Integer userId) throws Exception;
 
 }

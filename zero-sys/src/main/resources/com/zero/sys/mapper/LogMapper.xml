@@ -29,7 +29,7 @@
 
     <sql id="baseQuery">
         <if test="queryLog.queryUsername != null and queryLog.queryUsername != ''">
-            and operation_user_id in (select id from sys_user where username like concat('%', #{queryLog.queryUsername}, '%'))
+            and operation_user_id in (select id from auth_user where username like concat('%', #{queryLog.queryUsername}, '%'))
         </if>
         <if test="queryLog.accessTime != null">
             and access_time = #{queryLog.accessTime}

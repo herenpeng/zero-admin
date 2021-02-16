@@ -13,8 +13,13 @@ spring:
     name: zero-admin
   # Jackson相关配置
   jackson:
+    # 常用，全局设置实体类或被@JsonInclude注解的属性的序列化方式
     default-property-inclusion: ALWAYS
+    # 当地时区
+    locale: zh
+    # 设置全局时区
     time-zone: GMT+8
+    # 全局设置@JsonFormat的格式pattern
     date-format: yyyy-MM-dd HH:mm:ss
   main:
     allow-bean-definition-overriding: true
@@ -66,7 +71,7 @@ mybatis-plus:
   type-enums-package: com.zero.upload.enums
 zero:
   api-path: ${zero.domain-name}${server.servlet.context-path}
-  sys:
+  auth:
     user:
       # root用户默认用户名
       root-username: root
@@ -85,11 +90,6 @@ zero:
         ttl: 3600000
         issuer: ${zero.domain-name}
         key: accessToken
-    listener:
-      # 系统启动事件开关，true为开启，false为关闭
-      execution-start: true
-      # 系统停止事件开关，true为开启，false为关闭
-      execution-stop: true
   # 邮件模板内容
   mail:
     template:
@@ -123,5 +123,14 @@ zero:
       allowTypes:
         - image/jpeg
         - image/png
+  common:
+    listener:
+      # 系统启动事件开关，true为开启，false为关闭
+      execution-start: true
+      # 系统停止事件开关，true为开启，false为关闭
+      execution-stop: true
+    http:
+      url:
+        ip-info: http://ip.taobao.com/service/getIpInfo.php?accessKey=alibaba-inc&ip=
 
 

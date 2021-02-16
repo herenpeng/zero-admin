@@ -17,18 +17,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_user_role")
+@TableName("auth_user_role")
 public class UserRole extends BaseEntity {
 
     /**
-     * 用户主键，sys_user表的主键id
+     * 用户主键，auth_user表的主键id
      */
     @ApiModelProperty(value = "用户主键")
     @TableField(value = "user_id", el = "userId")
     private Integer userId;
 
     /**
-     * 角色主键，sys_role表的主键id
+     * 角色主键，auth_role表的主键id
      */
     @ApiModelProperty(value = "角色主键")
     @TableField(value = "role_id", el = "roleId")

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@ConfigurationProperties(prefix = "zero.sys.security.jwt")
+@ConfigurationProperties(prefix = "zero.auth.security.jwt")
 public class JwtProperties {
 
     /**

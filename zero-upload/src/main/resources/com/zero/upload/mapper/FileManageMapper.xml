@@ -42,7 +42,7 @@
             and parent_id = #{queryFileManage.parentId}
         </if>
         <if test="queryFileManage.queryUsername != null and queryFileManage.queryUsername != ''">
-            and upload_user_id in (select id from sys_user where username like concat('%', #{queryFileManage.queryUsername}, '%'))
+            and upload_user_id in (select id from auth_user where username like concat('%', #{queryFileManage.queryUsername}, '%'))
         </if>
         <if test="queryFileManage.queryStartDate != null">
             and upload_time &gt;= #{queryFileManage.queryStartDate}

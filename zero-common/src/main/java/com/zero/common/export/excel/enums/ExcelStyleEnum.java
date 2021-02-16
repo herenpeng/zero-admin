@@ -19,11 +19,26 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ExcelStyleEnum {
 
+    /**
+     * 默认样式
+     */
     DEFAULT("默认样式", ExcelExportStylerDefaultImpl.class),
+    /**
+     * 边框样式
+     */
     BORDER("边框样式", ExcelExportStylerBorderImpl.class),
+    /**
+     * 间隔行样式
+     */
     COLOR("间隔行样式", ExcelExportStylerColorImpl.class);
 
+    /**
+     * 样式名称
+     */
     private String styleName;
 
+    /**
+     * 样式实现类字节码对象
+     */
     private Class<? extends IExcelExportStyler> styleClass;
 }

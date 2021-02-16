@@ -1,7 +1,7 @@
 package com.zero.upload.util;
 
 import com.zero.auth.security.jwt.util.JwtUtils;
-import com.zero.common.constant.HttpConst;
+import com.zero.common.http.constant.HttpConst;
 import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;

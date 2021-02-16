@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@ConfigurationProperties(prefix = "zero.sys.role")
+@ConfigurationProperties(prefix = "zero.auth.role")
 public class RoleProperties {
 
     /**

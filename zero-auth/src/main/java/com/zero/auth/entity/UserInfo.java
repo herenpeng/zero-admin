@@ -23,7 +23,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_user_info")
+@TableName("auth_user_info")
 public class UserInfo extends BaseEntity {
 
     /**

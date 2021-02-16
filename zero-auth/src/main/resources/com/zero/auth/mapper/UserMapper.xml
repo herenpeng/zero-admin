@@ -48,11 +48,11 @@
         select `id` as id,`username` as username,`password` as password,
         `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
         `password_expire` as password_expire
-        from sys_user
+        from auth_user
         where deleted = 0
         <include refid="baseQuery"></include>
         <if test="queryUser.queryRoleId != null">
-            and id in (select user_id from sys_user_role where role_id = #{queryUser.queryRoleId})
+            and id in (select user_id from auth_user_role where role_id = #{queryUser.queryRoleId})
         </if>
     </select>
 
@@ -60,34 +60,34 @@
         select `id` as id,`username` as username,`password` as password,
         `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
         `password_expire` as password_expire
-        from sys_user
+        from auth_user
         where deleted = 0
         <include refid="baseQuery"></include>
         <if test="queryUser.queryRoleId != null">
-            and id in (select user_id from sys_user_role where role_id = #{queryUser.queryRoleId})
+            and id in (select user_id from auth_user_role where role_id = #{queryUser.queryRoleId})
         </if>
     </select>
 
     <select id="loadUserByUsername" resultMap="resultMap">
-        select su.id as id,su.username as username,su.password as password,
-        su.enabled as enabled,su.locked as locked,su.account_expire as account_expire,
-        su.password_expire as password_expire,sr.id as rid,sr.name as name,
-        sr.description as description
-        from sys_user su
-        left join sys_user_role sur on sur.user_id = su.id
-        left join sys_role sr on sr.id = sur.role_id
-        where su.deleted = 0 and su.username = #{username}
+        select au.id as id,au.username as username,au.password as password,
+        au.enabled as enabled,au.locked as locked,au.account_expire as account_expire,
+        au.password_expire as password_expire,ar.id as rid,ar.name as name,
+        ar.description as description
+        from auth_user au
+        left join auth_user_role aur on aur.user_id = au.id
+        left join auth_role ar on ar.id = aur.role_id
+        where au.deleted = 0 and au.username = #{username}
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
         select `id` as id,`username` as username,`password` as password,
         `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
         `password_expire` as password_expire
-        from sys_user
+        from auth_user
         where deleted = 1
         <include refid="baseQuery"></include>
         <if test="queryUser.queryRoleId != null">
-            and id in (select user_id from sys_user_role where role_id = #{queryUser.queryRoleId})
+            and id in (select user_id from auth_user_role where role_id = #{queryUser.queryRoleId})
         </if>
     </select>
 

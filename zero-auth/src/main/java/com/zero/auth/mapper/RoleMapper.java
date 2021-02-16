@@ -38,7 +38,7 @@ public interface RoleMapper extends BaseMapper<Role> {
     List<Role> getList(@Param("queryRole") Role queryRole) throws Exception;
 
     /**
-     * 通过用户主键信息获取该用户所有的角色，需要关联中间表sys_user_role
+     * 通过用户主键信息获取该用户所有的角色，需要关联中间表auth_user_role
      *
      * @param userId 用户主键
      * @return
@@ -56,7 +56,7 @@ public interface RoleMapper extends BaseMapper<Role> {
     List<Role> getUserNotRoleList(@Param("userId") Integer userId) throws Exception;
 
     /**
-     * 通过资源主键信息获取该拥有该系统资源的角色，需要关联中间表sys_resources_role
+     * 通过资源主键信息获取该拥有该系统资源的角色，需要关联中间表auth_resources_role
      *
      * @param resourcesId 系统资源主键
      * @return
@@ -99,7 +99,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return 如果该角色名称已存在，返回true，否则返回false
      * @throws Exception 抛出异常
      */
-    @Select("select count(*) from sys_role where name = #{name}")
+    @Select("select count(*) from auth_role where name = #{name}")
     Boolean checkName(@Param("name") String name) throws Exception;
 
     /**
@@ -118,7 +118,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param id 系统角色表主键
      * @throws Exception 抛出异常
      */
-    @Update("update sys_role set deleted = 0 where id = #{id}")
+    @Update("update auth_role set deleted = 0 where id = #{id}")
     void recoverById(@Param("id") Integer id) throws Exception;
 
     /**
@@ -127,7 +127,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param id 系统角色表主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from sys_role where id = #{id}")
+    @Delete("delete from auth_role where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
     /**
@@ -137,7 +137,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return 角色对象
      * @throws Exception 抛出异常
      */
-    @Select("select id,name,description from sys_role where name = #{name}")
+    @Select("select id,name,description from auth_role where name = #{name}")
     Role getByName(@Param("name") String name);
 
 

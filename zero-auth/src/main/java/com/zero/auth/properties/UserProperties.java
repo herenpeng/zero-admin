@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@ConfigurationProperties(prefix = "zero.sys.user")
+@ConfigurationProperties(prefix = "zero.auth.user")
 public class UserProperties {
 
     /**

@@ -87,7 +87,7 @@ public class LogAop {
     private void setLog(JoinPoint joinPoint) throws JsonProcessingException {
         Integer userId = jwtUtils.getUserId(request);
         log.setOperationUserId(userId);
-        log.setIp(request.getRemoteAddr());
+        log.setIp(getIpAddr(request));
         log.setUri(request.getRequestURI());
         log.setMethodType(request.getMethod().toUpperCase());
         log.setMethod(joinPoint.getTarget().getClass() + StringConst.POINT + joinPoint.getSignature().getName());
@@ -105,5 +105,36 @@ public class LogAop {
             }
         }
     }
+
+    /**
+     * 获取访问用户的真实地址，因为如果使用了nginx反向代理，无法获取访问用户的真实地址
+     *
+     * @param request HttpServletRequest对象
+     * @return 真实ip地址
+     */
+    private String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (checkIp(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (checkIp(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (checkIp(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
+    }
+
+    /**
+     * 判断ip是否有效
+     *
+     * @param ip ip地址
+     * @return ip是否有效，布尔值
+     */
+    private boolean checkIp(String ip) {
+        return StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip);
+    }
+
 
 }

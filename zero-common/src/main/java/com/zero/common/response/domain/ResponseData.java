@@ -1,5 +1,6 @@
 package com.zero.common.response.domain;
 
+import com.zero.common.response.CodeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

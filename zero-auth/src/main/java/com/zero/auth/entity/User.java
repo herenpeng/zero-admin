@@ -24,7 +24,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_user")
+@TableName("auth_user")
 public class User extends BaseEntity {
 
     /**

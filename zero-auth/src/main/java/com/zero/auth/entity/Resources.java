@@ -23,7 +23,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_resources")
+@TableName("auth_resources")
 public class Resources extends BaseEntity {
 
     /**

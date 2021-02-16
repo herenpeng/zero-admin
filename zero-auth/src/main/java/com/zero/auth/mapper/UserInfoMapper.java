@@ -56,7 +56,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
      * @param id 系统用户信息表主键
      * @throws Exception 抛出异常
      */
-    @Update("update sys_user_info set deleted = 0 where id = #{id}")
+    @Update("update auth_user_info set deleted = 0 where id = #{id}")
     void recoverById(@Param("id") Integer id) throws Exception;
 
     /**
@@ -65,7 +65,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
      * @param id 系统用户信息表主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from sys_user_info where id = #{id}")
+    @Delete("delete from auth_user_info where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
 }

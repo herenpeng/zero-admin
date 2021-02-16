@@ -1,6 +1,6 @@
 package com.zero.auth.security.handler;
 
-import com.zero.common.response.domain.CodeEnum;
+import com.zero.common.response.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.auth.util.ResponseUtils;
 import com.zero.auth.security.jwt.util.JwtUtils;

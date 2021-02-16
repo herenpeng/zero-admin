@@ -2,7 +2,7 @@ package com.zero.common.exception.handler;
 
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
-import com.zero.common.response.domain.CodeEnum;
+import com.zero.common.response.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseData exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
-        return ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).<String>message("系统发生异常");
+        return ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).message("系统发生异常");
     }
 
 

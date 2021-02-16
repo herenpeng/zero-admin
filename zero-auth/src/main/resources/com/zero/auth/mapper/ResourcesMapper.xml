@@ -39,42 +39,42 @@
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`uri` as uri,`description` as description,
         `method_type` as method_type
-        from sys_resources
+        from auth_resources
         where deleted = 0
         <include refid="baseQuery"></include>
         <if test="queryResources.queryRoleId != null">
-            and id in (select resources_id from sys_resources_role where role_id = #{queryResources.queryRoleId})
+            and id in (select resources_id from auth_resources_role where role_id = #{queryResources.queryRoleId})
         </if>
     </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`uri` as uri,`description` as description,
         `method_type` as method_type
-        from sys_resources
+        from auth_resources
         where deleted = 0
         <include refid="baseQuery"></include>
         <if test="queryResources.queryRoleId != null">
-            and id in (select resources_id from sys_resources_role where role_id = #{queryResources.queryRoleId})
+            and id in (select resources_id from auth_resources_role where role_id = #{queryResources.queryRoleId})
         </if>
     </select>
 
     <select id="getByRegexUriAndMethodType" resultMap="resultMap">
-        select sre.id as id,sre.uri as uri,sre.regex as regex,sre.description as description,
-        sr.id as rid,sr.name as role_name,sr.description as role_description
-        from sys_resources sre
-        left join sys_resources_role srer on srer.resources_id = sre.id
-        left join sys_role sr on sr.id = srer.role_id
-        where #{uri} regexp sre.regex and sre.method_type = #{methodType}
+        select ares.id as id,ares.uri as uri,ares.regex as regex,ares.description as description,
+        ar.id as rid,ar.name as role_name,ar.description as role_description
+        from auth_resources ares
+        left join auth_resources_role aresr on aresr.resources_id = ares.id
+        left join auth_role ar on ar.id = aresr.role_id
+        where #{uri} regexp ares.regex and ares.method_type = #{methodType}
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
         select `id` as id,`uri` as uri,`description` as description,
         `method_type` as method_type
-        from sys_resources
+        from auth_resources
         where deleted = 1
         <include refid="baseQuery"></include>
         <if test="queryResources.queryRoleId != null">
-            and id in (select resources_id from sys_resources_role where role_id = #{queryResources.queryRoleId})
+            and id in (select resources_id from auth_resources_role where role_id = #{queryResources.queryRoleId})
         </if>
     </select>
 

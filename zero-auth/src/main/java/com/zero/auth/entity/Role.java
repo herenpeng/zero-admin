@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_role")
+@TableName("auth_role")
 public class Role extends BaseEntity {
 
     /**

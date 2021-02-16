@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@ConfigurationProperties(prefix = "zero.sys.listener")
+@ConfigurationProperties(prefix = "zero.common.listener")
 public class ListenerConfig {
 
     /**

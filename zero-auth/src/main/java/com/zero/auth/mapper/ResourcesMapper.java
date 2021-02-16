@@ -55,7 +55,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      *
      * @throws Exception
      */
-    @Delete("delete from sys_resources")
+    @Delete("delete from auth_resources")
     void deleteAll() throws Exception;
 
     /**
@@ -74,7 +74,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @param id 系统资源表主键
      * @throws Exception 抛出异常
      */
-    @Update("update sys_resources set deleted = 0 where id = #{id}")
+    @Update("update auth_resources set deleted = 0 where id = #{id}")
     void recoverById(@Param("id") Integer id) throws Exception;
 
     /**
@@ -83,7 +83,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @param id 系统资源表主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from sys_resources where id = #{id}")
+    @Delete("delete from auth_resources where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
 }

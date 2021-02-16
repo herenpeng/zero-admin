@@ -1,7 +1,7 @@
 package com.zero.auth.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zero.common.constant.HttpConst;
+import com.zero.common.http.constant.HttpConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
