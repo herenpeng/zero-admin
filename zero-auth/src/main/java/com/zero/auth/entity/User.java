@@ -91,6 +91,13 @@ public class User extends BaseEntity {
     private UserInfo userInfo;
 
     /**
+     * 当前登录的用户登入日志记录
+     */
+    @ApiModelProperty(value = "当前登录的用户登入日志记录")
+    @TableField(exist = false)
+    private List<LoginLog> onlineLoginLogs;
+
+    /**
      * 通过角色主键查询用户
      */
     @ApiModelProperty(value = "通过角色主键查询用户")

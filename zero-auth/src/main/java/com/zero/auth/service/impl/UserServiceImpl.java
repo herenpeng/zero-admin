@@ -6,10 +6,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.entity.UserRole;
-import com.zero.auth.mapper.RoleMapper;
-import com.zero.auth.mapper.UserInfoMapper;
-import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.mapper.UserRoleMapper;
+import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
 import com.zero.auth.service.UserService;
@@ -56,12 +53,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private LoginLogMapper loginLogMapper;
+
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
         IPage<User> page = new Page<>(currentPage, size);
         IPage<User> pageInfo = baseMapper.getPage(page, queryUser);
         for (User user : pageInfo.getRecords()) {
             user.setRoles(roleMapper.getByUserId(user.getId()));
+            user.setOnlineLoginLogs(loginLogMapper.getOnlineByUserId(user.getId()));
         }
         return pageInfo;
     }

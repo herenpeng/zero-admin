@@ -1,11 +1,11 @@
 package com.zero.auth.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zero.auth.entity.LoginLog;
+import com.zero.auth.service.LoginLogService;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
-import com.zero.auth.entity.LoginLog;
-import com.zero.auth.service.LoginLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Api(value = "系统账号登录日志表操作接口", tags = "LoginLogController")
 @RestController
-@RequestMapping("loginLog")
+@RequestMapping("login/log")
 public class LoginLogController extends BaseController<LoginLogService, LoginLog> {
 
     @LogOperation
@@ -104,6 +104,31 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     @GetMapping("export/excel")
     public void exportExcel(LoginLog queryLoginLog, HttpServletResponse response) throws Exception {
         baseService.exportExcel(queryLoginLog, response);
+    }
+
+    @LogOperation
+    @ApiOperation(value = "获取当前在线的用户记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "当前在线的用户主键", dataTypeClass = Integer.class, required = true)
+    })
+    @GetMapping("online/{userId}")
+    public ResponseData<List<LoginLog>> online(@PathVariable("userId") Integer userId) throws Exception {
+        List<LoginLog> loginLogs = baseService.online(userId);
+        return ResponseData.ok(loginLogs);
+    }
+
+    @LogOperation
+    @ApiOperation(value = "通过tokenId下线用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "指定下线的用户主键", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "tokenId", value = "指定下线的用户tokenId", dataTypeClass = String.class, required = true)
+    })
+    @PutMapping("offline/{userId}")
+    public ResponseData<Void> offline(
+            @PathVariable("userId") Integer userId,
+            @RequestParam("tokenId") String tokenId) throws Exception {
+        baseService.offline(userId, tokenId);
+        return ResponseData.ok();
     }
 
 }

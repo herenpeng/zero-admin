@@ -59,24 +59,42 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,`city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,`logout_time` as logout_time,`logout` as logout,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
+        `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
+        `logout_time` as logout_time,`logout` as logout
         from auth_login_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,`city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,`logout_time` as logout_time,`logout` as logout,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
+        `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
+        `logout_time` as logout_time,`logout` as logout
         from auth_login_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,`city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,`logout_time` as logout_time,`logout` as logout,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
+        `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
+        `logout_time` as logout_time,`logout` as logout
         from auth_login_log
         where deleted = 1
         <include refid="baseQuery"></include>
     </select>
+
+    <select id="getOnlineByUserId" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
+        `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
+        `logout_time` as logout_time,`logout` as logout
+        from auth_login_log
+        where deleted = 0 and logout = 0 and logout_time > now()
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+    </select>
+
 
 </mapper>

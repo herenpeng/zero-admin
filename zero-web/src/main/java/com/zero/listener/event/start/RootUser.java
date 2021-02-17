@@ -11,6 +11,7 @@ import com.zero.auth.properties.RoleProperties;
 import com.zero.auth.properties.UserProperties;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ import org.springframework.util.ObjectUtils;
  * @author herenpeng
  * @since 2021-01-02 22:51
  */
+@Slf4j
 @EventSort(1)
 @Component
 public class RootUser implements StartEvent {

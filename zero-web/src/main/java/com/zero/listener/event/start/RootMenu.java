@@ -10,6 +10,7 @@ import com.zero.sys.entity.Menu;
 import com.zero.sys.entity.MenuRole;
 import com.zero.sys.mapper.MenuMapper;
 import com.zero.sys.mapper.MenuRoleMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -22,6 +23,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2021-01-03 12:15
  */
+@Slf4j
 @EventSort(2)
 @Component
 public class RootMenu implements StartEvent {

@@ -24,7 +24,7 @@ public interface LoginLogMapper extends BaseMapper<LoginLog> {
     /**
      * 分页查询系统账号登录日志表数据，区别于selectPage的是，该方法添加了查询条件
      *
-     * @param page      分页查询
+     * @param page          分页查询
      * @param queryLoginLog LoginLog查询条件
      * @return LoginLog集合
      * @throws Exception 抛出异常
@@ -43,7 +43,7 @@ public interface LoginLogMapper extends BaseMapper<LoginLog> {
     /**
      * 分页查询逻辑删除的系统账号登录日志表数据
      *
-     * @param page      分页查询
+     * @param page          分页查询
      * @param queryLoginLog LoginLog查询条件
      * @return LoginLog集合
      * @throws Exception 抛出异常
@@ -67,5 +67,15 @@ public interface LoginLogMapper extends BaseMapper<LoginLog> {
      */
     @Delete("delete from auth_login_log where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
+
+    /**
+     * 获取当前在线的用户记录，即logout为false，并且logoutTime小于当前时间
+     *
+     * @param userId 用户主键
+     * @return 当前登录的用户记录
+     * @throws Exception 抛出异常
+     */
+    List<LoginLog> getOnlineByUserId(@Param("userId") Integer userId) throws Exception;
+
 
 }

@@ -55,21 +55,24 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,`id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,
+        `id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar
         from auth_user_info
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,`id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,
+        `id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar
         from auth_user_info
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,`id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,
+        `id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar
         from auth_user_info
         where deleted = 1
         <include refid="baseQuery"></include>

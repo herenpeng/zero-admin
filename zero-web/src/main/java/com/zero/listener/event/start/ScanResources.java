@@ -13,6 +13,7 @@ import com.zero.common.http.constant.MethodTypeConst;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.aop.framework.AdvisedSupport;
@@ -33,6 +34,7 @@ import java.lang.reflect.Method;
  * @author herenpeng
  * @since 2020-10-16 20:41
  */
+@Slf4j
 @EventSort
 @Component
 public class ScanResources implements StartEvent {
@@ -178,31 +180,33 @@ public class ScanResources implements StartEvent {
         if (ObjectUtils.allNotNull(apiOperation)) {
             description = apiOperation.value();
         }
+        // 通过方法的uri，regex和方法类型查找对应的资源记录
         Resources resources = new Resources();
         resources.setUri(splicingUri(beanPath, methodPath));
         resources.setRegex(splicingRegex(beanPath, methodPath));
         resources.setMethodType(methodType);
-
-        // 先在数据库里面进行查找，如果有对应的路径和方法，不插入，而是进行更新
-        QueryWrapper<Resources> queryWrapper = new QueryWrapper<>(resources);
-        Resources res = resourcesMapper.selectOne(queryWrapper);
+        // 先在数据库里面进行查找
+        Resources queryResources = resourcesMapper.selectOne(new QueryWrapper<>(resources));
+        // 创建一个资源关系对象
         ResourcesRole resourcesRole = new ResourcesRole();
-        if (ObjectUtils.allNotNull(res)) {
-            res.setDescription(description);
-            resourcesMapper.updateById(res);
-            resourcesRole.setResourcesId(res.getId());
+        // 如果有对应的路径和方法，不插入，而是进行更新
+        if (ObjectUtils.allNotNull(queryResources)) {
+            queryResources.setDescription(description);
+            resourcesMapper.updateById(queryResources);
+            resourcesRole.setResourcesId(queryResources.getId());
         } else {
+            // 数据库中不存在对应的资源记录，插入一条新的资源记录
             resources.setDescription(description);
             resourcesMapper.insert(resources);
             resourcesRole.setResourcesId(resources.getId());
         }
+        // 维护root用户的权限，将资源权限分配给root用户
         resourcesRole.setRoleId(rootRole.getId());
-        QueryWrapper<ResourcesRole> resourcesRoleQueryWrapper = new QueryWrapper<>(resourcesRole);
-        ResourcesRole resourcesRole1 = resourcesRoleMapper.selectOne(resourcesRoleQueryWrapper);
-        if (!ObjectUtils.allNotNull(resourcesRole1)) {
+        ResourcesRole queryResourcesRole = resourcesRoleMapper.selectOne(new QueryWrapper<>(resourcesRole));
+        // 如果root用户不存在该权限，则新增该权限，否则不做处理
+        if (!ObjectUtils.allNotNull(queryResourcesRole)) {
             resourcesRoleMapper.insert(resourcesRole);
         }
-
     }
 
     /**
@@ -216,18 +220,21 @@ public class ScanResources implements StartEvent {
             return beanInstance;
         } else if (AopUtils.isCglibProxy(beanInstance)) {
             try {
-                Field h = beanInstance.getClass().getDeclaredField("CGLIB$CALLBACK_0");
-                h.setAccessible(true);
-                Object dynamicAdvisedInterceptor = h.get(beanInstance);
+                Field field = beanInstance.getClass().getDeclaredField("CGLIB$CALLBACK_0");
+                field.setAccessible(true);
+                Object dynamicAdvisedInterceptor = field.get(beanInstance);
                 Field advised = dynamicAdvisedInterceptor.getClass().getDeclaredField("advised");
                 advised.setAccessible(true);
                 Object target = ((AdvisedSupport) advised.get(dynamicAdvisedInterceptor)).getTargetSource().getTarget();
                 return target;
             } catch (NoSuchFieldException e) {
+                log.error("[AOP动态代理]获取动态代理的原目标发生异常，无法获取CGLIB$CALLBACK_0属性");
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
+                log.error("[AOP动态代理]获取动态代理的原目标发生异常，反射非法访问属性");
                 e.printStackTrace();
             } catch (Exception e) {
+                log.error("[AOP动态代理]获取动态代理的原目标发生异常，获取原目标对象异常");
                 e.printStackTrace();
             }
         }
@@ -244,8 +251,7 @@ public class ScanResources implements StartEvent {
      */
     private String splicingRegex(String beanPath, String methodPath) {
         String uri = splicingUri(beanPath, methodPath);
-        String regex = REGEX_START + uri.replaceAll(REGEX, REPLACE) + REGEX_END;
-        return regex;
+        return REGEX_START + uri.replaceAll(REGEX, REPLACE) + REGEX_END;
     }
 
     /**
