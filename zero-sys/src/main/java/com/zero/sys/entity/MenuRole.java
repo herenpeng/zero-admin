@@ -26,13 +26,13 @@ public class MenuRole extends BaseEntity {
      * 菜单主键
      */
     @ApiModelProperty(value = "菜单主键")
-    @TableField(value = "menu_id", el = "menuId")
+    @TableField(value = "menu_id")
     private Integer menuId;
     /**
      * 角色主键
      */
     @ApiModelProperty(value = "角色主键")
-    @TableField(value = "role_id", el = "roleId")
+    @TableField(value = "role_id")
     private Integer roleId;
 
 }

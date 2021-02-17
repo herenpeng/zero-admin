@@ -1,6 +1,7 @@
 package ${basePackageName}.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
@@ -43,7 +44,11 @@ public class ${entityName} extends BaseEntity {
      */
     @ApiModelProperty(value = "${column.comment}")
     @Excel(name = "${column.comment}", width = 15, needMerge = true)
-    @TableField(value = "${column.name}", el = "${column.javaName}")
+    <#if column.javaType == "String">
+    @TableField(value = "${column.name}", condition = SqlCondition.LIKE)
+    <#else>
+    @TableField(value = "${column.name}")
+    </#if>
     private ${column.javaType} ${column.javaName};
 </#if>
 </#list>

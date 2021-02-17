@@ -178,6 +178,16 @@ public class JwtUtils {
         return id;
     }
 
+    /**
+     * 获取jwt的Id
+     *
+     * @param request HTTP请求
+     * @return Jwt的Id
+     */
+    public String getId(HttpServletRequest request) {
+        return getId(requestUtils.getToken(request));
+    }
+
 
     /**
      * 通过jwt解析请求用户信息，并返回User对象

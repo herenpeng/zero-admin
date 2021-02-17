@@ -27,7 +27,7 @@
         <java.version>1.8</java.version>
         <zero-admin.version>1.0-SNAPSHOT</zero-admin.version>
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        <mybatis-plus.version>3.1.0</mybatis-plus.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <jjwt.version>0.9.0</jjwt.version>
         <easypoi.version>4.0.0</easypoi.version>
         <commons-lang3.version>3.7</commons-lang3.version>

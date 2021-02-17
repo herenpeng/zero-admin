@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.auth.mapper.LoginLogMapper">
+
+    <resultMap id="resultMap" type="com.zero.auth.entity.LoginLog">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+        <result column="region" jdbcType="VARCHAR" property="region"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="isp" jdbcType="VARCHAR" property="isp"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="token_id" jdbcType="VARCHAR" property="tokenId"/>
+        <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime"/>
+        <result column="logout" jdbcType="BOOLEAN" property="logout"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`user_id`,`ip`,`country`,`region`,`city`,`isp`,`login_time`,`token_id`,`logout_time`,`logout`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryLoginLog.userId != null">
+            and user_id = #{queryLoginLog.userId}
+        </if>
+        <if test="queryLoginLog.ip != null and queryLoginLog.ip != ''">
+            and ip like concat('%', #{queryLoginLog.ip}, '%')
+        </if>
+        <if test="queryLoginLog.country != null and queryLoginLog.country != ''">
+            and country like concat('%', #{queryLoginLog.country}, '%')
+        </if>
+        <if test="queryLoginLog.region != null and queryLoginLog.region != ''">
+            and region like concat('%', #{queryLoginLog.region}, '%')
+        </if>
+        <if test="queryLoginLog.city != null and queryLoginLog.city != ''">
+            and city like concat('%', #{queryLoginLog.city}, '%')
+        </if>
+        <if test="queryLoginLog.isp != null and queryLoginLog.isp != ''">
+            and isp like concat('%', #{queryLoginLog.isp}, '%')
+        </if>
+        <if test="queryLoginLog.loginTime != null">
+            and login_time = #{queryLoginLog.loginTime}
+        </if>
+        <if test="queryLoginLog.tokenId != null and queryLoginLog.tokenId != ''">
+            and token_id like concat('%', #{queryLoginLog.tokenId}, '%')
+        </if>
+        <if test="queryLoginLog.logoutTime != null">
+            and logout_time = #{queryLoginLog.logoutTime}
+        </if>
+        <if test="queryLoginLog.logout != null">
+            and logout = #{queryLoginLog.logout}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,`city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,`logout_time` as logout_time,`logout` as logout,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from auth_login_log
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,`city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,`logout_time` as logout_time,`logout` as logout,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from auth_login_log
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,`city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,`logout_time` as logout_time,`logout` as logout,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from auth_login_log
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
+</mapper>

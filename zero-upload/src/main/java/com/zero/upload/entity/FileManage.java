@@ -35,7 +35,7 @@ public class FileManage extends BaseEntity {
      */
     @ApiModelProperty(value = "文件名称")
     @Excel(name = "文件名称", width = 30, needMerge = true)
-    @TableField(value = "name", el = "name")
+    @TableField(value = "name")
     private String name;
     /**
      * 文件类型
@@ -49,33 +49,33 @@ public class FileManage extends BaseEntity {
      */
     @ApiModelProperty(value = "文件http引用路径")
     @Excel(name = "文件http引用路径", width = 50, needMerge = true)
-    @TableField(value = "uri", el = "uri")
+    @TableField(value = "uri")
     private String uri;
     /**
      * 文件磁盘路径
      */
     @JsonIgnore
     @ApiModelProperty(value = "文件磁盘路径")
-    @TableField(value = "path", el = "path")
+    @TableField(value = "path")
     private String path;
     /**
      * 文件上传时间
      */
     @ApiModelProperty(value = "文件上传时间")
     @Excel(name = "文件上传时间", width = 20, exportFormat = "yyyy-MM-dd HH:mm:ss", needMerge = true)
-    @TableField(value = "upload_time", el = "uploadTime")
+    @TableField(value = "upload_time")
     private Date uploadTime;
     /**
      * 文件上传用户主键
      */
     @ApiModelProperty(value = "文件上传用户主键")
-    @TableField(value = "upload_user_id", el = "uploadUserId")
+    @TableField(value = "upload_user_id")
     private Integer uploadUserId;
     /**
      * 主文件主键，源文件为0，其他值为对应的备份文件
      */
     @ApiModelProperty(value = "主文件主键，源文件为0，其他值为对应的备份文件")
-    @TableField(value = "parent_id", el = "parentId")
+    @TableField(value = "parent_id")
     private Integer parentId;
 
     /**
@@ -89,14 +89,14 @@ public class FileManage extends BaseEntity {
      * 非数据库字段，文件上传用户信息
      */
     @ApiModelProperty(value = "非数据库字段，文件上传用户信息")
-    @TableField(exist = false, el = "user")
+    @TableField(exist = false)
     private User user;
 
     /**
      * 非数据库字段，查询上传文件的用户名称
      */
     @ApiModelProperty(value = "非数据库字段，查询上传文件的用户名称")
-    @TableField(exist = false, el = "queryUsername")
+    @TableField(exist = false)
     private String queryUsername;
 
     /**
@@ -104,7 +104,7 @@ public class FileManage extends BaseEntity {
      */
     @ApiModelProperty(value = "非数据库字段，查询上传文件的时间范围开始时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField(exist = false, el = "queryStartDate")
+    @TableField(exist = false)
     private Date queryStartDate;
 
     /**
@@ -112,7 +112,7 @@ public class FileManage extends BaseEntity {
      */
     @ApiModelProperty(value = "非数据库字段，查询上传文件的范围结束时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField(exist = false, el = "queryEndDate")
+    @TableField(exist = false)
     private Date queryEndDate;
 
 

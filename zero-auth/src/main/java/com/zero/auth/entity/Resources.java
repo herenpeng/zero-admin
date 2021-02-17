@@ -31,14 +31,14 @@ public class Resources extends BaseEntity {
      */
     @ApiModelProperty(value = "资源定位符")
     @Excel(name = "资源定位符", width = 30, needMerge = true)
-    @TableField(value = "uri", el = "uri")
+    @TableField(value = "uri")
     private String uri;
 
     /**
      * 资源定位符匹配正则表达式
      */
     @ApiModelProperty(value = "资源定位符匹配正则表达式")
-    @TableField(value = "regex", el = "regex")
+    @TableField(value = "regex")
     private String regex;
 
     /**
@@ -46,7 +46,7 @@ public class Resources extends BaseEntity {
      */
     @ApiModelProperty(value = "资源描述信息")
     @Excel(name = "资源描述信息", width = 50, needMerge = true)
-    @TableField(value = "description", el = "description")
+    @TableField(value = "description")
     private String description;
 
     /**
@@ -54,7 +54,7 @@ public class Resources extends BaseEntity {
      */
     @ApiModelProperty(value = "资源方法类型")
     @Excel(name = "资源方法类型", width = 15, needMerge = true)
-    @TableField(value = "method_type", el = "methodType")
+    @TableField(value = "method_type")
     private String methodType;
 
     /**

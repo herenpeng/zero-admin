@@ -24,14 +24,14 @@ public class UserRole extends BaseEntity {
      * 用户主键，auth_user表的主键id
      */
     @ApiModelProperty(value = "用户主键")
-    @TableField(value = "user_id", el = "userId")
+    @TableField(value = "user_id")
     private Integer userId;
 
     /**
      * 角色主键，auth_role表的主键id
      */
     @ApiModelProperty(value = "角色主键")
-    @TableField(value = "role_id", el = "roleId")
+    @TableField(value = "role_id")
     private Integer roleId;
 
 }

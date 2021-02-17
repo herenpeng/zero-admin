@@ -32,7 +32,7 @@ public class User extends BaseEntity {
      */
     @ApiModelProperty(value = "用户名称")
     @Excel(name = "用户名称", width = 15, needMerge = true)
-    @TableField(value = "username", el = "username")
+    @TableField(value = "username")
     private String username;
 
     /**
@@ -40,7 +40,7 @@ public class User extends BaseEntity {
      */
     @JsonIgnore
     @ApiModelProperty(value = "用户密码")
-    @TableField(value = "password", el = "password")
+    @TableField(value = "password")
     private String password;
 
     /**
@@ -48,7 +48,7 @@ public class User extends BaseEntity {
      */
     @ApiModelProperty(value = "用户账号是否启用")
     @Excel(name = "账号是否启用", width = 15, needMerge = true, replace = {"启用_true", "禁用_false"})
-    @TableField(value = "enabled", el = "enabled")
+    @TableField(value = "enabled")
     private Boolean enabled;
 
     /**
@@ -56,7 +56,7 @@ public class User extends BaseEntity {
      */
     @ApiModelProperty(value = "用户账号是否锁定")
     @Excel(name = "账号是否锁定", width = 15, needMerge = true, replace = {"锁定_true", "未锁定_false"})
-    @TableField(value = "locked", el = "locked")
+    @TableField(value = "locked")
     private Boolean locked;
 
     /**
@@ -64,7 +64,7 @@ public class User extends BaseEntity {
      */
     @ApiModelProperty(value = "用户账号是否过期")
     @Excel(name = "账号是否过期", width = 15, needMerge = true, replace = {"过期_true", "未过期_false"})
-    @TableField(value = "account_expire", el = "accountExpire")
+    @TableField(value = "account_expire")
     private Boolean accountExpire;
 
     /**
@@ -72,7 +72,7 @@ public class User extends BaseEntity {
      */
     @ApiModelProperty(value = "用户密码是否过期")
     @Excel(name = "密码是否过期", width = 15, needMerge = true, replace = {"过期_true", "未过期_false"})
-    @TableField(value = "password_expire", el = "passwordExpire")
+    @TableField(value = "password_expire")
     private Boolean passwordExpire;
 
     /**

@@ -58,37 +58,42 @@ public class IpInfo {
         /**
          * 区域
          */
+        @JsonProperty(value = "area_id")
         private String areaId;
         private String area;
         /**
          * 国家，例如：中国
          */
+        @JsonProperty(value = "country_id")
         private String countryId;
         private String country;
         /**
          * 区域，省，例如：浙江
          */
+        @JsonProperty(value = "region_id")
         private String regionId;
         private String region;
         /**
          * 城市，例如：杭州
          */
+        @JsonProperty(value = "city_id")
         private String cityId;
         private String city;
         /**
          * 县
          */
+        @JsonProperty(value = "county_id")
         private String countyId;
         private String county;
         /**
          * 因特网提供商，例如：阿里云
          */
+        @JsonProperty(value = "isp_id")
         private String ispId;
         private String isp;
         /**
          * 查询的ip信息
          */
-        @JsonProperty(value = "queryIp")
         private String queryIp;
         private String ip;
     }

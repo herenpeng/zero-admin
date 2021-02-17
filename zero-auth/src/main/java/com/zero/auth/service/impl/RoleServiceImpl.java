@@ -1,5 +1,6 @@
 package com.zero.auth.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.Role;
@@ -35,13 +36,16 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     @Override
     public IPage<Role> page(Integer currentPage, Integer size, Role queryRole) throws Exception {
         IPage<Role> page = new Page<>(currentPage, size);
-        IPage<Role> pageInfo = baseMapper.getPage(page, queryRole);
+        QueryWrapper<Role> queryWrapper = new QueryWrapper<>(queryRole);
+        IPage<Role> pageInfo = baseMapper.selectPage(page, queryWrapper);
         return pageInfo;
     }
 
     @Override
     public List<Role> list(Role queryRole) throws Exception {
-        return baseMapper.getList(queryRole);
+        QueryWrapper<Role> queryWrapper = new QueryWrapper<>(queryRole);
+        List<Role> roleList = baseMapper.selectList(queryWrapper);
+        return roleList;
     }
 
     @Override

@@ -26,6 +26,7 @@ public class IpTest {
     public void test01() {
         IpInfo ipInfo = ipUtils.getIpInfo("47.114.99.214");
         IpInfo.Data data = ipInfo.getData();
+        System.out.println(data);
         System.out.println(data.getCountry() + "\t" + data.getRegion() + "\t" + data.getCity() + "\t" + data.getIsp());
     }
 

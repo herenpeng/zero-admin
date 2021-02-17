@@ -32,63 +32,63 @@ public class Menu extends BaseEntity {
      */
     @ApiModelProperty(value = "菜单路由路径")
     @Excel(name = "菜单路由路径", width = 15, needMerge = true)
-    @TableField(value = "path", el = "path")
+    @TableField(value = "path")
     private String path;
     /**
      * 菜单模块名称
      */
     @ApiModelProperty(value = "菜单模块名称")
     @Excel(name = "菜单模块名称", width = 15, needMerge = true)
-    @TableField(value = "name", el = "name")
+    @TableField(value = "name")
     private String name;
     /**
      * 菜单模块路径
      */
     @ApiModelProperty(value = "菜单模块路径")
     @Excel(name = "菜单模块路径", width = 15, needMerge = true)
-    @TableField(value = "component", el = "component")
+    @TableField(value = "component")
     private String component;
     /**
      * 菜单名称
      */
     @ApiModelProperty(value = "菜单名称")
     @Excel(name = "菜单名称", width = 15, needMerge = true)
-    @TableField(value = "meta_title", el = "metaTitle")
+    @TableField(value = "meta_title")
     private String metaTitle;
     /**
      * 菜单图标
      */
     @ApiModelProperty(value = "菜单图标")
     @Excel(name = "菜单图标", width = 15, needMerge = true)
-    @TableField(value = "meta_icon", el = "metaIcon")
+    @TableField(value = "meta_icon")
     private String metaIcon;
     /**
      * 父级菜单定向路由路径
      */
     @ApiModelProperty(value = "父级菜单定向路由路径")
     @Excel(name = "父级菜单定向路由路径", width = 15, needMerge = true)
-    @TableField(value = "redirect", el = "redirect")
+    @TableField(value = "redirect")
     private String redirect;
     /**
      * 菜单排序
      */
     @ApiModelProperty(value = "菜单排序")
     @Excel(name = "菜单排序", width = 15, needMerge = true)
-    @TableField(value = "sort", el = "sort")
+    @TableField(value = "sort")
     private Integer sort;
     /**
      * 菜单是否显示，0(false)为显示，1(true)为隐藏
      */
     @ApiModelProperty(value = "菜单是否启用，0为禁用，1为启用")
     @Excel(name = "菜单是否启用", width = 15, needMerge = true)
-    @TableField(value = "enabled", el = "enabled")
+    @TableField(value = "enabled")
     private Boolean enabled;
     /**
      * 父级菜单主键，如果为顶级菜单，值为0
      */
     @ApiModelProperty(value = "父级菜单主键，如果为顶级菜单，值为0")
     @Excel(name = "父级菜单主键", width = 15, needMerge = true)
-    @TableField(value = "parent_id", el = "parentId")
+    @TableField(value = "parent_id")
     private Integer parentId;
 
     /**

@@ -27,7 +27,7 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @ApiModelProperty(value = "数据库数据创建时间")
-    @TableField(value = "create_time", el = "createTime")
+    @TableField(value = "create_time")
     private Date createTime;
 
     /**
@@ -43,7 +43,7 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @ApiModelProperty(value = "数据库数据更新时间")
-    @TableField(value = "update_time", el = "updateTime")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     /**

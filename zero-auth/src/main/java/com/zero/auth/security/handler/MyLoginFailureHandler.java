@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * 登录失败的处理器
@@ -28,7 +27,7 @@ public class MyLoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-        ResponseData<Map<String, Object>> responseData = ResponseData.code(CodeEnum.LOGIN_ERROR.getValue());
+        ResponseData<Void> responseData = ResponseData.code(CodeEnum.LOGIN_ERROR.getValue());
         if (e instanceof LockedException) {
             responseData.message("账号被锁定，登录失败");
         } else if (e instanceof BadCredentialsException) {

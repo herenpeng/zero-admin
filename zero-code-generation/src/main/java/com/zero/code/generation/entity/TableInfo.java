@@ -28,42 +28,42 @@ public class TableInfo extends BaseEntity {
      * 表名称
      */
     @ApiModelProperty(value = "数据库表名称")
-    @TableField(value = "name", el = "name")
+    @TableField(value = "name")
     private String name;
 
     /**
      * 表注释
      */
     @ApiModelProperty(value = "数据库表描述")
-    @TableField(value = "comment", el = "comment")
+    @TableField(value = "comment")
     private String comment;
 
     /**
      * 表名对应的实体类名称
      */
     @ApiModelProperty(value = "表名对应的实体类名称")
-    @TableField(value = "entity_name", el = "entityName")
+    @TableField(value = "entity_name")
     private String entityName;
 
     /**
      * 包前缀名称
      */
     @ApiModelProperty(value = "包前缀名称")
-    @TableField(value = "base_package_name", el = "basePackageName")
+    @TableField(value = "base_package_name")
     private String basePackageName;
 
     /**
      * 代码生成路径
      */
     @ApiModelProperty(value = "代码生成路径")
-    @TableField(value = "code_generation_path", el = "codeGenerationPath")
+    @TableField(value = "code_generation_path")
     private String codeGenerationPath;
 
     /**
      * 代码作者
      */
     @ApiModelProperty(value = "代码作者")
-    @TableField(value = "code_author", el = "codeAuthor")
+    @TableField(value = "code_author")
     private String codeAuthor;
 
     /**

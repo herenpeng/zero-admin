@@ -31,28 +31,28 @@ public class UserInfo extends BaseEntity {
      */
     @ApiModelProperty(value = "用户姓名")
     @Excel(name = "用户姓名", width = 15, needMerge = true)
-    @TableField(value = "name", el = "name")
+    @TableField(value = "name")
     private String name;
     /**
      * 用户性别，1（true）为男，0（false）为女
      */
     @ApiModelProperty(value = "用户性别，1（true）为男，0（false）为女")
     @Excel(name = "用户性别，1（true）为男，0（false）为女", width = 15, needMerge = true)
-    @TableField(value = "gender", el = "gender")
+    @TableField(value = "gender")
     private Boolean gender;
     /**
      * 用户手机号码
      */
     @ApiModelProperty(value = "用户手机号码")
     @Excel(name = "用户手机号码", width = 15, needMerge = true)
-    @TableField(value = "mobile", el = "mobile")
+    @TableField(value = "mobile")
     private String mobile;
     /**
      * 用户邮箱地址
      */
     @ApiModelProperty(value = "用户邮箱地址")
     @Excel(name = "用户邮箱地址", width = 15, needMerge = true)
-    @TableField(value = "mail", el = "mail")
+    @TableField(value = "mail")
     private String mail;
     /**
      * 用户出生日期
@@ -60,35 +60,35 @@ public class UserInfo extends BaseEntity {
     @ApiModelProperty(value = "用户出生日期")
     @Excel(name = "用户出生日期", width = 15, needMerge = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @TableField(value = "birthday", el = "birthday")
+    @TableField(value = "birthday")
     private Date birthday;
     /**
      * 用户身份证号码
      */
     @ApiModelProperty(value = "用户身份证号码")
     @Excel(name = "用户身份证号码", width = 15, needMerge = true)
-    @TableField(value = "id_number", el = "idNumber")
+    @TableField(value = "id_number")
     private String idNumber;
     /**
      * 用户QQ号码
      */
     @ApiModelProperty(value = "用户QQ号码")
     @Excel(name = "用户QQ号码", width = 15, needMerge = true)
-    @TableField(value = "qq", el = "qq")
+    @TableField(value = "qq")
     private String qq;
     /**
      * 用户微信号码
      */
     @ApiModelProperty(value = "用户微信号码")
     @Excel(name = "用户微信号码", width = 15, needMerge = true)
-    @TableField(value = "we_chat", el = "weChat")
+    @TableField(value = "we_chat")
     private String weChat;
     /**
      * 用户头像路径
      */
     @ApiModelProperty(value = "用户头像路径")
     @Excel(name = "用户头像路径", width = 15, needMerge = true)
-    @TableField(value = "avatar", el = "avatar")
+    @TableField(value = "avatar")
     private String avatar;
 
 }

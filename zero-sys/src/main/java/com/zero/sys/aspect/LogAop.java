@@ -1,11 +1,12 @@
 package com.zero.sys.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.zero.auth.security.jwt.util.JwtUtils;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.constant.StringConst;
+import com.zero.common.http.util.IpUtils;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
-import com.zero.auth.security.jwt.util.JwtUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +35,9 @@ public class LogAop {
 
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Autowired
+    private IpUtils ipUtils;
 
     @Autowired
     private LogMapper logMapper;
@@ -87,7 +91,7 @@ public class LogAop {
     private void setLog(JoinPoint joinPoint) throws JsonProcessingException {
         Integer userId = jwtUtils.getUserId(request);
         log.setOperationUserId(userId);
-        log.setIp(getIpAddr(request));
+        log.setIp(ipUtils.getIpAddr(request));
         log.setUri(request.getRequestURI());
         log.setMethodType(request.getMethod().toUpperCase());
         log.setMethod(joinPoint.getTarget().getClass() + StringConst.POINT + joinPoint.getSignature().getName());
@@ -106,35 +110,6 @@ public class LogAop {
         }
     }
 
-    /**
-     * 获取访问用户的真实地址，因为如果使用了nginx反向代理，无法获取访问用户的真实地址
-     *
-     * @param request HttpServletRequest对象
-     * @return 真实ip地址
-     */
-    private String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
-        if (checkIp(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (checkIp(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (checkIp(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
-
-    /**
-     * 判断ip是否有效
-     *
-     * @param ip ip地址
-     * @return ip是否有效，布尔值
-     */
-    private boolean checkIp(String ip) {
-        return StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip);
-    }
 
 
 }

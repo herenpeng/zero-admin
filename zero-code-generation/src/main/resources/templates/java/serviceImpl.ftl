@@ -1,5 +1,6 @@
 package ${basePackageName}.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
@@ -27,13 +28,16 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     @Override
     public IPage<${entityName}> page(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
         IPage<${entityName}> page = new Page<>(currentPage, size);
-        IPage<${entityName}> pageInfo = baseMapper.getPage(page, query${entityName});
+        QueryWrapper<${entityName}> queryWrapper = new QueryWrapper<>(query${entityName});
+        IPage<${entityName}> pageInfo = baseMapper.selectPage(page, queryWrapper);
         return pageInfo;
     }
 
     @Override
     public List<${entityName}> list(${entityName} query${entityName}) throws Exception {
-        return baseMapper.getList(query${entityName});
+        QueryWrapper<${entityName}> queryWrapper = new QueryWrapper<>(query${entityName});
+        List<${entityName}> ${entityName?uncap_first}List = baseMapper.selectList(queryWrapper);
+        return ${entityName?uncap_first}List;
     }
 
     @Override

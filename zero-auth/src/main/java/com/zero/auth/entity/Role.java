@@ -2,6 +2,7 @@ package com.zero.auth.entity;
 
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
@@ -29,7 +30,7 @@ public class Role extends BaseEntity {
      */
     @ApiModelProperty(value = "角色名称")
     @Excel(name = "角色名称", width = 15)
-    @TableField(value = "name", el = "name")
+    @TableField(value = "name", condition = SqlCondition.LIKE)
     private String name;
 
     /**
@@ -37,6 +38,6 @@ public class Role extends BaseEntity {
      */
     @ApiModelProperty(value = "角色描述信息")
     @Excel(name = "角色描述信息", width = 30)
-    @TableField(value = "description", el = "description")
+    @TableField(value = "description", condition = SqlCondition.LIKE)
     private String description;
 }
