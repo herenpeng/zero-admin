@@ -3,9 +3,18 @@
 
 该项目是一个通用的后台管理系统，使用Java开发，项目已托管至github平台。
 
-项目地址：http://zeroadmin.herenpeng.com （用户名/密码：user/111111）
+项目演示地址：http://zeroadmin.herenpeng.com （用户名/密码：user/111111）
 
 github下载地址：https://github.com/herenpeng/zero-admin.git
+
+- 项目基于前后端分离开发，前后端使用JSON格式的数据进行通信。
+- 基于用户-角色-权限进行系统权限管理，可以自由进行用户，角色，权限的添加，修改，删除。
+- 系统权限管理粒度精细至接口，每一个后台接口都可以通过系统进行权限管理。
+- 系统级别启动触发事件，系统资源接口自动扫描，无需手动添加，系统事件可自由配置开关。
+- 系统静态资源文件管理功能，系统静态资源文件自由管理。
+- 基于注解的AOP日志管理功能，记录每一个接口请求。
+- 逻辑删除数据，及数据回收站功能。
+
 
 ## 项目开发环境
 - JDK   1.8
@@ -18,7 +27,7 @@ github下载地址：https://github.com/herenpeng/zero-admin.git
 - MyBatisPlus
 - JWT
 - WebSocket
-- Swagger2
+- Swagger
 - FreeMarker
 - SpringDataRedis
 - easyPoi
@@ -37,19 +46,25 @@ github下载地址：https://github.com/herenpeng/zero-admin.git
 
 6、运行MyApplication的main()方法，启动项目。
 
+[备注]如果需要使用项目的邮件发送功能，需要修改application.yml文件中的spring.mail.username和spring.mail.password配置。
+
 
 ## 项目开发约束
-1、本项目代码开发规范遵循阿里巴巴Java代码开发规约，在进行开发前，请下载阿里巴巴Java代码开发约束插件，保证项目代码质量。
 
-2、本项目功能使用分模块开发，如果需要在本项目的基础上进行开发，请按照以下的三个步骤进行：
+### 代码规范
+
+本项目代码开发规范遵循阿里巴巴Java开发手册规范，在进行开发前，请下载阿里巴巴Java代码开发约束插件，保证项目代码质量。
+
+### 模块规范
+
+本项目功能使用分模块开发，如果需要在本项目的基础上进行开发，请按照以下的三个步骤进行：
 - 请在zero-admin项目下新建模块，并以zero-admin为父项目，需要的第三方依赖，请在zero-admin父模块的pom.xml文件中添加。
 - 在新建模块的pom.xml文件中添加zero-sys模块的依赖。
 - 在zero-web模块的pom.xml文件中添加新建模块的依赖。
 
-## 数据库设计规范
+### 数据库规范
 
 所有数据库表的设计，除数据库的业务字段外，都必须包含以下6个通用字段。
-
 ```sql
 -- 这是通用的表数据结构字段
 CREATE TABLE `base_table` (
@@ -63,6 +78,12 @@ CREATE TABLE `base_table` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='数据库基本表';
 ```
+### 业务规范
+
+- 项目中的所有实体类统一继承`com.zero.common.base.entity.BaseEntity`类，`BaseEntity`中包含了数据库规范中包含的六个通用字段。
+- 所有`Mapper`接口统一继承`com.baomidou.mybatisplus.core.mapper.BaseMapper`接口。
+- 所有`Service`接口统一继承`com.zero.common.base.service.BaseService`接口，所有`ServiceImpl`类继承`com.zero.common.base.service.impl.BaseServiceImpl`类。
+- 所有`Controller`类统一继承`com.zero.common.base.controller.BaseController`类。
 
 ## 补充说明
 
@@ -71,10 +92,10 @@ CREATE TABLE `base_table` (
 前端项目github下载地址：https://github.com/herenpeng/zero-admin-vue.git
 
 
-2、该项目的SpringBoot版本为2.3.8.RELEASE，请不要降低SpringBoot的依赖版本，否则可能会因为SpringAop的执行顺序变化问题，导致系统日志功能发生异常。
+2、该项目的SpringBoot版本为2.3.2.RELEASE，请不要降低SpringBoot的依赖版本，否则可能会因为SpringAop的执行顺序变化问题，导致系统日志功能发生异常。
 具体关于SpringAop执行顺序问题，可以参考作者博客：[不同版本的SpringAop执行顺序变化](https://blog.csdn.net/qq_45193304/article/details/109430545)
 
-3、系统内部集成了Swagger2接口文档，直接通过项目系统【项目文档】菜单或者/swagger-ui/index.html路径，可以直接访问接口说明文档
+3、系统内部集成了Swagger接口文档，直接通过项目系统【项目文档】菜单或者/swagger-ui/index.html路径，可以直接访问接口说明文档
 
 
 ## 项目效果图
@@ -85,12 +106,20 @@ CREATE TABLE `base_table` (
 
 ![新增用户](./assets/image/03.png)
 
+![账号管理](./assets/image/09.png)
+
 ![菜单管理](./assets/image/04.png)
 
 ![系统监控](./assets/image/05.png)
 
+![登入日志](./assets/image/10.png)
+
 ![日志管理](./assets/image/06.png)
 
 ![密码重置](./assets/image/07.png)
+
+![数据回收](./assets/image/11.png)
+
+![代码生成](./assets/image/12.png)
 
 ![系统文档](./assets/image/08.png)
