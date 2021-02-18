@@ -17,6 +17,11 @@ spring:
     static-locations: file:G:\temp\
 zero:
   domain-name: http://127.0.0.1:10000
+  common:
+    # Swagger文档配置
+    swagger:
+      # 是否启用Swagger文档
+      enable: true
   upload:
     # 文件上传目标路径
     path: G:\temp\

@@ -13,6 +13,11 @@ spring:
     static-locations: file:/usr/web-project/zero-admin/static/
 zero:
   domain-name: http://zeroadmin.herenpeng.com
+  common:
+    # Swagger文档配置
+    swagger:
+      # 是否启用Swagger文档
+      enable: true
   upload:
     # 文件上传目标路径
     path: /usr/web-project/zero-admin/static/
