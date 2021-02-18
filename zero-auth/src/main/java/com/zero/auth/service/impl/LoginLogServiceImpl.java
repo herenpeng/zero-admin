@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.LoginLog;
 import com.zero.auth.mapper.LoginLogMapper;
+import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.service.LoginLogService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
@@ -42,11 +43,16 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
     @Autowired
     private IpUtils ipUtils;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public IPage<LoginLog> page(Integer currentPage, Integer size, LoginLog queryLoginLog) throws Exception {
         IPage<LoginLog> page = new Page<>(currentPage, size);
-        QueryWrapper<LoginLog> queryWrapper = new QueryWrapper<>(queryLoginLog);
-        IPage<LoginLog> pageInfo = baseMapper.selectPage(page, queryWrapper);
+        IPage<LoginLog> pageInfo = baseMapper.getPage(page, queryLoginLog);
+        for (LoginLog loginLog : pageInfo.getRecords()) {
+            loginLog.setUser(userMapper.selectById(loginLog.getUserId()));
+        }
         return pageInfo;
     }
 
@@ -61,6 +67,9 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
     public IPage<LoginLog> recoverPage(Integer currentPage, Integer size, LoginLog queryLoginLog) throws Exception {
         IPage<LoginLog> page = new Page<>(currentPage, size);
         IPage<LoginLog> pageInfo = baseMapper.getRecoverPage(page, queryLoginLog);
+        for (LoginLog loginLog : pageInfo.getRecords()) {
+            loginLog.setUser(userMapper.selectById(loginLog.getUserId()));
+        }
         return pageInfo;
     }
 

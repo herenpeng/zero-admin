@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -96,5 +97,52 @@ public class LoginLog extends BaseEntity {
     @Excel(name = "是否主动登出，默认为0", width = 15, needMerge = true)
     @TableField(value = "logout")
     private Boolean logout;
+
+    /**
+     * 用户信息
+     */
+    @ApiModelProperty(value = "用户信息")
+    @TableField(exist = false)
+    private User user;
+
+
+    /**
+     * 非数据库字段，查询登入日志登入用户名称
+     */
+    @ApiModelProperty(value = "非数据库字段，查询登入日志登入用户名称")
+    @TableField(exist = false)
+    private String queryUsername;
+
+    /**
+     * 非数据库字段，查询登入日志登入时间范围开始时间
+     */
+    @ApiModelProperty(value = "非数据库字段，查询登入日志登入时间范围开始时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(exist = false)
+    private Date queryStartDate;
+
+    /**
+     * 非数据库字段，查询登入日志登入时间范围结束时间
+     */
+    @ApiModelProperty(value = "非数据库字段，查询登入日志登入时间范围结束时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(exist = false)
+    private Date queryEndDate;
+
+
+    /**
+     * 非数据库字段，查询登入日志账号是否在线
+     */
+    @ApiModelProperty(value = "非数据库字段，查询登入日志账号是否在线")
+    @TableField(exist = false)
+    private Boolean queryOnline;
+
+    /**
+     * 非数据库字段，查询登入日志登入地址
+     */
+    @ApiModelProperty(value = "非数据库字段，查询登入日志登入地址")
+    @TableField(exist = false)
+    private String queryAddress;
+
 
 }

@@ -56,6 +56,28 @@
         <if test="queryLoginLog.logout != null">
             and logout = #{queryLoginLog.logout}
         </if>
+        <if test="queryLoginLog.queryUsername != null and queryLoginLog.queryUsername != ''">
+            and user_id in (select id from auth_user where username like concat('%', #{queryLoginLog.queryUsername}, '%'))
+        </if>
+        <if test="queryLoginLog.queryStartDate != null">
+            and login_time &gt;= #{queryLoginLog.queryStartDate}
+        </if>
+        <if test="queryLoginLog.queryEndDate != null">
+            and login_time &lt;= #{queryLoginLog.queryEndDate}
+        </if>
+        <if test="queryLoginLog.queryOnline != null">
+            <if test="queryLoginLog.queryOnline == true">
+                and logout = 0 and logout_time > now()
+            </if>
+            <if test="queryLoginLog.queryOnline == false">
+                and (logout = 1 or logout_time &lt;= now())
+            </if>
+        </if>
+        <if test="queryLoginLog.queryAddress != null and queryLoginLog.queryAddress != ''">
+            and (country like concat('%', #{queryLoginLog.queryAddress}, '%') or
+            region like concat('%', #{queryLoginLog.queryAddress}, '%') or
+            city like concat('%', #{queryLoginLog.queryAddress}, '%'))
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
