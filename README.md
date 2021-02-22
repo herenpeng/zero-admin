@@ -47,14 +47,15 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 
 6、运行MyApplication的main()方法，启动项目。
 
-[备注]如果需要使用项目的邮件发送功能，需要修改application.yml文件中的spring.mail.username和spring.mail.password配置。
+【备注】如果需要使用项目的邮件发送功能，需要修改application.yml文件中的spring.mail.username和spring.mail.password配置。
 
 
 ## 项目开发约束
 
 ### 代码规范
 
-本项目代码开发规范遵循阿里巴巴Java开发手册规范，在进行开发前，请下载阿里巴巴Java代码开发约束插件，保证项目代码质量。
+本项目代码开发规范遵循《阿里巴巴Java开发手册》，在进行开发前，请下载阿里巴巴Java代码开发约束插件，保证项目代码质量。  
+链接：[《阿里巴巴Java开发手册——嵩山版》](https://github.com/alibaba/p3c)
 
 ### 模块规范
 
