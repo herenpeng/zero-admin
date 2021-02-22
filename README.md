@@ -3,9 +3,10 @@
 
 该项目是一个通用的后台管理系统，使用Java开发，项目已托管至github平台。
 
-项目演示地址：http://zeroadmin.herenpeng.com （用户名/密码：user/111111）
+项目演示地址：[http://zeroadmin.herenpeng.com](http://zeroadmin.herenpeng.com) （用户名/密码：user/111111）
 
-github下载地址：https://github.com/herenpeng/zero-admin.git
+github下载地址：[https://github.com/herenpeng/zero-admin.git](https://github.com/herenpeng/zero-admin.git)  
+gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/herenpeng/zero-admin.git)
 
 - 项目基于前后端分离开发，前后端使用JSON格式的数据进行通信。
 - 基于用户-角色-权限进行系统权限管理，可以自由进行用户，角色，权限的添加，修改，删除。
@@ -82,14 +83,15 @@ CREATE TABLE `base_table` (
 
 - 项目中的所有实体类统一继承`com.zero.common.base.entity.BaseEntity`类，`BaseEntity`中包含了数据库规范中包含的六个通用字段。
 - 所有`Mapper`接口统一继承`com.baomidou.mybatisplus.core.mapper.BaseMapper`接口。
-- 所有`Service`接口统一继承`com.zero.common.base.service.BaseService`接口，所有`ServiceImpl`类继承`com.zero.common.base.service.impl.BaseServiceImpl`类。
+- 所有`Service`接口统一继承`com.zero.common.base.service.BaseService`接口
+- 所有`ServiceImpl`类统一继承`com.zero.common.base.service.impl.BaseServiceImpl`类。
 - 所有`Controller`类统一继承`com.zero.common.base.controller.BaseController`类。
 
 ## 补充说明
 
 1、该项目为一个前后端分离项目，启动该项目只是一个纯后端系统，需要结合前端项目进行使用，具体说明可以参考前端项目说明。
 
-前端项目github下载地址：https://github.com/herenpeng/zero-admin-vue.git
+前端项目github下载地址：[https://github.com/herenpeng/zero-admin-vue.git](https://github.com/herenpeng/zero-admin-vue.git)
 
 
 2、该项目的SpringBoot版本为2.3.8.RELEASE，请不要降低SpringBoot的依赖版本，否则可能会因为SpringAop的执行顺序变化问题，导致系统日志功能发生异常。
@@ -100,26 +102,40 @@ CREATE TABLE `base_table` (
 
 ## 项目效果图
 
+- 系统首页
+
 ![系统首页](./assets/image/01.png)
+
+- 用户管理
 
 ![用户管理](./assets/image/02.png)
 
+- 新增用户
 ![新增用户](./assets/image/03.png)
 
+- 账号管理
 ![账号管理](./assets/image/09.png)
 
+- 菜单管理
 ![菜单管理](./assets/image/04.png)
 
+- 系统监控
 ![系统监控](./assets/image/05.png)
 
+- 登入日志
 ![登入日志](./assets/image/10.png)
 
+- 日志管理
 ![日志管理](./assets/image/06.png)
 
+- 密码重置
 ![密码重置](./assets/image/07.png)
 
+- 数据回收
 ![数据回收](./assets/image/11.png)
 
+- 代码生成
 ![代码生成](./assets/image/12.png)
 
+- 系统文档
 ![系统文档](./assets/image/08.png)
