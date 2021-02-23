@@ -111,41 +111,41 @@ CREATE TABLE `base_table` (
 ![用户管理](./assets/image/02.png)
 
 - 新增用户
-- 
+
 ![新增用户](./assets/image/03.png)
 
 - 账号管理
-- 
+
 ![账号管理](./assets/image/09.png)
 
 - 菜单管理
-- 
+
 ![菜单管理](./assets/image/04.png)
 
 - 系统监控
-- 
+
 ![系统监控](./assets/image/05.png)
 
 - 登入日志
-- 
+
 ![登入日志](./assets/image/10.png)
 
 - 日志管理
-- 
+
 ![日志管理](./assets/image/06.png)
 
 - 密码重置
-- 
+
 ![密码重置](./assets/image/07.png)
 
 - 数据回收
-- 
+
 ![数据回收](./assets/image/11.png)
 
 - 代码生成
-- 
+
 ![代码生成](./assets/image/12.png)
 
 - 系统文档
-- 
+
 ![系统文档](./assets/image/08.png)
