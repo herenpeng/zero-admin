@@ -1,6 +1,6 @@
 package com.zero.sys.server.websocket;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zero.common.util.JsonUtils;
 import com.zero.sys.server.domain.Cpu;
 import com.zero.sys.server.domain.Jvm;
 import com.zero.sys.server.domain.Mem;
@@ -8,6 +8,7 @@ import com.zero.sys.server.domain.ServerPieChart;
 import com.zero.sys.server.util.OshiUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -26,12 +27,13 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 @Component
-@ServerEndpoint("/websocket/server/piechart")
+@ServerEndpoint(value = "/websocket/server/piechart")
 public class ServerWebSocket {
 
     public static Map<String, Session> webSocketClients = new ConcurrentHashMap<>();
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private JsonUtils jsonUtils;
 
     /**
      * WebSocket连接建立后触发的方法
@@ -116,7 +118,7 @@ public class ServerWebSocket {
         Mem mem = OshiUtils.getMemInfo();
         Jvm jvm = OshiUtils.getJvmInfo();
         ServerPieChart pieChart = new ServerPieChart(cpu, mem, jvm);
-        sendMessageAll(objectMapper.writeValueAsString(pieChart));
+        sendMessageAll(jsonUtils.toJson(pieChart));
     }
 
 }

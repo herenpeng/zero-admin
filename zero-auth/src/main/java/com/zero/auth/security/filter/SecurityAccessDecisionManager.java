@@ -5,6 +5,7 @@ import com.zero.auth.util.RequestUtils;
 import com.zero.auth.security.constant.SecurityConst;
 import com.zero.auth.security.jwt.util.JwtUtils;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -51,7 +52,7 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
 
         for (ConfigAttribute configAttribute : collection) {
             // 访问拒绝
-            if (SecurityConst.ACCESS_DENIED.equals(configAttribute.getAttribute())) {
+            if (StringUtils.equals(SecurityConst.ACCESS_DENIED, configAttribute.getAttribute())) {
                 throw new InsufficientAuthenticationException("您的访问权限不足");
             }
             // 获取请求token

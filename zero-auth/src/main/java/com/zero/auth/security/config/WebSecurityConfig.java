@@ -1,9 +1,9 @@
 package com.zero.auth.security.config;
 
 import com.zero.auth.security.constant.SecurityConst;
-import com.zero.auth.security.handler.MyAuthenticationEntryPoint;
 import com.zero.auth.security.filter.SecurityAccessDecisionManager;
 import com.zero.auth.security.filter.SecurityFilter;
+import com.zero.auth.security.handler.MyAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -21,20 +21,27 @@ public class GlobalExceptionHandler {
     /**
      * 拦截所有自定义异常
      *
-     * @param request
-     * @param e
-     * @return
+     * @param request HttpServletRequest 对象
+     * @param e       异常对象
+     * @return 响应对象
      */
     @ExceptionHandler(MyException.class)
-    public ResponseData myExceptionHandler(HttpServletRequest request, MyException e) {
+    public ResponseData<Void> myExceptionHandler(HttpServletRequest request, MyException e) {
         e.printStackTrace();
         MyExceptionEnum myExceptionEnum = e.getMyExceptionEnum();
         return ResponseData.code(myExceptionEnum.getCode()).message(myExceptionEnum.getMessage());
     }
 
 
+    /**
+     * 拦截所有系统异常
+     *
+     * @param request HttpServletRequest 对象
+     * @param e       异常对象
+     * @return 响应对象
+     */
     @ExceptionHandler(Exception.class)
-    public ResponseData exceptionHandler(HttpServletRequest request, Exception e) {
+    public ResponseData<Void> exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
         return ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).message("系统发生异常");
     }

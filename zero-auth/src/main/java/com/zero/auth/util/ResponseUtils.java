@@ -1,7 +1,7 @@
 package com.zero.auth.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.common.http.constant.HttpConst;
+import com.zero.common.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 public class ResponseUtils {
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private JsonUtils jsonUtils;
 
     /**
      * response对象返回json数据给前端的封装方法，将object参数转换为json数据，并返回给前台
@@ -31,7 +31,7 @@ public class ResponseUtils {
     public void responseJson(HttpServletResponse response, Object object) throws IOException {
         response.setContentType(HttpConst.CONTENT_TYPE_APPLICATION_JSON);
         PrintWriter writer = response.getWriter();
-        writer.write(objectMapper.writeValueAsString(object));
+        writer.write(jsonUtils.toJson(object));
         writer.flush();
         writer.close();
     }

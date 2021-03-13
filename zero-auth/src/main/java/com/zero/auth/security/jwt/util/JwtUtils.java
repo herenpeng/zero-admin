@@ -1,11 +1,11 @@
 package com.zero.auth.security.jwt.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
-import com.zero.auth.util.RequestUtils;
 import com.zero.auth.security.jwt.properties.JwtProperties;
+import com.zero.auth.util.RequestUtils;
+import com.zero.common.util.JsonUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -35,7 +35,7 @@ public class JwtUtils {
     private JwtProperties jwtProperties;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private JsonUtils jsonUtils;
 
     @Autowired
     private RequestUtils requestUtils;
@@ -201,7 +201,7 @@ public class JwtUtils {
     public User getUser(String jwt) throws JsonProcessingException {
         Claims claims = parseJWT(jwt);
         String subject = claims.getSubject();
-        User user = objectMapper.readValue(subject, User.class);
+        User user = jsonUtils.toObject(subject, User.class);
         return user;
     }
 

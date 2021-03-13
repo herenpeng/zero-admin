@@ -1,6 +1,5 @@
 package com.zero.auth.security.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.auth.entity.User;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
@@ -9,13 +8,13 @@ import com.zero.auth.service.LoginLogService;
 import com.zero.auth.util.ResponseUtils;
 import com.zero.common.constant.StringConst;
 import com.zero.common.response.domain.ResponseData;
+import com.zero.common.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private JsonUtils jsonUtils;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -51,12 +50,12 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
         // 不应该把密码放入JWT的载荷中
         User user = myUserDetails.getUser();
         String tokenId = UUID.randomUUID().toString();
-        String subject = objectMapper.writeValueAsString(user);
+        String subject = jsonUtils.toJson(user);
         // 创建JWT
         String jwt = jwtUtils.createJWT(tokenId, subject);
         // 将jwt存放入redis中
