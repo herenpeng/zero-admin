@@ -7,9 +7,9 @@ import com.zero.auth.util.RequestUtils;
 import com.zero.auth.util.ResponseUtils;
 import com.zero.common.constant.StringConst;
 import com.zero.common.response.domain.ResponseData;
+import com.zero.common.util.RedisUtils;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MyLogoutHandler implements LogoutHandler {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtils redisUtils;
 
     @Autowired
     private RequestUtils requestUtils;
@@ -55,7 +55,7 @@ public class MyLogoutHandler implements LogoutHandler {
         loginLogService.logoutLog(userId, tokenId);
 
         String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
-        redisTemplate.delete(tokenRedisKey);
+        redisUtils.del(tokenRedisKey);
         ResponseData<Object> responseData = ResponseData.ok().message("退出成功");
         responseUtils.responseJson(response, responseData);
     }

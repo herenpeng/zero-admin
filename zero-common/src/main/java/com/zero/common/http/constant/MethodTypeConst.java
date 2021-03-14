@@ -24,5 +24,17 @@ public class MethodTypeConst {
      * DELETE方法
      */
     public static final String DELETE = "DELETE";
+    /**
+     * OPTIONS方法
+     */
+    public static final String OPTIONS = "OPTIONS";
+    /**
+     * HEAD方法
+     */
+    public static final String HEAD = "HEAD";
+    /**
+     * PATCH方法
+     */
+    public static final String PATCH = "PATCH";
 
 }

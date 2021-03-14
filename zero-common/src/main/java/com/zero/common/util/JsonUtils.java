@@ -11,6 +11,8 @@ import org.springframework.util.ObjectUtils;
 import java.util.Map;
 
 /**
+ * 系统封装的Json工具类
+ *
  * @author herenpeng
  * @since 2021-03-13 23:51
  */

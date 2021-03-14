@@ -10,12 +10,12 @@ import com.zero.auth.util.RequestUtils;
 import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.util.RedisUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -44,7 +44,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
     private ResourcesMapper resourcesMapper;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtils redisUtils;
 
     @Autowired
     private JwtProperties jwtProperties;
@@ -97,7 +97,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
         String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
-        Object redisToken = redisTemplate.opsForValue().get(tokenRedisKey);
+        Object redisToken = redisUtils.get(tokenRedisKey);
         if (!StringUtils.equals(token, String.valueOf(redisToken))) {
             log.error("[系统登录功能]该token已失效或已过期");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);

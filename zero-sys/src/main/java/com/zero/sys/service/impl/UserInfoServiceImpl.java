@@ -9,6 +9,7 @@ import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.constant.StringConst;
 import com.zero.common.util.FreeMarkerUtils;
 import com.zero.common.util.NumberUtils;
+import com.zero.common.util.RedisUtils;
 import com.zero.mail.domain.ToMail;
 import com.zero.mail.template.verify.VerifyParams;
 import com.zero.mail.template.verify.VerifyProperties;
@@ -18,7 +19,6 @@ import com.zero.upload.service.UploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -26,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 系统用户信息表业务逻辑层的实现类
@@ -58,7 +57,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
     private NumberUtils numberUtils;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtils redisUtils;
 
     @Override
     public IPage<UserInfo> page(Integer currentPage, Integer size, UserInfo queryUserInfo) throws Exception {
@@ -140,8 +139,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         VerifyParams verifyParams = new VerifyParams(jwtUtils.getUsername(request), mail, verify);
         // 将邮箱验证码存放入Redis中，以指定配置的key值前缀和邮箱账号名称作为key值，
         String verifyRedisKey = verifyProperties.getKey() + StringConst.COLON + mail;
-        Long verifyRedisTtl = verifyProperties.getTtl() / 1000;
-        redisTemplate.opsForValue().set(verifyRedisKey, verify, verifyRedisTtl, TimeUnit.SECONDS);
+        redisUtils.set(verifyRedisKey, verify, verifyProperties.getTtl());
         // 通过邮件模板参数和属性，获取模板内容字符串
         String content = freeMarkerUtils.getTemplateContent(verifyParams, verifyProperties.getPath(), verifyProperties.getFile());
         toMail.setContent(content);
@@ -151,9 +149,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
     @Override
     public boolean verify(String mail, String verify) throws Exception {
         String verifyRedisKey = verifyProperties.getKey() + StringConst.COLON + mail;
-        Object redisVerify = redisTemplate.opsForValue().get(verifyRedisKey);
+        Object redisVerify = redisUtils.get(verifyRedisKey);
         if (StringUtils.equals(verify, String.valueOf(redisVerify))) {
-            redisTemplate.delete(verifyRedisKey);
+            redisUtils.del(verifyRedisKey);
             return true;
         }
         return false;

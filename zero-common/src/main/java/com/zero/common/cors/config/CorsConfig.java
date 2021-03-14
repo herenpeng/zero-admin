@@ -1,5 +1,6 @@
 package com.zero.common.cors.config;
 
+import com.zero.common.http.constant.MethodTypeConst;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -26,13 +27,13 @@ public class CorsConfig {
         //2) 是否发送Cookie信息
         config.setAllowCredentials(true);
         //3) 允许的请求方式
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("HEAD");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
+        config.addAllowedMethod(MethodTypeConst.OPTIONS);
+        config.addAllowedMethod(MethodTypeConst.HEAD);
+        config.addAllowedMethod(MethodTypeConst.GET);
+        config.addAllowedMethod(MethodTypeConst.PUT);
+        config.addAllowedMethod(MethodTypeConst.POST);
+        config.addAllowedMethod(MethodTypeConst.DELETE);
+        config.addAllowedMethod(MethodTypeConst.PATCH);
         // 4）允许的头信息
         config.addAllowedHeader("*");
         // 5) 有效时长

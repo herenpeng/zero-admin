@@ -12,9 +12,9 @@ import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.constant.StringConst;
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.util.IpUtils;
+import com.zero.common.util.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +38,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
     private JwtProperties jwtProperties;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtils redisUtils;
 
     @Autowired
     private IpUtils ipUtils;
@@ -98,7 +98,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
     @Override
     public void offline(Integer userId, String tokenId) throws Exception {
         String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
-        redisTemplate.delete(tokenRedisKey);
+        redisUtils.del(tokenRedisKey);
         logoutLog(userId, tokenId);
     }
 
