@@ -25,7 +25,7 @@ start(){
 
 stop(){
 	P_ID=$(cat ${SERVICE_DIR}/${PID})
-	if [ "$P_ID" == "" ]; then
+	if [ "${P_ID}" == "" ]; then
         	echo "=== 服务${SERVICE_NAME}不存在或者已停止 ==="
   else
         	kill $(cat ${SERVICE_DIR}/${PID})
