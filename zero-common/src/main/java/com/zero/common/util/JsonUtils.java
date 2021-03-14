@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -34,7 +37,7 @@ public class JsonUtils {
             log.info("[Json工具类]对象{}为空", object);
             return null;
         }
-        if (object instanceof String) {
+        if (object.getClass() == String.class) {
             return object.toString();
         }
         try {
@@ -63,6 +66,40 @@ public class JsonUtils {
             return objectMapper.readValue(json, classType);
         } catch (JsonProcessingException e) {
             log.error("[Json工具类]将JSON格式的字符串{}格式化为{}类型的Java对象失败", json, classType);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 将指定输入流解析为指定类型 Java 对象
+     *
+     * @param request HttpServletRequest对象
+     * @param classType   Java 字节码对象
+     * @return Java 对象的泛型
+     */
+    public <T> T toObject(HttpServletRequest request, Class<T> classType) {
+        try {
+            return objectMapper.readValue(request.getInputStream(), classType);
+        } catch (IOException e) {
+            log.error("[Json工具类]将输入流{}格式化为{}类型的Java对象失败", request, classType);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 将指定输入流解析为指定类型 Java 对象
+     *
+     * @param inputStream 输入流对象
+     * @param classType   Java 字节码对象
+     * @return Java 对象的泛型
+     */
+    public <T> T toObject(InputStream inputStream, Class<T> classType) {
+        try {
+            return objectMapper.readValue(inputStream, classType);
+        } catch (IOException e) {
+            log.error("[Json工具类]将输入流{}格式化为{}类型的Java对象失败", inputStream, classType);
             e.printStackTrace();
         }
         return null;

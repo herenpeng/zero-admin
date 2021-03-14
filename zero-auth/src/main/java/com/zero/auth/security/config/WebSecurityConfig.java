@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // 处理跨域请求中的Preflight请求,响应头中附带允许跨域的请求头，这个配置必须放置前面
+        // 处理跨域请求中的Preflight请求,响应头中附带允许跨域的请求头，这个配置必须放置前面，关闭CSRF防御，方便用postman进行接口测试
         http.cors().and().csrf().disable().authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
@@ -92,9 +92,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and().exceptionHandling()
                 .authenticationEntryPoint(myAuthenticationEntryPoint);
 
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http.authorizeRequests();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        authorizeRequests.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+        http.authorizeRequests().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
             @Override
             public <O extends FilterSecurityInterceptor> O postProcess(O o) {
                 o.setSecurityMetadataSource(securityFilter);
@@ -104,7 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         });
 
         // 其余所有请求都需要登录后认证才能访问能访问
-        authorizeRequests.anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().authenticated();
 
         // 定义登录请求的表单提交处理接口，Security默认帮我们实现了
         http.formLogin().loginProcessingUrl(SecurityConst.LOGIN_PATH)
@@ -120,7 +120,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addLogoutHandler(logoutHandler)
                 .permitAll();
 
-        // 关闭CSRF防御，方便用postman进行接口测试
-        // http.csrf().disable();
     }
 }

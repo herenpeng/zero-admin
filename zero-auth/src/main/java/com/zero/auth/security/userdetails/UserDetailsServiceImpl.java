@@ -28,6 +28,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (ObjectUtils.isEmpty(user)) {
             throw new UsernameNotFoundException("用户" + username + "不存在！");
         }
-        return new MyUserDetails(user);
+        return new LoginUserDetails(user);
     }
 }
