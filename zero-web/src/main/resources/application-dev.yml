@@ -25,8 +25,5 @@ zero:
   upload:
     # 文件上传目标路径
     path: G:\temp\
-#logging:
-#  level:
-#    root: info
-#  file:
-#    name: logs/sys-info.log
+logging:
+  config: classpath:logback-spring-dev.xml

@@ -56,8 +56,8 @@ mybatis-plus:
   configuration:
     # 下划线转驼峰命名
     map-underscore-to-camel-case: true
-    # 打印sql语句
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 打印sql语句，将mybatis-plus自带的SQL打印注释，使用logback记录日志
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 需要配置该处理器，才会使用@EnumValue注解的值持久化到数据库中
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
   # 配置逻辑删除字段

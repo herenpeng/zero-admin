@@ -21,3 +21,5 @@ zero:
   upload:
     # 文件上传目标路径
     path: /usr/web-project/zero-admin/static/
+logging:
+  config: classpath:logback-spring-prod.xml
