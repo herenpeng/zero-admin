@@ -15,6 +15,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - 系统静态资源文件管理功能，系统静态资源文件自由管理。
 - 基于注解的AOP日志管理功能，记录每一个接口请求。
 - 逻辑删除数据，及数据回收站功能。
+- 通用后端代码一键生成，支持自定义代码模板。
 
 
 ## 项目开发环境
@@ -31,6 +32,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - Swagger
 - FreeMarker
 - SpringDataRedis
+- SpringBootMail
 - easyPoi
 - oshi
 

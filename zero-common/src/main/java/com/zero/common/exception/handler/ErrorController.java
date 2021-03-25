@@ -48,7 +48,7 @@ public class ErrorController extends BasicErrorController {
                 ErrorAttributeOptions.Include.BINDING_ERRORS));
         ResponseData<Void> responseData = ResponseData.code(MyExceptionEnum.ILLEGAL_TOKEN.getCode());
         responseData.message(MyExceptionEnum.ILLEGAL_TOKEN.getMessage());
-        Map map = jsonUtils.toMap(responseData);
+        Map<String, Object> map = jsonUtils.toMap(responseData);
         return ResponseEntity.ok(map);
     }
 

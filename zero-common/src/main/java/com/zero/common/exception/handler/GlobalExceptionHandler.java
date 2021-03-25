@@ -4,6 +4,7 @@ import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.response.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author herenpeng
  * @since 2020-09-13 15:45
  */
+@Slf4j
 @RestControllerAdvice(value = {"com.zero"})
 public class GlobalExceptionHandler {
 
@@ -28,6 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MyException.class)
     public ResponseData<Void> myExceptionHandler(HttpServletRequest request, MyException e) {
         e.printStackTrace();
+        log.error("[全局异常处理]发生业务异常，异常信息：{}", e.getMessage());
         MyExceptionEnum myExceptionEnum = e.getMyExceptionEnum();
         return ResponseData.code(myExceptionEnum.getCode()).message(myExceptionEnum.getMessage());
     }
@@ -43,6 +46,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseData<Void> exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
+        log.error("[全局异常处理]发生系统异常，异常信息：{}", e.getMessage());
         return ResponseData.code(CodeEnum.SYS_EXCEPTION.getValue()).message("系统发生异常");
     }
 

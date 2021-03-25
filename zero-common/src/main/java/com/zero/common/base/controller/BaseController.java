@@ -23,10 +23,10 @@ public class BaseController<S extends IService<E>, E> {
     @LogOperation
     @ApiOperation(value = "[通用方法]通过主键获取一条对应实体类的数据库记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "entity", value = "实体对象", dataTypeClass = Object.class, required = true)
+            @ApiImplicitParam(name = "id", value = "实体主键", dataTypeClass = Integer.class, required = true)
     })
     @GetMapping("{id}")
-    public ResponseData<E> save(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<E> get(@PathVariable("id") Integer id) throws Exception {
         E entity = baseService.getById(id);
         return ResponseData.ok(entity);
     }

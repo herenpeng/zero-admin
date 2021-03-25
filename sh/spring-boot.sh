@@ -1,13 +1,13 @@
+# 服务名称
+SERVICE_NAME=zero-admin
 # 项目路径
 SERVICE_DIR=/usr/web-project/zero-admin
 # 日志文件
-LOG_DIR=/usr/web-project/zero-admin/log.log
-# 服务名称
-SERVICE_NAME=zero-admin
+LOG_FILE=${SERVICE_DIR}/log.log
 # jar名称
 JAR_NAME=zero-web-1\.0-SNAPSHOT\.jar
 # 进程文件名称
-PID=${SERVICE_NAME}\.pid
+PID_FILE=${SERVICE_NAME}\.pid
 
 help(){
   echo "=== spring-boot shell help start ==="
@@ -18,19 +18,20 @@ help(){
 }
 
 start(){
-  nohup java -Dfile.encoding=UTF-8 -jar ${JAR_NAME} --spring.profiles.active=prod >${LOG_DIR} 2>&1 &
-  echo $! > ${SERVICE_DIR}/${PID}
+  nohup java -Dfile.encoding=UTF-8 -jar ${JAR_NAME} --spring.profiles.active=prod >${LOG_FILE} 2>&1 &
+  echo $! > ${SERVICE_DIR}/${PID_FILE}
 	echo "=== 服务${SERVICE_NAME}已启动 ==="
 }
 
 stop(){
-	P_ID=$(cat ${SERVICE_DIR}/${PID})
-	if [ "${P_ID}" == "" ]; then
-        	echo "=== 服务${SERVICE_NAME}不存在或者已停止 ==="
+	P_ID=$(cat ${SERVICE_DIR}/${PID_FILE})
+	if [ "${P_ID}" == "" ]
+	then
+    echo "=== 服务${SERVICE_NAME}不存在或者已停止 ==="
   else
-        	kill $(cat ${SERVICE_DIR}/${PID})
-		      rm -rf ${SERVICE_DIR}/${PID}
-        	echo "=== 服务${SERVICE_NAME}已停止 ==="
+    kill "${P_ID}"
+    rm -rf ${SERVICE_DIR}/${PID_FILE}
+    echo "=== 服务${SERVICE_NAME}已停止 ==="
   fi
 }
 
