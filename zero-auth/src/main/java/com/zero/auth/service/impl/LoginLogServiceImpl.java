@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -110,11 +111,15 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
         loginLog.setUserId(userId);
         loginLog.setIp(ip);
         loginLog.setTokenId(tokenId);
-        IpInfo.Data data = ipUtils.getIpInfo(ip).getData();
-        loginLog.setCountry(data.getCountry());
-        loginLog.setRegion(data.getRegion());
-        loginLog.setCity(data.getCity());
-        loginLog.setIsp(data.getIsp());
+        IpInfo ipInfo = ipUtils.getIpInfo(ip);
+        // 登录的IP地址信息，如果可以获取则设置，如果获取不到则不设置
+        if (!ObjectUtils.isEmpty(ipInfo)) {
+            IpInfo.Data data = ipInfo.getData();
+            loginLog.setCountry(data.getCountry());
+            loginLog.setRegion(data.getRegion());
+            loginLog.setCity(data.getCity());
+            loginLog.setIsp(data.getIsp());
+        }
         // 登录时间
         Date loginTime = new Date();
         loginLog.setLoginTime(loginTime);

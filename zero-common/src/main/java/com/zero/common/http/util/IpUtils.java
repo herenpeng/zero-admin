@@ -30,16 +30,20 @@ public class IpUtils {
     private HttpUrl httpUrl;
 
     public IpInfo getIpInfo(String ip) {
-        String url = httpUrl.getIpInfo() + ip;
-        ResponseEntity<IpInfo> responseEntity = restTemplate.getForEntity(url, IpInfo.class);
-        HttpStatus statusCode = responseEntity.getStatusCode();
-        if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
-            IpInfo ipInfo = responseEntity.getBody();
-            if (!ObjectUtils.isEmpty(ipInfo) && ipInfo.getCode().equals(0)) {
-                return ipInfo;
+        try {
+            String url = httpUrl.getIpInfo() + ip;
+            ResponseEntity<IpInfo> responseEntity = restTemplate.getForEntity(url, IpInfo.class);
+            HttpStatus statusCode = responseEntity.getStatusCode();
+            if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
+                IpInfo ipInfo = responseEntity.getBody();
+                if (!ObjectUtils.isEmpty(ipInfo) && ipInfo.getCode().equals(0)) {
+                    return ipInfo;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.warn("[获取IP信息]ip：{}信息获取失败", ip);
         }
-        log.warn("[获取IP信息]ip：{}信息获取失败", ip);
         return null;
     }
 
