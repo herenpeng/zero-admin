@@ -23,6 +23,33 @@
         `id`, `name`, `java_name`, `comment`, `database_type`, `jdbc_type`, `java_type`, `sort`, `table_info_id`
     </sql>
 
+    <sql id="baseQuery">
+        <if test="queryTableColumn.name != null and queryTableColumn.name != ''">
+            and name like concat('%', #{queryTableColumn.name}, '%')
+        </if>
+        <if test="queryTableColumn.javaName != null and queryTableColumn.javaName != ''">
+            and java_name like concat('%', #{queryTableColumn.javaName}, '%')
+        </if>
+        <if test="queryTableColumn.comment != null and queryTableColumn.comment != ''">
+            and comment like concat('%', #{queryTableColumn.comment}, '%')
+        </if>
+        <if test="queryTableColumn.databaseType != null and queryTableColumn.databaseType != ''">
+            and database_type like concat('%', #{queryTableColumn.databaseType}, '%')
+        </if>
+        <if test="queryTableColumn.jdbcType != null and queryTableColumn.jdbcType != ''">
+            and jdbc_type like concat('%', #{queryTableColumn.jdbcType}, '%')
+        </if>
+        <if test="queryTableColumn.javaType != null and queryTableColumn.javaType != ''">
+            and java_type like concat('%', #{queryTableColumn.javaType}, '%')
+        </if>
+        <if test="queryTableColumn.sort != null">
+            and sort = #{queryTableColumn.sort}
+        </if>
+        <if test="queryTableColumn.tableInfoId != null">
+            and table_info_id = #{queryTableColumn.tableInfoId}
+        </if>
+    </sql>
+
     <select id="getTableColumnByInformationSchema" resultMap="resultMap">
         select column_name as name, ordinal_position as sort,
         column_comment as comment, column_type as database_type
@@ -38,7 +65,28 @@
         `java_type` as java_type, `sort` as sort, `table_info_id` as table_info_id
         from dev_table_column
         where table_info_id = #{tableInfoId}
-        order by sort;
+        order by sort
+    </select>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`java_name` as java_name,`comment` as comment,`database_type` as database_type,`jdbc_type` as jdbc_type,`java_type` as java_type,`sort` as sort,`table_info_id` as table_info_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from dev_table_column
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`name` as name,`java_name` as java_name,`comment` as comment,`database_type` as database_type,`jdbc_type` as jdbc_type,`java_type` as java_type,`sort` as sort,`table_info_id` as table_info_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from dev_table_column
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`java_name` as java_name,`comment` as comment,`database_type` as database_type,`jdbc_type` as jdbc_type,`java_type` as java_type,`sort` as sort,`table_info_id` as table_info_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from dev_table_column
+        where deleted = 1
+        <include refid="baseQuery"></include>
     </select>
 
 

@@ -2,15 +2,16 @@ package com.zero.code.generation.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.zero.code.generation.constant.DataBaseTypeConst;
 import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.code.generation.service.TableInfoService;
-import com.zero.common.util.CamelCaseUtils;
 import com.zero.code.generation.util.CodeGenerationUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.util.CamelCaseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
 
     @Override
     public boolean save(TableInfo tableInfo) {
-        boolean result = retBool(baseMapper.insert(tableInfo));
+        boolean result = SqlHelper.retBool(baseMapper.insert(tableInfo));
         List<TableColumn> tableColumnList = tableColumnMapper.getTableColumnByInformationSchema(tableInfo.getName());
         for (TableColumn tableColumn : tableColumnList) {
             tableColumn.setTableInfoId(tableInfo.getId());

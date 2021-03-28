@@ -77,7 +77,14 @@ public class Menu extends BaseEntity {
     @TableField(value = "sort")
     private Integer sort;
     /**
-     * 菜单是否显示，0(false)为显示，1(true)为隐藏
+     * 菜单是否隐藏，0(false)为正常，1(true)为隐藏，该隐藏只是对于页面左侧菜单不可见
+     */
+    @ApiModelProperty(value = "菜单是否隐藏，0为正常，1为隐藏")
+    @Excel(name = "菜单是否启用", width = 15, needMerge = true)
+    @TableField(value = "hidden")
+    private Boolean hidden;
+    /**
+     * 菜单是否显示，0(false)禁用，1(true)为启用，该启用为整个前端路由不可见，无法跳转
      */
     @ApiModelProperty(value = "菜单是否启用，0为禁用，1为启用")
     @Excel(name = "菜单是否启用", width = 15, needMerge = true)

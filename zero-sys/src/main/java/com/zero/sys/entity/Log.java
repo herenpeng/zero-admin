@@ -70,6 +70,13 @@ public class Log extends BaseEntity {
     @TableField(value = "method")
     private String method;
     /**
+     * 请求参数
+     */
+    @ApiModelProperty(value = "请求参数")
+    @Excel(name = "请求参数", width = 40)
+    @TableField(value = "request_args")
+    private String requestArgs;
+    /**
      * 执行时间
      */
     @ApiModelProperty(value = "执行时间")

@@ -131,6 +131,6 @@ zero:
       execution-stop: true
     http:
       url:
-        ip-info: http://ip.taobao.com/service/getIpInfo.php?accessKey=alibaba-inc&ip=
+        ip-info: https://ip.taobao.com/outGetIpInfo?accessKey=alibaba-inc&ip=
 
 

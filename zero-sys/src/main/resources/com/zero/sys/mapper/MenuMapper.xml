@@ -11,6 +11,7 @@
         <result column="meta_icon" jdbcType="VARCHAR" property="metaIcon"/>
         <result column="redirect" jdbcType="VARCHAR" property="redirect"/>
         <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="hidden" jdbcType="BOOLEAN" property="hidden"/>
         <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
         <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -21,7 +22,7 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`,`path`,`name`,`component`,`meta_title`,`meta_icon`,`redirect`,`sort`,`enabled`,`parent_id`,
+        `id`,`path`,`name`,`component`,`meta_title`,`meta_icon`,`redirect`,`sort`,`hidden`,`enabled`,`parent_id`,
         `create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
     </sql>
 
@@ -44,6 +45,9 @@
         <if test="queryMenu.redirect != null and queryMenu.redirect != ''">
             and redirect like concat('%', #{queryMenu.redirect}, '%')
         </if>
+        <if test="queryMenu.hidden != null">
+            and hidden = #{queryMenu.hidden}
+        </if>
         <if test="queryMenu.enabled != null">
             and enabled = #{queryMenu.enabled}
         </if>
@@ -55,7 +59,7 @@
     <select id="getPage" resultMap="resultMap">
         select distinct sm.id as id,sm.path as path,sm.name as name,sm.component as component,
         sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
-        sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
+        sm.sort as sort,sm.hidden as hidden,sm.enabled as enabled,sm.parent_id as parent_id
         from sys_menu sm
         left join sys_menu csm on csm.parent_id = sm.id
         where sm.deleted = 0
@@ -83,6 +87,9 @@
             and (sm.redirect like concat('%', #{queryMenu.redirect}, '%')
             or csm.redirect like concat('%', #{queryMenu.redirect}, '%'))
         </if>
+        <if test="queryMenu.hidden != null">
+            and sm.hidden = #{queryMenu.hidden}
+        </if>
         <if test="queryMenu.enabled != null">
             and sm.enabled = #{queryMenu.enabled}
         </if>
@@ -101,7 +108,7 @@
     <select id="getByParentId" resultMap="resultMap">
         select `id` as id,`path` as path,`name` as name,`component` as component,
         `meta_title` as meta_title,`meta_icon` as meta_icon,`redirect` as redirect,
-        `sort` as sort,`enabled` as enabled,`parent_id` as parent_id
+        `sort` as sort,`hidden` as hidden,`enabled` as enabled,`parent_id` as parent_id
         from sys_menu
         where deleted = 0
         <if test="parentId != null">
@@ -113,7 +120,7 @@
     <select id="getRoutes" resultMap="resultMap">
         select distinct sm.id as id,sm.path as path,sm.name as name,sm.component as component,
         sm.meta_title as meta_title,sm.meta_icon as meta_icon,sm.redirect as redirect,
-        sm.sort as sort,sm.enabled as enabled,sm.parent_id as parent_id
+        sm.sort as sort,sm.hidden as hidden,sm.enabled as enabled,sm.parent_id as parent_id
         from sys_menu sm
         left join sys_menu_role smr on smr.menu_id = sm.id
         where sm.deleted = 0
@@ -132,7 +139,7 @@
 
     <select id="getRecoverPage" resultMap="resultMap">
         select `id` as id,`path` as path,`name` as name,`component` as component,`meta_title` as meta_title,
-        `meta_icon` as meta_icon,`redirect` as redirect,`sort` as sort,`enabled` as enabled,`parent_id` as parent_id
+        `meta_icon` as meta_icon,`redirect` as redirect,`sort` as sort,`hidden` as hidden, `enabled` as enabled,`parent_id` as parent_id
         from sys_menu
         where deleted = 1
         <include refid="baseQuery"></include>
@@ -143,7 +150,7 @@
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`path` as path,`name` as name,`component` as component,`meta_title` as meta_title,
-        `meta_icon` as meta_icon,`redirect` as redirect,`sort` as sort,`enabled` as enabled,`parent_id` as parent_id
+        `meta_icon` as meta_icon,`redirect` as redirect,`sort` as sort,`hidden` as hidden,`enabled` as enabled,`parent_id` as parent_id
         from sys_menu
         where deleted = 0
         <include refid="baseQuery"></include>

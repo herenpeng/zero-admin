@@ -138,6 +138,9 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
         queryLoginLog.setTokenId(tokenId);
         // 通过用户主键和tokenId获取对应的登入记录
         LoginLog loginLog = baseMapper.selectOne(new QueryWrapper<>(queryLoginLog));
+        if (ObjectUtils.isEmpty(loginLog)) {
+            return;
+        }
         // 设置主动登出
         loginLog.setLogout(true);
         // 设置主动登出时间

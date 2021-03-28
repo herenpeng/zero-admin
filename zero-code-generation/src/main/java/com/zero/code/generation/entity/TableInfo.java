@@ -46,6 +46,13 @@ public class TableInfo extends BaseEntity {
     private String entityName;
 
     /**
+     * 表名对应的实体类Controller请求路径
+     */
+    @ApiModelProperty(value = "表名对应的实体类请求路径")
+    @TableField(value = "request_mapping")
+    private String requestMapping;
+
+    /**
      * 包前缀名称
      */
     @ApiModelProperty(value = "包前缀名称")

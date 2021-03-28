@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Api(value = "${comment}操作接口", tags = "${entityName}Controller")
 @RestController
-@RequestMapping("${entityName?uncap_first}")
+@RequestMapping("${requestMapping}")
 public class ${entityName}Controller extends BaseController<${entityName}Service, ${entityName}> {
 
     @LogOperation

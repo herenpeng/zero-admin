@@ -59,7 +59,6 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
     @ApiOperation(value = "获取请求头上的accessToken，并根据accessToken返回用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "用户请求token", dataTypeClass = String.class, required = true)

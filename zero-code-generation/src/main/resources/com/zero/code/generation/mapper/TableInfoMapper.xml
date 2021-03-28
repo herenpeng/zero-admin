@@ -7,6 +7,7 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="comment" jdbcType="VARCHAR" property="comment"/>
         <result column="entity_name" jdbcType="VARCHAR" property="entityName"/>
+        <result column="request_mapping" jdbcType="VARCHAR" property="requestMapping"/>
         <result column="base_package_name" jdbcType="VARCHAR" property="basePackageName"/>
         <result column="code_generation_path" jdbcType="VARCHAR" property="codeGenerationPath"/>
         <result column="code_author" jdbcType="VARCHAR" property="codeAuthor"/>
@@ -14,11 +15,11 @@
         <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
-        <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
     </resultMap>
 
     <sql id="baseColumn">
-        `id`, `name`, `comment`, `entity_name`, `code_generation_path`, `base_package_name`, `code_author`
+        `id`, `name`, `comment`, `entity_name`, `request_mapping`, `code_generation_path`, `base_package_name`, `code_author`
     </sql>
 
     <sql id="baseQuery">
@@ -40,7 +41,7 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,
+        select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,`request_mapping` as request_mapping,
         `base_package_name` as base_package_name,`code_generation_path` as code_generation_path,
         `code_author` as code_author
         from dev_table_info
@@ -63,7 +64,7 @@
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,
+        select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,`request_mapping` as request_mapping,
         `base_package_name` as base_package_name,`code_generation_path` as code_generation_path,
         `code_author` as code_author
         from dev_table_info

@@ -11,8 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<#assign HasDate = true>
 <#assign HasBigDecimal = true>
+<#assign HasDate = true>
 <#list tableColumnList as column>
     <#if column.javaType == "BigDecimal" && HasBigDecimal>
 import java.math.BigDecimal;
@@ -44,11 +44,7 @@ public class ${entityName} extends BaseEntity {
      */
     @ApiModelProperty(value = "${column.comment}")
     @Excel(name = "${column.comment}", width = 15, needMerge = true)
-    <#if column.javaType == "String">
-    @TableField(value = "${column.name}", condition = SqlCondition.LIKE)
-    <#else>
     @TableField(value = "${column.name}")
-    </#if>
     private ${column.javaType} ${column.javaName};
 </#if>
 </#list>

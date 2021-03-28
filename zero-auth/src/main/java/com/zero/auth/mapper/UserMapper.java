@@ -62,7 +62,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @param id 用户主键
      * @throws Exception 抛出异常
      */
-    @Update("update auth_auth set deleted = 0 where id = #{id}")
+    @Update("update auth_user set deleted = 0 where id = #{id}")
     void recoverById(@Param("id") Integer id) throws Exception;
 
     /**
@@ -71,7 +71,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @param id 用户主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from auth_auth where id = #{id}")
+    @Delete("delete from auth_user where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
     /**
@@ -81,7 +81,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 如果该用户名已存在，返回true，否则返回false
      * @throws Exception 抛出异常
      */
-    @Select("select count(*) from auth_auth where username = #{username}")
+    @Select("select count(*) from auth_user where username = #{username}")
     Boolean checkUsername(@Param("username") String username) throws Exception;
 
 }

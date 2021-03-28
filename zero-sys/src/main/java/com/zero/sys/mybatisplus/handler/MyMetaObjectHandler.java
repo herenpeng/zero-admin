@@ -63,10 +63,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             userId = user.getId();
         } catch (Exception e) {
             log.info("[数据操作用户拦截器]当前数据操作为系统执行");
-        } finally {
-            return userId;
         }
-
+        return userId;
     }
 
 }
