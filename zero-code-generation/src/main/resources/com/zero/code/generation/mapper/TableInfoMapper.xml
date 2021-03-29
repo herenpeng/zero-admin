@@ -9,7 +9,9 @@
         <result column="entity_name" jdbcType="VARCHAR" property="entityName"/>
         <result column="request_mapping" jdbcType="VARCHAR" property="requestMapping"/>
         <result column="base_package_name" jdbcType="VARCHAR" property="basePackageName"/>
-        <result column="code_generation_path" jdbcType="VARCHAR" property="codeGenerationPath"/>
+        <result column="java_code_path" jdbcType="VARCHAR" property="javaCodePath"/>
+        <result column="vue_code_path" jdbcType="VARCHAR" property="vueCodePath"/>
+        <result column="vue_package" jdbcType="VARCHAR" property="vuePackage"/>
         <result column="code_author" jdbcType="VARCHAR" property="codeAuthor"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
@@ -19,7 +21,8 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`, `name`, `comment`, `entity_name`, `request_mapping`, `code_generation_path`, `base_package_name`, `code_author`
+        `id`, `name`, `comment`, `entity_name`, `request_mapping`, `java_code_path`, `vue_code_path`,
+        `vue_package`,`base_package_name`, `code_author`
     </sql>
 
     <sql id="baseQuery">
@@ -42,8 +45,8 @@
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,`request_mapping` as request_mapping,
-        `base_package_name` as base_package_name,`code_generation_path` as code_generation_path,
-        `code_author` as code_author
+        `base_package_name` as base_package_name,`java_code_path` as java_code_path,`vue_code_path` as vue_code_path,
+        `vue_package` as vue_package, `code_author` as code_author
         from dev_table_info
         where deleted = 0
         <include refid="baseQuery"></include>
@@ -65,8 +68,8 @@
 
     <select id="getRecoverPage" resultMap="resultMap">
         select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,`request_mapping` as request_mapping,
-        `base_package_name` as base_package_name,`code_generation_path` as code_generation_path,
-        `code_author` as code_author
+        `base_package_name` as base_package_name,`java_code_path` as java_code_path,`vue_code_path` as vue_code_path,
+        `vue_package` as vue_package,`code_author` as code_author
         from dev_table_info
         where deleted = 1
         <include refid="baseQuery"></include>

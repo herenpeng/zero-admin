@@ -60,11 +60,25 @@ public class TableInfo extends BaseEntity {
     private String basePackageName;
 
     /**
-     * 代码生成路径
+     * Java代码生成路径
      */
-    @ApiModelProperty(value = "代码生成路径")
-    @TableField(value = "code_generation_path")
-    private String codeGenerationPath;
+    @ApiModelProperty(value = "Java代码生成路径")
+    @TableField(value = "java_code_path")
+    private String javaCodePath;
+
+    /**
+     * Vue代码生成路径
+     */
+    @ApiModelProperty(value = "Vue代码生成路径")
+    @TableField(value = "vue_code_path")
+    private String vueCodePath;
+
+    /**
+     * Vue包路径
+     */
+    @ApiModelProperty(value = "Vue包路径")
+    @TableField(value = "vue_package")
+    private String vuePackage;
 
     /**
      * 代码作者

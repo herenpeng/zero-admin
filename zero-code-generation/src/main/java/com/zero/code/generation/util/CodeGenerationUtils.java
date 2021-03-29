@@ -2,6 +2,7 @@ package com.zero.code.generation.util;
 
 import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.entity.TableInfo;
+import com.zero.code.generation.enums.CodeTypeEnum;
 import com.zero.code.generation.enums.TemplateEnum;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
@@ -63,13 +64,31 @@ public class CodeGenerationUtils {
      */
     private void generationFile(TableInfo tableInfo, TemplateEnum templateEnum) throws IOException {
         // 将包名转换为路径名称
-        String packagePath = packageNameToPath(tableInfo.getBasePackageName() + templateEnum.getPackageName());
+        String packagePath = "";
+        String codeGenerationPath = "";
         // 拼接文件的全路径
-        String generationFile = tableInfo.getCodeGenerationPath() + templateEnum.getFileBasePath() + packagePath + tableInfo.getEntityName() + templateEnum.getClassSuffix() + templateEnum.getFileSuffix();
+        String generationFilePath = "";
+        CodeTypeEnum codeTypeEnum = templateEnum.getCodeTypeEnum();
+        switch (codeTypeEnum) {
+            case JAVA:
+                codeGenerationPath = tableInfo.getJavaCodePath();
+                packagePath = packageNameToPath(tableInfo.getBasePackageName() + templateEnum.getPackageName());
+                // 拼接文件的全路径
+                generationFilePath = String.join(codeGenerationPath, templateEnum.getFileBasePath(),
+                        packagePath, tableInfo.getEntityName(), templateEnum.getClassSuffix(), templateEnum.getFileSuffix());
+                break;
+            case VUE:
+                generationFilePath = String.join(tableInfo.getVueCodePath(), templateEnum.getFileBasePath(),
+                        tableInfo.getVuePackage() + "index",
+                        templateEnum.getFileSuffix());
+                break;
+            default:
+                log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);
+        }
         String content = freeMarkerUtils.getTemplateContent(tableInfo, templateEnum.getTemplateLoaderPath(), templateEnum.getFtlTemplateFile());
-        File file = new File(generationFile);
-        file.getParentFile().mkdirs();
-        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), EncodingEnums.UTF_8.getValue());
+        File generationFile = new File(generationFilePath);
+        generationFile.getParentFile().mkdirs();
+        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(generationFile), EncodingEnums.UTF_8.getValue());
         BufferedWriter writer = new BufferedWriter(out);
         writer.write(content);
         writer.close();

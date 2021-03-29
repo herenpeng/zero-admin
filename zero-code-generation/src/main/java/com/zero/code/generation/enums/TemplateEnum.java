@@ -16,7 +16,8 @@ public enum TemplateEnum {
     /**
      * 实体类相关信息枚举
      */
-    ENTITY("/templates/java",
+    ENTITY(CodeTypeEnum.JAVA,
+            "/templates/java",
             "entity.ftl",
             "/src/main/java",
             ".entity",
@@ -26,7 +27,8 @@ public enum TemplateEnum {
     /**
      * Mapper层接口相关信息枚举
      */
-    MAPPER("/templates/java",
+    MAPPER(CodeTypeEnum.JAVA,
+            "/templates/java",
             "mapper.ftl",
             "/src/main/java",
             ".mapper",
@@ -36,7 +38,8 @@ public enum TemplateEnum {
     /**
      * Mapper层XML文件相关信息枚举
      */
-    MAPPER_XML("/templates/resources",
+    MAPPER_XML(CodeTypeEnum.JAVA,
+            "/templates/resources",
             "mapperXml.ftl",
             "/src/main/resources",
             ".mapper",
@@ -46,7 +49,8 @@ public enum TemplateEnum {
     /**
      * Service层接口相关信息枚举
      */
-    SERVICE("/templates/java",
+    SERVICE(CodeTypeEnum.JAVA,
+            "/templates/java",
             "service.ftl",
             "/src/main/java",
             ".service",
@@ -56,7 +60,8 @@ public enum TemplateEnum {
     /**
      * Service层接口实现类相关信息枚举
      */
-    SERVICE_IMPL("/templates/java",
+    SERVICE_IMPL(CodeTypeEnum.JAVA,
+            "/templates/java",
             "serviceImpl.ftl",
             "/src/main/java",
             ".service.impl",
@@ -66,13 +71,40 @@ public enum TemplateEnum {
     /**
      * Controller层相关信息枚举
      */
-    CONTROLLER("/templates/java",
+    CONTROLLER(CodeTypeEnum.JAVA,
+            "/templates/java",
             "controller.ftl",
             "/src/main/java",
             ".controller",
             "Controller",
-            ".java");
+            ".java"),
 
+    /**
+     * Vue组件代码
+     */
+    VUE(CodeTypeEnum.VUE,
+            "/templates/vue",
+                    "vue.ftl",
+                    "/src/views",
+                    "",
+                    "",
+                    ".vue"),
+
+    /**
+     * Vue组件API代码
+     */
+    API(CodeTypeEnum.VUE,
+            "/templates/vue",
+            "api.ftl",
+            "/src/api",
+            "",
+            "",
+            ".js");
+
+    /**
+     * 代码类型
+     */
+    private CodeTypeEnum codeTypeEnum;
     /**
      * 模板文件加载路径
      */
