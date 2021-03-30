@@ -1,4 +1,4 @@
-package ${basePackageName}.entity;
+package ${javaPackageName}.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.SqlCondition;

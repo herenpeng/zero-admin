@@ -53,11 +53,11 @@ public class TableInfo extends BaseEntity {
     private String requestMapping;
 
     /**
-     * 包前缀名称
+     * Java包前缀名称
      */
-    @ApiModelProperty(value = "包前缀名称")
-    @TableField(value = "base_package_name")
-    private String basePackageName;
+    @ApiModelProperty(value = "Java包前缀名称")
+    @TableField(value = "java_package_name")
+    private String javaPackageName;
 
     /**
      * Java代码生成路径

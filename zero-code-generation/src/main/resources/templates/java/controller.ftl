@@ -1,11 +1,11 @@
-package ${basePackageName}.controller;
+package ${javaPackageName}.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
-import ${basePackageName}.entity.${entityName};
-import ${basePackageName}.service.${entityName}Service;
+import ${javaPackageName}.entity.${entityName};
+import ${javaPackageName}.service.${entityName}Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

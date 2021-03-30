@@ -52,6 +52,9 @@ public class CodeGenerationUtils {
         generationFile(tableInfo, TemplateEnum.SERVICE_IMPL);
         generationFile(tableInfo, TemplateEnum.CONTROLLER);
         generationFile(tableInfo, TemplateEnum.MAPPER_XML);
+        // 生成前端代码
+        generationFile(tableInfo, TemplateEnum.VUE);
+        generationFile(tableInfo, TemplateEnum.API);
     }
 
 
@@ -63,24 +66,20 @@ public class CodeGenerationUtils {
      * @throws IOException IO异常
      */
     private void generationFile(TableInfo tableInfo, TemplateEnum templateEnum) throws IOException {
-        // 将包名转换为路径名称
-        String packagePath = "";
-        String codeGenerationPath = "";
         // 拼接文件的全路径
         String generationFilePath = "";
         CodeTypeEnum codeTypeEnum = templateEnum.getCodeTypeEnum();
         switch (codeTypeEnum) {
             case JAVA:
-                codeGenerationPath = tableInfo.getJavaCodePath();
-                packagePath = packageNameToPath(tableInfo.getBasePackageName() + templateEnum.getPackageName());
                 // 拼接文件的全路径
-                generationFilePath = String.join(codeGenerationPath, templateEnum.getFileBasePath(),
-                        packagePath, tableInfo.getEntityName(), templateEnum.getClassSuffix(), templateEnum.getFileSuffix());
+                generationFilePath = String.join(tableInfo.getJavaCodePath(), templateEnum.getFileBasePath(),
+                        packageNameToPath(tableInfo.getJavaPackageName() + templateEnum.getPackageName()),
+                        tableInfo.getEntityName(), templateEnum.getSuffix(), templateEnum.getFileSuffix());
                 break;
             case VUE:
                 generationFilePath = String.join(tableInfo.getVueCodePath(), templateEnum.getFileBasePath(),
-                        tableInfo.getVuePackage() + "index",
-                        templateEnum.getFileSuffix());
+                        packageNameToPath(tableInfo.getVuePackage() + templateEnum.getPackageName()),
+                        templateEnum.getSuffix(), templateEnum.getFileSuffix());
                 break;
             default:
                 log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);
@@ -101,7 +100,7 @@ public class CodeGenerationUtils {
      * @return 文件路径名称
      */
     private String packageNameToPath(String packageName) {
-        return File.separator + packageName.replace(StringConst.POINT, File.separator) + File.separator;
+        return File.separator + packageName.replaceAll(StringConst.POINT, File.separator) + File.separator;
     }
 
 

@@ -15,51 +15,51 @@ import java.util.Map;
 @Component
 public class DataBaseTypeConst {
 
-    private Map<String, String> JdbcTypeMap = new HashMap<>(16);
-    private Map<String, String> JavaTypeMap = new HashMap<>(16);
+    private Map<String, String> jdbcTypeMap = new HashMap<>(16);
+    private Map<String, String> javaTypeMap = new HashMap<>(16);
 
     @PostConstruct
     private void init() {
         initJdbcTypeMap();
-        initJavaTypeMap();
+        initjavaTypeMap();
     }
 
     /**
      * 初始化数据库类型和Jdbc类型的映射关系
      */
     private void initJdbcTypeMap() {
-        JdbcTypeMap.put("int", "INTEGER");
-        JdbcTypeMap.put("bigint", "BIGINT");
-        JdbcTypeMap.put("char", "CHAR");
-        JdbcTypeMap.put("varchar", "VARCHAR");
-        JdbcTypeMap.put("datetime", "TIMESTAMP");
-        JdbcTypeMap.put("timestamp", "TIMESTAMP");
-        JdbcTypeMap.put("date", "DATE");
-        JdbcTypeMap.put("time", "TIME");
-        JdbcTypeMap.put("tinyint", "BOOLEAN");
-        JdbcTypeMap.put("decimal", "DECIMAL");
-        JdbcTypeMap.put("numeric", "NUMERIC");
-        JdbcTypeMap.put("float", "FLOAT");
-        JdbcTypeMap.put("double", "DOUBLE");
+        jdbcTypeMap.put("int", "INTEGER");
+        jdbcTypeMap.put("bigint", "BIGINT");
+        jdbcTypeMap.put("char", "CHAR");
+        jdbcTypeMap.put("varchar", "VARCHAR");
+        jdbcTypeMap.put("datetime", "TIMESTAMP");
+        jdbcTypeMap.put("timestamp", "TIMESTAMP");
+        jdbcTypeMap.put("date", "DATE");
+        jdbcTypeMap.put("time", "TIME");
+        jdbcTypeMap.put("tinyint", "BOOLEAN");
+        jdbcTypeMap.put("decimal", "DECIMAL");
+        jdbcTypeMap.put("numeric", "NUMERIC");
+        jdbcTypeMap.put("float", "FLOAT");
+        jdbcTypeMap.put("double", "DOUBLE");
     }
 
     /**
      * 初始化数据库类型和Java类型的映射关系
      */
-    private void initJavaTypeMap() {
-        JavaTypeMap.put("int", "Integer");
-        JavaTypeMap.put("bigint", "Long");
-        JavaTypeMap.put("char", "String");
-        JavaTypeMap.put("varchar", "String");
-        JavaTypeMap.put("datetime", "Date");
-        JavaTypeMap.put("timestamp", "Date");
-        JavaTypeMap.put("date", "Date");
-        JavaTypeMap.put("time", "Date");
-        JavaTypeMap.put("tinyint", "Boolean");
-        JavaTypeMap.put("decimal", "BigDecimal");
-        JavaTypeMap.put("numeric", "BigDecimal");
-        JavaTypeMap.put("float", "Double");
-        JavaTypeMap.put("double", "Double");
+    private void initjavaTypeMap() {
+        javaTypeMap.put("int", "Integer");
+        javaTypeMap.put("bigint", "Long");
+        javaTypeMap.put("char", "String");
+        javaTypeMap.put("varchar", "String");
+        javaTypeMap.put("datetime", "Date");
+        javaTypeMap.put("timestamp", "Date");
+        javaTypeMap.put("date", "Date");
+        javaTypeMap.put("time", "Date");
+        javaTypeMap.put("tinyint", "Boolean");
+        javaTypeMap.put("decimal", "BigDecimal");
+        javaTypeMap.put("numeric", "BigDecimal");
+        javaTypeMap.put("float", "Double");
+        javaTypeMap.put("double", "Double");
     }
 
     /**
@@ -70,7 +70,7 @@ public class DataBaseTypeConst {
      * @throws Exception
      */
     public String getJdbcType(String databaseType) {
-        return JdbcTypeMap.get(clearPrecision(databaseType));
+        return jdbcTypeMap.get(clearPrecision(databaseType));
     }
 
     /**
@@ -81,7 +81,7 @@ public class DataBaseTypeConst {
      * @throws Exception
      */
     public String getJavaType(String databaseType) {
-        return JavaTypeMap.get(clearPrecision(databaseType));
+        return javaTypeMap.get(clearPrecision(databaseType));
     }
 
     /**

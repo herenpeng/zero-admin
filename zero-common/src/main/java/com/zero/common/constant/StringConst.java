@@ -23,4 +23,9 @@ public class StringConst {
      */
     public static final char UNDERSCORE_SEPARATOR = '_';
 
+    /**
+     * 下划线分隔符 underline
+     */
+    public static final char UNDERLINE_SEPARATOR = '-';
+
 }

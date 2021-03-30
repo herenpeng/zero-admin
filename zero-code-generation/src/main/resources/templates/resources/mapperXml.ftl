@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${basePackageName}.mapper.${entityName}Mapper">
+<mapper namespace="${javaPackageName}.mapper.${entityName}Mapper">
 
-    <resultMap id="resultMap" type="${basePackageName}.entity.${entityName}">
+    <resultMap id="resultMap" type="${javaPackageName}.entity.${entityName}">
     <#list tableColumnList as column>
     <#if column.name == "id">
         <id column="${column.name}" jdbcType="${column.jdbcType}" property="${column.javaName}"/>
@@ -13,7 +13,11 @@
     </resultMap>
 
     <sql id="baseColumn">
-        <#list tableColumnList as column>`${column.name}`<#if (column_has_next)>,</#if></#list>
+        <#list tableColumnList as column>
+            <#if column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+        <#if column_index != 0>,</#if>`${column.name}`
+            </#if>
+        </#list>
     </sql>
 
     <sql id="baseQuery">

@@ -2,6 +2,7 @@ package com.zero.common.util;
 
 import com.zero.common.constant.StringConst;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,15 +21,36 @@ public class CamelCaseUtils {
      * @param string 小驼峰命名名称
      * @return 下划线命名名称
      */
+    public String toUnderscoreName(String string) {
+        return toName(string, StringConst.UNDERSCORE_SEPARATOR);
+    }
+
+    /**
+     * 小驼峰命名，转换为中划线命名
+     *
+     * @param string 小驼峰命名名称
+     * @return 中划线命名名称
+     */
     public String toUnderlineName(String string) {
-        if (string == null) {
+        return toName(string, StringConst.UNDERLINE_SEPARATOR);
+    }
+
+    /**
+     * 将小驼峰命名风格转换为划线风格
+     *
+     * @param string    小驼峰命名风格
+     * @param character 划线类型
+     * @return 划线风格
+     */
+    private String toName(String string, Character character) {
+        if (StringUtils.isBlank(string)) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
-            if ((i > 0) && Character.isUpperCase(ch)) {
-                sb.append(StringConst.UNDERSCORE_SEPARATOR);
+            if (Character.isUpperCase(ch)) {
+                sb.append(character);
             }
             sb.append(Character.toLowerCase(ch));
         }
@@ -42,7 +64,7 @@ public class CamelCaseUtils {
      * @return 小驼峰命名名称
      */
     public String toCamelCase(String string) {
-        if (string == null) {
+        if (StringUtils.isBlank(string)) {
             return null;
         }
         string = string.toLowerCase();
@@ -69,7 +91,7 @@ public class CamelCaseUtils {
      * @return 大驼峰命名名称
      */
     public String toCapitalizeCamelCase(String string) {
-        if (string == null) {
+        if (StringUtils.isBlank(string)) {
             return null;
         }
         string = toCamelCase(string);

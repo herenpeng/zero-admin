@@ -3,6 +3,8 @@ package com.zero.code.generation.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.io.File;
+
 /**
  * FreeMarker模板文件相关枚举
  *
@@ -84,11 +86,11 @@ public enum TemplateEnum {
      */
     VUE(CodeTypeEnum.VUE,
             "/templates/vue",
-                    "vue.ftl",
-                    "/src/views",
-                    "",
-                    "",
-                    ".vue"),
+            "vue.ftl",
+            "/src/views",
+            "",
+            File.separator + "index",
+            ".vue"),
 
     /**
      * Vue组件API代码
@@ -126,9 +128,9 @@ public enum TemplateEnum {
     private String packageName;
 
     /**
-     * 类名后缀
+     * 名称后缀
      */
-    private String classSuffix;
+    private String suffix;
 
     /**
      * 文件后缀名称

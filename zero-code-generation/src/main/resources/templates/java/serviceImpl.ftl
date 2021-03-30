@@ -1,12 +1,12 @@
-package ${basePackageName}.service.impl;
+package ${javaPackageName}.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
-import ${basePackageName}.entity.${entityName};
-import ${basePackageName}.mapper.${entityName}Mapper;
-import ${basePackageName}.service.${entityName}Service;
+import ${javaPackageName}.entity.${entityName};
+import ${javaPackageName}.mapper.${entityName}Mapper;
+import ${javaPackageName}.service.${entityName}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
