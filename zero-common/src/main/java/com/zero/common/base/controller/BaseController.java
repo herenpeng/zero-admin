@@ -26,7 +26,7 @@ public class BaseController<S extends IService<E>, E> {
             @ApiImplicitParam(name = "id", value = "实体主键", dataTypeClass = Integer.class, required = true)
     })
     @GetMapping("{id}")
-    public ResponseData<E> get(@PathVariable("id") Integer id) throws Exception {
+    public ResponseData<E> getById(@PathVariable("id") Integer id) throws Exception {
         E entity = baseService.getById(id);
         return ResponseData.ok(entity);
     }

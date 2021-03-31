@@ -65,6 +65,13 @@ public class TableColumn extends BaseEntity {
     private String javaType;
 
     /**
+     * 是否为查询字段
+     */
+    @ApiModelProperty(value = "是否为查询字段")
+    @TableField(value = "query")
+    private Boolean query;
+
+    /**
      * 数据库表字段排序顺序，数据库默认升序排序
      */
     @ApiModelProperty(value = "数据库表字段排序顺序")
