@@ -2,7 +2,7 @@
     <div class="app-container">
         <div class="filter-container">
             <#list tableColumnList as column>
-                <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+                <#if column.query>
                     <#if column.javaType == "String">
             <el-input v-model="listQuery.${column.javaName}" placeholder="${column.comment}" style="width: 200px;" class="filter-item"
                       @keyup.enter.native="handleFilter"
@@ -16,6 +16,8 @@
                 <el-option value="false" label="否" />
             </el-select>
                     </#if>
+                </#if>
+            </#list>
             <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
                 查询
             </el-button>
@@ -29,8 +31,6 @@
             >
                 导出
             </el-button>
-                </#if>
-            </#list>
         </div>
 
         <el-table
@@ -60,6 +60,8 @@
                 </template>
             </el-table-column>
                     </#if>
+                </#if>
+            </#list>
             <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300px">
                 <template slot-scope="{row}">
                     <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row)">
@@ -70,8 +72,6 @@
                     </el-button>
                 </template>
             </el-table-column>
-                </#if>
-            </#list>
         </el-table>
 
         <pagination v-show="page.total > 0"
@@ -139,10 +139,18 @@ export default {
                 total: 0
             },
             listLoading: false,
+            <#assign queryNumber = 0>
+            <#list tableColumnList as column>
+                <#if column.query>
+                    <#assign queryNumber = queryNumber + 1>
+                </#if>
+            </#list>
+            <#assign hasQueryNumber = 0>
             listQuery: {
                 <#list tableColumnList as column>
-                    <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-                ${column.javaName}: null,
+                    <#if column.query>
+                        <#assign hasQueryNumber = hasQueryNumber + 1>
+                ${column.javaName}: null<#if hasQueryNumber &lt; queryNumber>,</#if>
                     </#if>
                 </#list>
             },
@@ -150,7 +158,7 @@ export default {
             ${entityName?uncap_first}: {
                 <#list tableColumnList as column>
                     <#if column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-                ${column.javaName}: null,
+                ${column.javaName}: null<#if column_index &lt; (tableColumnList?size - 6) >,</#if>
                     </#if>
                 </#list>
             },
@@ -163,7 +171,7 @@ export default {
             rules: {
                 <#list tableColumnList as column>
                     <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-                ${column.javaName}: [{ required: true, message: '请输入${column.comment}', trigger: 'change' }]
+                ${column.javaName}: [{ required: true, message: '请输入${column.comment}', trigger: 'change' }]<#if column_index &lt; (tableColumnList?size - 6) >,</#if>
                     </#if>
                 </#list>
             },

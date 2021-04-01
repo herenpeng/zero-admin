@@ -67,25 +67,26 @@ public class CodeGenerationUtils {
      */
     private void generationFile(TableInfo tableInfo, TemplateEnum templateEnum) throws IOException {
         // 拼接文件的全路径
-        String generationFilePath = "";
+        StringBuilder generationFilePath = new StringBuilder();
         CodeTypeEnum codeTypeEnum = templateEnum.getCodeTypeEnum();
         switch (codeTypeEnum) {
             case JAVA:
                 // 拼接文件的全路径
-                generationFilePath = String.join(tableInfo.getJavaCodePath(), templateEnum.getFileBasePath(),
-                        packageNameToPath(tableInfo.getJavaPackageName() + templateEnum.getPackageName()),
-                        tableInfo.getEntityName(), templateEnum.getSuffix(), templateEnum.getFileSuffix());
+                generationFilePath.append(tableInfo.getJavaCodePath()).append(templateEnum.getFileBasePath())
+                        .append(packageNameToPath(tableInfo.getJavaPackageName() + templateEnum.getPackageName()))
+                        .append(File.separator).append(tableInfo.getEntityName()).append(templateEnum.getSuffix())
+                        .append(templateEnum.getFileSuffix());
                 break;
             case VUE:
-                generationFilePath = String.join(tableInfo.getVueCodePath(), templateEnum.getFileBasePath(),
-                        packageNameToPath(tableInfo.getVuePackage() + templateEnum.getPackageName()),
-                        templateEnum.getSuffix(), templateEnum.getFileSuffix());
+                generationFilePath.append(tableInfo.getVueCodePath()).append(templateEnum.getFileBasePath())
+                        .append(packageNameToPath(tableInfo.getVuePackage() + templateEnum.getPackageName()))
+                        .append(templateEnum.getSuffix()).append(templateEnum.getFileSuffix());
                 break;
             default:
                 log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);
         }
         String content = freeMarkerUtils.getTemplateContent(tableInfo, templateEnum.getTemplateLoaderPath(), templateEnum.getFtlTemplateFile());
-        File generationFile = new File(generationFilePath);
+        File generationFile = new File(generationFilePath.toString());
         generationFile.getParentFile().mkdirs();
         OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(generationFile), EncodingEnums.UTF_8.getValue());
         BufferedWriter writer = new BufferedWriter(out);
@@ -100,7 +101,7 @@ public class CodeGenerationUtils {
      * @return 文件路径名称
      */
     private String packageNameToPath(String packageName) {
-        return File.separator + packageName.replaceAll(StringConst.POINT, File.separator) + File.separator;
+        return File.separator + packageName.replace(StringConst.POINT, File.separator);
     }
 
 

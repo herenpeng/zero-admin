@@ -13,11 +13,7 @@
     </resultMap>
 
     <sql id="baseColumn">
-        <#list tableColumnList as column>
-            <#if column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-        <#if column_index != 0>,</#if>`${column.name}`
-            </#if>
-        </#list>
+        <#list tableColumnList as column><#if column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted"><#if column_index != 0>,</#if>`${column.name}`</#if></#list>
     </sql>
 
     <sql id="baseQuery">
