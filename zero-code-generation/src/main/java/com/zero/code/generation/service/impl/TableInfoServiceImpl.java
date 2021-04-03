@@ -12,8 +12,8 @@ import com.zero.code.generation.service.TableInfoService;
 import com.zero.code.generation.util.CodeGenerationUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.util.CamelCaseUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,21 +26,18 @@ import java.util.List;
  * @since 2020-11-08 20:29
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, TableInfo> implements TableInfoService {
 
-    @Autowired
-    private TableColumnMapper tableColumnMapper;
+    private final TableColumnMapper tableColumnMapper;
 
-    @Autowired
-    private DataBaseTypeConst dataBaseTypeConst;
+    private final DataBaseTypeConst dataBaseTypeConst;
 
-    @Autowired
-    private CamelCaseUtils camelCaseUtils;
+    private final CamelCaseUtils camelCaseUtils;
 
-    @Autowired
-    private CodeGenerationUtils codeGenerationUtils;
+    private final CodeGenerationUtils codeGenerationUtils;
 
     @Override
     public IPage<TableInfo> page(Integer currentPage, Integer size, TableInfo queryTableInfo) throws Exception {

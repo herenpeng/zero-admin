@@ -1,0 +1,18 @@
+#@accessToken=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4M2ZhZDQ0YS0yMDVmLTQ3ODItYTJkMy1mMTg3ZTEwOTYzMTciLCJpYXQiOjE2MTc0MTE2NjQsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6MTAwMDAiLCJzdWIiOiJ7XCJpZFwiOjIyLFwidXNlcm5hbWVcIjpcInVzZXJcIixcImVuYWJsZWRcIjp0cnVlLFwibG9ja2VkXCI6ZmFsc2UsXCJhY2NvdW50RXhwaXJlXCI6ZmFsc2UsXCJwYXNzd29yZEV4cGlyZVwiOmZhbHNlLFwicm9sZXNcIjpbe1wiaWRcIjozLFwibmFtZVwiOlwidXNlclwiLFwiZGVzY3JpcHRpb25cIjpcIuaZrumAmueUqOaIt-adg-mZkFwifV0sXCJ1c2VySW5mb1wiOm51bGwsXCJvbmxpbmVMb2dpbkxvZ3NcIjpudWxsLFwicXVlcnlSb2xlSWRcIjpudWxsfSIsImV4cCI6MTYxNzQxNTI2NH0.GjGkR3a8DnQylQhRXeuggq81H8bkhwWpM3RvwFTkZDs
+### 发送一个PSOT请求，获取token，并将token设置为全局变量
+POST http://127.0.0.1:10000/api/login?username=user&password=111111
+Accept: application/json
+
+> {% client.global.set("accessToken", response.body.data); %}
+
+### 分页获取用户数据
+GET http://127.0.0.1:10000/api/user/page/1?size=10
+accessToken: {{accessToken}}
+Accept: application/json
+
+###
+GET http://127.0.0.1:10000/api/user/check/password?password=111111
+accessToken: {{accessToken}}
+Accept: application/json
+
+###

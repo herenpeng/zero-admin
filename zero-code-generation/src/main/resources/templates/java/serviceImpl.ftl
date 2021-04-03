@@ -21,6 +21,7 @@ import java.util.List;
  * @since ${.now?string("yyyy-MM-dd HH:mm")}
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mapper, ${entityName}> implements ${entityName}Service {

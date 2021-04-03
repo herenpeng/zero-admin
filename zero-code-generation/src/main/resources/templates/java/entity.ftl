@@ -32,6 +32,7 @@ import java.util.Date;
  */
 @ApiModel(value = "${comment}")
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("${name}")

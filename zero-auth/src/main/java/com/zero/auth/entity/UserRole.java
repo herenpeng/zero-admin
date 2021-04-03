@@ -6,6 +6,7 @@ import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
  * @since 2020-09-07 08:05
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("auth_user_role")

@@ -8,8 +8,8 @@ import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
 import com.zero.sys.service.LogService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +23,12 @@ import java.util.List;
  * @since 2020-12-01 22:31
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements LogService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Override
     public IPage<Log> page(Integer currentPage, Integer size, Log queryLog) throws Exception {

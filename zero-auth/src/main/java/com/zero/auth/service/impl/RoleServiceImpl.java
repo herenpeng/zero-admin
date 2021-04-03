@@ -10,8 +10,8 @@ import com.zero.auth.service.RoleService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,12 +26,12 @@ import java.util.List;
  * @since 2020-09-14 20:30
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implements RoleService {
 
-    @Autowired
-    private RoleProperties roleProperties;
+    private final RoleProperties roleProperties;
 
     @Override
     public IPage<Role> page(Integer currentPage, Integer size, Role queryRole) throws Exception {

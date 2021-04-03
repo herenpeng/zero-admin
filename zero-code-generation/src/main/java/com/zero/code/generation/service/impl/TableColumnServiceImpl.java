@@ -3,10 +3,11 @@ package com.zero.code.generation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.service.TableColumnService;
+import com.zero.common.base.service.impl.BaseServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import java.util.List;
  * @since 2021-03-28 18:11
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class TableColumnServiceImpl extends BaseServiceImpl<TableColumnMapper, TableColumn> implements TableColumnService {

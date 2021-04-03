@@ -13,9 +13,9 @@ import com.zero.auth.service.UserService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,30 +31,24 @@ import java.util.List;
  * @since 2020-09-07 19:20
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements UserService {
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
-    @Autowired
-    private UserRoleMapper userRoleMapper;
+    private final UserRoleMapper userRoleMapper;
 
-    @Autowired
-    private UserInfoMapper userInfoMapper;
+    private final UserInfoMapper userInfoMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserProperties userProperties;
+    private final UserProperties userProperties;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private LoginLogMapper loginLogMapper;
+    private final LoginLogMapper loginLogMapper;
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {

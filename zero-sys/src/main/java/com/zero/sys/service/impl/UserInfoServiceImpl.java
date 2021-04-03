@@ -16,9 +16,9 @@ import com.zero.mail.template.verify.VerifyProperties;
 import com.zero.mail.util.MailUtils;
 import com.zero.sys.service.UserInfoService;
 import com.zero.upload.service.UploadService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -34,30 +34,24 @@ import java.util.List;
  * @since 2021-01-12 22:19
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
 
-    @Autowired
-    private UploadService uploadService;
+    private final UploadService uploadService;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private VerifyProperties verifyProperties;
+    private final VerifyProperties verifyProperties;
 
-    @Autowired
-    private FreeMarkerUtils freeMarkerUtils;
+    private final FreeMarkerUtils freeMarkerUtils;
 
-    @Autowired
-    private MailUtils mailUtils;
+    private final MailUtils mailUtils;
 
-    @Autowired
-    private NumberUtils numberUtils;
+    private final NumberUtils numberUtils;
 
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
 
     @Override
     public IPage<UserInfo> page(Integer currentPage, Integer size, UserInfo queryUserInfo) throws Exception {

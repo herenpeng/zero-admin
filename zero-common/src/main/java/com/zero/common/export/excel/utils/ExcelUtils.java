@@ -73,7 +73,7 @@ public class ExcelUtils {
         exportParams.setSheetName(sheetName);
         exportParams.setType(ExcelType.XSSF);
         exportParams.setStyle(ExcelStyleEnum.BORDER.getStyleClass());
-        defaultExport("", exportParams, exportClass, exportData, response);
+        defaultExport(fileName, exportParams, exportClass, exportData, response);
     }
 
     /**

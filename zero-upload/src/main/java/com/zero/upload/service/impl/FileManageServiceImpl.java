@@ -8,9 +8,9 @@ import com.zero.upload.entity.FileManage;
 import com.zero.upload.mapper.FileManageMapper;
 import com.zero.upload.service.FileManageService;
 import com.zero.upload.util.UploadUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,15 +26,14 @@ import java.util.List;
  * @since 2021-01-30 18:46
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, FileManage> implements FileManageService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private UploadUtils uploadUtils;
+    private final UploadUtils uploadUtils;
 
     @Override
     public IPage<FileManage> page(Integer currentPage, Integer size, FileManage queryFileManage) throws Exception {

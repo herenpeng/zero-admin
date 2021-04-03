@@ -13,8 +13,8 @@ import com.zero.common.constant.StringConst;
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.util.IpUtils;
 import com.zero.common.util.RedisUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -31,21 +31,18 @@ import java.util.List;
  * @since 2021-02-17 10:04
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLog> implements LoginLogService {
 
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
 
-    @Autowired
-    private IpUtils ipUtils;
+    private final IpUtils ipUtils;
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Override
     public IPage<LoginLog> page(Integer currentPage, Integer size, LoginLog queryLoginLog) throws Exception {

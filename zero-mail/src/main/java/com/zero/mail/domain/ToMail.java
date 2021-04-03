@@ -2,6 +2,7 @@ package com.zero.mail.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @since 2021-01-17 18:59
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class ToMail implements Serializable {

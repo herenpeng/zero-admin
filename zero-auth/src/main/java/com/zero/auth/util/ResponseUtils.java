@@ -1,8 +1,8 @@
 package com.zero.auth.util;
 
-import com.zero.common.http.constant.HttpConst;
 import com.zero.common.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public class ResponseUtils {
      * @throws IOException IO异常
      */
     public void responseJson(HttpServletResponse response, Object object) throws IOException {
-        response.setContentType(HttpConst.CONTENT_TYPE_APPLICATION_JSON);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter writer = response.getWriter();
         writer.write(jsonUtils.toJson(object));
         writer.flush();

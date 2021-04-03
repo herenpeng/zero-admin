@@ -11,8 +11,8 @@ import com.zero.sys.entity.MenuRole;
 import com.zero.sys.mapper.MenuMapper;
 import com.zero.sys.mapper.MenuRoleMapper;
 import com.zero.sys.service.MenuService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,18 +26,16 @@ import java.util.List;
  * @since 2020-11-15 21:20
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implements MenuService {
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
-    @Autowired
-    private MenuRoleMapper menuRoleMapper;
+    private final MenuRoleMapper menuRoleMapper;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
     @Override
     public IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu) throws Exception {

@@ -10,8 +10,8 @@ import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.service.ResourcesService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,15 +25,14 @@ import java.util.List;
  * @since 2020-10-20 21:56
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resources> implements ResourcesService {
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
-    @Autowired
-    private ResourcesRoleMapper resourcesRoleMapper;
+    private final ResourcesRoleMapper resourcesRoleMapper;
 
     @Override
     public IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources) throws Exception {

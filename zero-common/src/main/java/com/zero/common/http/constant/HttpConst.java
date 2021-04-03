@@ -13,8 +13,4 @@ public class HttpConst {
      */
     public static final String PATH_SEPARATOR = "/";
 
-    /**
-     * 请求头/响应头 ContentType=application/json;charset=utf-8
-     */
-    public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json;charset=utf-8";
 }
