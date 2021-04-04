@@ -4,7 +4,7 @@ import com.zero.auth.security.constant.SecurityConst;
 import com.zero.auth.security.filter.SecurityAccessDecisionManager;
 import com.zero.auth.security.filter.SecurityFilter;
 import com.zero.auth.security.handler.MyAuthenticationEntryPoint;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -29,40 +29,34 @@ import org.springframework.web.cors.CorsUtils;
  * @author herenpeng
  * @since 2020-09-13 8:26
  */
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private SecurityFilter securityFilter;
+    private final SecurityFilter securityFilter;
 
-    @Autowired
-    private SecurityAccessDecisionManager securityAccessDecisionManager;
+    private final SecurityAccessDecisionManager securityAccessDecisionManager;
 
     /**
      * 登录成功处理器
      */
-    @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
     /**
      * 登录失败处理器
      */
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
     /**
      * 退出登录处理器
      */
-    @Autowired
-    private LogoutHandler logoutHandler;
+    private final LogoutHandler logoutHandler;
 
-    @Autowired
-    private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+    private final MyAuthenticationEntryPoint myAuthenticationEntryPoint;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

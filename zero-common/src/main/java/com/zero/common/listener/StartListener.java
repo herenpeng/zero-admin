@@ -3,10 +3,10 @@ package com.zero.common.listener;
 import com.zero.common.listener.config.ListenerConfig;
 import com.zero.common.listener.event.StartEvent;
 import com.zero.common.listener.util.EventHelper;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -23,16 +23,15 @@ import java.util.Map;
  * @since 2020-10-16 20:34
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class StartListener implements ApplicationListener<ApplicationReadyEvent>, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private ListenerConfig listenerConfig;
+    private final ListenerConfig listenerConfig;
 
-    @Autowired
-    private EventHelper<StartEvent> eventHelper;
+    private final EventHelper<StartEvent> eventHelper;
 
     @SneakyThrows
     @Override

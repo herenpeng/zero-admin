@@ -8,8 +8,9 @@ import com.zero.auth.util.ResponseUtils;
 import com.zero.common.constant.StringConst;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.common.util.RedisUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
@@ -23,26 +24,22 @@ import javax.servlet.http.HttpServletResponse;
  * @author herenpeng
  * @since 2020-09-13 15:25
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class MyLogoutHandler implements LogoutHandler {
 
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
 
-    @Autowired
-    private RequestUtils requestUtils;
+    private final RequestUtils requestUtils;
 
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private ResponseUtils responseUtils;
+    private final ResponseUtils responseUtils;
 
-    @Autowired
-    private LoginLogService loginLogService;
+    private final LoginLogService loginLogService;
 
     @SneakyThrows
     @Override

@@ -3,10 +3,10 @@ package com.zero.common.listener;
 import com.zero.common.listener.config.ListenerConfig;
 import com.zero.common.listener.event.StopEvent;
 import com.zero.common.listener.util.EventHelper;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
@@ -23,16 +23,15 @@ import java.util.Map;
  * @since 2020-10-16 20:35
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class StopListener implements ApplicationListener<ContextClosedEvent>, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private ListenerConfig listenerConfig;
+    private final ListenerConfig listenerConfig;
 
-    @Autowired
-    private EventHelper<StopEvent> eventHelper;
+    private final EventHelper<StopEvent> eventHelper;
 
     @SneakyThrows
     @Override

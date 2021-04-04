@@ -2,9 +2,9 @@ package com.zero.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -20,11 +20,11 @@ import java.util.Map;
  * @since 2021-03-13 23:51
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class JsonUtils {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     /**
      * 将对象格式化为 JSON 格式的字符串
@@ -32,7 +32,7 @@ public class JsonUtils {
      * @param object 对象
      * @return JSON 格式的字符串
      */
-    public String toJson(Object object) {
+    public String toJson(final Object object) {
         if (ObjectUtils.isEmpty(object)) {
             log.info("[Json工具类]对象{}为空", object);
             return null;
@@ -57,7 +57,7 @@ public class JsonUtils {
      * @param <T>       Java 对象的泛型
      * @return Java 对象
      */
-    public <T> T toObject(String json, Class<T> classType) {
+    public <T> T toObject(final String json, final Class<T> classType) {
         if (StringUtils.isBlank(json)) {
             log.info("[Json工具类]JSON字符串{}为空", json);
             return null;
@@ -78,7 +78,7 @@ public class JsonUtils {
      * @param classType   Java 字节码对象
      * @return Java 对象的泛型
      */
-    public <T> T toObject(HttpServletRequest request, Class<T> classType) {
+    public <T> T toObject(final HttpServletRequest request, final Class<T> classType) {
         try {
             return objectMapper.readValue(request.getInputStream(), classType);
         } catch (IOException e) {
@@ -95,7 +95,7 @@ public class JsonUtils {
      * @param classType   Java 字节码对象
      * @return Java 对象的泛型
      */
-    public <T> T toObject(InputStream inputStream, Class<T> classType) {
+    public <T> T toObject(final InputStream inputStream, final Class<T> classType) {
         try {
             return objectMapper.readValue(inputStream, classType);
         } catch (IOException e) {
@@ -111,7 +111,7 @@ public class JsonUtils {
      * @param json JSON 格式的字符串
      * @return Map 类型的对象
      */
-    public Map toMap(String json) {
+    public Map toMap(final String json) {
         if (StringUtils.isBlank(json)) {
             log.info("[Json工具类]JSON字符串{}为空", json);
             return null;
@@ -131,7 +131,7 @@ public class JsonUtils {
      * @param object Java 对象
      * @return Map 类型的对象
      */
-    public Map toMap(Object object) {
+    public Map toMap(final Object object) {
         if (ObjectUtils.isEmpty(object)) {
             log.info("[Json工具类]对象{}为空", object);
             return null;

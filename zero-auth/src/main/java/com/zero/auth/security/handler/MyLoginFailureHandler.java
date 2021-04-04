@@ -3,6 +3,8 @@ package com.zero.auth.security.handler;
 import com.zero.auth.util.ResponseUtils;
 import com.zero.common.response.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -19,11 +21,12 @@ import java.io.IOException;
  * @author herenpeng
  * @since 2020-09-13 15:29
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class MyLoginFailureHandler implements AuthenticationFailureHandler {
 
-    @Autowired
-    private ResponseUtils responseUtils;
+    private final ResponseUtils responseUtils;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {

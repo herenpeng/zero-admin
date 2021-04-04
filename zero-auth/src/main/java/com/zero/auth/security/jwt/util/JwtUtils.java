@@ -10,10 +10,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -28,17 +28,15 @@ import java.util.Map;
  * @since 2020-09-28 20:42
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class JwtUtils {
 
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
-    @Autowired
-    private JsonUtils jsonUtils;
+    private final JsonUtils jsonUtils;
 
-    @Autowired
-    private RequestUtils requestUtils;
+    private final RequestUtils requestUtils;
 
     /**
      * 由字符串生成加密key

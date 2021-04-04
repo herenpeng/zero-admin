@@ -4,6 +4,7 @@ import com.zero.common.response.CodeEnum;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.auth.util.ResponseUtils;
 import com.zero.auth.security.jwt.util.JwtUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
@@ -21,14 +22,13 @@ import java.io.IOException;
  * @since 2020-10-26 21:45
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    @Autowired
-    private ResponseUtils responseUtils;
+    private final ResponseUtils responseUtils;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {

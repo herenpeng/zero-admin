@@ -2,7 +2,8 @@ package com.zero.common.swagger.config;
 
 import com.zero.common.swagger.properties.SwaggerProperties;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -20,12 +21,13 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author herenpeng
  * @since 2020-09-27 20:12
  */
+@Slf4j
+@RequiredArgsConstructor
 @EnableOpenApi
 @Configuration
 public class SwaggerConfig {
 
-    @Autowired
-    private SwaggerProperties swaggerProperties;
+    private final SwaggerProperties swaggerProperties;
 
     @Bean
     public Docket createRestApi() {

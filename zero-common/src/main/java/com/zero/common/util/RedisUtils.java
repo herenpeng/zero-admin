@@ -1,7 +1,7 @@
 package com.zero.common.util;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +14,11 @@ import java.util.concurrent.TimeUnit;
  * @since 2021-03-14 10:34
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class RedisUtils<String, Object> {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 通过key值获取对应的value值

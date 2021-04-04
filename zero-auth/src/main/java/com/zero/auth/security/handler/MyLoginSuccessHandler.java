@@ -10,7 +10,8 @@ import com.zero.common.constant.StringConst;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.common.util.JsonUtils;
 import com.zero.common.util.RedisUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -26,26 +27,22 @@ import java.util.UUID;
  * @author herenpeng
  * @since 2020-09-13 15:27
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private JsonUtils jsonUtils;
+    private final JsonUtils jsonUtils;
 
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
 
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private ResponseUtils responseUtils;
+    private final ResponseUtils responseUtils;
 
-    @Autowired
-    private LoginLogService loginLogService;
+    private final LoginLogService loginLogService;
 
 
     @Override

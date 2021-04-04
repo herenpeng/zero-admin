@@ -1,12 +1,13 @@
 package com.zero.auth.security.filter;
 
 import com.zero.auth.entity.Role;
-import com.zero.auth.util.RequestUtils;
 import com.zero.auth.security.constant.SecurityConst;
 import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.util.RequestUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -25,14 +26,14 @@ import java.util.List;
  * @author herenpeng
  * 2020-9-13 18:50
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class SecurityAccessDecisionManager implements AccessDecisionManager {
 
-    @Autowired
-    private RequestUtils requestUtils;
+    private final RequestUtils requestUtils;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
     /**
      * 权限认证
