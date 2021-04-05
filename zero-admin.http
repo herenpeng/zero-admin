@@ -4,8 +4,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "root",
-  "password": "root@1001"
+  "username": "user",
+  "password": "111111"
 }
 
 > {% client.global.set("accessToken", response.body.data); %}
