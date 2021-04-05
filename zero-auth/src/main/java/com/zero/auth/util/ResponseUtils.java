@@ -1,5 +1,6 @@
 package com.zero.auth.util;
 
+import com.zero.common.enums.EncodingEnums;
 import com.zero.common.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class ResponseUtils {
      */
     public void responseJson(HttpServletResponse response, Object object) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(EncodingEnums.UTF_8.getValue());
         PrintWriter writer = response.getWriter();
         writer.write(jsonUtils.toJson(object));
         writer.flush();

@@ -9,15 +9,6 @@ package com.zero.auth.security.constant;
 public class SecurityConst {
 
     /**
-     * 登录请求路径
-     */
-    public static final String LOGIN_PATH = "/login";
-    /**
-     * 登出请求路径
-     */
-    public static final String LOGOUT_PATH = "/logout";
-
-    /**
      * 权限不足角色标识符
      */
     public static final String ACCESS_DENIED = "ACCESS_DENIED";

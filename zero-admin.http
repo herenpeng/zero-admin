@@ -1,6 +1,12 @@
 ### 发送一个PSOT请求，获取token，并将token设置为全局变量
-POST http://127.0.0.1:10000/api/login?username=user&password=111111
+POST http://127.0.0.1:10000/api/login
 Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "root",
+  "password": "root@1001"
+}
 
 > {% client.global.set("accessToken", response.body.data); %}
 

@@ -1,9 +1,11 @@
 package com.zero.auth.security.config;
 
 import com.zero.auth.security.constant.SecurityConst;
+import com.zero.auth.security.filter.JwtAuthenticationFilter;
 import com.zero.auth.security.filter.SecurityAccessDecisionManager;
 import com.zero.auth.security.filter.SecurityFilter;
 import com.zero.auth.security.handler.MyAuthenticationEntryPoint;
+import com.zero.common.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,8 @@ import org.springframework.web.cors.CorsUtils;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final JsonUtils jsonUtils;
 
     private final UserDetailsService userDetailsService;
 
@@ -82,12 +86,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
-        // 授权异常处理器
-        http.authorizeRequests().and().exceptionHandling()
-                .authenticationEntryPoint(myAuthenticationEntryPoint);
-
+        // 禁用Session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        // 定义登录请求的表单提交处理接口，Security默认帮我们实现了
+        http.formLogin().disable()
+                .addFilter(jwtAuthenticationFilter());
+
+        // 退出登录的处理器
+        http.logout()
+                .addLogoutHandler(logoutHandler)
+                .permitAll();
+
+        // 授权处理器
         http.authorizeRequests().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
             @Override
             public <O extends FilterSecurityInterceptor> O postProcess(O o) {
@@ -97,22 +108,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             }
         });
 
+        // 授权异常处理器
+        http.authorizeRequests().and().exceptionHandling()
+                .authenticationEntryPoint(myAuthenticationEntryPoint);
+
         // 其余所有请求都需要登录后认证才能访问能访问
         http.authorizeRequests().anyRequest().authenticated();
-
-        // 定义登录请求的表单提交处理接口，Security默认帮我们实现了
-        http.formLogin().loginProcessingUrl(SecurityConst.LOGIN_PATH)
-                // 登录成功的处理器
-                .successHandler(authenticationSuccessHandler)
-                // 登录失败的处理器
-                .failureHandler(authenticationFailureHandler)
-                // 和表单登录相关的接口统统都直接通过,不进行拦截
-                .permitAll();
-
-        http.logout().logoutUrl(SecurityConst.LOGOUT_PATH)
-                // 退出登录的处理器
-                .addLogoutHandler(logoutHandler)
-                .permitAll();
-
     }
+
+    /**
+     * 登录认证过滤器，不用注册，直接new一个即可
+     *
+     * @return JwtAuthenticationFilter对象
+     * @throws Exception 抛出异常
+     */
+    private JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(super.authenticationManager(), jsonUtils);
+        jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+        return jwtAuthenticationFilter;
+    }
+
 }

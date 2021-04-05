@@ -4,7 +4,6 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -40,7 +39,6 @@ public class User extends BaseEntity {
     /**
      * 用户密码，如果password为null，则在序列化为json的时候不进行序列化
      */
-    @JsonIgnore
     @ApiModelProperty(value = "用户密码")
     @TableField(value = "password")
     private String password;

@@ -1,6 +1,7 @@
 package com.zero.auth.util;
 
 import com.zero.auth.security.jwt.properties.JwtProperties;
+import com.zero.common.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,8 @@ public class RequestUtils {
 
     private final JwtProperties jwtProperties;
 
+    private final JsonUtils jsonUtils;
+
     /**
      * 获取请求头上的accessToken
      *
@@ -27,8 +30,7 @@ public class RequestUtils {
      * @return accessToken字符串
      */
     public String getToken(HttpServletRequest request) {
-        String accessToken = request.getHeader(jwtProperties.getKey());
-        return accessToken;
+        return request.getHeader(jwtProperties.getKey());
     }
 
 }

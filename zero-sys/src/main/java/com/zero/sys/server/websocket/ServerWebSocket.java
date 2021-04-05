@@ -1,5 +1,6 @@
 package com.zero.sys.server.websocket;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.common.util.JsonUtils;
 import com.zero.sys.server.domain.Cpu;
 import com.zero.sys.server.domain.Jvm;
@@ -33,7 +34,7 @@ public class ServerWebSocket {
 
     public static Map<String, Session> webSocketClients = new ConcurrentHashMap<>();
 
-    private final JsonUtils jsonUtils;
+    private JsonUtils jsonUtils = new JsonUtils(new ObjectMapper());
 
     /**
      * WebSocket连接建立后触发的方法

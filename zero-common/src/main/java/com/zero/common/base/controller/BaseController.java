@@ -1,7 +1,7 @@
 package com.zero.common.base.controller;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.zero.common.annotation.LogOperation;
+import com.zero.common.base.service.BaseService;
 import com.zero.common.response.domain.ResponseData;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @author herenpeng
  * @since 2020-10-22 14:25
  */
-public class BaseController<S extends IService<E>, E> {
+public class BaseController<S extends BaseService<E>, E> {
 
     @Autowired
     protected S baseService;

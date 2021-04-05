@@ -13,6 +13,7 @@ import org.springframework.util.ObjectUtils;
 
 /**
  * Spring Security的接口UserDetailsService的实现类，用来处理服务登录相关的业务逻辑
+ *
  * @author herenpeng
  * @since 2020-09-13 8:31
  */
@@ -28,7 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.loadUserByUsername(username);
         if (ObjectUtils.isEmpty(user)) {
-            throw new UsernameNotFoundException("用户" + username + "不存在！");
+            log.error("[登录功能]用户名{}不存在！", username);
+            throw new UsernameNotFoundException("用户名" + username + "不存在！");
         }
         return new LoginUserDetails(user);
     }

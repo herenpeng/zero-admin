@@ -34,7 +34,7 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final JsonUtils jsonUtils;
 
-    private final RedisUtils redisUtils;
+    private final RedisUtils<String, Object> redisUtils;
 
     private final JwtProperties jwtProperties;
 

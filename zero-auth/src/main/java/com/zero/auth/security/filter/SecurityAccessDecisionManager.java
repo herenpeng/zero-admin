@@ -46,7 +46,7 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
      */
     @SneakyThrows
     @Override
-    public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
+    public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException {
         // 这里需要强转称FilterInvocation的原因是因为要获取请求的url。
         FilterInvocation filterInvocation = (FilterInvocation) o;
         HttpServletRequest request = filterInvocation.getHttpRequest();
@@ -54,7 +54,7 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
         for (ConfigAttribute configAttribute : collection) {
             // 访问拒绝
             if (StringUtils.equals(SecurityConst.ACCESS_DENIED, configAttribute.getAttribute())) {
-                throw new InsufficientAuthenticationException("您的访问权限不足");
+                throw new AccessDeniedException("您的访问权限不足");
             }
             // 获取请求token
             String token = requestUtils.getToken(request);

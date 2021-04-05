@@ -7,6 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * Rsa文件属性
+ *
  * @author herenpeng
  * @since 2021-04-05 13:29
  */
