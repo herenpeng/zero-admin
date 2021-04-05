@@ -2,9 +2,9 @@ package com.zero.common.http.util;
 
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.properties.HttpUrl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -20,14 +20,13 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2021-02-16 8:08
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class IpUtils {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    @Autowired
-    private HttpUrl httpUrl;
+    private final HttpUrl httpUrl;
 
     public IpInfo getIpInfo(String ip) {
         try {

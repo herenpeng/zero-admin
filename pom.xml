@@ -28,7 +28,7 @@
         <zero-admin.version>1.0-SNAPSHOT</zero-admin.version>
         <spring-boot.version>2.3.8.RELEASE</spring-boot.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
-        <jjwt.version>0.9.0</jjwt.version>
+        <jjwt.version>0.11.2</jjwt.version>
         <easypoi.version>4.0.0</easypoi.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
@@ -73,8 +73,20 @@
         <!--jjwt，Java对JWT的封装工具依赖-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
+            <artifactId>jjwt-api</artifactId>
             <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <!--SpringDataRedis的启动器-->
         <dependency>

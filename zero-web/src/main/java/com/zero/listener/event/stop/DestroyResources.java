@@ -4,7 +4,8 @@ import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StopEvent;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,15 +14,15 @@ import org.springframework.stereotype.Component;
  * @author herenpeng
  * @since 2020-10-18 9:22
  */
+@Slf4j
+@RequiredArgsConstructor
 @EventSort
 @Component
 public class DestroyResources implements StopEvent {
 
-    @Autowired
-    private ResourcesMapper resourcesMapper;
+    private final ResourcesMapper resourcesMapper;
 
-    @Autowired
-    private ResourcesRoleMapper resourcesRoleMapper;
+    private final ResourcesRoleMapper resourcesRoleMapper;
 
     @Override
     public void doEvent() throws Exception {

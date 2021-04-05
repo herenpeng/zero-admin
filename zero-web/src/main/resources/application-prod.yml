@@ -13,6 +13,12 @@ spring:
     static-locations: file:/usr/web-project/zero-admin/static/
 zero:
   domain-name: http://zeroadmin.herenpeng.com
+  auth:
+    security:
+      jwt:
+        rsa:
+          private-file: /usr/web-project/zero-admin/rsa/rsa.pri
+          public-file: /usr/web-project/zero-admin/rsa/rsa.pub
   common:
     # Swagger文档配置
     swagger:

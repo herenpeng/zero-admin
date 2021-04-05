@@ -3,10 +3,10 @@ package com.zero.sys.mybatisplus.handler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.zero.auth.entity.User;
 import com.zero.auth.security.jwt.util.JwtUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,14 +18,13 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2020-11-03 23:10
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
     /**
      * 数据的创建用户的属性名称

@@ -9,8 +9,8 @@ import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.common.constant.StringConst;
 import com.zero.common.enums.EncodingEnums;
 import com.zero.common.util.FreeMarkerUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -23,17 +23,15 @@ import java.util.List;
  * @since 2020-11-11 22:53
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class CodeGenerationUtils {
 
-    @Autowired
-    private TableInfoMapper tableInfoMapper;
+    private final TableInfoMapper tableInfoMapper;
 
-    @Autowired
-    private TableColumnMapper tableColumnMapper;
+    private final TableColumnMapper tableColumnMapper;
 
-    @Autowired
-    private FreeMarkerUtils freeMarkerUtils;
+    private final FreeMarkerUtils freeMarkerUtils;
 
 
     /**

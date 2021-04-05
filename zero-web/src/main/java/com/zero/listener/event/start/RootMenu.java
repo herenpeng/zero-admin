@@ -10,8 +10,8 @@ import com.zero.sys.entity.Menu;
 import com.zero.sys.entity.MenuRole;
 import com.zero.sys.mapper.MenuMapper;
 import com.zero.sys.mapper.MenuRoleMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -24,21 +24,18 @@ import java.util.List;
  * @since 2021-01-03 12:15
  */
 @Slf4j
+@RequiredArgsConstructor
 @EventSort(2)
 @Component
 public class RootMenu implements StartEvent {
 
-    @Autowired
-    private MenuMapper menuMapper;
+    private final MenuMapper menuMapper;
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
-    @Autowired
-    private MenuRoleMapper menuRoleMapper;
+    private final MenuRoleMapper menuRoleMapper;
 
-    @Autowired
-    private RoleProperties roleProperties;
+    private final RoleProperties roleProperties;
 
     @Override
     public void doEvent() throws Exception {

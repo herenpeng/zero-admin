@@ -7,31 +7,27 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * JWT相关的常量属性
- *
  * @author herenpeng
- * @since 2020-09-28 20:37
+ * @since 2021-04-05 13:29
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@ConfigurationProperties(prefix = "zero.auth.security.jwt")
-public class JwtProperties {
+@ConfigurationProperties(prefix = "zero.auth.security.jwt.rsa")
+public class RsaProperties {
 
     /**
-     * Token过期时间，单位为毫秒，默认为1个小时
+     * 加密秘钥信息
      */
-    private Long ttl;
-
+    private String secret;
     /**
-     * token的签发者
+     * 私钥存放路径
      */
-    private String issuer;
-
+    private String privateFile;
     /**
-     * token名称；accessToken
+     * 公钥存放路径
      */
-    private String key;
+    private String publicFile;
 
 }

@@ -5,7 +5,6 @@ import com.zero.common.response.domain.ResponseData;
 import com.zero.common.util.JsonUtils;
 import io.swagger.annotations.Api;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -30,12 +29,12 @@ import java.util.Map;
 @RestController
 public class ErrorController extends BasicErrorController {
 
-    public ErrorController() {
+    public ErrorController(JsonUtils jsonUtils) {
         super(new DefaultErrorAttributes(), new ErrorProperties());
+        this.jsonUtils = jsonUtils;
     }
 
-    @Autowired
-    private JsonUtils jsonUtils;
+    private final JsonUtils jsonUtils;
 
     @SneakyThrows
     @Override

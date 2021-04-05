@@ -17,6 +17,12 @@ spring:
     static-locations: file:G:\temp\
 zero:
   domain-name: http://127.0.0.1:10000
+  auth:
+    security:
+      jwt:
+        rsa:
+          private-file: G:\\tmp\\rsa\\rsa.pri
+          public-file: G:\\tmp\\rsa\\rsa.pub
   common:
     # Swagger文档配置
     swagger:

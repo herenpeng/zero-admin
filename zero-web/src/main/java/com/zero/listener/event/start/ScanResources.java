@@ -13,12 +13,12 @@ import com.zero.common.http.constant.MethodTypeConst;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.aop.framework.AdvisedSupport;
 import org.springframework.aop.support.AopUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +35,7 @@ import java.lang.reflect.Method;
  * @since 2020-10-16 20:41
  */
 @Slf4j
+@RequiredArgsConstructor
 @EventSort
 @Component
 public class ScanResources implements StartEvent {
@@ -59,20 +60,15 @@ public class ScanResources implements StartEvent {
      */
     public static final String REGEX_END = "$";
 
-    @Autowired
-    private ConfigurableApplicationContext run;
+    private final ConfigurableApplicationContext run;
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
-    @Autowired
-    private RoleProperties roleProperties;
+    private final RoleProperties roleProperties;
 
-    @Autowired
-    private ResourcesMapper resourcesMapper;
+    private final ResourcesMapper resourcesMapper;
 
-    @Autowired
-    private ResourcesRoleMapper resourcesRoleMapper;
+    private final ResourcesRoleMapper resourcesRoleMapper;
 
     @Override
     public void doEvent() throws Exception {

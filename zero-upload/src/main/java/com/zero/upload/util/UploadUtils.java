@@ -1,19 +1,19 @@
 package com.zero.upload.util;
 
 import com.zero.auth.security.jwt.util.JwtUtils;
-import com.zero.common.http.constant.HttpConst;
 import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.http.constant.HttpConst;
 import com.zero.common.properties.ZeroProperties;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.enums.FileTypeEnums;
 import com.zero.upload.mapper.FileManageMapper;
 import com.zero.upload.properties.FileUpload;
 import com.zero.upload.properties.UploadProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,23 +30,19 @@ import java.util.*;
  * @since 2021-01-09 12:19
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class UploadUtils {
 
-    @Autowired
-    private ZeroProperties zeroProperties;
+    private final ZeroProperties zeroProperties;
 
-    @Autowired
-    private UploadProperties uploadProperties;
+    private final UploadProperties uploadProperties;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
-    @Autowired
-    private FileManageMapper fileManageMapper;
+    private final FileManageMapper fileManageMapper;
 
     /**
      * 上传图片类型文件

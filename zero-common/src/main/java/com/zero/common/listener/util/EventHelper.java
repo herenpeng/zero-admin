@@ -2,6 +2,8 @@ package com.zero.common.listener.util;
 
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.config.EventRegister;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,11 +17,12 @@ import java.util.Map;
  * @author herenpeng
  * @since 2021-01-02 21:33
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class EventHelper<T> {
 
-    @Autowired
-    private EventRegister eventRegister;
+    private final EventRegister eventRegister;
 
     /**
      * 系统事件升序排序启动

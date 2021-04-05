@@ -6,9 +6,9 @@ import com.zero.sys.server.domain.Jvm;
 import com.zero.sys.server.domain.Mem;
 import com.zero.sys.server.domain.ServerPieChart;
 import com.zero.sys.server.util.OshiUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -26,14 +26,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2020-10-18 11:32
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 @ServerEndpoint(value = "/websocket/server/piechart")
 public class ServerWebSocket {
 
     public static Map<String, Session> webSocketClients = new ConcurrentHashMap<>();
 
-    @Autowired
-    private JsonUtils jsonUtils;
+    private final JsonUtils jsonUtils;
 
     /**
      * WebSocket连接建立后触发的方法

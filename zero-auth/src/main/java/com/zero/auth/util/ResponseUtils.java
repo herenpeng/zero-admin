@@ -1,7 +1,8 @@
 package com.zero.auth.util;
 
 import com.zero.common.util.JsonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
@@ -15,11 +16,12 @@ import java.io.PrintWriter;
  * @author herenpeng
  * @since 2020-09-13 19:00
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class ResponseUtils {
 
-    @Autowired
-    private JsonUtils jsonUtils;
+    private final JsonUtils jsonUtils;
 
     /**
      * response对象返回json数据给前端的封装方法，将object参数转换为json数据，并返回给前台

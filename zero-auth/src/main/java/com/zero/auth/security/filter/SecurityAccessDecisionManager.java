@@ -66,7 +66,7 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
                 }
             }
         }
-        throw new InsufficientAuthenticationException("您的访问权限不足");
+        throw new AccessDeniedException("您的访问权限不足");
     }
 
     @Override

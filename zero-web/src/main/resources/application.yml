@@ -86,10 +86,11 @@ zero:
       root-description: root权限，系统的最高权限
     security:
       jwt:
-        secret: HdGkiOiI4ODgiLCJzdWIiOiLlsI
         ttl: 3600000
         issuer: ${zero.domain-name}
         key: accessToken
+        rsa:
+          secret: HdGkiOiI4ODgiLCJzdWIiOiLlsIdkdusdmnwlsYdfDSkpqlzelqJhdSKDxljHlNKKjds
   # 邮件模板内容
   mail:
     template:

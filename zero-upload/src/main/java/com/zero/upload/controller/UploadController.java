@@ -7,7 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,12 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2021-01-09 12:15
  */
 @Api(value = "文件上传操作接口", tags = "UploadController")
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("upload")
 public class UploadController {
 
-    @Autowired
-    private UploadService uploadService;
+    private final UploadService uploadService;
 
     @LogOperation
     @ApiOperation(value = "上传图片文件")

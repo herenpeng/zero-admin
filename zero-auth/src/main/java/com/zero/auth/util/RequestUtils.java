@@ -1,7 +1,8 @@
 package com.zero.auth.util;
 
 import com.zero.auth.security.jwt.properties.JwtProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +13,12 @@ import javax.servlet.http.HttpServletRequest;
  * @author herenpeng
  * @since 2020-10-22 20:42
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class RequestUtils {
 
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
     /**
      * 获取请求头上的accessToken

@@ -13,11 +13,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
@@ -38,20 +35,7 @@ public class JwtUtils {
 
     private final RequestUtils requestUtils;
 
-    /**
-     * 由字符串生成加密key
-     *
-     * @return 返回一个加密的字符串数据
-     * @throws Exception 抛出异常
-     */
-    private SecretKey generateKey() {
-        String secret = jwtProperties.getSecret();
-        // 本地的密码解码
-        byte[] encodedKey = Base64.decodeBase64(secret);
-        // 根据给定的字节数组使用AES加密算法构造一个密钥
-        SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
-        return key;
-    }
+    private final RsaUtils rsaUtils;
 
     /**
      * 创建JWT
@@ -66,14 +50,12 @@ public class JwtUtils {
      */
     public String createJWT(String id, String subject, String issuer, Long ttlMillis, Map<String, Object> claims) {
         // 指定签名的时候使用的签名算法，也就是header那部分，jjwt已经将这部分内容封装好了。
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        // 生成签名的时候使用的秘钥secret，切记这个秘钥不能外露哦。它就是你服务端的私钥，在任何场景都不应该流露出去，一旦客户端得知这个secret, 那就意味着客户端是可以自我签发jwt了。
-        SecretKey key = generateKey();
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS256;
 
         // 下面就是在为payload添加各种标准声明和私有声明了,这里其实就是new一个JwtBuilder，设置jwt的body
         JwtBuilder builder = Jwts.builder();
         // 设置签名使用的签名算法和签名使用的秘钥
-        builder.signWith(signatureAlgorithm, key);
+        builder.signWith(rsaUtils.getPrivateKey(), signatureAlgorithm);
         // jti：设置JWT的ID，是JWT的唯一标识，根据业务需要，这个可以设置为一个不重复的值，主要用来作为一次性token,从而回避重放攻击
         builder.setId(id);
         // iat：JWT的签发时间，生成JWT的时间
@@ -89,7 +71,7 @@ public class JwtUtils {
 
         // exp：设置过期时间
         if (ttlMillis >= 0) {
-            Long expiredMillis = System.currentTimeMillis() + ttlMillis;
+            long expiredMillis = System.currentTimeMillis() + ttlMillis;
             Date expiredDate = new Date(expiredMillis);
             builder.setExpiration(expiredDate);
         }
@@ -142,12 +124,11 @@ public class JwtUtils {
      * @return 返回JWT载荷信息
      */
     public Claims parseJWT(String jwt) {
-        // 签名秘钥，和生成的签名的秘钥一模一样
-        SecretKey key = generateKey();
         // 得到DefaultJwtParser
-        Claims claims = Jwts.parser()
+        Claims claims = Jwts.parserBuilder()
                 // 设置签名的秘钥
-                .setSigningKey(key)
+                .setSigningKey(rsaUtils.getPublicKey())
+                .build()
                 // 设置需要解析的jwt
                 .parseClaimsJws(jwt).getBody();
         return claims;
@@ -174,8 +155,7 @@ public class JwtUtils {
      */
     public String getId(String jwt) {
         Claims claims = parseJWT(jwt);
-        String id = claims.getId();
-        return id;
+        return claims.getId();
     }
 
     /**

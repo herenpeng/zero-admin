@@ -9,12 +9,13 @@ import com.zero.common.util.JsonUtils;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,24 +28,21 @@ import java.util.Date;
  * @author herenpeng
  * @since 2020-10-27 23:21
  */
+@Slf4j
+@RequiredArgsConstructor
 @Aspect
 @Component
 public class LogAop {
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private IpUtils ipUtils;
+    private final IpUtils ipUtils;
 
-    @Autowired
-    private JsonUtils jsonUtils;
+    private final JsonUtils jsonUtils;
 
-    @Autowired
-    private LogMapper logMapper;
+    private final LogMapper logMapper;
 
     private Log log;
 

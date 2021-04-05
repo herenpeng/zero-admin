@@ -11,8 +11,8 @@ import com.zero.auth.properties.RoleProperties;
 import com.zero.auth.properties.UserProperties;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -24,27 +24,22 @@ import org.springframework.util.ObjectUtils;
  * @since 2021-01-02 22:51
  */
 @Slf4j
+@RequiredArgsConstructor
 @EventSort(1)
 @Component
 public class RootUser implements StartEvent {
 
-    @Autowired
-    private UserProperties userProperties;
+    private final UserProperties userProperties;
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private RoleProperties roleProperties;
+    private final RoleProperties roleProperties;
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserRoleMapper userRoleMapper;
+    private final UserRoleMapper userRoleMapper;
 
     @Override
     public void doEvent() throws Exception {

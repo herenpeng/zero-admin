@@ -1,8 +1,8 @@
 package com.zero.mail.util;
 
 import com.zero.mail.domain.ToMail;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,14 +20,14 @@ import javax.mail.internet.MimeMessage;
  * @since 2021-01-17 18:54
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class MailUtils {
 
     @Value("${spring.mail.username}")
     private String from;
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     /**
      * 发送普通的文本邮件
