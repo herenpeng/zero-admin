@@ -6,6 +6,7 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="acquiescence" jdbcType="BOOLEAN" property="acquiescence"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -14,7 +15,7 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`, `name`, `description`
+        `id`, `name`, `description`, `acquiescence`
     </sql>
 
     <sql id="baseQuery">
@@ -24,24 +25,27 @@
         <if test="queryRole.description != null and queryRole.description != ''">
             and description like concat('%', #{queryRole.description}, '%')
         </if>
+        <if test="queryRole.acquiescence != null">
+            and acquiescence = #{queryRole.acquiescence}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id, `name` as name, `description` as description
+        select `id` as id, `name` as name, `description` as description, `acquiescence` as acquiescence
         from auth_role
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id, `name` as name, `description` as description
+        select `id` as id, `name` as name, `description` as description, `acquiescence` as acquiescence
         from auth_role
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getByUserId" resultMap="resultMap">
-        select ar.id, ar.name, ar.description
+        select ar.id, ar.name, ar.description, ar.acquiescence
         from auth_role ar
         left join auth_user_role aur on aur.role_id = ar.id
         where ar.deleted = 0
@@ -51,14 +55,14 @@
     </select>
 
     <select id="getUserNotRoleList" resultMap="resultMap">
-        select ar.id, ar.name, ar.description
+        select ar.id, ar.name, ar.description, ar.acquiescence
         from auth_role ar
         where ar.deleted = 0 and ar.id not in
         (select aur.role_id from auth_user_role aur where aur.user_id = #{userId})
     </select>
 
     <select id="getByResourcesId" resultMap="resultMap">
-        select ar.id, ar.name, ar.description
+        select ar.id, ar.name, ar.description, ar.acquiescence
         from auth_role ar
         left join auth_resources_role arer on arer.role_id = ar.id
         where ar.deleted = 0
@@ -68,14 +72,14 @@
     </select>
 
     <select id="getResourcesNotRoleList" resultMap="resultMap">
-        select ar.id, ar.name, ar.description
+        select ar.id, ar.name, ar.description, ar.acquiescence
         from auth_role ar
         where ar.deleted = 0 and ar.id not in
         (select arer.role_id from auth_resources_role arer where arer.resources_id = #{resourcesId})
     </select>
 
     <select id="getByMenuId" resultMap="resultMap">
-        select ar.id, ar.name, ar.description
+        select ar.id, ar.name, ar.description, ar.acquiescence
         from auth_role ar
         left join sys_menu_role smr on smr.role_id = ar.id
         where ar.deleted = 0
@@ -85,14 +89,14 @@
     </select>
 
     <select id="getMenuNotRoleList" resultMap="resultMap">
-        select ar.id, ar.name, ar.description
+        select ar.id, ar.name, ar.description, ar.acquiescence
         from auth_role ar
         where ar.deleted = 0 and ar.id not in
         (select smr.role_id from sys_menu_role smr where smr.menu_id = #{menuId})
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`description` as description
+        select `id` as id,`name` as name,`description` as description,`acquiescence` as acquiescence
         from auth_role
         where deleted = 1
         <include refid="baseQuery"></include>

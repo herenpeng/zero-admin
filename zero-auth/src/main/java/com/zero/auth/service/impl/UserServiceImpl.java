@@ -2,10 +2,12 @@ package com.zero.auth.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.entity.UserRole;
+import com.zero.auth.enums.UserTypeEnum;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
@@ -19,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
@@ -68,17 +71,27 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public boolean save(User user) {
-        // 删除用户名中的所有空格字符
-        user.setUsername(StringUtils.deleteWhitespace(user.getUsername()));
+        // 删除用户名中头尾的空格字符
+        user.setUsername(StringUtils.trim(user.getUsername()));
         String defaultPassword = userProperties.getDefaultPassword();
         String encodePassword = passwordEncoder.encode(defaultPassword);
         user.setPassword(encodePassword);
+        // 本地系统添加的用户类型为 LOCAL
+        user.setType(UserTypeEnum.LOCAL);
         int result = baseMapper.insert(user);
         // 插入User对象之后，同时插入一个UserInfo对象
         UserInfo userInfo = new UserInfo();
         userInfo.setId(user.getId());
         userInfoMapper.insert(userInfo);
-        return retBool(result);
+        // 赋予该用户默认角色
+        Role role = roleMapper.selectAcquiescence();
+        if (!ObjectUtils.isEmpty(role)) {
+            UserRole userRole = new UserRole();
+            userRole.setUserId(user.getId());
+            userRole.setRoleId(role.getId());
+            userRoleMapper.insert(userRole);
+        }
+        return SqlHelper.retBool(result);
     }
 
     @Override
@@ -133,7 +146,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public Boolean checkUsername(String username) throws Exception {
-        return baseMapper.checkUsername(username);
+        return baseMapper.checkUsername(username, UserTypeEnum.LOCAL);
     }
 
     @Override
@@ -195,7 +208,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     private void verifyRootPermissions(Serializable id) {
         User user = baseMapper.selectById(id);
         if (StringUtils.equals(userProperties.getRootUsername(), user.getUsername())) {
-            throw new MyException(MyExceptionEnum.ACCESS_DENIED);
+            throw new MyException(MyExceptionEnum.INSUFFICIENT_AUTHENTICATION);
         }
     }
 

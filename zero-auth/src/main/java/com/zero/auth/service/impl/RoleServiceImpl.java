@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
@@ -66,6 +67,22 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     }
 
     @Override
+    public void setAcquiescence(Role role) throws Exception {
+        // 如果默认值为true，则说明是由非默认角色修改为默认角色
+        // 如果传入的默认值为false，则说明是由默认角色修改为非默认角色
+        if (role.getAcquiescence()) {
+            // 先将原来的默认角色设置为false
+            Role acquiescenceRole = baseMapper.selectAcquiescence();
+            // 如果存在默认角色
+            if (!ObjectUtils.isEmpty(acquiescenceRole)) {
+                acquiescenceRole.setAcquiescence(false);
+                baseMapper.updateById(acquiescenceRole);
+            }
+        }
+        baseMapper.updateById(role);
+    }
+
+    @Override
     public IPage<Role> recoverPage(Integer currentPage, Integer size, Role queryRole) throws Exception {
         IPage<Role> page = new Page<>(currentPage, size);
         IPage<Role> pageInfo = baseMapper.getRecoverPage(page, queryRole);
@@ -96,7 +113,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     private void verifyRootPermissions(Serializable id) {
         Role role = baseMapper.selectById(id);
         if (roleProperties.getRootName().equals(role.getName())) {
-            throw new MyException(MyExceptionEnum.ACCESS_DENIED);
+            throw new MyException(MyExceptionEnum.INSUFFICIENT_AUTHENTICATION);
         }
     }
 

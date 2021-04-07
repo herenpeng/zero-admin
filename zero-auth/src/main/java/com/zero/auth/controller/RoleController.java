@@ -68,6 +68,17 @@ public class RoleController extends BaseController<RoleService, Role> {
         return ResponseData.ok(result);
     }
 
+    @LogOperation
+    @ApiOperation(value = "通过主键设置或者取消默认角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "role", value = "角色实体", dataTypeClass = Role.class, required = true)
+    })
+    @PutMapping("acquiescence")
+    public ResponseData<Void> setAcquiescence(@RequestBody Role role) throws Exception {
+        baseService.setAcquiescence(role);
+        return ResponseData.ok().message("默认角色设置成功");
+    }
+
 
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统角色表数据")

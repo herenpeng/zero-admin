@@ -46,6 +46,13 @@ public interface RoleService extends BaseService<Role> {
     Boolean checkName(String name) throws Exception;
 
     /**
+     * 通过主键设置或者取消默认角色
+     * @param role 角色实体
+     * @throws Exception 抛出异常
+     */
+    void setAcquiescence(Role role) throws Exception;
+
+    /**
      * 分页查询逻辑删除的系统角色表数据
      *
      * @param currentPage 当前页面数，页面从1开始
@@ -81,4 +88,6 @@ public interface RoleService extends BaseService<Role> {
      * @throws Exception 抛出异常
      */
     void exportExcel(Role queryRole, HttpServletResponse response) throws Exception;
+
+
 }

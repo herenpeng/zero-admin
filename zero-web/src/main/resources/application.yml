@@ -26,9 +26,9 @@ spring:
   # SpringMail发送邮件相关配置
   mail:
     # 发送邮件的账号名
-    username: xxxxxxxxxxxx@qq.com
+    username: ${SPRING_MAIL_USERNAME}
     # 授权码
-    password: xxxxxxxxxxxx
+    password: ${SPRING_MAIL_PASSWORD}
     # smtp服务主机  qq邮箱的服务主机为smtp.qq.com
     host: smtp.qq.com
     # 服务协议
@@ -48,6 +48,12 @@ spring:
           starttls:
             enable: true
             required: true
+  freemarker:
+    charset: UTF-8
+    template-loader-path: classpath:/templates/
+    content-type: text/html
+    suffix: .ftlh
+    prefer-file-system-access: false
   # 动态配置文件后缀
   profiles:
     active: dev
@@ -91,6 +97,13 @@ zero:
         key: accessToken
         rsa:
           secret: HdGkiOiI4ODgiLCJzdWIiOiLlsIdkdusdmnwlsYdfDSkpqlzelqJhdSKDxljHlNKKjds
+    oauth:
+      github:
+        client-id: ${ZERO_AUTH_OAUTH_GITHUB_CLIENT_ID}
+        client-secrets: ${ZERO_AUTH_OAUTH_GITHUB_CLIENT_SECRETS}
+        token_url: https://github.com/login/oauth/access_token?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&code={CODE}
+        token_name: access_token
+        user_info_url : https://api.github.com/user
   # 邮件模板内容
   mail:
     template:
@@ -106,7 +119,7 @@ zero:
         # 邮箱验证码邮件模板路径
         path: /templates/mail
         # 邮箱验证码邮件模板文件
-        file: verify.ftl
+        file: verify.ftlh
   # 文件上传通用的配置信息
   upload:
     # 备份文件后缀

@@ -1,7 +1,7 @@
 package com.zero.auth.security.handler;
 
 import com.zero.auth.util.ResponseUtils;
-import com.zero.common.response.CodeEnum;
+import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.response.domain.ResponseData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class MyLoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-        ResponseData<Void> responseData = ResponseData.code(CodeEnum.LOGIN_ERROR.getValue());
+        ResponseData<Void> responseData = ResponseData.code(MyExceptionEnum.LOGIN_ERROR.getCode());
         if (e instanceof LockedException) {
             responseData.message("账号被锁定，登录失败");
         } else if (e instanceof BadCredentialsException) {

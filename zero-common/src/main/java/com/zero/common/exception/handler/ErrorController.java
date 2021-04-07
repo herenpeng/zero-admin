@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
-import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,11 +39,11 @@ public class ErrorController extends BasicErrorController {
     @Override
     @RequestMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
-        Map<String, Object> errorAttributes = getErrorAttributes(request, ErrorAttributeOptions.of(
-                ErrorAttributeOptions.Include.EXCEPTION,
-                ErrorAttributeOptions.Include.MESSAGE,
-                ErrorAttributeOptions.Include.STACK_TRACE,
-                ErrorAttributeOptions.Include.BINDING_ERRORS));
+        // Map<String, Object> errorAttributes = getErrorAttributes(request, ErrorAttributeOptions.of(
+        //         ErrorAttributeOptions.Include.EXCEPTION,
+        //         ErrorAttributeOptions.Include.MESSAGE,
+        //         ErrorAttributeOptions.Include.STACK_TRACE,
+        //         ErrorAttributeOptions.Include.BINDING_ERRORS));
         ResponseData<Void> responseData = ResponseData.code(MyExceptionEnum.ILLEGAL_TOKEN.getCode());
         responseData.message(MyExceptionEnum.ILLEGAL_TOKEN.getMessage());
         Map<String, Object> map = jsonUtils.toMap(responseData);

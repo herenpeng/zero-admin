@@ -35,4 +35,13 @@ public interface ResourcesRoleMapper extends BaseMapper<ResourcesRole> {
      */
     @Delete("delete from auth_resources_role where resources_id = #{resourcesId} and role_id = #{roleId}")
     void deleteResourcesRole(@Param("resourcesId") Integer resourcesId, @Param("roleId") Integer roleId) throws Exception;
+
+    /**
+     * 通过资源主键，删除资源和角色之间的关系
+     *
+     * @param resourcesId 系统资源主键
+     * @throws Exception 抛出异常
+     */
+    @Delete("delete from auth_resources_role where resources_id = #{resourcesId}")
+    void deleteByResourcesId(@Param("resourcesId") Integer resourcesId) throws Exception;
 }

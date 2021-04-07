@@ -61,7 +61,7 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
             List<Role> roleList = jwtUtils.getRoleList(token);
             // 判断逻辑：当然登录用户角色只要满足资源路径的其中一个角色便可以访问
             for (Role role : roleList) {
-                if (role.getName().equals(configAttribute.getAttribute())) {
+                if (StringUtils.equals(role.getAuthority(), configAttribute.getAttribute())) {
                     return;
                 }
             }

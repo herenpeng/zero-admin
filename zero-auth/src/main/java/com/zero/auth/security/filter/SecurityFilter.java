@@ -62,12 +62,12 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
         Resources resources = resourcesMapper.getByRegexUriAndMethodType(uri, request.getMethod().toUpperCase());
         if (ObjectUtils.allNotNull(resources)) {
             List<Role> roles = resources.getRoles();
-            String[] roleNameList = new String[roles.size()];
+            String[] authorityList = new String[roles.size()];
             for (int i = 0; i < roles.size(); i++) {
-                roleNameList[i] = roles.get(i).getName();
+                authorityList[i] = roles.get(i).getAuthority();
             }
-            // 传递的是需要的角色名数组
-            return SecurityConfig.createList(roleNameList);
+            // 传递的是需要的角色权限名数组
+            return SecurityConfig.createList(authorityList);
         }
         return SecurityConfig.createList(SecurityConst.ACCESS_DENIED);
     }
@@ -81,7 +81,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
         String token = requestUtils.getToken(request);
         if (StringUtils.isBlank(token)) {
             // 没有token，拒绝访问
-            log.error("[系统登录功能]该请求未携带token，token为空");
+            log.error("[系统登录功能]该请求{}未携带token，token为空", request.getRequestURI());
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
         // 解析token

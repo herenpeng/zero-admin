@@ -137,8 +137,14 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return 角色对象
      * @throws Exception 抛出异常
      */
-    @Select("select id,name,description from auth_role where name = #{name}")
+    @Select("select id,name,description,acquiescence from auth_role where name = #{name}")
     Role getByName(@Param("name") String name);
 
-
+    /**
+     * 查找默认的角色信息，默认角色永远只允许存在一个
+     *
+     * @return 默认的角色
+     */
+    @Select("select id,name,description,acquiescence from auth_role where acquiescence = 1")
+    Role selectAcquiescence();
 }

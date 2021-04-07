@@ -77,6 +77,7 @@
         left join auth_user_role aur on aur.user_id = au.id
         left join auth_role ar on ar.id = aur.role_id
         where au.deleted = 0 and au.username = #{username}
+        and au.type = #{type}
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">

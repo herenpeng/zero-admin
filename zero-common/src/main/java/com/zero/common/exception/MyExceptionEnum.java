@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 public enum MyExceptionEnum {
 
     /**
+     * 登录错误
+     */
+    LOGIN_ERROR(30000, "登录错误"),
+    /**
      * 40002，无效的token
      */
     ILLEGAL_TOKEN(40002, "访问凭证无效，请重新登录刷新访问凭证"),
@@ -21,7 +25,12 @@ public enum MyExceptionEnum {
     /**
      * 40003，访问权限不足
      */
-    ACCESS_DENIED(40003, "您的访问权限不足"),
+    INSUFFICIENT_AUTHENTICATION(40003, "您的访问权限不足"),
+
+    /**
+     * 系统错误
+     */
+    SYS_EXCEPTION(50000, "系统错误"),
 
     /**
      * 密码错误

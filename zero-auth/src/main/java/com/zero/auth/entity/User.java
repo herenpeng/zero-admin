@@ -4,6 +4,7 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zero.auth.enums.UserTypeEnum;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -74,6 +75,11 @@ public class User extends BaseEntity {
     @Excel(name = "密码是否过期", width = 15, needMerge = true, replace = {"过期_true", "未过期_false"})
     @TableField(value = "password_expire")
     private Boolean passwordExpire;
+
+    /**
+     * 用户类型
+     */
+    private UserTypeEnum type;
 
     /**
      * 用户所包含的角色信息，非数据库字段

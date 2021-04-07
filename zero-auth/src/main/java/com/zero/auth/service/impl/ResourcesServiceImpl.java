@@ -85,6 +85,7 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
     @Override
     public void recoverDelete(Integer id) throws Exception {
         baseMapper.recoverDelete(id);
+        resourcesRoleMapper.deleteByResourcesId(id);
     }
 
     @Override

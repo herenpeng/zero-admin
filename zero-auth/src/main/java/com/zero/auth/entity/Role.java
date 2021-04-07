@@ -5,6 +5,7 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zero.auth.security.constant.SecurityConst;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * 角色实体类信息
@@ -25,7 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("auth_role")
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements GrantedAuthority {
 
     /**
      * 角色名称
@@ -42,4 +44,17 @@ public class Role extends BaseEntity {
     @Excel(name = "角色描述信息", width = 30)
     @TableField(value = "description", condition = SqlCondition.LIKE)
     private String description;
+
+    /**
+     * 是否为默认角色，所有角色中只允许一个角色值为1(true)
+     */
+    @ApiModelProperty(value = "是否为默认角色")
+    @Excel(name = "是否为默认角色", width = 30)
+    @TableField(value = "acquiescence")
+    private Boolean acquiescence;
+
+    @Override
+    public String getAuthority() {
+        return SecurityConst.ROLE_ + this.name;
+    }
 }

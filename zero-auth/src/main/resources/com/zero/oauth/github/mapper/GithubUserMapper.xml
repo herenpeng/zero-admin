@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.oauth.github.mapper.GithubUserMapper">
+
+    <resultMap id="resultMap" type="com.zero.oauth.github.entity.GithubUser">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="login" jdbcType="VARCHAR" property="login"/>
+        <result column="github_id" jdbcType="INTEGER" property="githubId"/>
+        <result column="node_id" jdbcType="VARCHAR" property="nodeId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="html_url" jdbcType="VARCHAR" property="htmlUrl"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="public_repos" jdbcType="INTEGER" property="publicRepos"/>
+        <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl"/>
+        <result column="public_gists" jdbcType="INTEGER" property="publicGists"/>
+        <result column="gravatar_id" jdbcType="INTEGER" property="gravatarId"/>
+        <result column="followers_url" jdbcType="VARCHAR" property="followersUrl"/>
+        <result column="site_admin" jdbcType="BOOLEAN" property="siteAdmin"/>
+        <result column="following_url" jdbcType="VARCHAR" property="followingUrl"/>
+        <result column="gists_url" jdbcType="VARCHAR" property="gistsUrl"/>
+        <result column="starred_url" jdbcType="VARCHAR" property="starredUrl"/>
+        <result column="subscriptions_url" jdbcType="VARCHAR" property="subscriptionsUrl"/>
+        <result column="organizations_url" jdbcType="VARCHAR" property="organizationsUrl"/>
+        <result column="repos_url" jdbcType="VARCHAR" property="reposUrl"/>
+        <result column="events_url" jdbcType="VARCHAR" property="eventsUrl"/>
+        <result column="received_events_url" jdbcType="VARCHAR" property="receivedEventsUrl"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="blog" jdbcType="VARCHAR" property="blog"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="hireable" jdbcType="VARCHAR" property="hireable"/>
+        <result column="bio" jdbcType="VARCHAR" property="bio"/>
+        <result column="twitter_username" jdbcType="VARCHAR" property="twitterUsername"/>
+        <result column="followers" jdbcType="INTEGER" property="followers"/>
+        <result column="following" jdbcType="INTEGER" property="following"/>
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`login`,`github_id`,`node_id`,`url`,`html_url`,`type`,`public_repos`,`avatar_url`,`public_gists`,`gravatar_id`,`followers_url`,`site_admin`,`following_url`,`gists_url`,`starred_url`,`subscriptions_url`,`organizations_url`,`repos_url`,`events_url`,`received_events_url`,`name`,`company`,`blog`,`location`,`email`,`hireable`,`bio`,`twitter_username`,`followers`,`following`,`created_at`,`updated_at`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryGithubUser.login != null and queryGithubUser.login != ''">
+            and login like concat('%', #{queryGithubUser.login}, '%')
+        </if>
+        <if test="queryGithubUser.githubId != null">
+            and github_id = #{queryGithubUser.githubId}
+        </if>
+        <if test="queryGithubUser.nodeId != null and queryGithubUser.nodeId != ''">
+            and node_id like concat('%', #{queryGithubUser.nodeId}, '%')
+        </if>
+        <if test="queryGithubUser.url != null and queryGithubUser.url != ''">
+            and url like concat('%', #{queryGithubUser.url}, '%')
+        </if>
+        <if test="queryGithubUser.htmlUrl != null and queryGithubUser.htmlUrl != ''">
+            and html_url like concat('%', #{queryGithubUser.htmlUrl}, '%')
+        </if>
+        <if test="queryGithubUser.type != null and queryGithubUser.type != ''">
+            and type like concat('%', #{queryGithubUser.type}, '%')
+        </if>
+        <if test="queryGithubUser.publicRepos != null">
+            and public_repos = #{queryGithubUser.publicRepos}
+        </if>
+        <if test="queryGithubUser.avatarUrl != null and queryGithubUser.avatarUrl != ''">
+            and avatar_url like concat('%', #{queryGithubUser.avatarUrl}, '%')
+        </if>
+        <if test="queryGithubUser.publicGists != null">
+            and public_gists = #{queryGithubUser.publicGists}
+        </if>
+        <if test="queryGithubUser.gravatarId != null">
+            and gravatar_id = #{queryGithubUser.gravatarId}
+        </if>
+        <if test="queryGithubUser.followersUrl != null and queryGithubUser.followersUrl != ''">
+            and followers_url like concat('%', #{queryGithubUser.followersUrl}, '%')
+        </if>
+        <if test="queryGithubUser.siteAdmin != null">
+            and site_admin = #{queryGithubUser.siteAdmin}
+        </if>
+        <if test="queryGithubUser.followingUrl != null and queryGithubUser.followingUrl != ''">
+            and following_url like concat('%', #{queryGithubUser.followingUrl}, '%')
+        </if>
+        <if test="queryGithubUser.gistsUrl != null and queryGithubUser.gistsUrl != ''">
+            and gists_url like concat('%', #{queryGithubUser.gistsUrl}, '%')
+        </if>
+        <if test="queryGithubUser.starredUrl != null and queryGithubUser.starredUrl != ''">
+            and starred_url like concat('%', #{queryGithubUser.starredUrl}, '%')
+        </if>
+        <if test="queryGithubUser.subscriptionsUrl != null and queryGithubUser.subscriptionsUrl != ''">
+            and subscriptions_url like concat('%', #{queryGithubUser.subscriptionsUrl}, '%')
+        </if>
+        <if test="queryGithubUser.organizationsUrl != null and queryGithubUser.organizationsUrl != ''">
+            and organizations_url like concat('%', #{queryGithubUser.organizationsUrl}, '%')
+        </if>
+        <if test="queryGithubUser.reposUrl != null and queryGithubUser.reposUrl != ''">
+            and repos_url like concat('%', #{queryGithubUser.reposUrl}, '%')
+        </if>
+        <if test="queryGithubUser.eventsUrl != null and queryGithubUser.eventsUrl != ''">
+            and events_url like concat('%', #{queryGithubUser.eventsUrl}, '%')
+        </if>
+        <if test="queryGithubUser.receivedEventsUrl != null and queryGithubUser.receivedEventsUrl != ''">
+            and received_events_url like concat('%', #{queryGithubUser.receivedEventsUrl}, '%')
+        </if>
+        <if test="queryGithubUser.name != null and queryGithubUser.name != ''">
+            and name like concat('%', #{queryGithubUser.name}, '%')
+        </if>
+        <if test="queryGithubUser.company != null and queryGithubUser.company != ''">
+            and company like concat('%', #{queryGithubUser.company}, '%')
+        </if>
+        <if test="queryGithubUser.blog != null and queryGithubUser.blog != ''">
+            and blog like concat('%', #{queryGithubUser.blog}, '%')
+        </if>
+        <if test="queryGithubUser.location != null and queryGithubUser.location != ''">
+            and location like concat('%', #{queryGithubUser.location}, '%')
+        </if>
+        <if test="queryGithubUser.email != null and queryGithubUser.email != ''">
+            and email like concat('%', #{queryGithubUser.email}, '%')
+        </if>
+        <if test="queryGithubUser.hireable != null and queryGithubUser.hireable != ''">
+            and hireable like concat('%', #{queryGithubUser.hireable}, '%')
+        </if>
+        <if test="queryGithubUser.bio != null and queryGithubUser.bio != ''">
+            and bio like concat('%', #{queryGithubUser.bio}, '%')
+        </if>
+        <if test="queryGithubUser.twitterUsername != null and queryGithubUser.twitterUsername != ''">
+            and twitter_username like concat('%', #{queryGithubUser.twitterUsername}, '%')
+        </if>
+        <if test="queryGithubUser.followers != null">
+            and followers = #{queryGithubUser.followers}
+        </if>
+        <if test="queryGithubUser.following != null">
+            and following = #{queryGithubUser.following}
+        </if>
+        <if test="queryGithubUser.createdAt != null">
+            and created_at = #{queryGithubUser.createdAt}
+        </if>
+        <if test="queryGithubUser.updatedAt != null">
+            and updated_at = #{queryGithubUser.updatedAt}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`login` as login,`github_id` as github_id,`node_id` as node_id,`url` as url,`html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,`public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,`site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as starred_url,`subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,`events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,`blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,`twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as created_at,`updated_at` as updated_at,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from oauth_github_user
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`login` as login,`github_id` as github_id,`node_id` as node_id,`url` as url,`html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,`public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,`site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as starred_url,`subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,`events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,`blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,`twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as created_at,`updated_at` as updated_at,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from oauth_github_user
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`login` as login,`github_id` as github_id,`node_id` as node_id,`url` as url,`html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,`public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,`site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as starred_url,`subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,`events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,`blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,`twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as created_at,`updated_at` as updated_at,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from oauth_github_user
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
+</mapper>

@@ -30,7 +30,8 @@ public class SecurityConst {
             "/swagger-ui/**",
             "/v3/**",
             // 静态资源文件
-            "/image/**"
+            "/image/**",
+            "/oauth/github/**"
     };
 
 

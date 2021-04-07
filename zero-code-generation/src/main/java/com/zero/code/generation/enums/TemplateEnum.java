@@ -20,7 +20,7 @@ public enum TemplateEnum {
      */
     ENTITY(CodeTypeEnum.JAVA,
             "/templates/java",
-            "entity.ftl",
+            "entity.ftlh",
             "/src/main/java",
             ".entity",
             "",
@@ -31,7 +31,7 @@ public enum TemplateEnum {
      */
     MAPPER(CodeTypeEnum.JAVA,
             "/templates/java",
-            "mapper.ftl",
+            "mapper.ftlh",
             "/src/main/java",
             ".mapper",
             "Mapper",
@@ -42,7 +42,7 @@ public enum TemplateEnum {
      */
     MAPPER_XML(CodeTypeEnum.JAVA,
             "/templates/resources",
-            "mapperXml.ftl",
+            "mapperXml.ftlh",
             "/src/main/resources",
             ".mapper",
             "Mapper",
@@ -53,7 +53,7 @@ public enum TemplateEnum {
      */
     SERVICE(CodeTypeEnum.JAVA,
             "/templates/java",
-            "service.ftl",
+            "service.ftlh",
             "/src/main/java",
             ".service",
             "Service",
@@ -64,7 +64,7 @@ public enum TemplateEnum {
      */
     SERVICE_IMPL(CodeTypeEnum.JAVA,
             "/templates/java",
-            "serviceImpl.ftl",
+            "serviceImpl.ftlh",
             "/src/main/java",
             ".service.impl",
             "ServiceImpl",
@@ -75,7 +75,7 @@ public enum TemplateEnum {
      */
     CONTROLLER(CodeTypeEnum.JAVA,
             "/templates/java",
-            "controller.ftl",
+            "controller.ftlh",
             "/src/main/java",
             ".controller",
             "Controller",
@@ -86,7 +86,7 @@ public enum TemplateEnum {
      */
     VUE(CodeTypeEnum.VUE,
             "/templates/vue",
-            "vue.ftl",
+            "vue.ftlh",
             "/src/views",
             "",
             File.separator + "index",
@@ -97,7 +97,7 @@ public enum TemplateEnum {
      */
     API(CodeTypeEnum.VUE,
             "/templates/vue",
-            "api.ftl",
+            "api.ftlh",
             "/src/api",
             "",
             "",

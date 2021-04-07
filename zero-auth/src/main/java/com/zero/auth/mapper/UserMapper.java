@@ -3,6 +3,7 @@ package com.zero.auth.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.User;
+import com.zero.auth.enums.UserTypeEnum;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -41,10 +42,11 @@ public interface UserMapper extends BaseMapper<User> {
      * 通过用户名查找对应的用户，以及用户所拥有的角色信息
      *
      * @param username 用户名，需要在数据库中保证唯一
+     * @param type     用户账号类型
      * @return 用户信息
      * @throws Exception 抛出异常
      */
-    User loadUserByUsername(@Param("username") String username);
+    User loadUserByUsername(@Param("username") String username, @Param("type") UserTypeEnum type);
 
     /**
      * 分页查询逻辑删除的用户数据
@@ -75,13 +77,14 @@ public interface UserMapper extends BaseMapper<User> {
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
     /**
-     * 检测用户名是否已存在
+     * 检测本地账号中的用户名是否已存在
      *
      * @param username 用户名
+     * @param type     用户账号类型
      * @return 如果该用户名已存在，返回true，否则返回false
      * @throws Exception 抛出异常
      */
-    @Select("select count(*) from auth_user where username = #{username}")
-    Boolean checkUsername(@Param("username") String username) throws Exception;
+    @Select("select count(*) from auth_user where username = #{username} and type = #{type}")
+    Boolean checkUsername(@Param("username") String username, @Param("type") UserTypeEnum type) throws Exception;
 
 }

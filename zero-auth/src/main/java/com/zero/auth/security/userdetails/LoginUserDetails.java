@@ -1,19 +1,14 @@
 package com.zero.auth.security.userdetails;
 
-import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
-import com.zero.auth.security.constant.SecurityConst;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * SpringSecurity用户详情封装对象
@@ -31,12 +26,7 @@ public class LoginUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : user.getRoles()) {
-            // 要以ROLE_开头
-            authorities.add(new SimpleGrantedAuthority(SecurityConst.ROLE_ + role.getName()));
-        }
-        return authorities;
+        return user.getRoles();
     }
 
     @Override

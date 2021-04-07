@@ -82,7 +82,7 @@ public interface UserService extends BaseService<User> {
     void addUserRole(Integer userId, Integer roleId) throws Exception;
 
     /**
-     * 检测用户名是否已存在
+     * 检测本地用户名是否已存在
      *
      * @param username 用户名
      * @return 如果该用户名已存在，返回true，否则返回false
