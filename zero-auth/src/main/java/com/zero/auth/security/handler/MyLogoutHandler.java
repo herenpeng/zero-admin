@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class MyLogoutHandler implements LogoutHandler {
 
-    private final RedisUtils redisUtils;
+    private final RedisUtils<String, Object> redisUtils;
 
     private final RequestUtils requestUtils;
 

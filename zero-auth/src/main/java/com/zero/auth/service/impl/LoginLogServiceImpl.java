@@ -38,7 +38,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     private final JwtProperties jwtProperties;
 
-    private final RedisUtils redisUtils;
+    private final RedisUtils<String,Object> redisUtils;
 
     private final IpUtils ipUtils;
 
