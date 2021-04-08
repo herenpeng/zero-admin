@@ -1,6 +1,6 @@
 package com.zero.auth.security.handler;
 
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.security.util.SecurityUtils;
 import com.zero.auth.util.ResponseUtils;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.response.domain.ResponseData;
@@ -27,11 +27,11 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final ResponseUtils responseUtils;
 
-    private final JwtUtils jwtUtils;
+    private final SecurityUtils securityUtils;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
-        String username = jwtUtils.getUsername(request);
+        String username = securityUtils.getUsername(request);
         log.info("[权限管理]用户【{}】访问权限不足", username);
         ResponseData<Void> responseData = ResponseData.code(MyExceptionEnum.INSUFFICIENT_AUTHENTICATION.getCode())
                 .message("您的访问权限不足，无法访问该页面数据，或进行该操作");

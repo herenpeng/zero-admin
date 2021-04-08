@@ -1,13 +1,19 @@
 package com.zero.oauth.github.service.impl;
 
 import com.zero.auth.entity.User;
+import com.zero.auth.entity.UserInfo;
+import com.zero.auth.enums.UserTypeEnum;
+import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
+import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.service.RoleService;
 import com.zero.oauth.github.entity.GithubUser;
 import com.zero.oauth.github.mapper.GithubUserMapper;
 import com.zero.oauth.github.service.GithubService;
 import com.zero.oauth.github.util.GithubUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,26 +40,95 @@ public class GithubServiceImpl implements GithubService {
 
     private final UserMapper userMapper;
 
+    private final RoleService roleService;
+
+    private final UserInfoMapper userInfoMapper;
+
+    private final SecurityUtils securityUtils;
+
     @Override
     public String login(String code, String state, HttpServletRequest request) throws Exception {
         String accessToken = githubUtils.getGithubToken(code);
         GithubUser githubUser = githubUtils.getGithubUser(accessToken);
-        Integer id = githubUserMapper.selectIdByGithubId(githubUser.getGithubId());
+        GithubUser localGithubUser = githubUserMapper.selectByGithubId(githubUser.getGithubId());
+        User user;
         // 如果本地数据库没有该 Github 的用户信息，说明的第一次授权登录
-        if (ObjectUtils.isEmpty(id)) {
-            User user = new User();
-            user.setUsername(githubUser.getLogin());
-            // 设置一个随机密码
-            user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
-            userMapper.insert(user);
-            // 直接插入该用户数据
-            githubUserMapper.insert(githubUser);
+        if (ObjectUtils.isEmpty(localGithubUser)) {
+            user = githubUserFirstLogin(githubUser);
         } else {
             // 否则则更新本地信息，因为 Github 的用户信息可能会被用户修改
-            githubUser.setId(id);
-            githubUserMapper.updateById(githubUser);
+            user = updateGithubUser(githubUser, localGithubUser);
         }
-
-        return null;
+        // 开始生成本地 JWT
+        return securityUtils.generateJwt(user, request);
     }
+
+
+    /**
+     * 从github获取的用户信息，并插入本地数据库
+     *
+     * @param githubUser 远端的 Github 用户信息
+     */
+    private User githubUserFirstLogin(GithubUser githubUser) {
+        User user = new User();
+        user.setUsername(githubUser.getLogin());
+        // 设置一个随机密码
+        user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+        // 添加的用户类型为 GITHUB
+        user.setType(UserTypeEnum.GITHUB);
+        userMapper.insert(user);
+        Integer userId = user.getId();
+        // 赋予该用户默认角色
+        roleService.setAcquiescence(userId);
+        // 插入User对象之后，同时插入一个UserInfo对象
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(userId);
+        String email = githubUser.getEmail();
+        if (StringUtils.isNotBlank(email)) {
+            userInfo.setMail(email);
+        }
+        String avatarUrl = githubUser.getAvatarUrl();
+        if (StringUtils.isNotBlank(avatarUrl)) {
+            userInfo.setAvatar(avatarUrl);
+        }
+        userInfoMapper.insert(userInfo);
+        // 将用户主键关联道githubUser中
+        githubUser.setUserId(userId);
+        githubUserMapper.insert(githubUser);
+        return user;
+    }
+
+    /**
+     * 更新 Github 的用户信息
+     *
+     * @param githubUser      远端的 Github 用户信息
+     * @param localGithubUser 本地的 Github 用户信息
+     */
+    private User updateGithubUser(GithubUser githubUser, GithubUser localGithubUser) {
+        githubUser.setId(localGithubUser.getId());
+        Integer userId = localGithubUser.getUserId();
+        githubUser.setUserId(userId);
+        // 更新 Github 用户信息
+        githubUserMapper.updateById(githubUser);
+
+        // 更新用户名
+        User user = userMapper.selectById(userId);
+        user.setUsername(githubUser.getLogin());
+        userMapper.updateById(user);
+
+        UserInfo userInfo = userInfoMapper.selectById(userId);
+        String email = githubUser.getEmail();
+        if (StringUtils.isNotBlank(email)) {
+            userInfo.setMail(email);
+        }
+        String avatarUrl = githubUser.getAvatarUrl();
+        if (StringUtils.isNotBlank(avatarUrl)) {
+            userInfo.setAvatar(avatarUrl);
+        }
+        // 更新本地 UserInfo 信息
+        userInfoMapper.updateById(userInfo);
+        return user;
+    }
+
+
 }

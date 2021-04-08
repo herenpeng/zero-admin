@@ -1,7 +1,7 @@
 package com.zero.sys.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.constant.StringConst;
 import com.zero.common.http.util.IpUtils;
@@ -10,7 +10,6 @@ import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -28,7 +27,6 @@ import java.util.Date;
  * @author herenpeng
  * @since 2020-10-27 23:21
  */
-@Slf4j
 @RequiredArgsConstructor
 @Aspect
 @Component
@@ -36,7 +34,7 @@ public class LogAop {
 
     private final HttpServletRequest request;
 
-    private final JwtUtils jwtUtils;
+    private final SecurityUtils securityUtils;
 
     private final IpUtils ipUtils;
 
@@ -93,7 +91,7 @@ public class LogAop {
         // 设置方法的执行时间
         log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
         // 设置操作用户主键
-        Integer userId = jwtUtils.getUserId(request);
+        Integer userId = securityUtils.getUserId(request);
         log.setOperationUserId(userId);
         // 获取用户请求的真实地址
         log.setIp(ipUtils.getIpAddr(request));

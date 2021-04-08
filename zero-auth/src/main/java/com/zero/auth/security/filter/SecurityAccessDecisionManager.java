@@ -2,7 +2,7 @@ package com.zero.auth.security.filter;
 
 import com.zero.auth.entity.Role;
 import com.zero.auth.security.constant.SecurityConst;
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.security.util.SecurityUtils;
 import com.zero.auth.util.RequestUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -33,7 +33,7 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
 
     private final RequestUtils requestUtils;
 
-    private final JwtUtils jwtUtils;
+    private final SecurityUtils securityUtils;
 
     /**
      * 权限认证
@@ -58,7 +58,7 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
             }
             // 获取请求token
             String token = requestUtils.getToken(request);
-            List<Role> roleList = jwtUtils.getRoleList(token);
+            List<Role> roleList = securityUtils.getRoleList(token);
             // 判断逻辑：当然登录用户角色只要满足资源路径的其中一个角色便可以访问
             for (Role role : roleList) {
                 if (StringUtils.equals(role.getAuthority(), configAttribute.getAttribute())) {

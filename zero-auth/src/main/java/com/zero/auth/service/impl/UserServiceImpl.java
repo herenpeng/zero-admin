@@ -10,7 +10,8 @@ import com.zero.auth.entity.UserRole;
 import com.zero.auth.enums.UserTypeEnum;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.service.RoleService;
 import com.zero.auth.service.UserService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.MyException;
@@ -21,7 +22,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
@@ -49,9 +49,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     private final UserProperties userProperties;
 
-    private final JwtUtils jwtUtils;
+    private final SecurityUtils securityUtils;
 
     private final LoginLogMapper loginLogMapper;
+
+    private final RoleService roleService;
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
@@ -79,18 +81,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         // 本地系统添加的用户类型为 LOCAL
         user.setType(UserTypeEnum.LOCAL);
         int result = baseMapper.insert(user);
+        // 赋予该用户默认角色
+        roleService.setAcquiescence(user.getId());
         // 插入User对象之后，同时插入一个UserInfo对象
         UserInfo userInfo = new UserInfo();
         userInfo.setId(user.getId());
         userInfoMapper.insert(userInfo);
-        // 赋予该用户默认角色
-        Role role = roleMapper.selectAcquiescence();
-        if (!ObjectUtils.isEmpty(role)) {
-            UserRole userRole = new UserRole();
-            userRole.setUserId(user.getId());
-            userRole.setRoleId(role.getId());
-            userRoleMapper.insert(userRole);
-        }
         return SqlHelper.retBool(result);
     }
 
@@ -106,7 +102,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public User token(String accessToken) throws Exception {
-        User user = jwtUtils.getUser(accessToken);
+        User user = securityUtils.getUser(accessToken);
         UserInfo userInfo = userInfoMapper.selectById(user.getId());
         user.setUserInfo(userInfo);
         return user;
@@ -151,7 +147,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public Boolean checkPassword(String password) throws Exception {
-        Integer id = jwtUtils.getUserId(request);
+        Integer id = securityUtils.getUserId(request);
         User user = baseMapper.selectById(id);
         return passwordEncoder.matches(password, user.getPassword());
     }
@@ -188,7 +184,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public void resetPassword(String oldPassword, String newPassword) throws Exception {
-        Integer id = jwtUtils.getUserId(request);
+        Integer id = securityUtils.getUserId(request);
         User user = baseMapper.selectById(id);
         if (!checkPassword(oldPassword)) {
             log.error("[重置用户密码]用户{}密码输入错误", user.getUsername());

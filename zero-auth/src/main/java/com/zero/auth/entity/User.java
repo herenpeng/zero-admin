@@ -79,6 +79,9 @@ public class User extends BaseEntity {
     /**
      * 用户类型
      */
+    @ApiModelProperty(value = "用户类型")
+    @Excel(name = "用户类型", width = 15, needMerge = true)
+    @TableField(value = "type")
     private UserTypeEnum type;
 
     /**

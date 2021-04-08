@@ -75,6 +75,13 @@ public class GithubUser extends BaseEntity {
     @TableField(value = "login")
     private String login;
     /**
+     * 用户表主键
+     */
+    @ApiModelProperty(value = "用户表主键")
+    @Excel(name = "用户表主键", width = 15, needMerge = true)
+    @TableField(value = "user_id")
+    private Integer userId;
+    /**
      * Github用户主键
      */
     @ApiModelProperty(value = "Github用户主键")

@@ -74,9 +74,9 @@ public class RoleController extends BaseController<RoleService, Role> {
             @ApiImplicitParam(name = "role", value = "角色实体", dataTypeClass = Role.class, required = true)
     })
     @PutMapping("acquiescence")
-    public ResponseData<Void> setAcquiescence(@RequestBody Role role) throws Exception {
-        baseService.setAcquiescence(role);
-        return ResponseData.ok().message("默认角色设置成功");
+    public ResponseData<Void> updateAcquiescence(@RequestBody Role role) throws Exception {
+        baseService.updateAcquiescence(role);
+        return ResponseData.ok().message("默认角色修改成功");
     }
 
 

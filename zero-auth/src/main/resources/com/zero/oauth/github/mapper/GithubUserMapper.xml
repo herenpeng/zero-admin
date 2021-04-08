@@ -5,6 +5,7 @@
     <resultMap id="resultMap" type="com.zero.oauth.github.entity.GithubUser">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="login" jdbcType="VARCHAR" property="login"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="github_id" jdbcType="INTEGER" property="githubId"/>
         <result column="node_id" jdbcType="VARCHAR" property="nodeId"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
@@ -44,12 +45,15 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`,`login`,`github_id`,`node_id`,`url`,`html_url`,`type`,`public_repos`,`avatar_url`,`public_gists`,`gravatar_id`,`followers_url`,`site_admin`,`following_url`,`gists_url`,`starred_url`,`subscriptions_url`,`organizations_url`,`repos_url`,`events_url`,`received_events_url`,`name`,`company`,`blog`,`location`,`email`,`hireable`,`bio`,`twitter_username`,`followers`,`following`,`created_at`,`updated_at`
+        `id`,`login`,`user_id`,`github_id`,`node_id`,`url`,`html_url`,`type`,`public_repos`,`avatar_url`,`public_gists`,`gravatar_id`,`followers_url`,`site_admin`,`following_url`,`gists_url`,`starred_url`,`subscriptions_url`,`organizations_url`,`repos_url`,`events_url`,`received_events_url`,`name`,`company`,`blog`,`location`,`email`,`hireable`,`bio`,`twitter_username`,`followers`,`following`,`created_at`,`updated_at`
     </sql>
 
     <sql id="baseQuery">
         <if test="queryGithubUser.login != null and queryGithubUser.login != ''">
             and login like concat('%', #{queryGithubUser.login}, '%')
+        </if>
+        <if test="queryGithubUser.userId != null">
+            and user_id = #{queryGithubUser.userId}
         </if>
         <if test="queryGithubUser.githubId != null">
             and github_id = #{queryGithubUser.githubId}
@@ -147,21 +151,54 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`login` as login,`github_id` as github_id,`node_id` as node_id,`url` as url,`html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,`public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,`site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as starred_url,`subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,`events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,`blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,`twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as created_at,`updated_at` as updated_at,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`login` as login,`user_id` as user_id,`github_id` as github_id,`node_id` as node_id,`url` as
+        url,
+        `html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,
+        `public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,
+        `site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as
+        starred_url,
+        `subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,
+        `events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,
+        `blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,
+        `twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as
+        created_at,
+        `updated_at` as updated_at
         from oauth_github_user
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id,`login` as login,`github_id` as github_id,`node_id` as node_id,`url` as url,`html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,`public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,`site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as starred_url,`subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,`events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,`blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,`twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as created_at,`updated_at` as updated_at,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`login` as login,`user_id` as user_id,`github_id` as github_id,`node_id` as node_id,`url` as
+        url,
+        `html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,
+        `public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,
+        `site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as
+        starred_url,
+        `subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,
+        `events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,
+        `blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,
+        `twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as
+        created_at,
+        `updated_at` as updated_at
         from oauth_github_user
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`login` as login,`github_id` as github_id,`node_id` as node_id,`url` as url,`html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,`public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,`site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as starred_url,`subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,`events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,`blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,`twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as created_at,`updated_at` as updated_at,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`login` as login,`user_id` as user_id,`github_id` as github_id,`node_id` as node_id,`url` as
+        url,
+        `html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,
+        `public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,
+        `site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as
+        starred_url,
+        `subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,
+        `events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,
+        `blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,
+        `twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as
+        created_at,
+        `updated_at` as updated_at
         from oauth_github_user
         where deleted = 1
         <include refid="baseQuery"></include>

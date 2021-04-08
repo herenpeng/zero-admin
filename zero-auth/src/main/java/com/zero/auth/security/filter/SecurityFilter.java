@@ -5,7 +5,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.security.constant.SecurityConst;
 import com.zero.auth.security.jwt.properties.JwtProperties;
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.security.util.SecurityUtils;
 import com.zero.auth.util.RequestUtils;
 import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
@@ -42,11 +42,11 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
 
     private final ResourcesMapper resourcesMapper;
 
-    private final RedisUtils redisUtils;
+    private final RedisUtils<String, Object> redisUtils;
 
     private final JwtProperties jwtProperties;
 
-    private final JwtUtils jwtUtils;
+    private final SecurityUtils securityUtils;
 
     @SneakyThrows
     @Override
@@ -73,10 +73,11 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
     }
 
     /**
+     * 校验Token
+     *
      * @param request HttpServletRequest请求对象
-     * @return 如果token合法，返回token，否则抛出异常信息
      */
-    private String checkToken(HttpServletRequest request) {
+    private void checkToken(HttpServletRequest request) {
         // 获取token
         String token = requestUtils.getToken(request);
         if (StringUtils.isBlank(token)) {
@@ -87,7 +88,7 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
         // 解析token
         String tokenId;
         try {
-            tokenId = jwtUtils.getId(token);
+            tokenId = securityUtils.getId(token);
         } catch (Exception e) {
             log.error("[系统登录功能]解析token失败");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
@@ -98,7 +99,6 @@ public class SecurityFilter implements FilterInvocationSecurityMetadataSource {
             log.error("[系统登录功能]该token已失效或已过期");
             throw new MyException(MyExceptionEnum.ILLEGAL_TOKEN);
         }
-        return token;
     }
 
 

@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.Role;
+import com.zero.auth.entity.UserRole;
 import com.zero.auth.mapper.RoleMapper;
+import com.zero.auth.mapper.UserRoleMapper;
 import com.zero.auth.properties.RoleProperties;
 import com.zero.auth.service.RoleService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
@@ -33,6 +35,8 @@ import java.util.List;
 public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implements RoleService {
 
     private final RoleProperties roleProperties;
+
+    private final UserRoleMapper userRoleMapper;
 
     @Override
     public IPage<Role> page(Integer currentPage, Integer size, Role queryRole) throws Exception {
@@ -67,7 +71,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     }
 
     @Override
-    public void setAcquiescence(Role role) throws Exception {
+    public void updateAcquiescence(Role role) throws Exception {
         // 如果默认值为true，则说明是由非默认角色修改为默认角色
         // 如果传入的默认值为false，则说明是由默认角色修改为非默认角色
         if (role.getAcquiescence()) {
@@ -80,6 +84,18 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
             }
         }
         baseMapper.updateById(role);
+    }
+
+    @Override
+    public void setAcquiescence(Integer userId) {
+        // 赋予该用户默认角色
+        Role role = baseMapper.selectAcquiescence();
+        if (!ObjectUtils.isEmpty(role)) {
+            UserRole userRole = new UserRole();
+            userRole.setUserId(userId);
+            userRole.setRoleId(role.getId());
+            userRoleMapper.insert(userRole);
+        }
     }
 
     @Override
@@ -104,6 +120,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
         List<Role> exportData = list(queryRole);
         excelUtils.exportExcel("角色列表", Role.class, exportData, response);
     }
+
 
     /**
      * 校验Root角色的权限，不允许所有用户对该Root角色进行修改，删除等等操作

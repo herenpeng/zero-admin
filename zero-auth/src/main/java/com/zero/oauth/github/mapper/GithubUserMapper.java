@@ -69,10 +69,10 @@ public interface GithubUserMapper extends BaseMapper<GithubUser> {
      * 通过github用户主键获取用户的本地主键
      *
      * @param githubId github用户主键
-     * @return Github 用户的本地主键
+     * @return GithubUser 用户的本地主键
      * @throws Exception 抛出异常
      */
-    @Select("select id from oauth_github_user where github_id = #{githubId}")
-    Integer selectIdByGithubId(@Param("githubId") Integer githubId) throws Exception;
+    @Select("select * from oauth_github_user where github_id = #{githubId}")
+    GithubUser selectByGithubId(@Param("githubId") Integer githubId) throws Exception;
 
 }

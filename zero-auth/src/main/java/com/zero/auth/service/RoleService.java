@@ -47,10 +47,20 @@ public interface RoleService extends BaseService<Role> {
 
     /**
      * 通过主键设置或者取消默认角色
+     *
      * @param role 角色实体
      * @throws Exception 抛出异常
      */
-    void setAcquiescence(Role role) throws Exception;
+    void updateAcquiescence(Role role) throws Exception;
+
+
+    /**
+     * 给指定的用户设置默认的角色
+     *
+     * @param userId
+     * @throws Exception
+     */
+    void setAcquiescence(Integer userId);
 
     /**
      * 分页查询逻辑删除的系统角色表数据

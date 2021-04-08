@@ -17,6 +17,7 @@ spring:
     static-locations: file:G:\temp\
 zero:
   domain-name: http://127.0.0.1:10000
+  vue-domain: http://127.0.0.1:20000
   auth:
     security:
       jwt:

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserRole;
+import com.zero.auth.enums.UserTypeEnum;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.mapper.UserRoleMapper;
@@ -44,7 +45,7 @@ public class RootUser implements StartEvent {
     @Override
     public void doEvent() throws Exception {
         // 如果root用户为空，插入一个root用户
-        User user = userMapper.loadUserByUsername(userProperties.getRootUsername());
+        User user = userMapper.loadUserByUsername(userProperties.getRootUsername(), UserTypeEnum.LOCAL);
         if (ObjectUtils.isEmpty(user)) {
             user = new User();
             user.setUsername(userProperties.getRootUsername());

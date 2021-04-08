@@ -13,6 +13,7 @@ spring:
     static-locations: file:/usr/web-project/zero-admin/static/
 zero:
   domain-name: http://zeroadmin.herenpeng.com
+  vue-domain: http://zeroadmin.herenpeng.com
   auth:
     security:
       jwt:

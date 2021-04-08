@@ -1,11 +1,11 @@
 package com.zero.upload.util;
 
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.constant.StringConst;
 import com.zero.common.exception.MyException;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.http.constant.HttpConst;
-import com.zero.common.properties.ZeroProperties;
+import com.zero.common.properties.AppProperties;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.enums.FileTypeEnums;
 import com.zero.upload.mapper.FileManageMapper;
@@ -34,11 +34,11 @@ import java.util.*;
 @Component
 public class UploadUtils {
 
-    private final ZeroProperties zeroProperties;
+    private final AppProperties appProperties;
 
     private final UploadProperties uploadProperties;
 
-    private final JwtUtils jwtUtils;
+    private final SecurityUtils securityUtils;
 
     private final HttpServletRequest request;
 
@@ -93,7 +93,7 @@ public class UploadUtils {
         fileManage.setPath(newFile.getPath());
         fileManage.setUri(uri);
         fileManage.setUploadTime(new Date());
-        fileManage.setUploadUserId(jwtUtils.getUserId(request));
+        fileManage.setUploadUserId(securityUtils.getUserId(request));
         fileManageMapper.insert(fileManage);
         return uri;
     }
@@ -131,7 +131,7 @@ public class UploadUtils {
     private String generateFileUri(FileUpload fileUpload, String fileName) {
         Calendar calendar = Calendar.getInstance();
         // 项目http域名
-        return zeroProperties.getApiPath() +
+        return appProperties.getApiPath() +
                 // 存储图片的顶级路径
                 HttpConst.PATH_SEPARATOR + fileUpload.getPath() +
                 // 存储年份路径
@@ -198,7 +198,7 @@ public class UploadUtils {
         bakFile.setName(fileManage.getName());
         bakFile.setType(fileManage.getType());
         bakFile.setUploadTime(new Date());
-        bakFile.setUploadUserId(jwtUtils.getUserId(request));
+        bakFile.setUploadUserId(securityUtils.getUserId(request));
         // 源文件磁盘路径
         String path = fileManage.getPath();
         // 获取源文件

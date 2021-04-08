@@ -1,7 +1,7 @@
 package com.zero.auth.security.handler;
 
 import com.zero.auth.security.jwt.properties.JwtProperties;
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.security.util.SecurityUtils;
 import com.zero.auth.service.LoginLogService;
 import com.zero.auth.util.RequestUtils;
 import com.zero.auth.util.ResponseUtils;
@@ -35,7 +35,7 @@ public class MyLogoutHandler implements LogoutHandler {
 
     private final JwtProperties jwtProperties;
 
-    private final JwtUtils jwtUtils;
+    private final SecurityUtils securityUtils;
 
     private final ResponseUtils responseUtils;
 
@@ -45,8 +45,8 @@ public class MyLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String token = requestUtils.getToken(request);
-        String tokenId = jwtUtils.getId(token);
-        Integer userId = jwtUtils.getUserId(token);
+        String tokenId = securityUtils.getId(token);
+        Integer userId = securityUtils.getUserId(token);
 
         // 登出的时候，更新登入记录
         loginLogService.logoutLog(userId, tokenId);
