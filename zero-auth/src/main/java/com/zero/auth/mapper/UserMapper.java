@@ -3,7 +3,7 @@ package com.zero.auth.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.User;
-import com.zero.auth.enums.UserTypeEnum;
+import com.zero.auth.enums.UserTypeEnums;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -46,7 +46,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 用户信息
      * @throws Exception 抛出异常
      */
-    User loadUserByUsername(@Param("username") String username, @Param("type") UserTypeEnum type);
+    User loadUserByUsername(@Param("username") String username, @Param("type") UserTypeEnums type);
 
     /**
      * 分页查询逻辑删除的用户数据
@@ -85,6 +85,6 @@ public interface UserMapper extends BaseMapper<User> {
      * @throws Exception 抛出异常
      */
     @Select("select count(*) from auth_user where username = #{username} and type = #{type}")
-    Boolean checkUsername(@Param("username") String username, @Param("type") UserTypeEnum type) throws Exception;
+    Boolean checkUsername(@Param("username") String username, @Param("type") UserTypeEnums type) throws Exception;
 
 }

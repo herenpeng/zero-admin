@@ -1,5 +1,6 @@
 package com.zero.auth.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,21 +12,25 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum UserTypeEnum {
+public enum UserTypeEnums {
     /**
      * 本地账号
      */
-    LOCAL,
+    LOCAL("LOCAL"),
     /**
      * Github第三方登录，由系统生成的账号
      */
-    GITHUB,
+    GITHUB("GITHUB"),
     /**
      * Wechat第三方登录，由系统生成的账号
      */
-    WECHAT,
+    WECHAT("WECHAT"),
     /**
      * QQ第三方登录，由系统生成的账号
      */
-    QQ;
+    QQ("QQ");
+
+    @EnumValue
+    private String value;
+
 }

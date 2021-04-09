@@ -7,7 +7,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.entity.UserRole;
-import com.zero.auth.enums.UserTypeEnum;
+import com.zero.auth.enums.UserTypeEnums;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
 import com.zero.auth.security.util.SecurityUtils;
@@ -79,7 +79,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         String encodePassword = passwordEncoder.encode(defaultPassword);
         user.setPassword(encodePassword);
         // 本地系统添加的用户类型为 LOCAL
-        user.setType(UserTypeEnum.LOCAL);
+        user.setType(UserTypeEnums.LOCAL);
         int result = baseMapper.insert(user);
         // 赋予该用户默认角色
         roleService.setAcquiescence(user.getId());
@@ -142,7 +142,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public Boolean checkUsername(String username) throws Exception {
-        return baseMapper.checkUsername(username, UserTypeEnum.LOCAL);
+        return baseMapper.checkUsername(username, UserTypeEnums.LOCAL);
     }
 
     @Override

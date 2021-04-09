@@ -74,7 +74,7 @@ mybatis-plus:
       # 没有删除状态为0(false)
       logic-not-delete-value: false
   # 枚举类型包
-  type-enums-package: com.zero.upload.enums
+  type-enums-package: com.zero.*.enums
 zero:
   api-path: ${zero.domain-name}${server.servlet.context-path}
   auth:

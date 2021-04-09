@@ -1,8 +1,10 @@
 package com.zero.oauth.github.service.impl;
 
+import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
-import com.zero.auth.enums.UserTypeEnum;
+import com.zero.auth.enums.UserTypeEnums;
+import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.util.TokenUtils;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -39,6 +42,8 @@ public class GithubServiceImpl implements GithubService {
     private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
+
+    private final RoleMapper roleMapper;
 
     private final RoleService roleService;
 
@@ -60,6 +65,8 @@ public class GithubServiceImpl implements GithubService {
             user = updateGithubUser(githubUser, localGithubUser);
         }
         // 开始生成本地 JWT
+        List<Role> roles = roleMapper.getByUserId(user.getId());
+        user.setRoles(roles);
         return tokenUtils.generateJwt(user, request);
     }
 
@@ -75,7 +82,7 @@ public class GithubServiceImpl implements GithubService {
         // 设置一个随机密码
         user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
         // 添加的用户类型为 GITHUB
-        user.setType(UserTypeEnum.GITHUB);
+        user.setType(UserTypeEnums.GITHUB);
         userMapper.insert(user);
         Integer userId = user.getId();
         // 赋予该用户默认角色

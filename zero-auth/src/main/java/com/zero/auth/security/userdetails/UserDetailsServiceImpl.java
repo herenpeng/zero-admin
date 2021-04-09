@@ -1,7 +1,7 @@
 package com.zero.auth.security.userdetails;
 
 import com.zero.auth.entity.User;
-import com.zero.auth.enums.UserTypeEnum;
+import com.zero.auth.enums.UserTypeEnums;
 import com.zero.auth.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.loadUserByUsername(username, UserTypeEnum.LOCAL);
+        User user = userMapper.loadUserByUsername(username, UserTypeEnums.LOCAL);
         if (ObjectUtils.isEmpty(user)) {
             log.error("[登录功能]用户名{}不存在！", username);
             throw new UsernameNotFoundException("用户名" + username + "不存在！");
