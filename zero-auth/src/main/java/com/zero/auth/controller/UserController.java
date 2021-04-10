@@ -55,7 +55,7 @@ public class UserController extends BaseController<UserService, User> {
             @PathVariable("id") Integer id,
             @RequestParam("enabled") Boolean enabled) throws Exception {
         baseService.enabled(id, enabled);
-        return ResponseData.ok();
+        return ResponseData.ok().message("更新用户状态成功");
     }
 
 
