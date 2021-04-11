@@ -15,7 +15,8 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - 系统静态资源文件管理功能，系统静态资源文件自由管理。
 - 基于注解的AOP日志管理功能，记录每一个接口请求。
 - 逻辑删除数据，及数据回收站功能。
-- 通用后端代码一键生成，支持自定义代码模板。
+- 前后端代码一键生成，支持自定义代码模板。
+- GitHub OAuth2授权登录，无需注册账号。
 
 
 ## 项目开发环境
@@ -33,6 +34,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - FreeMarker
 - SpringDataRedis
 - SpringBootMail
+- OAuth2
 - easyPoi
 - oshi
 
@@ -49,8 +51,10 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 
 6、运行MyApplication的main()方法，启动项目。
 
-【备注】如果需要使用项目的邮件发送功能，需要修改application.yml文件中的spring.mail.username和spring.mail.password配置。
+【备注】
 
+- 如果需要使用项目的邮件发送功能，需要修改application.yml文件中的spring.mail.username和spring.mail.password配置。
+- 如果需要使用GitHub授权登录功能，需要将配置文件中的client-id和client-secrets进行配置。
 
 ## 项目开发约束
 
