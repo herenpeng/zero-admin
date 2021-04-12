@@ -1,4 +1,4 @@
-package com.zero.auth.util;
+package com.zero.common.response.util;
 
 import com.zero.common.enums.EncodingEnums;
 import com.zero.common.util.JsonUtils;
@@ -39,6 +39,5 @@ public class ResponseUtils {
         writer.flush();
         writer.close();
     }
-
 
 }

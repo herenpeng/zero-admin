@@ -1,8 +1,8 @@
 package com.zero.auth.security.handler;
 
-import com.zero.auth.util.ResponseUtils;
 import com.zero.common.exception.MyExceptionEnum;
 import com.zero.common.response.domain.ResponseData;
+import com.zero.common.response.util.ResponseUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.*;
