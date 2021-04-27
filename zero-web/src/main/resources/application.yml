@@ -146,7 +146,9 @@ zero:
       # 系统停止事件开关，true为开启，false为关闭
       execution-stop: true
     http:
-      url:
-        ip-info: https://ip.taobao.com/outGetIpInfo?accessKey=alibaba-inc&ip=
+      third:
+        api:
+          ip-info: https://ip.taobao.com/outGetIpInfo?accessKey=alibaba-inc&ip=
+          weather-info: http://wthrcdn.etouch.cn/weather_mini?city=
 
 

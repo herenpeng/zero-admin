@@ -17,6 +17,8 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -102,6 +104,8 @@ public class LogAop {
         log.setMethod(joinPoint.getTarget().getClass() + StringConst.POINT + joinPoint.getSignature().getName());
         // 设置请求参数
         Object[] args = joinPoint.getArgs();
+        // 忽略一些特殊参数
+        ignoreArgs(args);
         log.setRequestArgs(jsonUtils.toJson(args));
         // 设置方法描述信息
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
@@ -113,6 +117,17 @@ public class LogAop {
             ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
             if (ObjectUtils.allNotNull(apiOperation)) {
                 log.setDescription(apiOperation.value());
+            }
+        }
+    }
+
+    private void ignoreArgs(Object[] args) {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof ServletRequest) {
+                args[i] = null;
+            }
+            if (args[i] instanceof ServletResponse) {
+                args[i] = null;
             }
         }
     }

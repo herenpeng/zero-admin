@@ -154,11 +154,11 @@
             <artifactId>oshi-core</artifactId>
             <version>${oshi-core.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.httpcomponents</groupId>-->
+<!--            <artifactId>httpclient</artifactId>-->
+<!--            <version>${httpclient.version}</version>-->
+<!--        </dependency>-->
         <!--devtools热部署依赖-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->

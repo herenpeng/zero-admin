@@ -1,7 +1,7 @@
 package com.zero.common.http.util;
 
 import com.zero.common.http.domain.IpInfo;
-import com.zero.common.http.properties.HttpUrl;
+import com.zero.common.http.properties.HttpThirdApi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -26,11 +26,27 @@ public class IpUtils {
 
     private final RestTemplate restTemplate;
 
-    private final HttpUrl httpUrl;
+    private final HttpThirdApi httpThirdApi;
 
+    /**
+     * 通过 HttpServletRequest 对象获取真实地址
+     *
+     * @param request HttpServletRequest对象
+     * @return 真实地址
+     */
+    public IpInfo getIpInfo(HttpServletRequest request) {
+        return getIpInfo(getIpAddr(request));
+    }
+
+    /**
+     * 通过 IP 地址获取真实地址
+     *
+     * @param ip IP 地址
+     * @return 真实地址
+     */
     public IpInfo getIpInfo(String ip) {
         try {
-            String url = httpUrl.getIpInfo() + ip;
+            String url = httpThirdApi.getIpInfo() + ip;
             ResponseEntity<IpInfo> responseEntity = restTemplate.getForEntity(url, IpInfo.class);
             HttpStatus statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
@@ -40,8 +56,8 @@ public class IpUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
             log.warn("[获取IP信息]ip：{}信息获取失败", ip);
+            e.printStackTrace();
         }
         return null;
     }

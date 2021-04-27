@@ -14,9 +14,13 @@ import lombok.Getter;
 public enum EncodingEnums {
 
     /**
-     * UTF-8编码
+     * UTF-8 编码
      */
-    UTF_8("UTF-8");
+    UTF_8("UTF-8"),
+    /**
+     * ISO-8859-1 编码
+     */
+    ISO_8859_1("ISO-8859-1");
 
     /**
      * 编码格式
