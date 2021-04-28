@@ -1,5 +1,6 @@
 package com.zero.common.http.util;
 
+import com.zero.common.constant.StringConst;
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.properties.HttpThirdApi;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +63,17 @@ public class IpUtils {
         return null;
     }
 
+    /**
+     * 一个IP地址的长度 "***.***.***.***".length() = 15
+     */
+    private static final int IP_LENGTH = 15;
+    /**
+     * ip地址不存在的字符串
+     */
+    private static final String UNKNOWN = "unknown";
+    private static final String X_FORWARDED_FOR = "X-Forwarded-For";
+    private static final String PROXY_CLIENT_IP = "Proxy-Client-IP";
+    private static final String WL_PROXY_CLIENT_IP = "WL-Proxy-Client-IP";
 
     /**
      * 获取访问用户的真实地址，因为如果使用了nginx反向代理，无法获取访问用户的真实地址
@@ -70,15 +82,21 @@ public class IpUtils {
      * @return 真实ip地址
      */
     public String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
+        String ip = request.getHeader(X_FORWARDED_FOR);
         if (checkIp(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
+            ip = request.getHeader(PROXY_CLIENT_IP);
         }
         if (checkIp(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
+            ip = request.getHeader(WL_PROXY_CLIENT_IP);
         }
         if (checkIp(ip)) {
             ip = request.getRemoteAddr();
+        }
+        // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
+        if (StringUtils.isNotBlank(ip) && ip.length() > IP_LENGTH) {
+            if (ip.indexOf(StringConst.COMMA) > 0) {
+                ip = ip.substring(0, ip.indexOf(StringConst.COMMA));
+            }
         }
         return ip;
     }
@@ -90,7 +108,7 @@ public class IpUtils {
      * @return ip是否有效，布尔值
      */
     private boolean checkIp(String ip) {
-        return StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip);
+        return StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip);
     }
 
 

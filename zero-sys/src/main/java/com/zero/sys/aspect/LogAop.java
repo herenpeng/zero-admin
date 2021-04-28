@@ -121,6 +121,11 @@ public class LogAop {
         }
     }
 
+    /**
+     * 清楚请求参数里面的特殊参数
+     *
+     * @param args 参数数组
+     */
     private void ignoreArgs(Object[] args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof ServletRequest) {

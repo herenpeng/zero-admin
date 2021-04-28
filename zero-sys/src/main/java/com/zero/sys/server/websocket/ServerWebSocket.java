@@ -2,10 +2,10 @@ package com.zero.sys.server.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zero.common.util.JsonUtils;
-import com.zero.sys.server.domain.Cpu;
-import com.zero.sys.server.domain.Jvm;
-import com.zero.sys.server.domain.Mem;
-import com.zero.sys.server.domain.ServerPieChart;
+import com.zero.sys.server.vo.Cpu;
+import com.zero.sys.server.vo.Jvm;
+import com.zero.sys.server.vo.Mem;
+import com.zero.sys.server.vo.ServerPieChart;
 import com.zero.sys.server.util.OshiUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

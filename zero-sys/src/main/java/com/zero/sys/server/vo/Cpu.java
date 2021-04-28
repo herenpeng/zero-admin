@@ -1,4 +1,4 @@
-package com.zero.sys.server.domain;
+package com.zero.sys.server.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.zero.sys.server.util.ArithHelper;

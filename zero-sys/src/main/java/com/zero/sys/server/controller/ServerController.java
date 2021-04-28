@@ -1,7 +1,7 @@
 package com.zero.sys.server.controller;
 
 import com.zero.common.response.domain.ResponseData;
-import com.zero.sys.server.domain.*;
+import com.zero.sys.server.vo.*;
 import com.zero.sys.server.util.OshiUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

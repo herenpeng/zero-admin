@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 编码
+ * 编码格式
  *
  * @author herenpeng
  * @since 2020-11-13 23:19

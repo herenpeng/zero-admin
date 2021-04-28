@@ -42,8 +42,8 @@ public class WeatherUtils {
     public static final Integer okStatus = 1000;
 
     public WeatherInfo getWeatherInfo(HttpServletRequest request) {
-        IpInfo ipInfo = ipUtils.getIpInfo(request);
-        // IpInfo ipInfo = ipUtils.getIpInfo("171.34.222.215");
+        // IpInfo ipInfo = ipUtils.getIpInfo(request);
+        IpInfo ipInfo = ipUtils.getIpInfo("171.34.222.215");
         if (ObjectUtils.isEmpty(ipInfo)) {
             log.warn("[获取天气信息]无法获取当前城市信息");
             return null;

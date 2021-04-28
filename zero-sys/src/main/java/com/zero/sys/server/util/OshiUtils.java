@@ -1,8 +1,8 @@
 package com.zero.sys.server.util;
 
-import com.zero.sys.server.domain.Cpu;
-import com.zero.sys.server.domain.Jvm;
-import com.zero.sys.server.domain.Mem;
+import com.zero.sys.server.vo.Cpu;
+import com.zero.sys.server.vo.Jvm;
+import com.zero.sys.server.vo.Mem;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;

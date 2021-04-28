@@ -1,4 +1,4 @@
-package com.zero.sys.server.domain;
+package com.zero.sys.server.vo;
 
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
