@@ -1,0 +1,7 @@
+target/
+.env
+*.log
+*.http
+
+*.iml
+.idea
