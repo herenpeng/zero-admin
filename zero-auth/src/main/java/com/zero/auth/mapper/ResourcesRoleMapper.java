@@ -20,7 +20,7 @@ public interface ResourcesRoleMapper extends BaseMapper<ResourcesRole> {
     /**
      * 删除所有的系统资源和角色之间的关系
      *
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
     @Delete("delete from auth_resources_role")
     void deleteAll() throws Exception;

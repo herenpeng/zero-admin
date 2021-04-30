@@ -42,12 +42,12 @@ public class RootMenu implements StartEvent {
         List<Menu> menuList = menuMapper.selectList(null);
         Role role = roleMapper.getByName(roleProperties.getRootName());
         for (Menu menu : menuList) {
-            MenuRole menuRole = new MenuRole();
-            menuRole.setMenuId(menu.getId());
-            menuRole.setRoleId(role.getId());
-            QueryWrapper<MenuRole> queryWrapper = new QueryWrapper(menuRole);
-            MenuRole menuRole1 = menuRoleMapper.selectOne(queryWrapper);
-            if (ObjectUtils.isEmpty(menuRole1)) {
+            MenuRole queryMenuRole = new MenuRole();
+            queryMenuRole.setMenuId(menu.getId());
+            queryMenuRole.setRoleId(role.getId());
+            QueryWrapper<MenuRole> queryWrapper = new QueryWrapper(queryMenuRole);
+            MenuRole menuRole = menuRoleMapper.selectOne(queryWrapper);
+            if (ObjectUtils.isEmpty(menuRole)) {
                 menuRoleMapper.insert(menuRole);
             }
         }

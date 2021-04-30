@@ -17,6 +17,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - 逻辑删除数据，及数据回收站功能。
 - 前后端代码一键生成，支持自定义代码模板。
 - GitHub OAuth2授权登录，无需注册账号。
+- 当前城市天气预报温馨提示、账号登录分布地图大屏展示。
 
 
 ## 项目开发环境

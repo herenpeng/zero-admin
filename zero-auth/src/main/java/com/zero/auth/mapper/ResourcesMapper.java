@@ -29,7 +29,7 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @return 系统资源集合
      * @throws Exception 抛出异常
      */
-    IPage<Resources> getPage(IPage page, @Param("queryResources") Resources queryResources) throws Exception;
+    IPage<Resources> getPage(IPage<Resources> page, @Param("queryResources") Resources queryResources) throws Exception;
 
     /**
      * 查询所有的系统资源数据
@@ -46,14 +46,14 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @param uri        请求路径
      * @param methodType 方法类型
      * @return 返回资源信息
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
     Resources getByRegexUriAndMethodType(@Param("uri") String uri, @Param("methodType") String methodType);
 
     /**
      * 删除全部的系统资源数据，【注意】该删除为物理删除，主要是用于系统停止事件的时候进行销毁资源，然后重新扫描资源
      *
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
     @Delete("delete from auth_resources")
     void deleteAll() throws Exception;

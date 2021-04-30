@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -39,7 +40,7 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public WeatherInfo.Data weather(HttpServletRequest request) throws Exception {
         WeatherInfo weatherInfo = weatherUtils.getWeatherInfo(request);
-        return weatherInfo.getData();
+        return ObjectUtils.isEmpty(weatherInfo) ? null : weatherInfo.getData();
     }
 
     @Override
