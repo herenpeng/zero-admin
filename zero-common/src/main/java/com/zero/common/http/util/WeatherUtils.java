@@ -39,7 +39,7 @@ public class WeatherUtils {
     /**
      * 天气API响应成功的状态码
      */
-    public static final Integer okStatus = 1000;
+    public static final Integer OK_STATUS = 1000;
 
     public WeatherInfo getWeatherInfo(HttpServletRequest request) {
         IpInfo ipInfo = ipUtils.getIpInfo(request);
@@ -54,7 +54,7 @@ public class WeatherUtils {
             HttpStatus statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
                 WeatherInfo weatherInfo = httpUtils.gzipDecode(responseEntity, WeatherInfo.class);
-                if (!ObjectUtils.isEmpty(weatherInfo) && okStatus.equals(weatherInfo.getStatus())) {
+                if (!ObjectUtils.isEmpty(weatherInfo) && OK_STATUS.equals(weatherInfo.getStatus())) {
                     return weatherInfo;
                 }
             }

@@ -18,6 +18,11 @@ help(){
 }
 
 start(){
+  if [ ! -x ${JAR_NAME} ]
+  then
+    echo "=== ${JAR_NAME}新增可执行权限 ==="
+    chmod +x ${JAR_NAME}
+  fi
   nohup java -Dfile.encoding=UTF-8 -jar ${JAR_NAME} --spring.profiles.active=prod >${LOG_FILE} 2>&1 &
   echo $! > ${SERVICE_DIR}/${PID_FILE}
 	echo "=== 服务${SERVICE_NAME}已启动 ==="
