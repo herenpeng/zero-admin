@@ -51,22 +51,22 @@ cd ${SERVICE_DIR}
 
 case ${1} in
     "")
-        echo "=== 参数错误 ==="
+      echo "=== 参数错误 ==="
         ;;
     help)
-        help
+      help
         ;;
     start)
-        start
+      start
         ;;
     stop)
      	stop
         ;;
     restart)
-        restart
+      restart
         ;;
     *)
-        restart
+      help
         ;;
 esac
 
