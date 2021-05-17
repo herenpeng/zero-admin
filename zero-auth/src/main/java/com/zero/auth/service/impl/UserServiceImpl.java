@@ -11,6 +11,7 @@ import com.zero.auth.enums.UserTypeEnums;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
 import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.service.LoginLogService;
 import com.zero.auth.service.RoleService;
 import com.zero.auth.service.UserService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
@@ -54,6 +55,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     private final LoginLogMapper loginLogMapper;
 
     private final RoleService roleService;
+
+    private final LoginLogService loginLogService;
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
@@ -186,6 +189,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public void resetPassword(String oldPassword, String newPassword) throws Exception {
         Integer id = securityUtils.getUserId(request);
         User user = baseMapper.selectById(id);
+        // 后端进行旧密码和用户输入的旧密码匹配校验
         if (!checkPassword(oldPassword)) {
             log.error("[重置用户密码]用户{}密码输入错误", user.getUsername());
             throw new MyException(MyExceptionEnum.PASSWORD_ERROR);
@@ -194,6 +198,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         String encodeNewPassword = passwordEncoder.encode(StringUtils.deleteWhitespace(newPassword));
         user.setPassword(encodeNewPassword);
         baseMapper.updateById(user);
+        // 重置账号密码后对该账号的所有在线用户进行下线操作
+        loginLogService.offlineAll(id);
     }
 
     /**

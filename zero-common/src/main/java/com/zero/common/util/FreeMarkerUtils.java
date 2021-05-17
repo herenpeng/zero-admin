@@ -27,7 +27,7 @@ public class FreeMarkerUtils {
      * @param ftlFileName        FreeMarker模板文件名称
      * @return FreeMarker模板内容内容字符串
      */
-    public String getTemplateContent(Object object, String templateLoaderPath, String ftlFileName) {
+    public String getTemplateContent(final Object object, final String templateLoaderPath, final String ftlFileName) {
         StringWriter out = null;
         try {
             Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);

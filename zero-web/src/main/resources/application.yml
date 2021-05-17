@@ -122,6 +122,13 @@ zero:
         path: /templates/mail
         # 邮箱验证码邮件模板文件
         file: verify.ftlh
+      login-mail:
+        # 登录邮件主题
+        subject: 系统账号登录
+        # 登录邮箱邮件模板路径
+        path: /templates/mail
+        # 登录邮箱邮件模板文件
+        file: login-mail.ftlh
   # 文件上传通用的配置信息
   upload:
     # 备份文件后缀

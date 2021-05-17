@@ -199,7 +199,7 @@ public class UserController extends BaseController<UserService, User> {
             @RequestParam("oldPassword") String oldPassword,
             @RequestParam("newPassword") String newPassword) throws Exception {
         baseService.resetPassword(oldPassword, newPassword);
-        return ResponseData.ok().message("账号密码重置成功");
+        return ResponseData.ok().message("账号密码重置成功，该账号即将自动登出，请重新登录系统");
     }
 
 }

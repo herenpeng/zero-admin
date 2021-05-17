@@ -8,6 +8,14 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+  # rabbitmq连接配置信息
+  rabbitmq:
+    host: 127.0.0.1
+    #端口默认就是5672，如果没有RabbitMQ没有修改默认端口的话，可以不配置
+    port: 5672
+    virtual-host: /zero-admin
+    username: root
+    password: admin
   resources:
     # 访问系统外部资源，将该目录下的文件映射到系统下
     static-locations: file:/usr/web-project/zero-admin/static/

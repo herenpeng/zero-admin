@@ -33,4 +33,9 @@ public class StringConst {
      */
     public static final char UNDERLINE_SEPARATOR = '-';
 
+    /**
+     * 一个字符串空格位置
+     */
+    public static final String SPACE = " ";
+
 }

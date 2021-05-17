@@ -38,7 +38,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     private final JwtProperties jwtProperties;
 
-    private final RedisUtils<String,Object> redisUtils;
+    private final RedisUtils<String, Object> redisUtils;
 
     private final IpUtils ipUtils;
 
@@ -101,7 +101,17 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
     }
 
     @Override
-    public void loginLog(HttpServletRequest request, Integer userId, String tokenId) {
+    public void offlineAll(Integer userId) throws Exception {
+        // 获取所有在线的账号登录日志
+        List<LoginLog> onlineLoginLog = online(userId);
+        // 下线该账号的所有用户
+        for (LoginLog loginLog : onlineLoginLog) {
+            offline(loginLog.getUserId(), loginLog.getTokenId());
+        }
+    }
+
+    @Override
+    public LoginLog loginLog(HttpServletRequest request, Integer userId, String tokenId) {
         // 记录登录日志
         String ip = ipUtils.getIpAddr(request);
         LoginLog loginLog = new LoginLog();
@@ -125,6 +135,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
         Date defaultLogoutTime = new Date(logoutTime);
         loginLog.setLogoutTime(defaultLogoutTime);
         baseMapper.insert(loginLog);
+        return loginLog;
     }
 
     @Override

@@ -102,6 +102,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+        <!--SpringBootAmqp的依赖支持-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
         <!--Spring单元测试的启动器-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

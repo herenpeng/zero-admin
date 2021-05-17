@@ -91,13 +91,22 @@ public interface LoginLogService extends BaseService<LoginLog> {
     void offline(Integer userId, String tokenId) throws Exception;
 
     /**
+     * 通过用户 Id 对所有的在线用户进行下线操作
+     *
+     * @param userId 指定下线的用户主键
+     * @throws Exception 抛出异常
+     */
+    void offlineAll(Integer userId) throws Exception;
+
+    /**
      * 记录登录日志
      *
      * @param request HttpServletRequest对象
      * @param userId  登录用户主键
      * @param tokenId tokenId
+     * @return 返回登录日志对象
      */
-    void loginLog(HttpServletRequest request, Integer userId, String tokenId);
+    LoginLog loginLog(HttpServletRequest request, Integer userId, String tokenId);
 
     /**
      * 登出的时候，更新登入记录

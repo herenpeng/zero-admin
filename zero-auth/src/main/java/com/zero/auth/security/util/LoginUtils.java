@@ -1,5 +1,6 @@
 package com.zero.auth.security.util;
 
+import com.zero.auth.entity.LoginLog;
 import com.zero.auth.entity.User;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
@@ -9,7 +10,9 @@ import com.zero.common.util.JsonUtils;
 import com.zero.common.util.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
@@ -21,7 +24,7 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class TokenUtils {
+public class LoginUtils {
 
     private final JsonUtils jsonUtils;
 
@@ -32,6 +35,8 @@ public class TokenUtils {
     private final RedisUtils<String, Object> redisUtils;
 
     private final LoginLogService loginLogService;
+
+    private final AmqpTemplate amqpTemplate;
 
     /**
      * 通过用户信息生成Jwt
@@ -50,7 +55,11 @@ public class TokenUtils {
         String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
         redisUtils.set(tokenRedisKey, jwt, jwtProperties.getTtl());
         // 记录登录日志
-        loginLogService.loginLog(request, user.getId(), tokenId);
+        LoginLog loginLog = loginLogService.loginLog(request, user.getId(), tokenId);
+        if (!ObjectUtils.isEmpty(loginLog) && !ObjectUtils.isEmpty(loginLog.getId())) {
+            // 发送 rabbitMq 消息，发送登录邮件日志
+            amqpTemplate.convertAndSend("amq.topic", "zero-admin.login.mail.send", loginLog.getId());
+        }
         return jwt;
     }
 

@@ -7,7 +7,7 @@ import com.zero.auth.enums.UserTypeEnums;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.security.util.TokenUtils;
+import com.zero.auth.security.util.LoginUtils;
 import com.zero.auth.service.RoleService;
 import com.zero.oauth.github.entity.GithubUser;
 import com.zero.oauth.github.mapper.GithubUserMapper;
@@ -49,7 +49,7 @@ public class GithubServiceImpl implements GithubService {
 
     private final UserInfoMapper userInfoMapper;
 
-    private final TokenUtils tokenUtils;
+    private final LoginUtils loginUtils;
 
     @Override
     public String login(String code, String state, HttpServletRequest request) throws Exception {
@@ -67,7 +67,7 @@ public class GithubServiceImpl implements GithubService {
         // 开始生成本地 JWT
         List<Role> roles = roleMapper.getByUserId(user.getId());
         user.setRoles(roles);
-        return tokenUtils.generateJwt(user, request);
+        return loginUtils.generateJwt(user, request);
     }
 
 
@@ -125,11 +125,13 @@ public class GithubServiceImpl implements GithubService {
 
         UserInfo userInfo = userInfoMapper.selectById(userId);
         String email = githubUser.getEmail();
-        if (StringUtils.isNotBlank(email)) {
+        // 当本地的邮箱为空，并且 github 用户的邮箱信息不为空的时候，才将 github 远端的邮箱信息更新到本地
+        if (StringUtils.isBlank(userInfo.getMail()) && StringUtils.isNotBlank(email)) {
             userInfo.setMail(email);
         }
+        // 当本地的头像路径为空，并且 github 用户的头像路径不为空的时候，才将 github 远端的头像路径更新到本地
         String avatarUrl = githubUser.getAvatarUrl();
-        if (StringUtils.isNotBlank(avatarUrl)) {
+        if (StringUtils.isBlank(userInfo.getAvatar()) && StringUtils.isNotBlank(avatarUrl)) {
             userInfo.setAvatar(avatarUrl);
         }
         // 更新本地 UserInfo 信息
