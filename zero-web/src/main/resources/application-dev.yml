@@ -10,7 +10,7 @@ spring:
     port: 6379
   # rabbitmq连接配置信息
   rabbitmq:
-    host: 127.0.0.1
+    host: ${SPRING_RABBITMQ_HOST}
     #端口默认就是5672，如果没有RabbitMQ没有修改默认端口的话，可以不配置
     port: 5672
     virtual-host: /zero-admin

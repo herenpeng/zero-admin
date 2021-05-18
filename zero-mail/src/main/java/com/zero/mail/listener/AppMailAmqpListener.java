@@ -61,6 +61,7 @@ public class AppMailAmqpListener {
             LoginLog loginLog = loginLogMapper.selectById(loginLoginId);
             if (!ObjectUtils.isEmpty(loginLog)) {
                 UserInfo userInfo = userInfoMapper.selectById(loginLog.getUserId());
+                // 用户信息中的邮箱地址不为空的情况下，才进行邮件发送，否则不进行登录邮件的发送
                 if (StringUtils.isNotBlank(userInfo.getMail())) {
                     User user = userMapper.selectById(userInfo.getId());
                     log.info("[邮件发送功能]发送用户{}登录邮件", user.getUsername());

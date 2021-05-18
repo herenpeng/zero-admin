@@ -17,6 +17,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - 逻辑删除数据，及数据回收站功能。
 - 前后端代码一键生成，支持自定义代码模板。
 - GitHub OAuth2授权登录，无需注册账号。
+- RabbitMQ登录消息通知，发送用户账号登录邮件。
 - 当前城市天气预报温馨提示、账号登录分布地图大屏展示。
 
 
@@ -25,6 +26,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - Maven 3.6.3
 - MySQL 5.7.30
 - Redis(Windows) 3.2.100
+- RabbitMQ
 
 ## 项目技术栈
 - SpringBoot
@@ -35,6 +37,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - FreeMarker
 - SpringDataRedis
 - SpringBootMail
+- SpringBootAmqp
 - OAuth2
 - easyPoi
 - oshi
