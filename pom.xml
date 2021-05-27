@@ -34,7 +34,6 @@
         <commons-io.version>2.6</commons-io.version>
         <springfox.version>3.0.0</springfox.version>
         <oshi-core.version>5.1.1</oshi-core.version>
-        <httpclient.version>4.5.6</httpclient.version>
     </properties>
 
     <parent>

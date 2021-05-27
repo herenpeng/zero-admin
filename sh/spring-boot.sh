@@ -20,7 +20,7 @@ help(){
 start(){
   if [ ! -x ${JAR_NAME} ]
   then
-    echo "=== ${JAR_NAME}新增可执行权限 ==="
+    echo "=== ${JAR_NAME}添加可执行权限 ==="
     chmod +x ${JAR_NAME}
   fi
   nohup java -Dfile.encoding=UTF-8 -jar ${JAR_NAME} --spring.profiles.active=prod >${LOG_FILE} 2>&1 &
