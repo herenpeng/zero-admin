@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.ConfigConstMapper">
+
+    <resultMap id="resultMap" type="com.zero.sys.entity.ConfigConst">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="key" jdbcType="VARCHAR" property="key"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="default_value" jdbcType="VARCHAR" property="defaultValue"/>
+        <result column="userable" jdbcType="BOOLEAN" property="userable"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`key`,`description`,`default_value`,`userable`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryConfigConst.key != null and queryConfigConst.key != ''">
+            and key like concat('%', #{queryConfigConst.key}, '%')
+        </if>
+        <if test="queryConfigConst.description != null and queryConfigConst.description != ''">
+            and description like concat('%', #{queryConfigConst.description}, '%')
+        </if>
+        <if test="queryConfigConst.defaultValue != null and queryConfigConst.defaultValue != ''">
+            and default_value like concat('%', #{queryConfigConst.defaultValue}, '%')
+        </if>
+        <if test="queryConfigConst.userable != null">
+            and userable = #{queryConfigConst.userable}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`key` as key,`description` as description,`default_value` as default_value,`userable` as userable,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_config_const
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`key` as key,`description` as description,`default_value` as default_value,`userable` as userable,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_config_const
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`key` as key,`description` as description,`default_value` as default_value,`userable` as userable,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_config_const
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
+</mapper>
