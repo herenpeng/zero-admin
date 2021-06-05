@@ -3,7 +3,7 @@ import { exportExcel } from '@/utils/export-file'
 
 export function get${entityName}Page(page, query) {
   query.size = page.size
-    return request({
+  return request({
     url: '/${requestMapping}/page/' + page.currentPage,
     method: 'get',
     params: query
@@ -35,7 +35,7 @@ export function delete${entityName}(id) {
 
 export function get${entityName}RecoverPage(page, query) {
   query.size = page.size
-    return request({
+  return request({
     url: '/${requestMapping}/recover/page/' + page.currentPage,
     method: 'get',
     params: query
@@ -57,5 +57,5 @@ export function recoverDelete${entityName}(id) {
 }
 
 export function export${entityName}Excel(query, fileName) {
-    exportExcel('/${requestMapping}/export/excel', query, fileName)
+  exportExcel('/${requestMapping}/export/excel', query, fileName)
 }

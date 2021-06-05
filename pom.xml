@@ -12,7 +12,7 @@
         <module>zero-web</module>
         <module>zero-sys</module>
         <module>zero-common</module>
-        <module>zero-code-generation</module>
+        <module>zero-dev</module>
         <module>zero-upload</module>
         <module>zero-mail</module>
         <module>zero-auth</module>

@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zero</groupId>
-            <artifactId>zero-code-generation</artifactId>
+            <artifactId>zero-dev</artifactId>
             <version>${zero-admin.version}</version>
         </dependency>
     </dependencies>
