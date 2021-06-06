@@ -55,6 +55,14 @@
         </if>
     </select>
 
+    <select id="getByKey" resultMap="resultMap">
+        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
+        from sys_config_const where deleted = 0
+        <if test="key != null and key != ''">
+            and `key` = #{key}
+        </if>
+    </select>
+
     <select id="getRecoverPage" resultMap="resultMap">
         select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
         from sys_config_const

@@ -65,6 +65,16 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
     @LogOperation
+    @ApiOperation(value = "查询常量键值配置数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "常量键值", dataTypeClass = String.class)
+    })
+    @GetMapping("key")
+    public ResponseData<String> key(String key) throws Exception {
+        return ResponseData.ok(baseService.getByKey(key));
+    }
+
+    @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统配置常量表数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),

@@ -46,6 +46,15 @@ public interface ConfigConstService extends BaseService<ConfigConst> {
     List<String> getKeyList(String key) throws Exception;
 
     /**
+     * 通过 key 值准确匹配唯一的 配置信息
+     *
+     * @param key key 值
+     * @return
+     * @throws Exception
+     */
+    String getByKey(String key) throws Exception;
+
+    /**
      * 分页查询逻辑删除的系统配置常量表数据
      *
      * @param currentPage      当前页面数，页面从1开始

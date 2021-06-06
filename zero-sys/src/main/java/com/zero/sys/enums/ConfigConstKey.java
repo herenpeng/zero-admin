@@ -17,7 +17,15 @@ public enum ConfigConstKey {
     /**
      * 备案号
      */
-    RECORD_NUMBER("RECORD_NUMBER");
+    RECORD_NUMBER("RECORD_NUMBER"),
+    /**
+     * 主题颜色
+     */
+    THEME_COLOR("THEME_COLOR"),
+    /**
+     * 开启 Tags-View
+     */
+    OPEN_TAGS_VIEW("OPEN_TAGS_VIEW");
 
     @EnumValue
     private final String key;

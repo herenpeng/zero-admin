@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.UserConfigMapper">
+
+    <resultMap id="resultMap" type="com.zero.sys.entity.UserConfig">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="config_id" jdbcType="INTEGER" property="configId"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`user_id`,`config_id`,`value`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryUserConfig.userId != null">
+            and user_id = #{queryUserConfig.userId}
+        </if>
+        <if test="queryUserConfig.configId != null">
+            and config_id = #{queryUserConfig.configId}
+        </if>
+        <if test="queryUserConfig.value != null and queryUserConfig.value != ''">
+            and value like concat('%', #{queryUserConfig.value}, '%')
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`config_id` as config_id,`value` as `value`
+        from sys_user_config
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`config_id` as config_id,`value` as `value`
+        from sys_user_config
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getByUserIdAndConfigId" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`config_id` as config_id,`value` as `value`
+        from sys_user_config
+        where deleted = 0
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="configId != null">
+            and config_id = #{configId}
+        </if>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`user_id` as user_id,`config_id` as config_id,`value` as `value`
+        from sys_user_config
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
+
+</mapper>

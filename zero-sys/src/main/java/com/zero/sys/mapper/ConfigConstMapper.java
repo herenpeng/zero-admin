@@ -49,6 +49,16 @@ public interface ConfigConstMapper extends BaseMapper<ConfigConst> {
      */
     List<String> getKeyList(@Param("key") String key) throws Exception;
 
+
+    /**
+     * 通过 key 值准确匹配唯一的 配置信息
+     *
+     * @param key key 值
+     * @return
+     * @throws Exception
+     */
+    ConfigConst getByKey(@Param("key") String key) throws Exception;
+
     /**
      * 分页查询逻辑删除的系统配置常量表数据
      *
