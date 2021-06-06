@@ -4,6 +4,7 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
+import com.zero.sys.enums.ConfigConstKey;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -31,8 +32,8 @@ public class ConfigConst extends BaseEntity {
      */
     @ApiModelProperty(value = "常量键值，标识，唯一")
     @Excel(name = "常量键值，标识，唯一", width = 15, needMerge = true)
-    @TableField(value = "key")
-    private String key;
+    @TableField(value = "`key`")
+    private ConfigConstKey key;
     /**
      * 键值描述信息
      */
@@ -54,6 +55,5 @@ public class ConfigConst extends BaseEntity {
     @Excel(name = "用户是否可配置", width = 15, needMerge = true)
     @TableField(value = "userable")
     private Boolean userable;
-
 
 }

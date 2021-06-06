@@ -24,7 +24,7 @@ public interface ConfigConstMapper extends BaseMapper<ConfigConst> {
     /**
      * 分页查询系统配置常量表数据，区别于selectPage的是，该方法添加了查询条件
      *
-     * @param page      分页查询
+     * @param page             分页查询
      * @param queryConfigConst ConfigConst查询条件
      * @return ConfigConst集合
      * @throws Exception 抛出异常
@@ -41,9 +41,18 @@ public interface ConfigConstMapper extends BaseMapper<ConfigConst> {
     List<ConfigConst> getList(@Param("queryConfigConst") ConfigConst queryConfigConst) throws Exception;
 
     /**
+     * 通过 key 值模糊查询所有的 Key
+     *
+     * @param key key 值
+     * @return
+     * @throws Exception
+     */
+    List<String> getKeyList(@Param("key") String key) throws Exception;
+
+    /**
      * 分页查询逻辑删除的系统配置常量表数据
      *
-     * @param page      分页查询
+     * @param page             分页查询
      * @param queryConfigConst ConfigConst查询条件
      * @return ConfigConst集合
      * @throws Exception 抛出异常

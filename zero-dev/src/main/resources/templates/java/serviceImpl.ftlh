@@ -30,8 +30,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     @Override
     public IPage<${entityName}> page(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
         IPage<${entityName}> page = new Page<>(currentPage, size);
-        QueryWrapper<${entityName}> queryWrapper = new QueryWrapper<>(query${entityName});
-        IPage<${entityName}> pageInfo = baseMapper.selectPage(page, queryWrapper);
+        IPage<${entityName}> pageInfo = baseMapper.getPage(page, query${entityName});
         return pageInfo;
     }
 

@@ -31,6 +31,6 @@ public enum UserTypeEnums {
     QQ("QQ");
 
     @EnumValue
-    private String value;
+    private final String value;
 
 }

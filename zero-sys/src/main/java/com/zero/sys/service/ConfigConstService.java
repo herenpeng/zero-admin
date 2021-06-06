@@ -18,9 +18,9 @@ public interface ConfigConstService extends BaseService<ConfigConst> {
     /**
      * 分页查询系统配置常量表数据
      *
-     * @param currentPage 当前页面数，页面从1开始
-     * @param size        当前页的大小，默认为10
-     * @param queryConfigConst   查询系统配置常量表的条件
+     * @param currentPage      当前页面数，页面从1开始
+     * @param size             当前页的大小，默认为10
+     * @param queryConfigConst 查询系统配置常量表的条件
      * @return 分页查询所有的系统配置常量表数据
      * @throws Exception 抛出异常
      */
@@ -29,18 +29,28 @@ public interface ConfigConstService extends BaseService<ConfigConst> {
     /**
      * 查询所有的系统配置常量表数据
      *
-     * @param queryConfigConst   查询系统配置常量表的条件
+     * @param queryConfigConst 查询系统配置常量表的条件
      * @return 查询所有的系统配置常量表数据
      * @throws Exception 抛出异常
      */
     List<ConfigConst> list(ConfigConst queryConfigConst) throws Exception;
 
+
+    /**
+     * 通过 key 值模糊查询所有的 Key
+     *
+     * @param key key 值
+     * @return
+     * @throws Exception
+     */
+    List<String> getKeyList(String key) throws Exception;
+
     /**
      * 分页查询逻辑删除的系统配置常量表数据
      *
-     * @param currentPage 当前页面数，页面从1开始
-     * @param size        当前页的大小，默认为10
-     * @param queryConfigConst   查询系统配置常量表的条件
+     * @param currentPage      当前页面数，页面从1开始
+     * @param size             当前页的大小，默认为10
+     * @param queryConfigConst 查询系统配置常量表的条件
      * @return 分页查询逻辑删除的系统配置常量表数据
      * @throws Exception 抛出异常
      */
@@ -66,7 +76,7 @@ public interface ConfigConstService extends BaseService<ConfigConst> {
      * 导出系统配置常量表列表数据的Excel文件
      *
      * @param queryConfigConst 查询系统配置常量表的条件
-     * @param response  HttpServletResponse对象
+     * @param response         HttpServletResponse对象
      * @throws Exception 抛出异常
      */
     void exportExcel(ConfigConst queryConfigConst, HttpServletResponse response) throws Exception;

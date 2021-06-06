@@ -20,8 +20,8 @@
     </sql>
 
     <sql id="baseQuery">
-        <if test="queryConfigConst.key != null and queryConfigConst.key != ''">
-            and key like concat('%', #{queryConfigConst.key}, '%')
+        <if test="queryConfigConst.key != null">
+            and `key` like concat('%', #{queryConfigConst.key}, '%')
         </if>
         <if test="queryConfigConst.description != null and queryConfigConst.description != ''">
             and description like concat('%', #{queryConfigConst.description}, '%')
@@ -35,24 +35,32 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`key` as key,`description` as description,`default_value` as default_value,`userable` as userable,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
         from sys_config_const
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id,`key` as key,`description` as description,`default_value` as default_value,`userable` as userable,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
         from sys_config_const
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
+    <select id="getKeyList" resultType="java.lang.String">
+        select `key` from sys_config_const where deleted = 0
+        <if test="key != null and key != ''">
+            and `key` like concat('%', #{key}, '%')
+        </if>
+    </select>
+
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`key` as key,`description` as description,`default_value` as default_value,`userable` as userable,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
         from sys_config_const
         where deleted = 1
         <include refid="baseQuery"></include>
     </select>
+
 
 </mapper>

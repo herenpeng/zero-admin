@@ -30,8 +30,7 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
     @Override
     public IPage<ConfigConst> page(Integer currentPage, Integer size, ConfigConst queryConfigConst) throws Exception {
         IPage<ConfigConst> page = new Page<>(currentPage, size);
-        QueryWrapper<ConfigConst> queryWrapper = new QueryWrapper<>(queryConfigConst);
-        IPage<ConfigConst> pageInfo = baseMapper.selectPage(page, queryWrapper);
+        IPage<ConfigConst> pageInfo = baseMapper.getPage(page, queryConfigConst);
         return pageInfo;
     }
 
@@ -40,6 +39,11 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
         QueryWrapper<ConfigConst> queryWrapper = new QueryWrapper<>(queryConfigConst);
         List<ConfigConst> configConstList = baseMapper.selectList(queryWrapper);
         return configConstList;
+    }
+
+    @Override
+    public List<String> getKeyList(String key) throws Exception {
+        return baseMapper.getKeyList(key);
     }
 
     @Override
