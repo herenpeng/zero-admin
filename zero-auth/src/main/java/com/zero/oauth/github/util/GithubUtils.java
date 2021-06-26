@@ -5,6 +5,7 @@ import com.zero.oauth.github.entity.GithubUser;
 import com.zero.oauth.github.properties.GithubProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -40,8 +41,11 @@ public class GithubUtils {
                     githubProperties.getClientId(), githubProperties.getClientSecrets(), code);
             HttpStatus statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
+                log.info("[GithubUtils工具类]使用CODE={}获取Github Token响应成功", code);
                 String body = responseEntity.getBody();
-                return resolveToken(body);
+                if (StringUtils.isNotBlank(body)) {
+                    return resolveToken(body);
+                }
             }
         } catch (Exception e) {
             log.error("[GithubUtils工具类]使用CODE={}获取Github Token失败", code);

@@ -1,7 +1,6 @@
 package com.zero.sys.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
@@ -48,5 +47,11 @@ public class UserConfig extends BaseEntity {
     @Excel(name = "用户配置值", width = 15, needMerge = true)
     @TableField(value = "value")
     private String value;
+    /**
+     * 非数据库字段，系统配置常量对象
+     */
+    @ApiModelProperty(value = "系统配置常量对象")
+    @TableField(exist = false)
+    private ConfigConst configConst;
 
 }

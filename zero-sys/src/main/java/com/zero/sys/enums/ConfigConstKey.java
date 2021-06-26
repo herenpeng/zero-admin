@@ -23,9 +23,9 @@ public enum ConfigConstKey {
      */
     THEME_COLOR("THEME_COLOR"),
     /**
-     * 开启 Tags-View
+     * 开启页面顶部标签 Tags-View
      */
-    OPEN_TAGS_VIEW("OPEN_TAGS_VIEW");
+    TAGS_VIEW("TAGS_VIEW");
 
     @EnumValue
     private final String key;
