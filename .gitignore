@@ -3,5 +3,6 @@ target/
 *.log
 *.http
 
+.git
 *.iml
 .idea

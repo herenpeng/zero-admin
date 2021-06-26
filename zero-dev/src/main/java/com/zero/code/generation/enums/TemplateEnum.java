@@ -106,35 +106,35 @@ public enum TemplateEnum {
     /**
      * 代码类型
      */
-    private CodeTypeEnum codeTypeEnum;
+    private final CodeTypeEnum codeTypeEnum;
     /**
      * 模板文件加载路径
      */
-    private String templateLoaderPath;
+    private final String templateLoaderPath;
 
     /**
      * FreeMarker模板文件名称
      */
-    private String ftlTemplateFile;
+    private final String ftlTemplateFile;
 
     /**
      * 文件基本生成路径
      */
-    private String fileBasePath;
+    private final String fileBasePath;
 
     /**
      * 包名称
      */
-    private String packageName;
+    private final String packageName;
 
     /**
      * 名称后缀
      */
-    private String suffix;
+    private final String suffix;
 
     /**
      * 文件后缀名称
      */
-    private String fileSuffix;
+    private final String fileSuffix;
 
 }

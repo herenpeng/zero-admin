@@ -40,7 +40,12 @@ public enum MyExceptionEnum {
     /**
      * 文件上传类型不允许
      */
-    FILE_TYPE_NOT_ALLOW(50002, "文件上传类型错误");
+    FILE_TYPE_NOT_ALLOW(50002, "文件上传类型错误"),
+
+    /**
+     * 系统配置的KEY值不存在
+     */
+    CONFIG_KEY_NOT_EXIST(50003, "系统配置的KEY值不存在");
 
     private int code;
     private String message;

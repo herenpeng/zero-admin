@@ -53,6 +53,18 @@ public class UserConfigController extends BaseController<UserConfigService, User
         return ResponseData.ok(baseService.list(queryUserConfig));
     }
 
+    @LogOperation
+    @ApiOperation(value = "更新用户配置数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "常量键值", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "value", value = "用户配置值", dataTypeClass = String.class)
+    })
+    @PutMapping("key")
+    public ResponseData<Void> key(@RequestParam("key") String key,@RequestParam("value")  String value) throws Exception {
+        baseService.updateByKey(key, value);
+        return ResponseData.ok();
+    }
+
 
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统用户配置表数据")

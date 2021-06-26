@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.exception.MyException;
+import com.zero.common.exception.MyExceptionEnum;
 import com.zero.sys.entity.ConfigConst;
 import com.zero.sys.entity.UserConfig;
 import com.zero.sys.mapper.ConfigConstMapper;
@@ -57,10 +59,16 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
     @Override
     public String getByKey(String key) throws Exception {
         ConfigConst configConst = baseMapper.getByKey(key);
+        if (ObjectUtils.isEmpty(configConst)) {
+            log.error("[系统配置业务层]系统配置的KEY值：{}不存在", key);
+            throw new MyException(MyExceptionEnum.CONFIG_KEY_NOT_EXIST);
+        }
         if (configConst.getUserable()) {
+            log.info("系统配置的KEY值：{}允许用户自定义配置，检查用户自定义配置", key);
             Integer userId = securityUtils.getUserId(request);
             UserConfig userConfig = userConfigMapper.getByUserIdAndConfigId(userId, configConst.getId());
             if (!ObjectUtils.isEmpty(userConfig)) {
+                log.info("系统配置的KEY值：{}允许用户自定义配置，用户自定义配置id为：{}，配置值为：{}", key, userConfig.getId(), userConfig.getValue());
                 return userConfig.getValue();
             }
         }

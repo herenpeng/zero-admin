@@ -18,9 +18,9 @@ public interface UserConfigService extends BaseService<UserConfig> {
     /**
      * 分页查询系统用户配置表数据
      *
-     * @param currentPage 当前页面数，页面从1开始
-     * @param size        当前页的大小，默认为10
-     * @param queryUserConfig   查询系统用户配置表的条件
+     * @param currentPage     当前页面数，页面从1开始
+     * @param size            当前页的大小，默认为10
+     * @param queryUserConfig 查询系统用户配置表的条件
      * @return 分页查询所有的系统用户配置表数据
      * @throws Exception 抛出异常
      */
@@ -29,18 +29,27 @@ public interface UserConfigService extends BaseService<UserConfig> {
     /**
      * 查询所有的系统用户配置表数据
      *
-     * @param queryUserConfig   查询系统用户配置表的条件
+     * @param queryUserConfig 查询系统用户配置表的条件
      * @return 查询所有的系统用户配置表数据
      * @throws Exception 抛出异常
      */
     List<UserConfig> list(UserConfig queryUserConfig) throws Exception;
 
     /**
+     * 更新用户配置数据
+     *
+     * @param key   常量键值
+     * @param value 用户配置值
+     * @throws Exception 抛出异常
+     */
+    void updateByKey(String key, String value) throws Exception;
+
+    /**
      * 分页查询逻辑删除的系统用户配置表数据
      *
-     * @param currentPage 当前页面数，页面从1开始
-     * @param size        当前页的大小，默认为10
-     * @param queryUserConfig   查询系统用户配置表的条件
+     * @param currentPage     当前页面数，页面从1开始
+     * @param size            当前页的大小，默认为10
+     * @param queryUserConfig 查询系统用户配置表的条件
      * @return 分页查询逻辑删除的系统用户配置表数据
      * @throws Exception 抛出异常
      */
@@ -66,7 +75,7 @@ public interface UserConfigService extends BaseService<UserConfig> {
      * 导出系统用户配置表列表数据的Excel文件
      *
      * @param queryUserConfig 查询系统用户配置表的条件
-     * @param response  HttpServletResponse对象
+     * @param response        HttpServletResponse对象
      * @throws Exception 抛出异常
      */
     void exportExcel(UserConfig queryUserConfig, HttpServletResponse response) throws Exception;
