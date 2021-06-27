@@ -2,7 +2,6 @@ package com.zero.code.generation.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.zero.code.generation.constant.DataBaseTypeConst;
 import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.entity.TableInfo;
@@ -53,7 +52,7 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
 
     @Override
     public boolean save(TableInfo tableInfo) {
-        boolean result = SqlHelper.retBool(baseMapper.insert(tableInfo));
+        boolean result = super.save(tableInfo);
         List<TableColumn> tableColumnList = tableColumnMapper.getTableColumnByInformationSchema(tableInfo.getName());
         for (TableColumn tableColumn : tableColumnList) {
             tableColumn.setTableInfoId(tableInfo.getId());

@@ -2,7 +2,6 @@ package com.zero.auth.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
@@ -83,14 +82,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         user.setPassword(encodePassword);
         // 本地系统添加的用户类型为 LOCAL
         user.setType(UserTypeEnums.LOCAL);
-        int result = baseMapper.insert(user);
+        boolean result = super.save(user);
         // 赋予该用户默认角色
         roleService.setAcquiescence(user.getId());
         // 插入User对象之后，同时插入一个UserInfo对象
         UserInfo userInfo = new UserInfo();
         userInfo.setId(user.getId());
         userInfoMapper.insert(userInfo);
-        return SqlHelper.retBool(result);
+        return result;
     }
 
     @Override

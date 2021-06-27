@@ -52,8 +52,8 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
     }
 
     @Override
-    public List<String> getKeyList(String key) throws Exception {
-        return baseMapper.getKeyList(key);
+    public List<String> getKeyList(String key, Boolean userable) throws Exception {
+        return baseMapper.getKeyList(key, userable);
     }
 
     @Override

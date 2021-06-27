@@ -45,7 +45,11 @@ public enum MyExceptionEnum {
     /**
      * 系统配置的KEY值不存在
      */
-    CONFIG_KEY_NOT_EXIST(50003, "系统配置的KEY值不存在");
+    CONFIG_KEY_NOT_EXIST(50003, "系统配置的KEY值不存在"),
+    /**
+     * 系统配置的KEY值不允许用户配置
+     */
+    CONFIG_KEY_NOT_CAN(50004, "系统配置的KEY值不允许用户配置");
 
     private int code;
     private String message;

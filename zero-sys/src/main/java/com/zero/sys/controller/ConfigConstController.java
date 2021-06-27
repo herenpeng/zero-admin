@@ -57,11 +57,12 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     @LogOperation
     @ApiOperation(value = "查询所有的常量键值数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "常量键值", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "key", value = "常量键值", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "userable", value = "是否允许用户配置", dataTypeClass = Boolean.class)
     })
     @GetMapping("list/key")
-    public ResponseData<List<String>> keyList(String key) throws Exception {
-        return ResponseData.ok(baseService.getKeyList(key));
+    public ResponseData<List<String>> keyList(String key, Boolean userable) throws Exception {
+        return ResponseData.ok(baseService.getKeyList(key, userable));
     }
 
     @LogOperation

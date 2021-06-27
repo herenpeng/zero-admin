@@ -53,6 +53,9 @@
         <if test="key != null and key != ''">
             and `key` like concat('%', #{key}, '%')
         </if>
+        <if test="userable != null">
+            and userable = #{userable}
+        </if>
     </select>
 
     <select id="getByKey" resultMap="resultMap">

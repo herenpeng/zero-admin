@@ -39,11 +39,12 @@ public interface ConfigConstService extends BaseService<ConfigConst> {
     /**
      * 通过 key 值模糊查询所有的 Key
      *
-     * @param key key 值
+     * @param key      key 值
+     * @param userable 是否允许用户配置
      * @return
      * @throws Exception
      */
-    List<String> getKeyList(String key) throws Exception;
+    List<String> getKeyList(String key, Boolean userable) throws Exception;
 
     /**
      * 通过 key 值准确匹配唯一的 配置信息

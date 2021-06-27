@@ -28,6 +28,12 @@
         <if test="queryUserConfig.value != null and queryUserConfig.value != ''">
             and value like concat('%', #{queryUserConfig.value}, '%')
         </if>
+        <if test="queryUserConfig.queryKey != null and queryUserConfig.queryKey != ''">
+            and config_id in (select id from sys_config_const where `key` like concat('%', #{queryUserConfig.queryKey}, '%'))
+        </if>
+        <if test="queryUserConfig.queryUsername != null and queryUserConfig.queryUsername != ''">
+            and user_id in (select id from auth_user where username like concat('%', #{queryUserConfig.queryUsername}, '%'))
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">

@@ -3,6 +3,8 @@ package com.zero.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zero.auth.entity.User;
+import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.MyException;
@@ -35,6 +37,8 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
 
     private final ConfigConstMapper configConstMapper;
 
+    private final UserMapper userMapper;
+
     private final SecurityUtils securityUtils;
 
     @Override
@@ -44,6 +48,8 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
         for (UserConfig userConfig : pageInfo.getRecords()) {
             ConfigConst configConst = configConstMapper.selectById(userConfig.getConfigId());
             userConfig.setConfigConst(configConst);
+            User user = userMapper.selectById(userConfig.getUserId());
+            userConfig.setUser(user);
         }
         return pageInfo;
     }
@@ -61,6 +67,10 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
         if (ObjectUtils.isEmpty(configConst)) {
             log.error("[用户配置业务层]系统配置的KEY值：{}不存在", key);
             throw new MyException(MyExceptionEnum.CONFIG_KEY_NOT_EXIST);
+        }
+        if (!configConst.getUserable()) {
+            log.error("[用户配置业务层]系统配置的KEY值：{}不允许用户配置", key);
+            throw new MyException(MyExceptionEnum.CONFIG_KEY_NOT_CAN);
         }
         Integer userId = securityUtils.getUserId(request);
         UserConfig userConfig = baseMapper.getByUserIdAndConfigId(userId, configConst.getId());
