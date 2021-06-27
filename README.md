@@ -19,10 +19,11 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - GitHub OAuth2授权登录，无需注册账号。
 - RabbitMQ登录消息通知，发送用户账号登录邮件。
 - 当前城市天气预报温馨提示、账号登录分布地图大屏展示。
+- 用户自定义系统配置，个性化系统主题，标签栏，顶部固定样式等等。
 
 
 ## 项目开发环境
-- JDK   1.8
+- JDK 11
 - Maven 3.6.3
 - MySQL 5.7.30
 - Redis(Windows) 3.2.100
@@ -148,6 +149,10 @@ CREATE TABLE `base_table` (
 - 密码重置
 
 ![密码重置](./assets/image/07.png)
+
+- 系统配置
+
+![密码重置](./assets/image/13.png)
 
 - 数据回收
 
