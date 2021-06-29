@@ -26,7 +26,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
         <zero-admin.version>1.0-SNAPSHOT</zero-admin.version>
-        <spring-boot.version>2.3.8.RELEASE</spring-boot.version>
+        <spring-boot.version>2.5.2</spring-boot.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <jjwt.version>0.11.2</jjwt.version>
         <easypoi.version>4.0.0</easypoi.version>
@@ -39,7 +39,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.8.RELEASE</version>
+        <version>2.5.2</version>
         <relativePath/>
     </parent>
 

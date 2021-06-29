@@ -19,6 +19,7 @@
             <id column="rid" jdbcType="INTEGER" property="id"/>
             <result column="name" jdbcType="VARCHAR" property="name"/>
             <result column="description" jdbcType="VARCHAR" property="description"/>
+            <result column="acquiescence" jdbcType="BOOLEAN" property="acquiescence"/>
         </collection>
     </resultMap>
 

@@ -36,7 +36,7 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 @RequiredArgsConstructor
-@EventSort
+@EventSort(5)
 @Component
 public class ScanResources implements StartEvent {
 
