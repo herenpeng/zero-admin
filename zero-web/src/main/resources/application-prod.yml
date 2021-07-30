@@ -16,9 +16,10 @@ spring:
     virtual-host: /zero-admin
     username: root
     password: admin
-  resources:
-    # 访问系统外部资源，将该目录下的文件映射到系统下
-    static-locations: file:/usr/web-project/zero-admin/static/
+  web:
+    resources:
+      # 访问系统外部资源，将该目录下的文件映射到系统下
+      static-locations: file:/usr/app/zero-admin/static/
 zero:
   domain-name: http://zeroadmin.herenpeng.com
   vue-domain: http://zeroadmin.herenpeng.com
@@ -26,8 +27,8 @@ zero:
     security:
       jwt:
         rsa:
-          private-file: /usr/web-project/zero-admin/rsa/rsa.pri
-          public-file: /usr/web-project/zero-admin/rsa/rsa.pub
+          private-file: /usr/app/zero-admin/rsa/rsa.pri
+          public-file: /usr/app/zero-admin/rsa/rsa.pub
   common:
     # Swagger文档配置
     swagger:
@@ -35,6 +36,6 @@ zero:
       enable: true
   upload:
     # 文件上传目标路径
-    path: /usr/web-project/zero-admin/static/
+    path: /usr/app/zero-admin/static/
 logging:
   config: classpath:logback-spring-prod.xml

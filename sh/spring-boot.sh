@@ -1,7 +1,7 @@
 # 服务名称
 SERVICE_NAME=zero-admin
 # 项目路径
-SERVICE_DIR=/usr/web-project/zero-admin
+SERVICE_DIR=/usr/app/zero-admin
 # 日志文件
 LOG_FILE=${SERVICE_DIR}/log.log
 # jar名称

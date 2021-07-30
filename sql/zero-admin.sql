@@ -1170,7 +1170,7 @@ CREATE TABLE `upload_file_manage`  (
 -- ----------------------------
 -- Records of upload_file_manage
 -- ----------------------------
-INSERT INTO `upload_file_manage` VALUES (1, '雅典娜-冰冠公主.jpg', 'IMAGE', 'http://zeroadmin.herenpeng.com/api/image/2021/4/10/c1e3f69c-38b5-4eb7-9d80-097dba435e4e.jpg', '/usr/web-project/zero-admin/static/image/2021/4/10/c1e3f69c-38b5-4eb7-9d80-097dba435e4e.jpg', '2021-04-10 17:56:10', 22, 0, '2021-04-10 17:56:09', 22, '2021-04-10 18:37:47', 22, 0);
-INSERT INTO `upload_file_manage` VALUES (2, '公孙离-花间舞.jpg', 'IMAGE', 'http://zeroadmin.herenpeng.com/api/image/2021/4/10/8d3ff81d-d467-4bdc-aa2d-18a3d619713b.jpg', '/usr/web-project/zero-admin/static/image/2021/4/10/8d3ff81d-d467-4bdc-aa2d-18a3d619713b.jpg', '2021-04-10 18:34:41', 1, 0, '2021-04-10 18:34:40', 1, '2021-04-10 18:34:40', 1, 0);
+INSERT INTO `upload_file_manage` VALUES (1, '雅典娜-冰冠公主.jpg', 'IMAGE', 'http://zeroadmin.herenpeng.com/api/image/2021/4/10/c1e3f69c-38b5-4eb7-9d80-097dba435e4e.jpg', '/usr/app/zero-admin/static/image/2021/4/10/c1e3f69c-38b5-4eb7-9d80-097dba435e4e.jpg', '2021-04-10 17:56:10', 22, 0, '2021-04-10 17:56:09', 22, '2021-04-10 18:37:47', 22, 0);
+INSERT INTO `upload_file_manage` VALUES (2, '公孙离-花间舞.jpg', 'IMAGE', 'http://zeroadmin.herenpeng.com/api/image/2021/4/10/8d3ff81d-d467-4bdc-aa2d-18a3d619713b.jpg', '/usr/app/zero-admin/static/image/2021/4/10/8d3ff81d-d467-4bdc-aa2d-18a3d619713b.jpg', '2021-04-10 18:34:41', 1, 0, '2021-04-10 18:34:40', 1, '2021-04-10 18:34:40', 1, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
