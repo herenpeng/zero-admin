@@ -70,7 +70,7 @@ public class DataBaseTypeConst {
      * @throws Exception
      */
     public String getJdbcType(String databaseType) {
-        return jdbcTypeMap.get(clearPrecision(databaseType));
+        return jdbcTypeMap.get(databaseType);
     }
 
     /**
@@ -81,22 +81,7 @@ public class DataBaseTypeConst {
      * @throws Exception
      */
     public String getJavaType(String databaseType) {
-        return javaTypeMap.get(clearPrecision(databaseType));
-    }
-
-    /**
-     * 数据库类型精度匹配正则表达式
-     */
-    private static final String REGEX = "\\([0-9]+\\)";
-
-    /**
-     * 清除数据库类型中的精度，保留数据库类型名称
-     *
-     * @param dataBaseType 带精度的数据库类型名称
-     * @return 数据库类型名称
-     */
-    private String clearPrecision(String dataBaseType) {
-        return dataBaseType.replaceAll(REGEX, "");
+        return javaTypeMap.get(databaseType);
     }
 
 }

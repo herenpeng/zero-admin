@@ -56,7 +56,7 @@
 
     <select id="getTableColumnByInformationSchema" resultMap="resultMap">
         select column_name as name, ordinal_position as sort,
-        column_comment as comment, column_type as database_type
+        column_comment as comment, data_type as database_type
 		from information_schema.columns
 		where table_schema = (select database())
 		AND table_name = #{tableName}
