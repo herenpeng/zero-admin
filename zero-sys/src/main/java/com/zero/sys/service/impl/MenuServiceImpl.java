@@ -67,6 +67,14 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     }
 
     @Override
+    public void hidden(Integer id, Boolean hidden) {
+        Menu menu = new Menu();
+        menu.setId(id);
+        menu.setHidden(hidden);
+        baseMapper.updateById(menu);
+    }
+
+    @Override
     public void enabled(Integer id, Boolean enabled) throws Exception {
         Menu menu = new Menu();
         menu.setId(id);

@@ -145,7 +145,14 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         String verifyRedisKey = verifyProperties.getKey() + StringConst.COLON + mail;
         Object redisVerify = redisUtils.get(verifyRedisKey);
         if (StringUtils.equals(verify, String.valueOf(redisVerify))) {
+            // 删除redis
             redisUtils.del(verifyRedisKey);
+            // 更新数据库
+            Integer id = securityUtils.getUserId(request);
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(id);
+            userInfo.setMail(mail);
+            baseMapper.updateById(userInfo);
             return true;
         }
         return false;

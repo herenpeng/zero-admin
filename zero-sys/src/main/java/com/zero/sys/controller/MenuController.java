@@ -53,6 +53,20 @@ public class MenuController extends BaseController<MenuService, Menu> {
 
 
     @LogOperation
+    @ApiOperation(value = "隐藏或者显示一个菜单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "菜单ID", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "hidden", value = "true为隐藏，false为显示", dataTypeClass = Boolean.class, required = true)
+    })
+    @PutMapping("hidden/{id}")
+    public ResponseData<Void> hidden(
+            @PathVariable("id") Integer id,
+            @RequestParam("hidden") Boolean hidden) throws Exception {
+        baseService.hidden(id, hidden);
+        return ResponseData.ok();
+    }
+
+    @LogOperation
     @ApiOperation(value = "启用或者禁用一个菜单")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "菜单ID", dataTypeClass = Integer.class, required = true),

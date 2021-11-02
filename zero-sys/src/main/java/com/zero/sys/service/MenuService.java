@@ -45,6 +45,15 @@ public interface MenuService extends BaseService<Menu> {
     List<Menu> getRoutes() throws Exception;
 
     /**
+     * 隐藏或者显示该系统菜单
+     *
+     * @param id     菜单id
+     * @param hidden true为隐藏，false为显示
+     * @throws Exception 抛出异常
+     */
+    void hidden(Integer id, Boolean hidden) throws Exception;
+
+    /**
      * 启用或者禁用该系统菜单
      *
      * @param id      菜单id
@@ -115,4 +124,5 @@ public interface MenuService extends BaseService<Menu> {
      * @throws Exception 抛出异常
      */
     void exportExcel(Menu queryMenu, HttpServletResponse response) throws Exception;
+
 }
