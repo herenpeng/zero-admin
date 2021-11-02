@@ -880,7 +880,6 @@ INSERT INTO `sys_menu` VALUES (8, 'server', 'Server', 'system/server/index', '�
 INSERT INTO `sys_menu` VALUES (9, 'login-log', 'LoginLog', 'system/login-log/index', '登入日志', 'el-icon-sunny', NULL, 2, 0, 1, 7, '2021-02-18 07:46:54', 0, '2021-02-18 09:11:27', 1, 0);
 INSERT INTO `sys_menu` VALUES (10, 'log', 'Log', 'system/log/index', '日志管理', 'el-icon-tickets', NULL, 3, 0, 1, 7, '2020-11-17 23:58:00', 0, '2021-02-18 07:46:21', 1, 0);
 INSERT INTO `sys_menu` VALUES (11, '/setting', 'Setting', 'Layout', '系统设置', 'el-icon-setting', '/setting/password', 3, 0, 1, 0, '2020-12-28 20:53:06', 1, '2020-12-28 20:53:49', 1, 0);
-INSERT INTO `sys_menu` VALUES (12, 'password', 'Password', 'setting/password/index', '密码设置', 'el-icon-more-outline', NULL, 1, 0, 1, 11, '2020-12-28 21:01:44', 1, '2020-12-28 21:02:45', 1, 0);
 INSERT INTO `sys_menu` VALUES (13, 'user-info', 'UserInfo', 'setting/user-info/index', '用户信息', 'el-icon-edit', NULL, 2, 0, 1, 11, '2021-01-04 19:51:21', 1, '2021-01-04 20:34:57', 1, 0);
 INSERT INTO `sys_menu` VALUES (14, '/recover', 'Recover', 'Layout', '回收站', 'el-icon-delete-solid', '/recover/user', 4, 0, 1, 0, '2020-11-29 22:13:02', 1, '2020-12-28 20:50:58', 1, 0);
 INSERT INTO `sys_menu` VALUES (15, 'user', 'User', 'recover/user/index', '用户数据', 'el-icon-user-solid', NULL, 1, 0, 1, 14, '2020-11-29 22:16:53', 1, '2020-11-29 22:17:57', 1, 0);
@@ -928,7 +927,6 @@ INSERT INTO `sys_menu_role` VALUES (8, 8, 1, '2021-04-10 17:33:52', 0, '2021-04-
 INSERT INTO `sys_menu_role` VALUES (9, 9, 1, '2021-04-10 17:33:52', 0, '2021-04-10 17:33:52', 0, 0);
 INSERT INTO `sys_menu_role` VALUES (10, 10, 1, '2021-04-10 17:33:52', 0, '2021-04-10 17:33:52', 0, 0);
 INSERT INTO `sys_menu_role` VALUES (11, 11, 1, '2021-04-10 17:33:52', 0, '2021-04-10 17:33:52', 0, 0);
-INSERT INTO `sys_menu_role` VALUES (12, 12, 1, '2021-04-10 17:33:52', 0, '2021-04-10 17:33:52', 0, 0);
 INSERT INTO `sys_menu_role` VALUES (13, 13, 1, '2021-04-10 17:33:52', 0, '2021-04-10 17:33:52', 0, 0);
 INSERT INTO `sys_menu_role` VALUES (14, 14, 1, '2021-04-10 17:33:52', 0, '2021-04-10 17:33:52', 0, 0);
 INSERT INTO `sys_menu_role` VALUES (15, 15, 1, '2021-04-10 17:33:52', 0, '2021-04-10 17:33:52', 0, 0);
@@ -954,7 +952,6 @@ INSERT INTO `sys_menu_role` VALUES (34, 8, 3, '2021-04-10 17:36:55', 1, '2021-04
 INSERT INTO `sys_menu_role` VALUES (35, 9, 3, '2021-04-10 17:36:57', 1, '2021-04-10 17:36:57', 1, 0);
 INSERT INTO `sys_menu_role` VALUES (36, 10, 3, '2021-04-10 17:37:00', 1, '2021-04-10 17:37:00', 1, 0);
 INSERT INTO `sys_menu_role` VALUES (37, 11, 3, '2021-04-10 17:37:05', 1, '2021-04-10 17:37:05', 1, 0);
-INSERT INTO `sys_menu_role` VALUES (38, 12, 3, '2021-04-10 17:37:06', 1, '2021-04-10 17:37:06', 1, 0);
 INSERT INTO `sys_menu_role` VALUES (39, 13, 3, '2021-04-10 17:37:08', 1, '2021-04-10 17:37:08', 1, 0);
 INSERT INTO `sys_menu_role` VALUES (40, 24, 3, '2021-04-10 17:37:12', 1, '2021-04-10 17:37:12', 1, 0);
 INSERT INTO `sys_menu_role` VALUES (41, 25, 3, '2021-04-10 17:37:13', 1, '2021-04-10 17:37:13', 1, 0);
