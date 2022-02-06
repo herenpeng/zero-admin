@@ -3,8 +3,6 @@
 
 该项目是一个通用的后台管理系统，使用Java开发，项目已托管至github平台。
 
-项目演示地址：[http://zeroadmin.herenpeng.com](http://zeroadmin.herenpeng.com) （用户名/密码：user/111111）
-
 github下载地址：[https://github.com/herenpeng/zero-admin.git](https://github.com/herenpeng/zero-admin.git)  
 gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/herenpeng/zero-admin.git)
 
