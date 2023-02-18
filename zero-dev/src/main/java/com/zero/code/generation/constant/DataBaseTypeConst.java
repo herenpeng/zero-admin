@@ -21,7 +21,7 @@ public class DataBaseTypeConst {
     @PostConstruct
     private void init() {
         initJdbcTypeMap();
-        initjavaTypeMap();
+        initJavaTypeMap();
     }
 
     /**
@@ -46,7 +46,7 @@ public class DataBaseTypeConst {
     /**
      * 初始化数据库类型和Java类型的映射关系
      */
-    private void initjavaTypeMap() {
+    private void initJavaTypeMap() {
         javaTypeMap.put("int", "Integer");
         javaTypeMap.put("bigint", "Long");
         javaTypeMap.put("char", "String");

@@ -20,6 +20,23 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 - 用户自定义系统配置，个性化系统主题，标签栏，顶部固定样式等等。
 
 
+<p align="center">
+	<a target="_blank" href="https://www.oracle.com/java/technologies/downloads/#java11">
+		<img src="https://img.shields.io/badge/JDK-11-green.svg" alt="JDK 11" />
+	</a>
+	<br />
+	<a target="_blank" href='https://gitee.com/herenpeng/zero-admin'>
+		<img src='https://gitee.com/herenpeng/zero-admin/badge/star.svg' alt='gitee star'/>
+	</a>
+	<a target="_blank" href='https://github.com/herenpeng/zero-admin'>
+		<img src="https://img.shields.io/github/stars/herenpeng/zero-admin.svg?logo=github" alt="github star"/>
+	</a>
+</p>
+<hr/>
+
+<br/>
+
+
 ## 项目开发环境
 - JDK 11
 - Maven 3.6.3
