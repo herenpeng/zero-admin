@@ -23,7 +23,7 @@ spring:
   web:
     resources:
       # 访问系统外部资源，将该目录下的文件映射到系统下
-      static-locations: file:G:\temp\
+      static-locations: file:F:\tmp\
 zero:
   domain-name: http://127.0.0.1:10000
   vue-domain: http://127.0.0.1:20000
@@ -31,8 +31,8 @@ zero:
     security:
       jwt:
         rsa:
-          private-file: G:\\tmp\\rsa\\rsa.pri
-          public-file: G:\\tmp\\rsa\\rsa.pub
+          private-file: F:\\tmp\\rsa\\rsa.pri
+          public-file: F:\\tmp\\rsa\\rsa.pub
   common:
     # Swagger文档配置
     swagger:
@@ -40,6 +40,6 @@ zero:
       enable: true
   upload:
     # 文件上传目标路径
-    path: G:\temp\
+    path: F:\tmp\
 logging:
   config: classpath:logback-spring-dev.xml

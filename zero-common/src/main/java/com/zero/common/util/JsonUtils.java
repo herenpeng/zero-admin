@@ -74,8 +74,8 @@ public class JsonUtils {
     /**
      * 将指定输入流解析为指定类型 Java 对象
      *
-     * @param request HttpServletRequest对象
-     * @param classType   Java 字节码对象
+     * @param request   HttpServletRequest对象
+     * @param classType Java 字节码对象
      * @return Java 对象的泛型
      */
     public <T> T toObject(final HttpServletRequest request, final Class<T> classType) {
@@ -131,7 +131,7 @@ public class JsonUtils {
      * @param object Java 对象
      * @return Map 类型的对象
      */
-    public Map toMap(final Object object) {
+    public <K, V> Map<K, V> toMap(final Object object) {
         if (ObjectUtils.isEmpty(object)) {
             log.info("[Json工具类]对象{}为空", object);
             return null;

@@ -46,6 +46,9 @@ public class IpUtils {
      * @return 真实地址
      */
     public IpInfo getIpInfo(String ip) {
+        if (!httpThirdApi.isEnableIpInfo()) {
+            return null;
+        }
         try {
             String url = httpThirdApi.getIpInfo() + ip;
             ResponseEntity<IpInfo> responseEntity = restTemplate.getForEntity(url, IpInfo.class);

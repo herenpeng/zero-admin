@@ -23,6 +23,9 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   main:
     allow-bean-definition-overriding: true
+  mvc:
+    servlet:
+      load-on-startup: 1
   # SpringMail发送邮件相关配置
   mail:
     # 发送邮件的账号名
@@ -155,6 +158,7 @@ zero:
     http:
       third:
         api:
+          enable-ip-info: false
           ip-info: https://ip.taobao.com/outGetIpInfo?accessKey=alibaba-inc&ip=
           weather-info: http://wthrcdn.etouch.cn/weather_mini?city=
 

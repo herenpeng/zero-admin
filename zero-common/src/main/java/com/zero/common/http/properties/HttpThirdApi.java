@@ -20,6 +20,10 @@ import org.springframework.stereotype.Component;
 public class HttpThirdApi {
 
     /**
+     * 第三方接口不可用，暂时关闭
+     */
+    private boolean enableIpInfo;
+    /**
      * 通过ip获取ip的真实地址信息等等
      */
     private String ipInfo;

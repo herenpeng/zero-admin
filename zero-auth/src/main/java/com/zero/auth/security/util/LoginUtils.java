@@ -10,6 +10,7 @@ import com.zero.common.util.JsonUtils;
 import com.zero.common.util.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -56,11 +57,22 @@ public class LoginUtils {
         redisUtils.set(tokenRedisKey, jwt, jwtProperties.getTtl());
         // 记录登录日志
         LoginLog loginLog = loginLogService.loginLog(request, user.getId(), tokenId);
-        if (!ObjectUtils.isEmpty(loginLog) && !ObjectUtils.isEmpty(loginLog.getId())) {
-            // 发送 rabbitMq 消息，发送登录邮件日志
-            amqpTemplate.convertAndSend("amq.topic", "zero-admin.login.mail.send", loginLog.getId());
-        }
+        // sendMail(loginLog);
         return jwt;
     }
+
+
+    public void sendMail(LoginLog loginLog) {
+        if (!ObjectUtils.isEmpty(loginLog) && !ObjectUtils.isEmpty(loginLog.getId())) {
+            try {
+                // 发送 rabbitMq 消息，发送登录邮件日志
+                amqpTemplate.convertAndSend("amq.topic", "zero-admin.login.mail.send", loginLog.getId());
+            } catch (AmqpException e) {
+                e.printStackTrace();
+                log.info("[消息队列功能]发送用户登录日志消息失败，登录日志主键：{}", loginLog.getId());
+            }
+        }
+    }
+
 
 }
