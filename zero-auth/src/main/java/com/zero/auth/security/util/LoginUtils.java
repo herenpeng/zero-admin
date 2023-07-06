@@ -57,12 +57,12 @@ public class LoginUtils {
         redisUtils.set(tokenRedisKey, jwt, jwtProperties.getTtl());
         // 记录登录日志
         LoginLog loginLog = loginLogService.loginLog(request, user.getId(), tokenId);
-        // sendMail(loginLog);
+        // sendLoginMail(loginLog);
         return jwt;
     }
 
 
-    public void sendMail(LoginLog loginLog) {
+    public void sendLoginMail(LoginLog loginLog) {
         if (!ObjectUtils.isEmpty(loginLog) && !ObjectUtils.isEmpty(loginLog.getId())) {
             try {
                 // 发送 rabbitMq 消息，发送登录邮件日志

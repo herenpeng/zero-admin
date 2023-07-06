@@ -22,6 +22,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * AOP记录日志
@@ -44,7 +45,7 @@ public class LogAop {
 
     private final LogMapper logMapper;
 
-    private Log log;
+    private static final ThreadLocal<LinkedList<Log>> logHolder = ThreadLocal.withInitial(LinkedList::new);
 
     @Pointcut("@annotation(com.zero.common.annotation.LogOperation)")
     public void logOperationAop() {
@@ -53,33 +54,47 @@ public class LogAop {
     @Before("logOperationAop()")
     public void doBefore() {
         // 创建一个日志记录
-        log = new Log();
+        Log log = new Log();
         // 设置日志的访问时间
         log.setAccessTime(new Date());
+        LinkedList<Log> logs = logHolder.get();
+        logs.push(log);
     }
 
     @AfterReturning("logOperationAop()")
     public void doAfterReturning(JoinPoint joinPoint) throws JsonProcessingException {
-        setLog(joinPoint);
-        // 设置执行结果为成功
-        log.setResult(true);
+        LinkedList<Log> logs = logHolder.get();
+        Log log = logs.peekFirst();
+        if (log != null) {
+            setLog(log, joinPoint);
+            // 设置执行结果为成功
+            log.setResult(true);
+        }
     }
 
 
     @AfterThrowing(value = "logOperationAop()", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Exception e) throws JsonProcessingException {
-        setLog(joinPoint);
-        // 设置执行结果为失败
-        log.setResult(false);
-        log.setExceptionName(e.getClass().getName());
-        log.setExceptionMessage(e.getMessage());
+        LinkedList<Log> logs = logHolder.get();
+        Log log = logs.peekFirst();
+        if (log != null) {
+            setLog(log, joinPoint);
+            // 设置执行结果为失败
+            log.setResult(false);
+            log.setExceptionName(e.getClass().getName());
+            log.setExceptionMessage(e.getMessage());
+        }
     }
 
 
     @After("logOperationAop()")
     public void doAfter() {
         // 将日志记录插入数据库中
-        logMapper.insert(log);
+        LinkedList<Log> logs = logHolder.get();
+        Log log = logs.pollFirst();
+        if (log != null) {
+            logMapper.insert(log);
+        }
     }
 
 
@@ -89,7 +104,7 @@ public class LogAop {
      * @param joinPoint AOP切入点
      * @throws JsonProcessingException Json处理异常
      */
-    private void setLog(JoinPoint joinPoint) throws JsonProcessingException {
+    private void setLog(Log log, JoinPoint joinPoint) throws JsonProcessingException {
         // 设置方法的执行时间
         log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
         // 设置操作用户主键
