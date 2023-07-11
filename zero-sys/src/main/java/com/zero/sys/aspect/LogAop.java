@@ -13,7 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +25,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.LinkedList;
 
 /**
  * AOP记录日志
@@ -45,58 +47,30 @@ public class LogAop {
 
     private final LogMapper logMapper;
 
-    private static final ThreadLocal<LinkedList<Log>> logHolder = ThreadLocal.withInitial(LinkedList::new);
-
     @Pointcut("@annotation(com.zero.common.annotation.LogOperation)")
     public void logOperationAop() {
     }
 
-    @Before("logOperationAop()")
-    public void doBefore() {
-        // 创建一个日志记录
+    @Around("logOperationAop()")
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object proceed = null;
         Log log = new Log();
-        // 设置日志的访问时间
         log.setAccessTime(new Date());
-        LinkedList<Log> logs = logHolder.get();
-        logs.push(log);
-    }
-
-    @AfterReturning("logOperationAop()")
-    public void doAfterReturning(JoinPoint joinPoint) throws JsonProcessingException {
-        LinkedList<Log> logs = logHolder.get();
-        Log log = logs.peekFirst();
-        if (log != null) {
+        try {
             setLog(log, joinPoint);
+            proceed = joinPoint.proceed();
             // 设置执行结果为成功
             log.setResult(true);
-        }
-    }
-
-
-    @AfterThrowing(value = "logOperationAop()", throwing = "e")
-    public void doAfterThrowing(JoinPoint joinPoint, Exception e) throws JsonProcessingException {
-        LinkedList<Log> logs = logHolder.get();
-        Log log = logs.peekFirst();
-        if (log != null) {
-            setLog(log, joinPoint);
+        } catch (Exception e) {
             // 设置执行结果为失败
             log.setResult(false);
             log.setExceptionName(e.getClass().getName());
             log.setExceptionMessage(e.getMessage());
-        }
-    }
-
-
-    @After("logOperationAop()")
-    public void doAfter() {
-        // 将日志记录插入数据库中
-        LinkedList<Log> logs = logHolder.get();
-        Log log = logs.pollFirst();
-        if (log != null) {
+        } finally {
             logMapper.insert(log);
         }
+        return proceed;
     }
-
 
     /**
      * 封装日志记录

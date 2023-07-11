@@ -6,6 +6,7 @@ import com.zero.sys.entity.ConfigConst;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 系统配置常量表业务逻辑层接口
@@ -54,6 +55,16 @@ public interface ConfigConstService extends BaseService<ConfigConst> {
      * @throws Exception
      */
     String getByKey(String key) throws Exception;
+
+
+    /**
+     * 批量查询常量键值配置数据
+     *
+     * @param keys key键集合
+     * @return
+     * @throws Exception 抛出异常
+     */
+    Map<String, String> getByKeys(List<String> keys) throws Exception;
 
     /**
      * 分页查询逻辑删除的系统配置常量表数据

@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 系统配置常量表业务逻辑层的实现类
@@ -73,6 +75,16 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
             }
         }
         return configConst.getDefaultValue();
+    }
+
+    @Override
+    public Map<String, String> getByKeys(List<String> keys) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        for (String key : keys) {
+            String value = getByKey(key);
+            map.put(key, value);
+        }
+        return map;
     }
 
 

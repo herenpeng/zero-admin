@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 系统配置常量表的数据交互控制器
@@ -68,12 +69,24 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     @LogOperation
     @ApiOperation(value = "查询常量键值配置数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "常量键值", dataTypeClass = String.class)
+
     })
     @GetMapping("key")
     public ResponseData<String> key(String key) throws Exception {
         return ResponseData.ok(baseService.getByKey(key));
     }
+
+
+    @LogOperation
+    @ApiOperation(value = "批量查询常量键值配置数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "keys", value = "常量键值集合", dataTypeClass = String.class)
+    })
+    @PostMapping("keys")
+    public ResponseData<Map<String, String>> keys(@RequestBody List<String> keys) throws Exception {
+        return ResponseData.ok(baseService.getByKeys(keys));
+    }
+
 
     @LogOperation
     @ApiOperation(value = "分页查询逻辑删除的系统配置常量表数据")

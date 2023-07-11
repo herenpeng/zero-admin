@@ -5,6 +5,15 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/zero-admin?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: admin
+    hikari:
+      connection-timeout: 10000
+      validation-timeout: 3000
+      idle-timeout: 60000
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 3
+      read-only: false
   redis:
     host: 127.0.0.1
     port: 6379
