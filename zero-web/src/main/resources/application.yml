@@ -26,6 +26,8 @@ spring:
   mvc:
     servlet:
       load-on-startup: 1
+    pathmatch:
+      matching-strategy: ant_path_matcher
   # SpringMail发送邮件相关配置
   mail:
     # 发送邮件的账号名
