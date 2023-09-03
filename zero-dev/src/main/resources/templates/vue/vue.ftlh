@@ -46,7 +46,7 @@
       <el-table-column label="序号" type="index" sortable="true" align="center" width="80" />
       <#list tableColumnList as column>
         <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-            <#if column.javaType == "String">
+            <#if column.javaType == "String" || column.javaType == "Integer">
       <el-table-column label="${column.comment}" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.${column.javaName} }}</span>
@@ -90,6 +90,11 @@
           <#if column.javaType == "String">
         <el-form-item label="${column.comment}" prop="${column.javaName}">
           <el-input v-model="${entityName?uncap_first}.${column.javaName}" placeholder="请输入${column.comment}" />
+        </el-form-item>
+          </#if>
+          <#if column.javaType == "Integer">
+        <el-form-item label="${column.comment}" prop="${column.javaName}">
+          <el-input v-model="${entityName?uncap_first}.${column.javaName}" type="number" placeholder="请输入${column.comment}" />
         </el-form-item>
           </#if>
           <#if column.javaType == "Boolean">

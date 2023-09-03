@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.OrganMapper">
+
+    <resultMap id="resultMap" type="com.zero.sys.entity.Organ">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`name`,`sort`,`parent_id`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryOrgan.name != null and queryOrgan.name != ''">
+            and name like concat('%', #{queryOrgan.name}, '%')
+        </if>
+        <if test="queryOrgan.sort != null">
+            and sort = #{queryOrgan.sort}
+        </if>
+        <if test="queryOrgan.parentId != null">
+            and parent_id = #{queryOrgan.parentId}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select distinct so.`id` as id,so.`name` as name,so.`sort` as sort,so.`parent_id` as parent_id,
+        so.`create_time` as create_time,so.`create_user_id` as create_user_id,
+        so.`update_time` as update_time,so.`update_user_id` as update_user_id,so.`deleted` as deleted
+        from sys_organ so
+        left join sys_organ cso on cso.parent_id = so.id
+        where so.deleted = 0
+        <if test="queryOrgan.name != null and queryOrgan.name != ''">
+            and (so.name like concat('%', #{queryOrgan.name}, '%')
+            or cso.name like concat('%', #{queryOrgan.name}, '%'))
+        </if>
+        <if test="queryOrgan.parentId != null">
+            and so.parent_id = #{queryOrgan.parentId}
+        </if>
+        <if test="queryOrgan.parentId == null">
+            and so.parent_id = 0
+        </if>
+        order by so.sort
+    </select>
+
+
+    <select id="getByParentId" resultMap="resultMap">
+        select `id` as id,`name` as name,`sort` as sort,`parent_id` as parent_id,`create_time` as create_time,
+        `create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_organ
+        where deleted = 0
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+        order by sort
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`name` as name,`sort` as sort,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_organ
+        where deleted = 0
+        <include refid="baseQuery"></include>
+    </select>
+
+    <select id="getRecoverPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`sort` as sort,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from sys_organ
+        where deleted = 1
+        <include refid="baseQuery"></include>
+    </select>
+
+</mapper>
