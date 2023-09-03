@@ -2,18 +2,25 @@ package com.zero.auth.security.util;
 
 import com.zero.auth.entity.LoginLog;
 import com.zero.auth.entity.User;
+import com.zero.auth.entity.UserInfo;
+import com.zero.auth.mapper.LoginLogMapper;
+import com.zero.auth.mapper.UserInfoMapper;
+import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
 import com.zero.auth.service.LoginLogService;
 import com.zero.common.constant.StringConst;
+import com.zero.common.util.FreeMarkerUtils;
 import com.zero.common.util.JsonUtils;
 import com.zero.common.util.RedisUtils;
+import com.zero.mail.domain.ToMail;
+import com.zero.mail.template.login.LoginMailParams;
+import com.zero.mail.template.login.LoginMailProperties;
+import com.zero.mail.util.MailUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.AmqpException;
-import org.springframework.amqp.core.AmqpTemplate;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
@@ -37,7 +44,17 @@ public class LoginUtils {
 
     private final LoginLogService loginLogService;
 
-    private final AmqpTemplate amqpTemplate;
+    private final UserMapper userMapper;
+
+    private final UserInfoMapper userInfoMapper;
+
+    private final LoginLogMapper loginLogMapper;
+
+    private final LoginMailProperties loginMailProperties;
+
+    private final FreeMarkerUtils freeMarkerUtils;
+
+    private final MailUtils mailUtils;
 
     /**
      * 通过用户信息生成Jwt
@@ -63,14 +80,33 @@ public class LoginUtils {
 
 
     public void sendLoginMail(LoginLog loginLog) {
-        if (!ObjectUtils.isEmpty(loginLog) && !ObjectUtils.isEmpty(loginLog.getId())) {
-            try {
-                // 发送 rabbitMq 消息，发送登录邮件日志
-                amqpTemplate.convertAndSend("amq.topic", "zero-admin.login.mail.send", loginLog.getId());
-            } catch (AmqpException e) {
-                e.printStackTrace();
-                log.info("[消息队列功能]发送用户登录日志消息失败，登录日志主键：{}", loginLog.getId());
+        try {
+            UserInfo userInfo = userInfoMapper.selectById(loginLog.getUserId());
+            // 用户信息中的邮箱地址不为空的情况下，才进行邮件发送，否则不进行登录邮件的发送
+            if (StringUtils.isBlank(userInfo.getMail())) {
+                return;
             }
+            User user = userMapper.selectById(userInfo.getId());
+            log.info("[用户登录]发送用户{}登录邮件", user.getUsername());
+            ToMail toMail = new ToMail();
+            // 设置邮箱接收者的邮箱账号
+            toMail.setToMails(new String[]{userInfo.getMail()});
+            // 设置发送邮件的主题信息
+            toMail.setSubject(loginMailProperties.getSubject());
+            // 准备邮件模板参数
+            LoginMailParams loginMailParams = new LoginMailParams();
+            loginMailParams.setUsername(user.getUsername());
+            loginMailParams.setLoginTime(loginLog.getLoginTime());
+            loginMailParams.setLoginAddress(loginLog.getCountry() + StringConst.SPACE + loginLog.getRegion() + StringConst.SPACE + loginLog.getCity());
+            loginMailParams.setLoginIp(loginLog.getIp());
+            // 通过邮件模板参数和属性，获取模板内容字符串
+            String content = freeMarkerUtils.getTemplateContent(loginMailParams, loginMailProperties.getPath(), loginMailProperties.getFile());
+            toMail.setContent(content);
+            // 发送邮件
+            mailUtils.sendTemplateMail(toMail);
+        } catch (Exception e) {
+            log.error("[邮件功能]发送登录邮件失败，登录日志主键：{}", loginLog.getId());
+            e.printStackTrace();
         }
     }
 

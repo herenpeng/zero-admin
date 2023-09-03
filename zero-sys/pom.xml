@@ -15,12 +15,10 @@
         <dependency>
             <groupId>com.zero</groupId>
             <artifactId>zero-upload</artifactId>
-            <version>${zero-admin.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zero</groupId>
             <artifactId>zero-mail</artifactId>
-            <version>${zero-admin.version}</version>
         </dependency>
     </dependencies>
 

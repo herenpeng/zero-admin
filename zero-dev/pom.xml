@@ -15,7 +15,6 @@
         <dependency>
             <groupId>com.zero</groupId>
             <artifactId>zero-sys</artifactId>
-            <version>${zero-admin.version}</version>
         </dependency>
     </dependencies>
 

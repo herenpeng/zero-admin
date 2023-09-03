@@ -13,8 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zero</groupId>
-            <artifactId>zero-common</artifactId>
-            <version>${zero-admin.version}</version>
+            <artifactId>zero-mail</artifactId>
         </dependency>
     </dependencies>
 
