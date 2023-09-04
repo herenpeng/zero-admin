@@ -12,6 +12,10 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
         <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+        <collection property="users" ofType="com.zero.auth.entity.User">
+            <id column="uid" jdbcType="INTEGER" property="id"/>
+            <result column="username" jdbcType="VARCHAR" property="username"/>
+        </collection>
     </resultMap>
 
     <sql id="baseColumn">

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @EventSort
 @Component
-public class DestroyResources implements StopEvent {
+public class DestroyResourcesEvent implements StopEvent {
 
     private final ResourcesMapper resourcesMapper;
 

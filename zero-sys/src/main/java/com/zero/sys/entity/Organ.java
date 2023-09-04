@@ -3,6 +3,7 @@ package com.zero.sys.entity;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zero.auth.entity.User;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -57,6 +58,13 @@ public class Organ extends BaseEntity {
     @ApiModelProperty(value = "组织机构下级的子组织机构")
     @TableField(exist = false)
     private List<Organ> children;
+
+    /**
+     * 组织机构中的用户，非数据库字段
+     */
+    @ApiModelProperty(value = "组织机构中的用户")
+    @TableField(exist = false)
+    private List<User> users;
 
 
 }

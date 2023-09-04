@@ -23,22 +23,22 @@ public class SysEventRegister extends EventRegister {
     /**
      * [系统启动事件]注册扫描资源事件，在系统启动时，扫描系统资源
      */
-    private boolean scanResources = true;
+    private boolean scanResourcesEvent = true;
 
     /**
      * [系统停止事件]销毁所有的系统资源
      */
-    private boolean destroyResources = false;
+    private boolean destroyResourcesEvent = false;
 
     /**
      * [系统启动事件]root用户事件，在系统启动时，插入root角色和root用户，并关联两者的关系
      */
-    private boolean rootUser = true;
+    private boolean rootUserEvent = true;
 
     /**
      * [系统启动事件]root用户菜单事件，插入root用户的所有菜单权限
      */
-    private boolean rootMenu = true;
+    private boolean rootMenuEvent = true;
 
 
 }

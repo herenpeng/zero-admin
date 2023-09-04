@@ -38,7 +38,7 @@ import java.lang.reflect.Method;
 @RequiredArgsConstructor
 @EventSort(5)
 @Component
-public class ScanResources implements StartEvent {
+public class ScanResourcesEvent implements StartEvent {
 
     /**
      * 匹配的正则表达式，例如{id}

@@ -134,7 +134,7 @@ export default {
   data() {
     return {
       tableKey: 0,
-      list: null,
+      list: [],
       page: {
         currentPage: 1,
         size: 10,

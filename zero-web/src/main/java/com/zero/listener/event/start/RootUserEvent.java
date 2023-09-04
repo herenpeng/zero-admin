@@ -28,7 +28,7 @@ import org.springframework.util.ObjectUtils;
 @RequiredArgsConstructor
 @EventSort(1)
 @Component
-public class RootUser implements StartEvent {
+public class RootUserEvent implements StartEvent {
 
     private final UserProperties userProperties;
 

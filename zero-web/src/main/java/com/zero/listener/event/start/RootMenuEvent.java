@@ -27,7 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @EventSort(2)
 @Component
-public class RootMenu implements StartEvent {
+public class RootMenuEvent implements StartEvent {
 
     private final MenuMapper menuMapper;
 

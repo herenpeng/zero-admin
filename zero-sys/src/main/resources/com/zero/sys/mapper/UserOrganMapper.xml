@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.sys.mapper.UserOrganMapper">
+
+    <select id="getUserByOrganId" resultType="com.zero.auth.entity.User">
+        select au.id as id, au.username as username
+        from auth_user au
+        left join sys_user_organ suo on suo.user_id = au.id
+        where au.deleted = 0 and suo.deleted = 0
+        <if test="organId != null">
+            and suo.organ_id = #{organId}
+        </if>
+    </select>
+
+
+</mapper>
