@@ -1,7 +1,5 @@
 package com.zero.common.export.excel.enums;
 
-import cn.afterturn.easypoi.excel.export.styler.ExcelExportStylerBorderImpl;
-import cn.afterturn.easypoi.excel.export.styler.ExcelExportStylerColorImpl;
 import cn.afterturn.easypoi.excel.export.styler.ExcelExportStylerDefaultImpl;
 import cn.afterturn.easypoi.excel.export.styler.IExcelExportStyler;
 import lombok.AllArgsConstructor;
@@ -23,14 +21,7 @@ public enum ExcelStyleEnum {
      * 默认样式
      */
     DEFAULT("默认样式", ExcelExportStylerDefaultImpl.class),
-    /**
-     * 边框样式
-     */
-    BORDER("边框样式", ExcelExportStylerBorderImpl.class),
-    /**
-     * 间隔行样式
-     */
-    COLOR("间隔行样式", ExcelExportStylerColorImpl.class);
+    ;
 
     /**
      * 样式名称

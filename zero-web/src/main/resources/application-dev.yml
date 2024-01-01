@@ -14,12 +14,12 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 3
       read-only: false
-  redis:
-    host: 127.0.0.1
-    port: 6379
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
   # rabbitmq连接配置信息
 #  rabbitmq:
-#    host: ${SPRING_RABBITMQ_HOST}
 #    host: ${SPRING_RABBITMQ_HOST}
 #    #端口默认就是5672，如果没有RabbitMQ没有修改默认端口的话，可以不配置
 #    port: 5672
@@ -34,6 +34,11 @@ spring:
     resources:
       # 访问系统外部资源，将该目录下的文件映射到系统下
       static-locations: file:F:\tmp\
+springdoc:
+  # OpenAPI文档相关参数
+  api-docs:
+    # OpenAPI文档开关, true: 开启OpenAPI文档访问功能, false: 关闭。
+    enabled: true
 zero:
   domain-name: http://127.0.0.1:10000
   vue-domain: http://127.0.0.1:20000
@@ -43,11 +48,6 @@ zero:
         rsa:
           private-file: F:\\tmp\\rsa\\rsa.pri
           public-file: F:\\tmp\\rsa\\rsa.pub
-  common:
-    # Swagger文档配置
-    swagger:
-      # 是否启用Swagger文档
-      enable: true
   upload:
     # 文件上传目标路径
     path: F:\tmp\

@@ -6,8 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.auth.enums.UserTypeEnums;
 import com.zero.common.base.entity.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +20,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-09-07 08:05
  */
-@ApiModel(value = "用户信息实体类")
+@Schema(name = "用户信息实体类")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
@@ -32,7 +31,7 @@ public class User extends BaseEntity {
     /**
      * 用户名称
      */
-    @ApiModelProperty(value = "用户名称")
+    @Schema(name = "用户名称")
     @Excel(name = "用户名称", width = 15, needMerge = true)
     @TableField(value = "username")
     private String username;
@@ -40,14 +39,14 @@ public class User extends BaseEntity {
     /**
      * 用户密码，如果password为null，则在序列化为json的时候不进行序列化
      */
-    @ApiModelProperty(value = "用户密码")
+    @Schema(name = "用户密码")
     @TableField(value = "password")
     private String password;
 
     /**
      * 账号是否启用，true为启用，false为禁用，默认为true
      */
-    @ApiModelProperty(value = "用户账号是否启用")
+    @Schema(name = "用户账号是否启用")
     @Excel(name = "账号是否启用", width = 15, needMerge = true, replace = {"启用_true", "禁用_false"})
     @TableField(value = "enabled")
     private Boolean enabled;
@@ -55,7 +54,7 @@ public class User extends BaseEntity {
     /**
      * 账号是否锁定，true为锁定，false为未锁定，默认为false
      */
-    @ApiModelProperty(value = "用户账号是否锁定")
+    @Schema(name = "用户账号是否锁定")
     @Excel(name = "账号是否锁定", width = 15, needMerge = true, replace = {"锁定_true", "未锁定_false"})
     @TableField(value = "locked")
     private Boolean locked;
@@ -63,7 +62,7 @@ public class User extends BaseEntity {
     /**
      * 账号是否过期，true为过期，false为未过期，默认为false
      */
-    @ApiModelProperty(value = "用户账号是否过期")
+    @Schema(name = "用户账号是否过期")
     @Excel(name = "账号是否过期", width = 15, needMerge = true, replace = {"过期_true", "未过期_false"})
     @TableField(value = "account_expire")
     private Boolean accountExpire;
@@ -71,7 +70,7 @@ public class User extends BaseEntity {
     /**
      * 密码是否过期，true为过期，false为未过期，默认为false
      */
-    @ApiModelProperty(value = "用户密码是否过期")
+    @Schema(name = "用户密码是否过期")
     @Excel(name = "密码是否过期", width = 15, needMerge = true, replace = {"过期_true", "未过期_false"})
     @TableField(value = "password_expire")
     private Boolean passwordExpire;
@@ -79,7 +78,7 @@ public class User extends BaseEntity {
     /**
      * 用户类型
      */
-    @ApiModelProperty(value = "用户类型")
+    @Schema(name = "用户类型")
     @Excel(name = "用户类型", width = 15, needMerge = true)
     @TableField(value = "type")
     private UserTypeEnums type;
@@ -87,7 +86,7 @@ public class User extends BaseEntity {
     /**
      * 用户所包含的角色信息，非数据库字段
      */
-    @ApiModelProperty(value = "用户所拥有的角色信息")
+    @Schema(name = "用户所拥有的角色信息")
     @ExcelCollection(name = "用户所拥有的角色信息")
     @TableField(exist = false)
     private List<Role> roles;
@@ -95,21 +94,21 @@ public class User extends BaseEntity {
     /**
      * 用户的详细信息
      */
-    @ApiModelProperty(value = "用户的详细信息")
+    @Schema(name = "用户的详细信息")
     @TableField(exist = false)
     private UserInfo userInfo;
 
     /**
      * 当前登录的用户登入日志记录
      */
-    @ApiModelProperty(value = "当前登录的用户登入日志记录")
+    @Schema(name = "当前登录的用户登入日志记录")
     @TableField(exist = false)
     private List<LoginLog> onlineLoginLogs;
 
     /**
      * 通过角色主键查询用户
      */
-    @ApiModelProperty(value = "通过角色主键查询用户")
+    @Schema(name = "通过角色主键查询用户")
     @TableField(exist = false)
     private Integer queryRoleId;
 

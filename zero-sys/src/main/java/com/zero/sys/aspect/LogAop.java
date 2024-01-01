@@ -8,7 +8,10 @@ import com.zero.common.http.util.IpUtils;
 import com.zero.common.util.JsonUtils;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,9 +23,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
 
@@ -103,9 +103,9 @@ public class LogAop {
         if (ObjectUtils.allNotNull(logOperation) && StringUtils.isNotBlank(logOperation.value())) {
             log.setDescription(logOperation.value());
         } else {
-            ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+            Operation apiOperation = method.getAnnotation(Operation.class);
             if (ObjectUtils.allNotNull(apiOperation)) {
-                log.setDescription(apiOperation.value());
+                log.setDescription(apiOperation.description());
             }
         }
     }

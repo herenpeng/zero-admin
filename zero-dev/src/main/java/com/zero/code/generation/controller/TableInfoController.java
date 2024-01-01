@@ -6,10 +6,10 @@ import com.zero.code.generation.service.TableInfoService;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,17 +20,17 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-11-08 20:24
  */
-@Api(value = "系统数据库表信息操作接口", tags = "TableInfoController")
+@Tag(description = "系统数据库表信息操作接口", name = "TableInfoController")
 @RestController
 @RequestMapping("table/info")
 public class TableInfoController extends BaseController<TableInfoService, TableInfo> {
 
     @LogOperation
-    @ApiOperation(value = "分页查询系统数据库表信息数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryUser", value = "系统数据库表信息查询条件", dataTypeClass = TableInfo.class)
+    @Operation(description = "分页查询系统数据库表信息数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryUser", description = "系统数据库表信息查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<TableInfo>> page(
@@ -43,7 +43,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
 
 
     @LogOperation
-    @ApiOperation(value = "获取还没有插入数据库中的数据库表信息")
+    @Operation(description = "获取还没有插入数据库中的数据库表信息")
     @GetMapping("not/list")
     public ResponseData<List<TableInfo>> getNotAddList() throws Exception {
         List<TableInfo> list = baseService.getNotAddList();
@@ -52,19 +52,19 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
 
 
     @LogOperation
-    @ApiOperation(value = "生成代码")
+    @Operation(description = "生成代码")
     @PostMapping("code/generation/{id}")
     public ResponseData<Void> codeGeneration(@PathVariable("id") Integer id) throws Exception {
         baseService.codeGeneration(id);
-        return ResponseData.ok().message("代码生成成功");
+        return ResponseData.message("代码生成成功");
     }
 
     @LogOperation
-    @ApiOperation(value = "分页查询逻辑删除的系统数据库表信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", dataTypeClass = Integer.class, defaultValue = "10"),
-            @ApiImplicitParam(name = "queryTableInfo", value = "系统数据库表信息表查询条件", dataTypeClass = TableInfo.class)
+    @Operation(description = "分页查询逻辑删除的系统数据库表信息表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryTableInfo", description = "系统数据库表信息表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<TableInfo>> recoverPage(
@@ -77,9 +77,9 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键恢复逻辑删除的系统数据库表信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键恢复逻辑删除的系统数据库表信息表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统数据库表信息表ID", required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -88,14 +88,14 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     }
 
     @LogOperation
-    @ApiOperation(value = "通过主键彻底删除一条系统数据库表信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统数据库表信息表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键彻底删除一条系统数据库表信息表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统数据库表信息表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok().message("彻底删除该系统数据库表信息数据");
+        return ResponseData.message("彻底删除该系统数据库表信息数据");
     }
 
 

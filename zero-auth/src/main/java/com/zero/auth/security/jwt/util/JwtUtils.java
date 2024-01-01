@@ -24,7 +24,7 @@ public class JwtUtils {
 
     private final JwtProperties jwtProperties;
 
-    private final RsaUtils rsaUtils;
+    private final RsaKit rsaKit;
 
     /**
      * 创建JWT
@@ -44,7 +44,7 @@ public class JwtUtils {
         // 下面就是在为payload添加各种标准声明和私有声明了,这里其实就是new一个JwtBuilder，设置jwt的body
         JwtBuilder builder = Jwts.builder();
         // 设置签名使用的签名算法和签名使用的秘钥
-        builder.signWith(rsaUtils.getPrivateKey(), signatureAlgorithm);
+        builder.signWith(rsaKit.getPrivateKey(), signatureAlgorithm);
         // jti：设置JWT的ID，是JWT的唯一标识，根据业务需要，这个可以设置为一个不重复的值，主要用来作为一次性token,从而回避重放攻击
         builder.setId(id);
         // iat：JWT的签发时间，生成JWT的时间
@@ -114,13 +114,12 @@ public class JwtUtils {
      */
     public Claims parseJWT(String jwt) {
         // 得到DefaultJwtParser
-        Claims claims = Jwts.parserBuilder()
+        return Jwts.parserBuilder()
                 // 设置签名的秘钥
-                .setSigningKey(rsaUtils.getPublicKey())
+                .setSigningKey(rsaKit.getPublicKey())
                 .build()
                 // 设置需要解析的jwt
                 .parseClaimsJws(jwt).getBody();
-        return claims;
     }
 
 

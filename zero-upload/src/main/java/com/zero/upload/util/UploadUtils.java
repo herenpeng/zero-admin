@@ -2,8 +2,8 @@ package com.zero.upload.util;
 
 import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.constant.StringConst;
-import com.zero.common.exception.MyException;
-import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.exception.AppException;
+import com.zero.common.exception.AppExceptionEnum;
 import com.zero.common.http.constant.HttpConst;
 import com.zero.common.properties.AppProperties;
 import com.zero.upload.entity.FileManage;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -68,7 +68,7 @@ public class UploadUtils {
         // 判断上传的类型是否为允许上传的文件类型，
         if (!fileUpload.getAllowTypes().contains(file.getContentType())) {
             log.warn("[文件上传]上传的文件：{}，格式不被允许", file.getOriginalFilename());
-            throw new MyException(MyExceptionEnum.FILE_TYPE_NOT_ALLOW);
+            throw new AppException(AppExceptionEnum.FILE_TYPE_NOT_ALLOW);
         }
         // 将文件名称替换为唯一名称，保证文件之间不会因为同名覆盖
         String fileName = generateUniqueFileName(file.getOriginalFilename());

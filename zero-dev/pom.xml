@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zero</groupId>
-            <artifactId>zero-sys</artifactId>
+            <artifactId>zero-common</artifactId>
         </dependency>
     </dependencies>
 

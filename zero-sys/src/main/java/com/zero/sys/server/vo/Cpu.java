@@ -2,7 +2,7 @@ package com.zero.sys.server.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.zero.sys.server.util.ArithHelper;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * @author herenpeng
  * @since 2020-10-12 20:14
  */
-@ApiModel(value = "系统CPU参数信息实体类")
+@Schema(name = "系统CPU参数信息实体类")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @NoArgsConstructor

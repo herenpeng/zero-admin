@@ -14,7 +14,7 @@ import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -38,7 +38,7 @@ public class RootUserEvent implements StartEvent {
 
     private final RoleMapper roleMapper;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     private final UserRoleMapper userRoleMapper;
 
@@ -49,7 +49,8 @@ public class RootUserEvent implements StartEvent {
         if (ObjectUtils.isEmpty(user)) {
             user = new User();
             user.setUsername(userProperties.getRootUsername());
-            String encodePassword = passwordEncoder.encode(userProperties.getRootPassword());
+//            String encodePassword = passwordEncoder.encode(userProperties.getRootPassword());
+            String encodePassword = userProperties.getRootPassword();
             user.setPassword(encodePassword);
             user.setEnabled(true);
             user.setLocked(false);

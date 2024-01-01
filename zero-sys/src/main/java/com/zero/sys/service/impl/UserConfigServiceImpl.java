@@ -7,8 +7,8 @@ import com.zero.auth.entity.User;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
-import com.zero.common.exception.MyException;
-import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.exception.AppException;
+import com.zero.common.exception.AppExceptionEnum;
 import com.zero.sys.entity.ConfigConst;
 import com.zero.sys.entity.UserConfig;
 import com.zero.sys.mapper.ConfigConstMapper;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -66,11 +66,11 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
         ConfigConst configConst = configConstMapper.getByKey(key);
         if (ObjectUtils.isEmpty(configConst)) {
             log.error("[用户配置业务层]系统配置的KEY值：{}不存在", key);
-            throw new MyException(MyExceptionEnum.CONFIG_KEY_NOT_EXIST);
+            throw new AppException(AppExceptionEnum.CONFIG_KEY_NOT_EXIST);
         }
         if (!configConst.getUserable()) {
             log.error("[用户配置业务层]系统配置的KEY值：{}不允许用户配置", key);
-            throw new MyException(MyExceptionEnum.CONFIG_KEY_NOT_CAN);
+            throw new AppException(AppExceptionEnum.CONFIG_KEY_NOT_CAN);
         }
         Integer userId = securityUtils.getUserId(request);
         UserConfig userConfig = baseMapper.getByUserIdAndConfigId(userId, configConst.getId());

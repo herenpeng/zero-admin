@@ -7,6 +7,7 @@ import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.entity.UserRole;
 import com.zero.auth.enums.UserTypeEnums;
+import com.zero.auth.kit.EncryptKit;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
 import com.zero.auth.security.util.SecurityUtils;
@@ -14,16 +15,15 @@ import com.zero.auth.service.LoginLogService;
 import com.zero.auth.service.RoleService;
 import com.zero.auth.service.UserService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
-import com.zero.common.exception.MyException;
-import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.exception.AppException;
+import com.zero.common.exception.AppExceptionEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.List;
 
@@ -44,8 +44,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     private final UserRoleMapper userRoleMapper;
 
     private final UserInfoMapper userInfoMapper;
-
-    private final PasswordEncoder passwordEncoder;
 
     private final UserProperties userProperties;
 
@@ -78,7 +76,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         // 删除用户名中头尾的空格字符
         user.setUsername(StringUtils.trim(user.getUsername()));
         String defaultPassword = userProperties.getDefaultPassword();
-        String encodePassword = passwordEncoder.encode(defaultPassword);
+        String encodePassword = EncryptKit.sha256(defaultPassword);
         user.setPassword(encodePassword);
         // 本地系统添加的用户类型为 LOCAL
         user.setType(UserTypeEnums.LOCAL);
@@ -151,7 +149,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public Boolean checkPassword(String password) throws Exception {
         Integer id = securityUtils.getUserId(request);
         User user = baseMapper.selectById(id);
-        return passwordEncoder.matches(password, user.getPassword());
+//        return passwordEncoder.matches(password, user.getPassword());
+        return true;
     }
 
     @Override
@@ -191,10 +190,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         // 后端进行旧密码和用户输入的旧密码匹配校验
         if (!checkPassword(oldPassword)) {
             log.error("[重置用户密码]用户{}密码输入错误", user.getUsername());
-            throw new MyException(MyExceptionEnum.PASSWORD_ERROR);
+            throw new AppException(AppExceptionEnum.PASSWORD_ERROR);
         }
         // 删除密码中的所有空格字符
-        String encodeNewPassword = passwordEncoder.encode(StringUtils.deleteWhitespace(newPassword));
+//        String encodeNewPassword = passwordEncoder.encode(StringUtils.deleteWhitespace(newPassword));
+        String encodeNewPassword = newPassword;
         user.setPassword(encodeNewPassword);
         baseMapper.updateById(user);
         // 重置账号密码后对该账号的所有在线用户进行下线操作
@@ -209,7 +209,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     private void verifyRootPermissions(Serializable id) {
         User user = baseMapper.selectById(id);
         if (StringUtils.equals(userProperties.getRootUsername(), user.getUsername())) {
-            throw new MyException(MyExceptionEnum.INSUFFICIENT_AUTHENTICATION);
+            throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
         }
     }
 

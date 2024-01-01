@@ -48,7 +48,7 @@ spring:
           auth: true
           socketFactory:
             port: 465
-            class: javax.net.ssl.SSLSocketFactory
+            class: jakarta.net.ssl.SSLSocketFactory
             fallback: false
           starttls:
             enable: true
@@ -80,6 +80,7 @@ mybatis-plus:
       logic-not-delete-value: false
   # 枚举类型包
   type-enums-package: com.zero.*.enums
+  mapper-locations: classpath*:/com/zero/*/mapper/*.xml
 zero:
   api-path: ${zero.domain-name}${server.servlet.context-path}
   auth:

@@ -5,7 +5,7 @@ import com.zero.common.base.service.BaseService;
 import com.zero.upload.entity.FileManage;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

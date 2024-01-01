@@ -11,12 +11,19 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public enum MyExceptionEnum {
+public enum AppExceptionEnum {
 
     /**
      * 登录错误
      */
-    LOGIN_ERROR(30000, "登录错误"),
+    LOGIN_ERROR(30000, "登录失败"),
+    LOGIN_USERNAME_ERROR(30001, "用户名错误，登录失败"),
+    LOGIN_ACCOUNT_LOCKED(30002, "账号被锁定，登录失败"),
+    LOGIN_ACCOUNT_DISABLE(30003, "账号被禁用，登录失败"),
+    LOGIN_ACCOUNT_EXPIRE(30004, "账号过期，登录失败"),
+    LOGIN_PASSWORD_EXPIRE(30005, "密码过期，登录失败"),
+    LOGIN_PASSWORD_ERROR(30006, "密码错误，登录失败"),
+
     /**
      * 40002，无效的token
      */

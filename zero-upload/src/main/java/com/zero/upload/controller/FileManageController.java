@@ -6,14 +6,14 @@ import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.service.FileManageService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -22,17 +22,17 @@ import java.util.List;
  * @author herenpeng
  * @since 2021-01-30 18:46
  */
-@Api(value = "文件资源管理表操作接口", tags = "FileManageController")
+@Tag(description = "文件资源管理表操作接口", name = "FileManageController")
 @RestController
 @RequestMapping("file/manage")
 public class FileManageController extends BaseController<FileManageService, FileManage> {
 
     @LogOperation
-    @ApiOperation(value = "分页查询文件资源管理表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryFileManage", value = "文件资源管理表查询条件", dataTypeClass = FileManage.class)
+    @Operation(description = "分页查询文件资源管理表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<FileManage>> page(
@@ -45,9 +45,9 @@ public class FileManageController extends BaseController<FileManageService, File
 
 
     @LogOperation
-    @ApiOperation(value = "查询所有的文件资源管理表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryFileManage", value = "文件资源管理表查询条件", dataTypeClass = FileManage.class)
+    @Operation(description = "查询所有的文件资源管理表数据")
+    @Parameters({
+            @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件")
     })
     @GetMapping("list")
     public ResponseData<List<FileManage>> list(FileManage queryFileManage) throws Exception {
@@ -56,11 +56,11 @@ public class FileManageController extends BaseController<FileManageService, File
 
 
     @LogOperation
-    @ApiOperation(value = "分页查询逻辑删除的文件资源管理表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryFileManage", value = "文件资源管理表查询条件", dataTypeClass = FileManage.class)
+    @Operation(description = "分页查询逻辑删除的文件资源管理表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<FileManage>> recoverPage(
@@ -73,9 +73,9 @@ public class FileManageController extends BaseController<FileManageService, File
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键恢复逻辑删除的文件资源管理表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "文件资源管理表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键恢复逻辑删除的文件资源管理表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "文件资源管理表ID", required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -85,22 +85,22 @@ public class FileManageController extends BaseController<FileManageService, File
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键彻底删除一条文件资源管理表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "文件资源管理表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键彻底删除一条文件资源管理表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "文件资源管理表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok().message("彻底删除该文件资源管理表数据");
+        return ResponseData.message("彻底删除该文件资源管理表数据");
     }
 
 
     @LogOperation
-    @ApiOperation(value = "导出文件资源管理表数据的Excel文件")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryFileManage", value = "文件资源管理表查询条件", dataTypeClass = FileManage.class),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
+    @Operation(description = "导出文件资源管理表数据的Excel文件")
+    @Parameters({
+            @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件"),
+            @Parameter(name = "response", description = "HttpServletResponse对象"),
     })
     @GetMapping("export/excel")
     public void exportExcel(FileManage queryFileManage, HttpServletResponse response) throws Exception {
@@ -108,26 +108,26 @@ public class FileManageController extends BaseController<FileManageService, File
     }
 
     @LogOperation
-    @ApiOperation(value = "通过主键备份一个文件资源")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "文件资源管理表主键", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键备份一个文件资源")
+    @Parameters({
+            @Parameter(name = "id", description = "文件资源管理表主键", required = true)
     })
     @PostMapping("bak/{id}")
     public ResponseData<Void> bak(@PathVariable Integer id) throws Exception {
         baseService.bak(id);
-        return ResponseData.ok().message("备份成功");
+        return ResponseData.message("备份成功");
     }
 
     @LogOperation
-    @ApiOperation(value = "通过主键替换一个文件资源")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "文件资源管理表主键", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "file", value = "文件资源", dataTypeClass = MultipartFile.class, required = true)
+    @Operation(description = "通过主键替换一个文件资源")
+    @Parameters({
+            @Parameter(name = "id", description = "文件资源管理表主键", required = true),
+            @Parameter(name = "file", description = "文件资源", required = true)
     })
     @PostMapping("replace")
     public ResponseData<Void> replace(@RequestParam("id") Integer id, @RequestParam("file") MultipartFile file) throws Exception {
         baseService.replace(id, file);
-        return ResponseData.ok().message("替换成功");
+        return ResponseData.message("替换成功");
     }
 
 }

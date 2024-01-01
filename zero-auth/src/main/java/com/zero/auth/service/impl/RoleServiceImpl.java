@@ -10,15 +10,15 @@ import com.zero.auth.mapper.UserRoleMapper;
 import com.zero.auth.properties.RoleProperties;
 import com.zero.auth.service.RoleService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
-import com.zero.common.exception.MyException;
-import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.exception.AppException;
+import com.zero.common.exception.AppExceptionEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.List;
 
@@ -130,7 +130,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     private void verifyRootPermissions(Serializable id) {
         Role role = baseMapper.selectById(id);
         if (roleProperties.getRootName().equals(role.getName())) {
-            throw new MyException(MyExceptionEnum.INSUFFICIENT_AUTHENTICATION);
+            throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
         }
     }
 

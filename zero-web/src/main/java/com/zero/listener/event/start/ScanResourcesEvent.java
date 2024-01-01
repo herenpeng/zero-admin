@@ -12,7 +12,8 @@ import com.zero.common.http.constant.HttpConst;
 import com.zero.common.http.constant.MethodTypeConst;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -22,7 +23,6 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -82,14 +82,14 @@ public class ScanResourcesEvent implements StartEvent {
      */
     private void scanResources(ConfigurableApplicationContext run) {
         // 获取@RestController注解的类名集合
-        String[] restControllerBeanNameList = run.getBeanNamesForAnnotation(RestController.class);
+        String[] restControllers = run.getBeanNamesForAnnotation(RestController.class);
         Role rootRole = roleMapper.getByName(roleProperties.getRootName());
         // 获取类对象名称
-        for (String beanName : restControllerBeanNameList) {
+        for (String beanName : restControllers) {
             Object bean = run.getBean(beanName);
-            // 如果ControllerBean上有@ApiIgnore注解，不将该ControllerBean作为系统资源扫描
-            ApiIgnore apiIgnore = bean.getClass().getAnnotation(ApiIgnore.class);
-            if (ObjectUtils.allNotNull(apiIgnore)) {
+            // 如果ControllerBean上有@Hidden注解，不将该ControllerBean作为系统资源扫描
+            Hidden hidden = bean.getClass().getAnnotation(Hidden.class);
+            if (hidden != null) {
                 continue;
             }
             Object target = getTarget(bean);
@@ -114,7 +114,7 @@ public class ScanResourcesEvent implements StartEvent {
         String beanPath = "";
         // 获取类上的@RequestMapping注解
         RequestMapping beanRequestMapping = beanClass.getAnnotation(RequestMapping.class);
-        if (ObjectUtils.allNotNull(beanRequestMapping)) {
+        if (beanRequestMapping != null) {
             String[] value = beanRequestMapping.value();
             if (value.length > 0) {
                 beanPath = value[0];
@@ -172,9 +172,12 @@ public class ScanResourcesEvent implements StartEvent {
                 methodPath = value[0];
             }
         }
-        ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
-        if (ObjectUtils.allNotNull(apiOperation)) {
-            description = apiOperation.value();
+        Operation operation = method.getAnnotation(Operation.class);
+        if (operation != null) {
+            if (operation.hidden()) {
+                return;
+            }
+            description = operation.description();
         }
         // 通过方法的uri，regex和方法类型查找对应的资源记录
         Resources resources = new Resources();
@@ -186,7 +189,7 @@ public class ScanResourcesEvent implements StartEvent {
         // 创建一个资源关系对象
         ResourcesRole resourcesRole = new ResourcesRole();
         // 如果有对应的路径和方法，不插入，而是进行更新
-        if (ObjectUtils.allNotNull(queryResources)) {
+        if (queryResources != null) {
             queryResources.setDescription(description);
             resourcesMapper.updateById(queryResources);
             resourcesRole.setResourcesId(queryResources.getId());

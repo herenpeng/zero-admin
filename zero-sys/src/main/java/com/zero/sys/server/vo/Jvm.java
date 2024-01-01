@@ -1,7 +1,7 @@
 package com.zero.sys.server.vo;
 
 import com.zero.sys.server.util.ArithHelper;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.Date;
  * @author herenpeng
  * @since 2020-10-12 20:16
  */
-@ApiModel(value = "系统JVM参数信息实体类")
+@Schema(name = "系统JVM参数信息实体类")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

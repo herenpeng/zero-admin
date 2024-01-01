@@ -8,13 +8,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.zero.common.base.entity.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 
 import java.util.Date;
 
@@ -57,8 +57,8 @@ import java.util.Date;
  * @author herenpeng
  * @since 2021-04-06 23:22
  */
-@ApiIgnore
-@ApiModel(value = "Github用户信息表")
+@Hidden
+@Schema(name = "Github用户信息表")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
@@ -70,21 +70,21 @@ public class GithubUser extends BaseEntity {
      * Github用户名称
      */
     @JsonProperty(value = "login")
-    @ApiModelProperty(value = "Github用户名称")
+    @Schema(name = "Github用户名称")
     @Excel(name = "Github用户名称", width = 15, needMerge = true)
     @TableField(value = "login")
     private String login;
     /**
      * 用户表主键
      */
-    @ApiModelProperty(value = "用户表主键")
+    @Schema(name = "用户表主键")
     @Excel(name = "用户表主键", width = 15, needMerge = true)
     @TableField(value = "user_id")
     private Integer userId;
     /**
      * Github用户主键
      */
-    @ApiModelProperty(value = "Github用户主键")
+    @Schema(name = "Github用户主键")
     @Excel(name = "Github用户主键", width = 15, needMerge = true)
     @TableField(value = "github_id")
     private Integer githubId;
@@ -103,7 +103,7 @@ public class GithubUser extends BaseEntity {
      * Github Node主键
      */
     @JsonProperty(value = "node_id")
-    @ApiModelProperty(value = "Github Node主键")
+    @Schema(name = "Github Node主键")
     @Excel(name = "Github Node主键", width = 15, needMerge = true)
     @TableField(value = "node_id")
     private String nodeId;
@@ -111,7 +111,7 @@ public class GithubUser extends BaseEntity {
      * Github 用户信息api请求路径
      */
     @JsonProperty(value = "url")
-    @ApiModelProperty(value = "Github 用户信息api请求路径")
+    @Schema(name = "Github 用户信息api请求路径")
     @Excel(name = "Github 用户信息api请求路径", width = 15, needMerge = true)
     @TableField(value = "url")
     private String url;
@@ -119,7 +119,7 @@ public class GithubUser extends BaseEntity {
      * Github 用户主页路径
      */
     @JsonProperty(value = "html_url")
-    @ApiModelProperty(value = "Github 用户主页路径")
+    @Schema(name = "Github 用户主页路径")
     @Excel(name = "Github 用户主页路径", width = 15, needMerge = true)
     @TableField(value = "html_url")
     private String htmlUrl;
@@ -127,7 +127,7 @@ public class GithubUser extends BaseEntity {
      * Github 用户类型
      */
     @JsonProperty(value = "type")
-    @ApiModelProperty(value = "Github 用户类型")
+    @Schema(name = "Github 用户类型")
     @Excel(name = "Github 用户类型", width = 15, needMerge = true)
     @TableField(value = "type")
     private String type;
@@ -135,7 +135,7 @@ public class GithubUser extends BaseEntity {
      * Github 公开的仓库个数
      */
     @JsonProperty(value = "public_repos")
-    @ApiModelProperty(value = "Github 公开的仓库个数")
+    @Schema(name = "Github 公开的仓库个数")
     @Excel(name = "Github 公开的仓库个数", width = 15, needMerge = true)
     @TableField(value = "public_repos")
     private Integer publicRepos;
@@ -143,7 +143,7 @@ public class GithubUser extends BaseEntity {
      * 用户头像路径
      */
     @JsonProperty(value = "avatar_url")
-    @ApiModelProperty(value = "用户头像路径")
+    @Schema(name = "用户头像路径")
     @Excel(name = "用户头像路径", width = 15, needMerge = true)
     @TableField(value = "avatar_url")
     private String avatarUrl;
@@ -151,7 +151,7 @@ public class GithubUser extends BaseEntity {
      * public_gists
      */
     @JsonProperty(value = "public_gists")
-    @ApiModelProperty(value = "public_gists")
+    @Schema(name = "public_gists")
     @Excel(name = "public_gists", width = 15, needMerge = true)
     @TableField(value = "public_gists")
     private Integer publicGists;
@@ -159,7 +159,7 @@ public class GithubUser extends BaseEntity {
      * gravatar_id
      */
     @JsonProperty(value = "gravatar_id")
-    @ApiModelProperty(value = "gravatar_id")
+    @Schema(name = "gravatar_id")
     @Excel(name = "gravatar_id", width = 15, needMerge = true)
     @TableField(value = "gravatar_id")
     private Integer gravatarId;
@@ -167,7 +167,7 @@ public class GithubUser extends BaseEntity {
      * followers_url
      */
     @JsonProperty(value = "followers_url")
-    @ApiModelProperty(value = "followers_url")
+    @Schema(name = "followers_url")
     @Excel(name = "followers_url", width = 15, needMerge = true)
     @TableField(value = "followers_url")
     private String followersUrl;
@@ -175,7 +175,7 @@ public class GithubUser extends BaseEntity {
      * site_admin
      */
     @JsonProperty(value = "site_admin")
-    @ApiModelProperty(value = "site_admin")
+    @Schema(name = "site_admin")
     @Excel(name = "site_admin", width = 15, needMerge = true)
     @TableField(value = "site_admin")
     private Boolean siteAdmin;
@@ -183,7 +183,7 @@ public class GithubUser extends BaseEntity {
      * following_url
      */
     @JsonProperty(value = "following_url")
-    @ApiModelProperty(value = "following_url")
+    @Schema(name = "following_url")
     @Excel(name = "following_url", width = 15, needMerge = true)
     @TableField(value = "following_url")
     private String followingUrl;
@@ -191,7 +191,7 @@ public class GithubUser extends BaseEntity {
      * gists_url
      */
     @JsonProperty(value = "gists_url")
-    @ApiModelProperty(value = "gists_url")
+    @Schema(name = "gists_url")
     @Excel(name = "gists_url", width = 15, needMerge = true)
     @TableField(value = "gists_url")
     private String gistsUrl;
@@ -199,7 +199,7 @@ public class GithubUser extends BaseEntity {
      * starred_url
      */
     @JsonProperty(value = "starred_url")
-    @ApiModelProperty(value = "starred_url")
+    @Schema(name = "starred_url")
     @Excel(name = "starred_url", width = 15, needMerge = true)
     @TableField(value = "starred_url")
     private String starredUrl;
@@ -207,7 +207,7 @@ public class GithubUser extends BaseEntity {
      * subscriptions_url
      */
     @JsonProperty(value = "subscriptions_url")
-    @ApiModelProperty(value = "subscriptions_url")
+    @Schema(name = "subscriptions_url")
     @Excel(name = "subscriptions_url", width = 15, needMerge = true)
     @TableField(value = "subscriptions_url")
     private String subscriptionsUrl;
@@ -215,7 +215,7 @@ public class GithubUser extends BaseEntity {
      * organizations_url
      */
     @JsonProperty(value = "organizations_url")
-    @ApiModelProperty(value = "organizations_url")
+    @Schema(name = "organizations_url")
     @Excel(name = "organizations_url", width = 15, needMerge = true)
     @TableField(value = "organizations_url")
     private String organizationsUrl;
@@ -223,7 +223,7 @@ public class GithubUser extends BaseEntity {
      * repos_url
      */
     @JsonProperty(value = "repos_url")
-    @ApiModelProperty(value = "repos_url")
+    @Schema(name = "repos_url")
     @Excel(name = "repos_url", width = 15, needMerge = true)
     @TableField(value = "repos_url")
     private String reposUrl;
@@ -231,7 +231,7 @@ public class GithubUser extends BaseEntity {
      * events_url
      */
     @JsonProperty(value = "events_url")
-    @ApiModelProperty(value = "events_url")
+    @Schema(name = "events_url")
     @Excel(name = "events_url", width = 15, needMerge = true)
     @TableField(value = "events_url")
     private String eventsUrl;
@@ -239,7 +239,7 @@ public class GithubUser extends BaseEntity {
      * received_events_url
      */
     @JsonProperty(value = "received_events_url")
-    @ApiModelProperty(value = "received_events_url")
+    @Schema(name = "received_events_url")
     @Excel(name = "received_events_url", width = 15, needMerge = true)
     @TableField(value = "received_events_url")
     private String receivedEventsUrl;
@@ -247,7 +247,7 @@ public class GithubUser extends BaseEntity {
      * name
      */
     @JsonProperty(value = "name")
-    @ApiModelProperty(value = "name")
+    @Schema(name = "name")
     @Excel(name = "name", width = 15, needMerge = true)
     @TableField(value = "name")
     private String name;
@@ -255,7 +255,7 @@ public class GithubUser extends BaseEntity {
      * company
      */
     @JsonProperty(value = "company")
-    @ApiModelProperty(value = "company")
+    @Schema(name = "company")
     @Excel(name = "company", width = 15, needMerge = true)
     @TableField(value = "company")
     private String company;
@@ -263,7 +263,7 @@ public class GithubUser extends BaseEntity {
      * blog
      */
     @JsonProperty(value = "blog")
-    @ApiModelProperty(value = "blog")
+    @Schema(name = "blog")
     @Excel(name = "blog", width = 15, needMerge = true)
     @TableField(value = "blog")
     private String blog;
@@ -271,7 +271,7 @@ public class GithubUser extends BaseEntity {
      * location
      */
     @JsonProperty(value = "location")
-    @ApiModelProperty(value = "location")
+    @Schema(name = "location")
     @Excel(name = "location", width = 15, needMerge = true)
     @TableField(value = "location")
     private String location;
@@ -279,7 +279,7 @@ public class GithubUser extends BaseEntity {
      * 邮箱
      */
     @JsonProperty(value = "email")
-    @ApiModelProperty(value = "邮箱")
+    @Schema(name = "邮箱")
     @Excel(name = "邮箱", width = 15, needMerge = true)
     @TableField(value = "email")
     private String email;
@@ -287,7 +287,7 @@ public class GithubUser extends BaseEntity {
      * hireable
      */
     @JsonProperty(value = "hireable")
-    @ApiModelProperty(value = "hireable")
+    @Schema(name = "hireable")
     @Excel(name = "hireable", width = 15, needMerge = true)
     @TableField(value = "hireable")
     private String hireable;
@@ -295,7 +295,7 @@ public class GithubUser extends BaseEntity {
      * bio
      */
     @JsonProperty(value = "bio")
-    @ApiModelProperty(value = "bio")
+    @Schema(name = "bio")
     @Excel(name = "bio", width = 15, needMerge = true)
     @TableField(value = "bio")
     private String bio;
@@ -303,7 +303,7 @@ public class GithubUser extends BaseEntity {
      * twitter_username
      */
     @JsonProperty(value = "twitter_username")
-    @ApiModelProperty(value = "twitter_username")
+    @Schema(name = "twitter_username")
     @Excel(name = "twitter_username", width = 15, needMerge = true)
     @TableField(value = "twitter_username")
     private String twitterUsername;
@@ -311,7 +311,7 @@ public class GithubUser extends BaseEntity {
      * followers
      */
     @JsonProperty(value = "followers")
-    @ApiModelProperty(value = "followers")
+    @Schema(name = "followers")
     @Excel(name = "followers", width = 15, needMerge = true)
     @TableField(value = "followers")
     private Integer followers;
@@ -319,7 +319,7 @@ public class GithubUser extends BaseEntity {
      * following
      */
     @JsonProperty(value = "following")
-    @ApiModelProperty(value = "following")
+    @Schema(name = "following")
     @Excel(name = "following", width = 15, needMerge = true)
     @TableField(value = "following")
     private Integer following;
@@ -328,7 +328,7 @@ public class GithubUser extends BaseEntity {
      */
     @JsonProperty(value = "created_at")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @ApiModelProperty(value = "Github账号创建时间")
+    @Schema(name = "Github账号创建时间")
     @Excel(name = "Github账号创建时间", width = 15, needMerge = true)
     @TableField(value = "created_at")
     private Date createdAt;
@@ -337,7 +337,7 @@ public class GithubUser extends BaseEntity {
      */
     @JsonProperty(value = "updated_at")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @ApiModelProperty(value = "Github最后更新时间")
+    @Schema(name = "Github最后更新时间")
     @Excel(name = "Github最后更新时间", width = 15, needMerge = true)
     @TableField(value = "updated_at")
     private Date updatedAt;

@@ -5,7 +5,7 @@ import com.zero.common.base.service.BaseService;
 import com.zero.auth.entity.Resources;
 import com.zero.auth.entity.Role;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

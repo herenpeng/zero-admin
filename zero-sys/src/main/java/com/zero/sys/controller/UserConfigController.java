@@ -6,13 +6,13 @@ import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.entity.UserConfig;
 import com.zero.sys.service.UserConfigService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -21,17 +21,17 @@ import java.util.List;
  * @author herenpeng
  * @since 2021-06-06 18:28
  */
-@Api(value = "系统用户配置表操作接口", tags = "UserConfigController")
+@Tag(description = "系统用户配置表操作接口", name = "UserConfigController")
 @RestController
 @RequestMapping("user/config")
 public class UserConfigController extends BaseController<UserConfigService, UserConfig> {
 
     @LogOperation
-    @ApiOperation(value = "分页查询系统用户配置表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryUserConfig", value = "系统用户配置表查询条件", dataTypeClass = UserConfig.class)
+    @Operation(description = "分页查询系统用户配置表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<UserConfig>> page(
@@ -44,9 +44,9 @@ public class UserConfigController extends BaseController<UserConfigService, User
 
 
     @LogOperation
-    @ApiOperation(value = "查询所有的系统用户配置表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryUserConfig", value = "系统用户配置表查询条件", dataTypeClass = UserConfig.class)
+    @Operation(description = "查询所有的系统用户配置表数据")
+    @Parameters({
+            @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件")
     })
     @GetMapping("list")
     public ResponseData<List<UserConfig>> list(UserConfig queryUserConfig) throws Exception {
@@ -55,10 +55,10 @@ public class UserConfigController extends BaseController<UserConfigService, User
 
 
     @LogOperation
-    @ApiOperation(value = "更新用户配置数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "常量键值", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "value", value = "用户配置值", dataTypeClass = String.class)
+    @Operation(description = "更新用户配置数据")
+    @Parameters({
+            @Parameter(name = "key", description = "常量键值"),
+            @Parameter(name = "value", description = "用户配置值")
     })
     @PutMapping("key")
     public ResponseData<Void> key(@RequestParam("key") String key, @RequestParam("value") String value) throws Exception {
@@ -68,11 +68,11 @@ public class UserConfigController extends BaseController<UserConfigService, User
 
 
     @LogOperation
-    @ApiOperation(value = "分页查询逻辑删除的系统用户配置表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryUserConfig", value = "系统用户配置表查询条件", dataTypeClass = UserConfig.class)
+    @Operation(description = "分页查询逻辑删除的系统用户配置表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<UserConfig>> recoverPage(
@@ -85,9 +85,9 @@ public class UserConfigController extends BaseController<UserConfigService, User
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键恢复逻辑删除的系统用户配置表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统用户配置表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键恢复逻辑删除的系统用户配置表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统用户配置表ID", required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -97,22 +97,22 @@ public class UserConfigController extends BaseController<UserConfigService, User
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键彻底删除一条系统用户配置表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统用户配置表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键彻底删除一条系统用户配置表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统用户配置表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok().message("彻底删除该系统用户配置表数据");
+        return ResponseData.message("彻底删除该系统用户配置表数据");
     }
 
 
     @LogOperation
-    @ApiOperation(value = "导出系统用户配置表数据的Excel文件")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryUserConfig", value = "系统用户配置表查询条件", dataTypeClass = UserConfig.class),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
+    @Operation(description = "导出系统用户配置表数据的Excel文件")
+    @Parameters({
+            @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件"),
+            @Parameter(name = "response", description = "HttpServletResponse对象"),
     })
     @GetMapping("export/excel")
     public void exportExcel(UserConfig queryUserConfig, HttpServletResponse response) throws Exception {

@@ -16,12 +16,12 @@ import com.zero.oauth.github.util.GithubUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +39,7 @@ public class GithubServiceImpl implements GithubService {
 
     private final GithubUserMapper githubUserMapper;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
 
@@ -80,7 +80,8 @@ public class GithubServiceImpl implements GithubService {
         User user = new User();
         user.setUsername(githubUser.getLogin());
         // 设置一个随机密码
-        user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+//        user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+        user.setPassword(UUID.randomUUID().toString());
         // 添加的用户类型为 GITHUB
         user.setType(UserTypeEnums.GITHUB);
         userMapper.insert(user);

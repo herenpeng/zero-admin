@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * MyBatisPlus拦截器，用于自动配置数据库数据的创建人和更新人
@@ -61,7 +61,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             User user = securityUtils.getUser(request);
             userId = user.getId();
         } catch (Exception e) {
-            log.info("[数据操作用户拦截器]当前数据操作为系统执行");
+            log.debug("[数据操作用户拦截器]当前数据操作为系统执行");
         }
         return userId;
     }

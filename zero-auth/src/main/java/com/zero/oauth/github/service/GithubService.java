@@ -1,6 +1,6 @@
 package com.zero.oauth.github.service;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * GitHub 业务处理逻辑层

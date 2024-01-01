@@ -6,14 +6,14 @@ import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.service.UserInfoService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -22,17 +22,17 @@ import java.util.List;
  * @author herenpeng
  * @since 2021-01-12 22:19
  */
-@Api(value = "系统用户信息表操作接口", tags = "UserInfoController")
+@Tag(description = "系统用户信息表操作接口", name = "UserInfoController")
 @RestController
 @RequestMapping("user/info")
 public class UserInfoController extends BaseController<UserInfoService, UserInfo> {
 
     @LogOperation
-    @ApiOperation(value = "分页查询系统用户信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryUserInfo", value = "系统用户信息表查询条件", dataTypeClass = UserInfo.class)
+    @Operation(description = "分页查询系统用户信息表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<UserInfo>> page(
@@ -45,9 +45,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
 
 
     @LogOperation
-    @ApiOperation(value = "查询所有的系统用户信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryUserInfo", value = "系统用户信息表查询条件", dataTypeClass = UserInfo.class)
+    @Operation(description = "查询所有的系统用户信息表数据")
+    @Parameters({
+            @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件")
     })
     @GetMapping("list")
     public ResponseData<List<UserInfo>> list(UserInfo queryUserInfo) throws Exception {
@@ -55,7 +55,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
     @LogOperation
-    @ApiOperation(value = "查询当前登录用户的信息数据")
+    @Operation(description = "查询当前登录用户的信息数据")
     @GetMapping
     public ResponseData<UserInfo> info() throws Exception {
         UserInfo userInfo = baseService.info();
@@ -64,11 +64,11 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
 
 
     @LogOperation
-    @ApiOperation(value = "分页查询逻辑删除的系统用户信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryUserInfo", value = "系统用户信息表查询条件", dataTypeClass = UserInfo.class)
+    @Operation(description = "分页查询逻辑删除的系统用户信息表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<UserInfo>> recoverPage(
@@ -81,9 +81,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键恢复逻辑删除的系统用户信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统用户信息表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键恢复逻辑删除的系统用户信息表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统用户信息表ID", required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -93,22 +93,22 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键彻底删除一条系统用户信息表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统用户信息表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键彻底删除一条系统用户信息表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统用户信息表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok().message("彻底删除该系统用户信息表数据");
+        return ResponseData.message("彻底删除该系统用户信息表数据");
     }
 
 
     @LogOperation
-    @ApiOperation(value = "导出系统用户信息表数据的Excel文件")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryUserInfo", value = "系统用户信息表查询条件", dataTypeClass = UserInfo.class),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
+    @Operation(description = "导出系统用户信息表数据的Excel文件")
+    @Parameters({
+            @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件"),
+            @Parameter(name = "response", description = "HttpServletResponse对象"),
     })
     @GetMapping("export/excel")
     public void exportExcel(UserInfo queryUserInfo, HttpServletResponse response) throws Exception {
@@ -117,9 +117,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
 
 
     @LogOperation
-    @ApiOperation(value = "上传用户头像")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "file", value = "上传的用户头像", dataTypeClass = MultipartFile.class, required = true)
+    @Operation(description = "上传用户头像")
+    @Parameters({
+            @Parameter(name = "file", description = "上传的用户头像", required = true)
     })
     @PostMapping("avatar")
     public ResponseData<String> avatar(@RequestParam("file") MultipartFile file) throws Exception {
@@ -129,7 +129,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
 
 
     @LogOperation
-    @ApiOperation(value = "获取用户头像路径")
+    @Operation(description = "获取用户头像路径")
     @GetMapping("avatar")
     public ResponseData<String> getAvatar() throws Exception {
         String avatar = baseService.getAvatar();
@@ -138,9 +138,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
 
 
     @LogOperation
-    @ApiOperation(value = "发送电子邮件号码验证邮件")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "mail", value = "电子邮件号码", dataTypeClass = String.class, required = true)
+    @Operation(description = "发送电子邮件号码验证邮件")
+    @Parameters({
+            @Parameter(name = "mail", description = "电子邮件号码", required = true)
     })
     @PostMapping("mail/verify/send")
     public ResponseData<Boolean> sendVerifyMail(String mail) throws Exception {
@@ -149,10 +149,10 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
     @LogOperation
-    @ApiOperation(value = "验证邮件验证码")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "mail", value = "电子邮件号码", dataTypeClass = String.class, required = true),
-            @ApiImplicitParam(name = "verify", value = "电子邮件验证码", dataTypeClass = String.class, required = true)
+    @Operation(description = "验证邮件验证码")
+    @Parameters({
+            @Parameter(name = "mail", description = "电子邮件号码", required = true),
+            @Parameter(name = "verify", description = "电子邮件验证码", required = true)
     })
     @PostMapping("mail/verify")
     public ResponseData<Boolean> verify(String mail, String verify) throws Exception {

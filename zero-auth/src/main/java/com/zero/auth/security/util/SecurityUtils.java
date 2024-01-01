@@ -2,15 +2,15 @@ package com.zero.auth.security.util;
 
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
+import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
-import com.zero.auth.util.RequestUtils;
 import com.zero.common.util.JsonUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ public class SecurityUtils {
 
     private final JwtUtils jwtUtils;
 
-    private final RequestUtils requestUtils;
+    private final JwtProperties jwtProperties;
 
     /**
      * 获取jwt的Id
@@ -46,9 +46,13 @@ public class SecurityUtils {
      * @return Jwt的Id
      */
     public String getId(HttpServletRequest request) {
-        return getId(requestUtils.getToken(request));
+        return getId(getToken(request));
     }
 
+
+    public String getToken(HttpServletRequest request) {
+        return request.getHeader(jwtProperties.getKey());
+    }
 
     /**
      * 通过jwt解析请求用户信息，并返回User对象
@@ -70,7 +74,7 @@ public class SecurityUtils {
      * @return User对象
      */
     public User getUser(HttpServletRequest request) {
-        return getUser(requestUtils.getToken(request));
+        return getUser(getToken(request));
     }
 
     /**
@@ -91,7 +95,7 @@ public class SecurityUtils {
      * @return 返回请求的用户的用户名信息
      */
     public String getUsername(HttpServletRequest request) {
-        return getUsername(requestUtils.getToken(request));
+        return getUsername(getToken(request));
     }
 
     /**
@@ -112,7 +116,7 @@ public class SecurityUtils {
      * @return 返回请求的用户的用户主键
      */
     public Integer getUserId(HttpServletRequest request) {
-        return getUserId(requestUtils.getToken(request));
+        return getUserId(getToken(request));
     }
 
     /**
@@ -133,7 +137,7 @@ public class SecurityUtils {
      * @return 返回请求的用户的所有角色信息
      */
     public List<Role> getRoleList(HttpServletRequest request) {
-        return getRoleList(requestUtils.getToken(request));
+        return getRoleList(getToken(request));
     }
 
 }

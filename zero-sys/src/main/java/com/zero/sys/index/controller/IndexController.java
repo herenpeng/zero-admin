@@ -6,14 +6,14 @@ import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.index.service.IndexService;
 import com.zero.sys.index.vo.LoginMap;
 import com.zero.sys.index.vo.PanelGroup;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
  * @author herenpeng
  * @since 2021-04-27 21:21
  */
-@Api(value = "系统首页操作接口", tags = "IndexController")
+@Tag(description = "系统首页操作接口", name = "IndexController")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("index")
@@ -31,7 +31,7 @@ public class IndexController {
     private final IndexService indexService;
 
     @LogOperation
-    @ApiOperation(value = "获取当前城市的天气预报信息")
+    @Operation(description = "获取当前城市的天气预报信息")
     @GetMapping("weather")
     public ResponseData<WeatherInfo.Data> weather(HttpServletRequest request) throws Exception {
         WeatherInfo.Data data = indexService.weather(request);
@@ -39,7 +39,7 @@ public class IndexController {
     }
 
     @LogOperation
-    @ApiOperation(value = "获取系统首页的展示数据")
+    @Operation(description = "获取系统首页的展示数据")
     @GetMapping("panel/group")
     public ResponseData<PanelGroup> panelGroup() throws Exception {
         PanelGroup panelGroup = indexService.panelGroup();
@@ -47,7 +47,7 @@ public class IndexController {
     }
 
     @LogOperation
-    @ApiOperation(value = "获取系统首页的用户登录地图数据")
+    @Operation(description = "获取系统首页的用户登录地图数据")
     @GetMapping("login/map")
     public ResponseData<List<LoginMap>> loginMap() throws Exception {
         List<LoginMap> list = indexService.loginMap();

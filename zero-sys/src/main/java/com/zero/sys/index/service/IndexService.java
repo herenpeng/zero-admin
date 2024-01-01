@@ -4,7 +4,7 @@ import com.zero.common.http.domain.WeatherInfo;
 import com.zero.sys.index.vo.LoginMap;
 import com.zero.sys.index.vo.PanelGroup;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

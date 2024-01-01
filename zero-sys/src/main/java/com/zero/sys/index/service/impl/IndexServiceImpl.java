@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -46,8 +46,8 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public PanelGroup panelGroup() throws Exception {
         PanelGroup panelGroup = new PanelGroup();
-        Integer user = userMapper.selectCount(null);
-        Integer access = loginLogMapper.selectCount(null);
+        Long user = userMapper.selectCount(null);
+        Long access = loginLogMapper.selectCount(null);
         panelGroup.setUser(user);
         panelGroup.setAccess(access);
         return panelGroup;

@@ -7,12 +7,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * IP工具类
@@ -52,7 +53,7 @@ public class IpUtils {
         try {
             String url = httpThirdApi.getIpInfo() + ip;
             ResponseEntity<IpInfo> responseEntity = restTemplate.getForEntity(url, IpInfo.class);
-            HttpStatus statusCode = responseEntity.getStatusCode();
+            HttpStatusCode statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
                 IpInfo ipInfo = responseEntity.getBody();
                 if (!ObjectUtils.isEmpty(ipInfo) && ipInfo.getCode().equals(0)) {

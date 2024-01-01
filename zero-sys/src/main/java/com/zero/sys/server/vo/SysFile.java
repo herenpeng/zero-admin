@@ -1,6 +1,6 @@
 package com.zero.sys.server.vo;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * @author herenpeng
  * @since 2020-10-12 20:35
  */
-@ApiModel(value = "系统文件信息实体类")
+@Schema(name = "系统文件信息实体类")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

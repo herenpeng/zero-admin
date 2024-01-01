@@ -20,6 +20,11 @@ spring:
     resources:
       # 访问系统外部资源，将该目录下的文件映射到系统下
       static-locations: file:/usr/app/zero-admin/static/
+springdoc:
+  # OpenAPI文档相关参数
+  api-docs:
+    # OpenAPI文档开关, true: 开启OpenAPI文档访问功能, false: 关闭。
+    enabled: false
 zero:
   domain-name: http://zeroadmin.herenpeng.com
   vue-domain: http://zeroadmin.herenpeng.com
@@ -29,11 +34,6 @@ zero:
         rsa:
           private-file: /usr/app/zero-admin/rsa/rsa.pri
           public-file: /usr/app/zero-admin/rsa/rsa.pub
-  common:
-    # Swagger文档配置
-    swagger:
-      # 是否启用Swagger文档
-      enable: true
   upload:
     # 文件上传目标路径
     path: /usr/app/zero-admin/static/

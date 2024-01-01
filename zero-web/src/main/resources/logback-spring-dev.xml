@@ -28,10 +28,10 @@
         </encoder>
     </appender>
     <!--打印mybatis的sql语句-->
-    <logger name="com.zero" level="DEBUG" additivity="false">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-    </logger>
+<!--    <logger name="com.zero" level="DEBUG" additivity="false">-->
+<!--        <appender-ref ref="STDOUT"/>-->
+<!--        <appender-ref ref="FILE"/>-->
+<!--    </logger>-->
 
     <!--日志输出级别-->
     <root level="INFO">

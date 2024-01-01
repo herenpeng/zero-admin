@@ -9,7 +9,7 @@ import com.zero.common.export.excel.enums.ExcelSuffixEnum;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -72,7 +72,7 @@ public class ExcelUtils {
         exportParams.setCreateHeadRows(true);
         exportParams.setSheetName(sheetName);
         exportParams.setType(ExcelType.XSSF);
-        exportParams.setStyle(ExcelStyleEnum.BORDER.getStyleClass());
+        exportParams.setStyle(ExcelStyleEnum.DEFAULT.getStyleClass());
         defaultExport(fileName, exportParams, exportClass, exportData, response);
     }
 

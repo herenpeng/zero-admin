@@ -6,13 +6,13 @@ import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.sys.entity.ConfigConst;
 import com.zero.sys.service.ConfigConstService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -22,17 +22,17 @@ import java.util.Map;
  * @author herenpeng
  * @since 2021-06-05 22:29
  */
-@Api(value = "系统配置常量表操作接口", tags = "ConfigConstController")
+@Tag(description = "系统配置常量表操作接口", name = "ConfigConstController")
 @RestController
 @RequestMapping("config/const")
 public class ConfigConstController extends BaseController<ConfigConstService, ConfigConst> {
 
     @LogOperation
-    @ApiOperation(value = "分页查询系统配置常量表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryConfigConst", value = "系统配置常量表查询条件", dataTypeClass = ConfigConst.class)
+    @Operation(description = "分页查询系统配置常量表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<ConfigConst>> page(
@@ -45,9 +45,9 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
 
 
     @LogOperation
-    @ApiOperation(value = "查询所有的系统配置常量表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryConfigConst", value = "系统配置常量表查询条件", dataTypeClass = ConfigConst.class)
+    @Operation(description = "查询所有的系统配置常量表数据")
+    @Parameters({
+            @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件")
     })
     @GetMapping("list")
     public ResponseData<List<ConfigConst>> list(ConfigConst queryConfigConst) throws Exception {
@@ -56,10 +56,10 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
 
 
     @LogOperation
-    @ApiOperation(value = "查询所有的常量键值数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "常量键值", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "userable", value = "是否允许用户配置", dataTypeClass = Boolean.class)
+    @Operation(description = "查询所有的常量键值数据")
+    @Parameters({
+            @Parameter(name = "key", description = "常量键值"),
+            @Parameter(name = "userable", description = "是否允许用户配置")
     })
     @GetMapping("list/key")
     public ResponseData<List<String>> keyList(String key, Boolean userable) throws Exception {
@@ -67,8 +67,8 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
     @LogOperation
-    @ApiOperation(value = "查询常量键值配置数据")
-    @ApiImplicitParams({
+    @Operation(description = "查询常量键值配置数据")
+    @Parameters({
 
     })
     @GetMapping("key")
@@ -78,9 +78,9 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
 
 
     @LogOperation
-    @ApiOperation(value = "批量查询常量键值配置数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "keys", value = "常量键值集合", dataTypeClass = String.class)
+    @Operation(description = "批量查询常量键值配置数据")
+    @Parameters({
+            @Parameter(name = "keys", description = "常量键值集合")
     })
     @PostMapping("keys")
     public ResponseData<Map<String, String>> keys(@RequestBody List<String> keys) throws Exception {
@@ -89,11 +89,11 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
 
 
     @LogOperation
-    @ApiOperation(value = "分页查询逻辑删除的系统配置常量表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryConfigConst", value = "系统配置常量表查询条件", dataTypeClass = ConfigConst.class)
+    @Operation(description = "分页查询逻辑删除的系统配置常量表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<ConfigConst>> recoverPage(
@@ -106,9 +106,9 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键恢复逻辑删除的系统配置常量表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统配置常量表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键恢复逻辑删除的系统配置常量表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统配置常量表ID", required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -118,22 +118,22 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键彻底删除一条系统配置常量表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统配置常量表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键彻底删除一条系统配置常量表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统配置常量表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok().message("彻底删除该系统配置常量表数据");
+        return ResponseData.message("彻底删除该系统配置常量表数据");
     }
 
 
     @LogOperation
-    @ApiOperation(value = "导出系统配置常量表数据的Excel文件")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryConfigConst", value = "系统配置常量表查询条件", dataTypeClass = ConfigConst.class),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
+    @Operation(description = "导出系统配置常量表数据的Excel文件")
+    @Parameters({
+            @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件"),
+            @Parameter(name = "response", description = "HttpServletResponse对象"),
     })
     @GetMapping("export/excel")
     public void exportExcel(ConfigConst queryConfigConst, HttpServletResponse response) throws Exception {

@@ -1,9 +1,11 @@
 package com.zero.common.exception.handler;
 
-import com.zero.common.exception.MyExceptionEnum;
+import com.zero.common.exception.AppExceptionEnum;
 import com.zero.common.response.domain.ResponseData;
 import com.zero.common.util.JsonUtils;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
@@ -12,9 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -23,8 +23,8 @@ import java.util.Map;
  * @author herenpeng
  * @since 2020-11-21 22:14
  */
-@Api(value = "过滤器异常处理接口", tags = "ErrorController")
-@ApiIgnore
+@Tag(description = "过滤器异常处理接口", name = "ErrorController")
+@Hidden
 @RestController
 public class ErrorController extends BasicErrorController {
 
@@ -44,8 +44,7 @@ public class ErrorController extends BasicErrorController {
         //         ErrorAttributeOptions.Include.MESSAGE,
         //         ErrorAttributeOptions.Include.STACK_TRACE,
         //         ErrorAttributeOptions.Include.BINDING_ERRORS));
-        ResponseData<Void> responseData = ResponseData.code(MyExceptionEnum.ILLEGAL_TOKEN.getCode());
-        responseData.message(MyExceptionEnum.ILLEGAL_TOKEN.getMessage());
+        ResponseData<Void> responseData = ResponseData.code(AppExceptionEnum.ILLEGAL_TOKEN.getCode(), AppExceptionEnum.ILLEGAL_TOKEN.getMessage());
         Map<String, Object> map = jsonUtils.toMap(responseData);
         return ResponseEntity.ok(map);
     }

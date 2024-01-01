@@ -8,15 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author herenpeng
  * @since 2021-04-05 18:34
  */
-@ApiIgnore
+@Hidden
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("oauth/github")

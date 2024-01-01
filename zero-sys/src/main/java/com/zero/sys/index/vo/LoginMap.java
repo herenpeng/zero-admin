@@ -1,6 +1,6 @@
 package com.zero.sys.index.vo;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * @author herenpeng
  * @since 2021-04-28 23:33
  */
-@ApiModel(value = "系统首页的用户登录地图数据封装实体")
+@Schema(name = "系统首页的用户登录地图数据封装实体")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

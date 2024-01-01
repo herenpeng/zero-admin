@@ -22,24 +22,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <java.version>11</java.version>
-        <zero-admin.version>1.0-SNAPSHOT</zero-admin.version>
-        <spring-boot.version>2.7.3</spring-boot.version>
-        <mybatis-plus.version>3.4.0</mybatis-plus.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
+        <zero-admin.version>1.0.0-SNAPSHOT</zero-admin.version>
+        <spring-boot.version>3.2.0</spring-boot.version>
+        <mybatis-plus.version>3.5.4.1</mybatis-plus.version>
+        <mybatis-spring.version>3.0.3</mybatis-spring.version>
         <jjwt.version>0.11.2</jjwt.version>
-        <easypoi.version>4.0.0</easypoi.version>
+        <easypoi.version>4.4.0</easypoi.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <commons-io.version>2.6</commons-io.version>
-        <springfox.version>3.0.0</springfox.version>
-        <oshi-core.version>5.1.1</oshi-core.version>
+        <commons-io.version>2.7</commons-io.version>
+        <springdoc.version>2.3.0</springdoc.version>
+        <oshi-core.version>6.4.9</oshi-core.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
+        <version>3.2.0</version>
         <relativePath/>
     </parent>
 
@@ -85,10 +86,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--SpringSecurity的依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
         <!--SpringWebSocket的依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -158,14 +159,25 @@
         </dependency>
         <!--MySQL数据库驱动-->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
         <!--MyBatis-Plus的依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis-spring</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis-spring.version}</version>
         </dependency>
         <!--easypoi相关依赖，用于操作Excel文件-->
         <dependency>
@@ -187,9 +199,10 @@
         </dependency>
         <!--swagger的依赖-->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${springfox.version}</version>
+            <groupId>org.springdoc</groupId>
+<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
         </dependency>
         <!--oshi的依赖-->
         <dependency>

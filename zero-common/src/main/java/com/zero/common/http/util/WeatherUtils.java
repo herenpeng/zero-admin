@@ -7,12 +7,13 @@ import com.zero.common.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 天气接口
@@ -51,7 +52,7 @@ public class WeatherUtils {
         try {
             String url = httpThirdApi.getWeatherInfo() + city;
             ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
-            HttpStatus statusCode = responseEntity.getStatusCode();
+            HttpStatusCode statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
                 WeatherInfo weatherInfo = httpUtils.gzipDecode(responseEntity, WeatherInfo.class);
                 if (!ObjectUtils.isEmpty(weatherInfo) && OK_STATUS.equals(weatherInfo.getStatus())) {

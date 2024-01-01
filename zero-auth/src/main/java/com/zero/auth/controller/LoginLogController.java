@@ -6,13 +6,13 @@ import com.zero.auth.service.LoginLogService;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.response.domain.ResponseData;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -21,17 +21,17 @@ import java.util.List;
  * @author herenpeng
  * @since 2021-02-17 10:04
  */
-@Api(value = "系统账号登录日志表操作接口", tags = "LoginLogController")
+@Tag(description = "系统账号登录日志表操作接口", name = "LoginLogController")
 @RestController
 @RequestMapping("login/log")
 public class LoginLogController extends BaseController<LoginLogService, LoginLog> {
 
     @LogOperation
-    @ApiOperation(value = "分页查询系统账号登录日志表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryLoginLog", value = "系统账号登录日志表查询条件", dataTypeClass = LoginLog.class)
+    @Operation(description = "分页查询系统账号登录日志表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件")
     })
     @GetMapping("page/{currentPage}")
     public ResponseData<IPage<LoginLog>> page(
@@ -44,9 +44,9 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
 
 
     @LogOperation
-    @ApiOperation(value = "查询所有的系统账号登录日志表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryLoginLog", value = "系统账号登录日志表查询条件", dataTypeClass = LoginLog.class)
+    @Operation(description = "查询所有的系统账号登录日志表数据")
+    @Parameters({
+            @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件")
     })
     @GetMapping("list")
     public ResponseData<List<LoginLog>> list(LoginLog queryLoginLog) throws Exception {
@@ -55,11 +55,11 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
 
 
     @LogOperation
-    @ApiOperation(value = "分页查询逻辑删除的系统账号登录日志表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "size", value = "当前页大小", defaultValue = "10", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "queryLoginLog", value = "系统账号登录日志表查询条件", dataTypeClass = LoginLog.class)
+    @Operation(description = "分页查询逻辑删除的系统账号登录日志表数据")
+    @Parameters({
+            @Parameter(name = "currentPage", description = "当前页码", required = true),
+            @Parameter(name = "size", description = "当前页大小", example = "10"),
+            @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
     public ResponseData<IPage<LoginLog>> recoverPage(
@@ -72,9 +72,9 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键恢复逻辑删除的系统账号登录日志表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统账号登录日志表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键恢复逻辑删除的系统账号登录日志表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统账号登录日志表ID", required = true)
     })
     @PutMapping("recover/{id}")
     public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
@@ -84,22 +84,22 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
 
 
     @LogOperation
-    @ApiOperation(value = "通过主键彻底删除一条系统账号登录日志表数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "系统账号登录日志表ID", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "通过主键彻底删除一条系统账号登录日志表数据")
+    @Parameters({
+            @Parameter(name = "id", description = "系统账号登录日志表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
     public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.ok().message("彻底删除该系统账号登录日志表数据");
+        return ResponseData.message("彻底删除该系统账号登录日志表数据");
     }
 
 
     @LogOperation
-    @ApiOperation(value = "导出系统账号登录日志表数据的Excel文件")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryLoginLog", value = "系统账号登录日志表查询条件", dataTypeClass = LoginLog.class),
-            @ApiImplicitParam(name = "response", value = "HttpServletResponse对象", dataTypeClass = HttpServletResponse.class),
+    @Operation(description = "导出系统账号登录日志表数据的Excel文件")
+    @Parameters({
+            @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件"),
+            @Parameter(name = "response", description = "HttpServletResponse对象"),
     })
     @GetMapping("export/excel")
     public void exportExcel(LoginLog queryLoginLog, HttpServletResponse response) throws Exception {
@@ -107,9 +107,9 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     }
 
     @LogOperation
-    @ApiOperation(value = "获取当前在线的用户记录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "当前在线的用户主键", dataTypeClass = Integer.class, required = true)
+    @Operation(description = "获取当前在线的用户记录")
+    @Parameters({
+            @Parameter(name = "userId", description = "当前在线的用户主键", required = true)
     })
     @GetMapping("online/{userId}")
     public ResponseData<List<LoginLog>> online(@PathVariable("userId") Integer userId) throws Exception {
@@ -118,10 +118,10 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     }
 
     @LogOperation
-    @ApiOperation(value = "通过tokenId下线用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "指定下线的用户主键", dataTypeClass = Integer.class, required = true),
-            @ApiImplicitParam(name = "tokenId", value = "指定下线的用户tokenId", dataTypeClass = String.class, required = true)
+    @Operation(description = "通过tokenId下线用户")
+    @Parameters({
+            @Parameter(name = "userId", description = "指定下线的用户主键", required = true),
+            @Parameter(name = "tokenId", description = "指定下线的用户tokenId", required = true)
     })
     @PutMapping("offline/{userId}")
     public ResponseData<Void> offline(

@@ -3,7 +3,7 @@ package com.zero.auth.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,14 +25,14 @@ public class ResourcesRole extends BaseEntity {
     /**
      * 权限主键，auth_resources表的主键id
      */
-    @ApiModelProperty(value = "资源主键")
+    @Schema(name = "资源主键")
     @TableField(value = "resources_id")
     private Integer resourcesId;
 
     /**
      * 角色主键，auth_role表的主键id
      */
-    @ApiModelProperty(value = "角色主键")
+    @Schema(name = "角色主键")
     @TableField(value = "role_id")
     private Integer roleId;
 
