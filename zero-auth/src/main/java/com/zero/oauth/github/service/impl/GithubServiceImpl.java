@@ -4,6 +4,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.enums.LoginTypeEnum;
+import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
@@ -77,8 +78,7 @@ public class GithubServiceImpl implements GithubService {
         User user = new User();
         user.setUsername(githubUser.getLogin());
         // 设置一个随机密码
-//        user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
-        user.setPassword(UUID.randomUUID().toString());
+        user.setPassword(PasswordKit.sha256(UUID.randomUUID().toString()));
         // 添加的用户类型为 GITHUB
         user.setType(LoginTypeEnum.GITHUB);
         userMapper.insert(user);

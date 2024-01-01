@@ -2,7 +2,7 @@ package com.zero.auth.service.impl;
 
 import com.zero.auth.entity.User;
 import com.zero.auth.enums.LoginTypeEnum;
-import com.zero.auth.kit.EncryptKit;
+import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.util.LoginUtils;
@@ -42,7 +42,7 @@ public class LoginServiceImpl implements LoginService {
             log.error("[登录功能]用户名{}不存在！", username);
             throw new AppException(AppExceptionEnum.LOGIN_USERNAME_ERROR);
         }
-        if (!StringUtils.equals(EncryptKit.sha256(password), user.getPassword())) {
+        if (!StringUtils.equals(PasswordKit.sha256(password), user.getPassword())) {
             throw new AppException(AppExceptionEnum.LOGIN_PASSWORD_ERROR);
         }
         if (user.getLocked()) {

@@ -2,7 +2,7 @@ package com.zero.auth.kit;
 
 import java.security.MessageDigest;
 
-public class EncryptKit {
+public class PasswordKit {
 
     // SHA-256加密
     public static String sha256(final String text) {

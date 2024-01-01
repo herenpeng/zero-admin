@@ -7,7 +7,7 @@ import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.entity.UserRole;
 import com.zero.auth.enums.LoginTypeEnum;
-import com.zero.auth.kit.EncryptKit;
+import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
 import com.zero.auth.security.util.SecurityUtils;
@@ -77,7 +77,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         // 删除用户名中头尾的空格字符
         user.setUsername(StringUtils.trim(user.getUsername()));
         String defaultPassword = userProperties.getDefaultPassword();
-        String encodePassword = EncryptKit.sha256(defaultPassword);
+        String encodePassword = PasswordKit.sha256(defaultPassword);
         user.setPassword(encodePassword);
         // 本地系统添加的用户类型为 LOCAL
         user.setType(LoginTypeEnum.PASSWORD);
@@ -150,8 +150,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public Boolean checkPassword(String password) throws Exception {
         Integer id = securityUtils.getUserId(request);
         User user = baseMapper.selectById(id);
-//        return passwordEncoder.matches(password, user.getPassword());
-        return true;
+        return StringUtils.equals(PasswordKit.sha256(password), user.getPassword());
     }
 
     @Override
@@ -194,9 +193,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
             throw new AppException(AppExceptionEnum.PASSWORD_ERROR);
         }
         // 删除密码中的所有空格字符
-//        String encodeNewPassword = passwordEncoder.encode(StringUtils.deleteWhitespace(newPassword));
-        String encodeNewPassword = newPassword;
-        user.setPassword(encodeNewPassword);
+        String encodePassword = PasswordKit.sha256(StringUtils.deleteWhitespace(newPassword));
+        user.setPassword(encodePassword);
         baseMapper.updateById(user);
         // 重置账号密码后对该账号的所有在线用户进行下线操作
         loginLogService.offlineAll(id);

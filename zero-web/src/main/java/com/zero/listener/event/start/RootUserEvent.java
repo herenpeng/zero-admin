@@ -5,6 +5,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserRole;
 import com.zero.auth.enums.LoginTypeEnum;
+import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.mapper.UserRoleMapper;
@@ -14,7 +15,6 @@ import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -38,19 +38,16 @@ public class RootUserEvent implements StartEvent {
 
     private final RoleMapper roleMapper;
 
-//    private final PasswordEncoder passwordEncoder;
-
     private final UserRoleMapper userRoleMapper;
 
     @Override
     public void doEvent() throws Exception {
         // 如果root用户为空，插入一个root用户
         User user = userMapper.loadUserByUsername(userProperties.getRootUsername(), LoginTypeEnum.PASSWORD);
-        if (ObjectUtils.isEmpty(user)) {
+        if (user == null) {
             user = new User();
             user.setUsername(userProperties.getRootUsername());
-//            String encodePassword = passwordEncoder.encode(userProperties.getRootPassword());
-            String encodePassword = userProperties.getRootPassword();
+            String encodePassword = PasswordKit.sha256(userProperties.getRootPassword());
             user.setPassword(encodePassword);
             user.setEnabled(true);
             user.setLocked(false);
