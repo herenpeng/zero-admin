@@ -2,10 +2,8 @@ package com.zero.common.base.service.impl;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zero.common.export.excel.utils.ExcelUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Service接口的通用接口的实现
@@ -17,8 +15,5 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 
     @Autowired
     protected HttpServletRequest request;
-
-    @Autowired
-    protected ExcelUtils excelUtils;
 
 }

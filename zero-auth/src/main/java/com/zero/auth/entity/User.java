@@ -4,7 +4,7 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zero.auth.enums.UserTypeEnums;
+import com.zero.auth.enums.LoginTypeEnum;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -81,7 +81,7 @@ public class User extends BaseEntity {
     @Schema(name = "用户类型")
     @Excel(name = "用户类型", width = 15, needMerge = true)
     @TableField(value = "type")
-    private UserTypeEnums type;
+    private LoginTypeEnum type;
 
     /**
      * 用户所包含的角色信息，非数据库字段

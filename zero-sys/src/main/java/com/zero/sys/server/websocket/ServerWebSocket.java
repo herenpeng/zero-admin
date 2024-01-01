@@ -1,7 +1,7 @@
 package com.zero.sys.server.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zero.common.util.JsonUtils;
+import com.zero.common.kit.JsonKit;
 import com.zero.sys.server.vo.Cpu;
 import com.zero.sys.server.vo.Jvm;
 import com.zero.sys.server.vo.Mem;
@@ -34,7 +34,7 @@ public class ServerWebSocket {
 
     public static Map<String, Session> webSocketClients = new ConcurrentHashMap<>();
 
-    private JsonUtils jsonUtils = new JsonUtils(new ObjectMapper());
+    private JsonKit jsonKit = new JsonKit(new ObjectMapper());
 
     /**
      * WebSocket连接建立后触发的方法
@@ -119,7 +119,7 @@ public class ServerWebSocket {
         Mem mem = OshiUtils.getMemInfo();
         Jvm jvm = OshiUtils.getJvmInfo();
         ServerPieChart pieChart = new ServerPieChart(cpu, mem, jvm);
-        sendMessageAll(jsonUtils.toJson(pieChart));
+        sendMessageAll(jsonKit.toJson(pieChart));
     }
 
 }

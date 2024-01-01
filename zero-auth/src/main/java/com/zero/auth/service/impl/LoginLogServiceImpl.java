@@ -9,18 +9,19 @@ import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.service.LoginLogService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
-import com.zero.common.constant.StringConst;
+import com.zero.common.constant.AppConst;
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.util.IpUtils;
-import com.zero.common.util.RedisUtils;
+import com.zero.common.kit.ExcelKit;
+import com.zero.common.kit.RedisKit;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     private final JwtProperties jwtProperties;
 
-    private final RedisUtils<String, Object> redisUtils;
+    private final RedisKit redisKit;
 
     private final IpUtils ipUtils;
 
@@ -84,7 +85,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
     @Override
     public void exportExcel(LoginLog queryLoginLog, HttpServletResponse response) throws Exception {
         List<LoginLog> exportData = list(queryLoginLog);
-        excelUtils.exportExcel("系统账号登录日志表", LoginLog.class, exportData, response);
+        ExcelKit.exportExcel("系统账号登录日志表", LoginLog.class, exportData, response);
     }
 
 
@@ -95,8 +96,8 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     @Override
     public void offline(Integer userId, String tokenId) throws Exception {
-        String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
-        redisUtils.del(tokenRedisKey);
+        String tokenRedisKey = jwtProperties.getKey() + AppConst.COLON + tokenId;
+        redisKit.del(tokenRedisKey);
         logoutLog(userId, tokenId);
     }
 

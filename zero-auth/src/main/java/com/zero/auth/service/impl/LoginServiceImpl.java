@@ -1,7 +1,7 @@
 package com.zero.auth.service.impl;
 
 import com.zero.auth.entity.User;
-import com.zero.auth.enums.UserTypeEnums;
+import com.zero.auth.enums.LoginTypeEnum;
 import com.zero.auth.kit.EncryptKit;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.jwt.properties.JwtProperties;
@@ -9,10 +9,10 @@ import com.zero.auth.security.util.LoginUtils;
 import com.zero.auth.security.util.SecurityUtils;
 import com.zero.auth.service.LoginLogService;
 import com.zero.auth.service.LoginService;
-import com.zero.common.constant.StringConst;
+import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
-import com.zero.common.util.RedisUtils;
+import com.zero.common.kit.RedisKit;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,13 +31,13 @@ public class LoginServiceImpl implements LoginService {
     private final UserMapper userMapper;
     private final LoginUtils loginUtils;
     private final JwtProperties jwtProperties;
-    private final RedisUtils redisUtils;
+    private final RedisKit redisKit;
     private final LoginLogService loginLogService;
     private final SecurityUtils securityUtils;
 
     @Override
     public String login(String username, String password, HttpServletRequest request) {
-        User user = userMapper.loadUserByUsername(username, UserTypeEnums.LOCAL);
+        User user = userMapper.loadUserByUsername(username, LoginTypeEnum.PASSWORD);
         if (ObjectUtils.isEmpty(user)) {
             log.error("[登录功能]用户名{}不存在！", username);
             throw new AppException(AppExceptionEnum.LOGIN_USERNAME_ERROR);
@@ -68,7 +68,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 登出的时候，更新登入记录
         loginLogService.logoutLog(userId, tokenId);
-        String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
-        redisUtils.del(tokenRedisKey);
+        String tokenRedisKey = jwtProperties.getKey() + AppConst.COLON + tokenId;
+        redisKit.del(tokenRedisKey);
     }
 }

@@ -10,7 +10,7 @@ import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.code.generation.service.TableInfoService;
 import com.zero.code.generation.util.CodeGenerationUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
-import com.zero.common.util.CamelCaseUtils;
+import com.zero.common.kit.CamelCaseKit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,6 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
 
     private final DataBaseTypeConst dataBaseTypeConst;
 
-    private final CamelCaseUtils camelCaseUtils;
-
     private final CodeGenerationUtils codeGenerationUtils;
 
     @Override
@@ -56,7 +54,7 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
         List<TableColumn> tableColumnList = tableColumnMapper.getTableColumnByInformationSchema(tableInfo.getName());
         for (TableColumn tableColumn : tableColumnList) {
             tableColumn.setTableInfoId(tableInfo.getId());
-            tableColumn.setJavaName(camelCaseUtils.toCamelCase(tableColumn.getName()));
+            tableColumn.setJavaName(CamelCaseKit.toCamelCase(tableColumn.getName()));
             tableColumn.setJdbcType(dataBaseTypeConst.getJdbcType(tableColumn.getDatabaseType()));
             tableColumn.setJavaType(dataBaseTypeConst.getJavaType(tableColumn.getDatabaseType()));
             tableColumnMapper.insert(tableColumn);

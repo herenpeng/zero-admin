@@ -3,9 +3,9 @@ package com.zero.sys.aspect;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.annotation.LogOperation;
-import com.zero.common.constant.StringConst;
+import com.zero.common.constant.AppConst;
 import com.zero.common.http.util.IpUtils;
-import com.zero.common.util.JsonUtils;
+import com.zero.common.kit.JsonKit;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,7 +43,7 @@ public class LogAop {
 
     private final IpUtils ipUtils;
 
-    private final JsonUtils jsonUtils;
+    private final JsonKit jsonKit;
 
     private final LogMapper logMapper;
 
@@ -90,12 +90,12 @@ public class LogAop {
         // 设置请求方法类型
         log.setMethodType(request.getMethod().toUpperCase());
         // 设置方法名称
-        log.setMethod(joinPoint.getTarget().getClass() + StringConst.POINT + joinPoint.getSignature().getName());
+        log.setMethod(joinPoint.getTarget().getClass() + AppConst.POINT + joinPoint.getSignature().getName());
         // 设置请求参数
         Object[] args = joinPoint.getArgs();
         // 忽略一些特殊参数
         ignoreArgs(args);
-        log.setRequestArgs(jsonUtils.toJson(args));
+        log.setRequestArgs(jsonKit.toJson(args));
         // 设置方法描述信息
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();

@@ -46,7 +46,7 @@ public class LoginController {
     }
 
 
-    private record LoginInfo(String username, String password) {
+    public record LoginInfo(String username, String password) {
     }
 
 }

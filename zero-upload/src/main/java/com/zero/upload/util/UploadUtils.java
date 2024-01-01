@@ -1,10 +1,9 @@
 package com.zero.upload.util;
 
 import com.zero.auth.security.util.SecurityUtils;
-import com.zero.common.constant.StringConst;
+import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
-import com.zero.common.http.constant.HttpConst;
 import com.zero.common.properties.AppProperties;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.enums.FileTypeEnums;
@@ -133,15 +132,15 @@ public class UploadUtils {
         // 项目http域名
         return appProperties.getApiPath() +
                 // 存储图片的顶级路径
-                HttpConst.PATH_SEPARATOR + fileUpload.getPath() +
+                AppConst.PATH_SEPARATOR + fileUpload.getPath() +
                 // 存储年份路径
-                HttpConst.PATH_SEPARATOR + calendar.get(Calendar.YEAR) +
+                AppConst.PATH_SEPARATOR + calendar.get(Calendar.YEAR) +
                 // 存储月份路径
-                HttpConst.PATH_SEPARATOR + (calendar.get(Calendar.MONTH) + 1) +
+                AppConst.PATH_SEPARATOR + (calendar.get(Calendar.MONTH) + 1) +
                 // 存储日期路径
-                HttpConst.PATH_SEPARATOR + calendar.get(Calendar.DAY_OF_MONTH) +
+                AppConst.PATH_SEPARATOR + calendar.get(Calendar.DAY_OF_MONTH) +
                 // 存储文件名称
-                HttpConst.PATH_SEPARATOR + fileName;
+                AppConst.PATH_SEPARATOR + fileName;
     }
 
     /**
@@ -153,12 +152,12 @@ public class UploadUtils {
      */
     private String generateBakFileName(String name, int bakCount) {
         // 获取源文件名称后缀
-        String suffix = name.substring(name.lastIndexOf(StringConst.POINT));
+        String suffix = name.substring(name.lastIndexOf(AppConst.POINT));
         // 获取源文件名称，不含后缀
-        String fileName = name.substring(0, name.lastIndexOf(StringConst.POINT));
+        String fileName = name.substring(0, name.lastIndexOf(AppConst.POINT));
         // 生成备份文件的名称
-        String bakFileName = fileName + StringConst.POINT + uploadProperties.getBakSuffix()
-                + StringConst.POINT + (bakCount + 1) + suffix;
+        String bakFileName = fileName + AppConst.POINT + uploadProperties.getBakSuffix()
+                + AppConst.POINT + (bakCount + 1) + suffix;
         return bakFileName;
     }
 
@@ -169,7 +168,7 @@ public class UploadUtils {
      * @return
      */
     private String generateUniqueFileName(String oldName) {
-        String suffix = oldName.substring(oldName.lastIndexOf(StringConst.POINT));
+        String suffix = oldName.substring(oldName.lastIndexOf(AppConst.POINT));
         return generateUniqueId() + suffix;
     }
 

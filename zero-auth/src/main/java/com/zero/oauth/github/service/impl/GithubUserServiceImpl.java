@@ -4,15 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.kit.ExcelKit;
 import com.zero.oauth.github.entity.GithubUser;
 import com.zero.oauth.github.mapper.GithubUserMapper;
 import com.zero.oauth.github.service.GithubUserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -62,7 +63,7 @@ public class GithubUserServiceImpl extends BaseServiceImpl<GithubUserMapper, Git
     @Override
     public void exportExcel(GithubUser queryGithubUser, HttpServletResponse response) throws Exception {
         List<GithubUser> exportData = list(queryGithubUser);
-        excelUtils.exportExcel("Github用户信息表", GithubUser.class, exportData, response);
+        ExcelKit.exportExcel("Github用户信息表", GithubUser.class, exportData, response);
     }
 
 }

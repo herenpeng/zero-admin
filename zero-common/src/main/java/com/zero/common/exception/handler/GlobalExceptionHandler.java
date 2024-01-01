@@ -30,8 +30,8 @@ public class GlobalExceptionHandler {
     public ResponseData<Void> AppExceptionHandler(HttpServletRequest request, AppException e) {
         e.printStackTrace();
         log.error("[全局异常处理]发生业务异常，异常信息：{}", e.getMessage());
-        AppExceptionEnum AppExceptionEnum = e.getExceptionEnum();
-        return ResponseData.code(AppExceptionEnum.getCode(), AppExceptionEnum.getMessage());
+        AppExceptionEnum exceptionEnum = e.getExceptionEnum();
+        return ResponseData.code(exceptionEnum.getCode(), exceptionEnum.getMessage());
     }
 
 

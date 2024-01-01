@@ -3,7 +3,7 @@ package com.zero.common.http.util;
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.domain.WeatherInfo;
 import com.zero.common.http.properties.HttpThirdApi;
-import com.zero.common.util.JsonUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 天气接口
@@ -31,8 +29,6 @@ public class WeatherUtils {
     private final HttpThirdApi httpThirdApi;
 
     private final IpUtils ipUtils;
-
-    private final JsonUtils jsonUtils;
 
     private final HttpUtils httpUtils;
 

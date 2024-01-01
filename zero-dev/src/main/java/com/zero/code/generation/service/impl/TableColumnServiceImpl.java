@@ -67,7 +67,7 @@ public class TableColumnServiceImpl extends BaseServiceImpl<TableColumnMapper, T
     @Override
     public void exportExcel(TableColumn queryTableColumn, HttpServletResponse response) throws Exception {
         List<TableColumn> exportData = list(queryTableColumn);
-        excelUtils.exportExcel("系统数据库表字段信息表", TableColumn.class, exportData, response);
+        ExcelKit.exportExcel("系统数据库表字段信息表", TableColumn.class, exportData, response);
     }
 
 }

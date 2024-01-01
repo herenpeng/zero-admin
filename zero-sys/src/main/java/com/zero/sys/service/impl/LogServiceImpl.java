@@ -5,15 +5,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.User;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.Log;
 import com.zero.sys.mapper.LogMapper;
 import com.zero.sys.service.LogService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -70,6 +71,6 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements L
     @Override
     public void exportExcel(Log queryLog, HttpServletResponse response) throws Exception {
         List<Log> exportData = list(queryLog);
-        excelUtils.exportExcel("操作日志列表", Log.class, exportData, response);
+        ExcelKit.exportExcel("操作日志列表", Log.class, exportData, response);
     }
 }

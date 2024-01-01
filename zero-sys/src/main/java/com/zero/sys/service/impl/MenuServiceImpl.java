@@ -6,17 +6,18 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.Menu;
 import com.zero.sys.entity.MenuRole;
 import com.zero.sys.mapper.MenuMapper;
 import com.zero.sys.mapper.MenuRoleMapper;
 import com.zero.sys.service.MenuService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -127,6 +128,6 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         for (Menu menu : exportData) {
             menu.setRoles(roleMapper.getByMenuId(menu.getId()));
         }
-        excelUtils.exportExcel("系统菜单列表", Menu.class, exportData, response);
+        ExcelKit.exportExcel("系统菜单列表", Menu.class, exportData, response);
     }
 }

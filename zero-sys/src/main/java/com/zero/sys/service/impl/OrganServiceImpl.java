@@ -5,16 +5,17 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.User;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.Organ;
 import com.zero.sys.mapper.OrganMapper;
 import com.zero.sys.mapper.UserOrganMapper;
 import com.zero.sys.service.OrganService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -80,7 +81,7 @@ public class OrganServiceImpl extends BaseServiceImpl<OrganMapper, Organ> implem
     @Override
     public void exportExcel(Organ queryOrgan, HttpServletResponse response) throws Exception {
         List<Organ> exportData = list(queryOrgan);
-        excelUtils.exportExcel("系统组织机构表", Organ.class, exportData, response);
+        ExcelKit.exportExcel("系统组织机构表", Organ.class, exportData, response);
     }
 
 }

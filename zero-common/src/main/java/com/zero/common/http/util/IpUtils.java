@@ -1,6 +1,6 @@
 package com.zero.common.http.util;
 
-import com.zero.common.constant.StringConst;
+import com.zero.common.constant.AppConst;
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.properties.HttpThirdApi;
 import lombok.RequiredArgsConstructor;
@@ -98,8 +98,8 @@ public class IpUtils {
         }
         // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
         if (StringUtils.isNotBlank(ip) && ip.length() > IP_LENGTH) {
-            if (ip.indexOf(StringConst.COMMA) > 0) {
-                ip = ip.substring(0, ip.indexOf(StringConst.COMMA));
+            if (ip.indexOf(AppConst.COMMA) > 0) {
+                ip = ip.substring(0, ip.indexOf(AppConst.COMMA));
             }
         }
         return ip;

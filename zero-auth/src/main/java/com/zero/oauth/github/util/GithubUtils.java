@@ -1,6 +1,6 @@
 package com.zero.oauth.github.util;
 
-import com.zero.common.util.JsonUtils;
+import com.zero.common.kit.JsonKit;
 import com.zero.oauth.github.entity.GithubUser;
 import com.zero.oauth.github.properties.GithubProperties;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class GithubUtils {
 
     private final GithubProperties githubProperties;
 
-    private final JsonUtils jsonUtils;
+    private final JsonKit jsonKit;
 
     /**
      * 通过Github回调的参数获取Github AccessToken
@@ -93,7 +93,7 @@ public class GithubUtils {
             HttpStatusCode statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
                 String body = responseEntity.getBody();
-                return jsonUtils.toObject(body, GithubUser.class);
+                return jsonKit.toObject(body, GithubUser.class);
             }
         } catch (Exception e) {
             log.error("[GithubUtils工具类]使用accessToken={}获取Github用户信息失败", accessToken);

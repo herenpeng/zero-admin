@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 public @interface LogOperation {
 
     /**
-     * 操作日志说明，如果该值为null或者为""，则获取@ApiOperation注解上面的方法说明
+     * 操作日志说明，如果该值为null或者为""，则获取@Operation注解上面的方法说明
      *
      * @return
      */

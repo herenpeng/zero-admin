@@ -6,9 +6,9 @@ import com.zero.code.generation.enums.CodeTypeEnum;
 import com.zero.code.generation.enums.TemplateEnum;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
-import com.zero.common.constant.StringConst;
-import com.zero.common.enums.EncodingEnums;
-import com.zero.common.util.FreeMarkerUtils;
+import com.zero.common.constant.AppConst;
+import com.zero.common.enums.EncodingEnum;
+import com.zero.common.kit.FreeMarkerKit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -30,8 +30,6 @@ public class CodeGenerationUtils {
     private final TableInfoMapper tableInfoMapper;
 
     private final TableColumnMapper tableColumnMapper;
-
-    private final FreeMarkerUtils freeMarkerUtils;
 
 
     /**
@@ -83,10 +81,10 @@ public class CodeGenerationUtils {
             default:
                 log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);
         }
-        String content = freeMarkerUtils.getTemplateContent(tableInfo, templateEnum.getTemplateLoaderPath(), templateEnum.getFtlTemplateFile());
+        String content = FreeMarkerKit.getTemplateContent(tableInfo, templateEnum.getTemplateLoaderPath(), templateEnum.getFtlTemplateFile());
         File generationFile = new File(generationFilePath.toString());
         generationFile.getParentFile().mkdirs();
-        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(generationFile), EncodingEnums.UTF_8.getValue());
+        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(generationFile), EncodingEnum.UTF_8.getValue());
         BufferedWriter writer = new BufferedWriter(out);
         writer.write(content);
         writer.close();
@@ -99,7 +97,7 @@ public class CodeGenerationUtils {
      * @return 文件路径名称
      */
     private String packageNameToPath(String packageName) {
-        return File.separator + packageName.replace(StringConst.POINT, File.separator);
+        return File.separator + packageName.replace(AppConst.POINT, File.separator);
     }
 
 

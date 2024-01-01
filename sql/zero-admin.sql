@@ -543,30 +543,30 @@ CREATE TABLE `auth_user`  (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES (1, 'root', '$2a$10$2AbFLGrGmFV3aEDj7R2pTera/2kQtmakbItVjzFuqZVbbFhgAmcCu', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:22:28', 0, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (2, '零', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:42:46', 1, '2021-06-14 06:57:00', 22, 0);
-INSERT INTO `auth_user` VALUES (3, '天帝', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:42:57', 1, '2021-05-11 16:38:51', 22, 0);
-INSERT INTO `auth_user` VALUES (4, '彦', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:43:06', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (5, '懒羊羊', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:43:13', 1, '2021-05-11 16:38:52', 22, 0);
-INSERT INTO `auth_user` VALUES (6, '修罗铠甲', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:43:20', 1, '2021-05-11 16:38:54', 22, 0);
-INSERT INTO `auth_user` VALUES (7, '喜羊羊', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:43:33', 1, '2021-05-11 16:38:57', 22, 0);
-INSERT INTO `auth_user` VALUES (8, '凉冰', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:43:41', 1, '2021-05-11 16:38:58', 22, 0);
-INSERT INTO `auth_user` VALUES (9, '凯莎女王', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:43:51', 1, '2021-05-11 16:38:59', 22, 0);
-INSERT INTO `auth_user` VALUES (10, '鹤熙', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 0, 0, 0, 0, 'LOCAL', '2021-01-03 16:43:59', 1, '2021-05-11 16:38:59', 22, 0);
-INSERT INTO `auth_user` VALUES (11, '死神卡尔', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:44:04', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (12, '帝蕾娜', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:44:10', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (13, '刑天铠甲', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:44:22', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (14, '飞影铠甲', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:44:28', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (15, '孙悟空', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:44:41', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (16, '天下谁人不识君', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:44:49', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (17, '泽塔奥特曼', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:44:56', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (18, '天使凯拉', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:45:01', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (19, '波波', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:45:07', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (20, '刘老板', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:45:15', 1, '2021-04-10 17:49:36', 1, 0);
-INSERT INTO `auth_user` VALUES (21, '池总', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:45:33', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (22, 'user', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-03 16:45:45', 1, '2021-04-08 00:06:04', 1, 0);
-INSERT INTO `auth_user` VALUES (23, '赛罗奥特曼', '$2a$10$1nAGkXfhU7ZoizZG.Jty1.SbafsaFPFmrTyz6Ley.hpvIHQGHxN2u', 1, 0, 0, 0, 'LOCAL', '2021-01-16 22:49:41', 1, '2021-04-10 17:55:25', 1, 0);
-INSERT INTO `auth_user` VALUES (24, 'herenpeng', '$2a$10$UQu8MMKGLRaA.x7n7aTEYusgPP7i6sgBRLWMLi6CwGMeUfh.lt4WS', 1, 0, 0, 0, 'GITHUB', '2021-04-10 18:14:03', 0, '2021-04-10 18:14:03', 0, 0);
+INSERT INTO `auth_user` VALUES (1, 'root', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:22:28', 0, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (2, '零', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:42:46', 1, '2021-06-14 06:57:00', 22, 0);
+INSERT INTO `auth_user` VALUES (3, '天帝', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:42:57', 1, '2021-05-11 16:38:51', 22, 0);
+INSERT INTO `auth_user` VALUES (4, '彦', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:43:06', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (5, '懒羊羊', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:43:13', 1, '2021-05-11 16:38:52', 22, 0);
+INSERT INTO `auth_user` VALUES (6, '修罗铠甲', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:43:20', 1, '2021-05-11 16:38:54', 22, 0);
+INSERT INTO `auth_user` VALUES (7, '喜羊羊', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:43:33', 1, '2021-05-11 16:38:57', 22, 0);
+INSERT INTO `auth_user` VALUES (8, '凉冰', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:43:41', 1, '2021-05-11 16:38:58', 22, 0);
+INSERT INTO `auth_user` VALUES (9, '凯莎女王', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:43:51', 1, '2021-05-11 16:38:59', 22, 0);
+INSERT INTO `auth_user` VALUES (10, '鹤熙', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 0, 0, 0, 0, 'PASSWORD', '2021-01-03 16:43:59', 1, '2021-05-11 16:38:59', 22, 0);
+INSERT INTO `auth_user` VALUES (11, '死神卡尔', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:44:04', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (12, '帝蕾娜', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:44:10', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (13, '刑天铠甲', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:44:22', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (14, '飞影铠甲', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:44:28', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (15, '孙悟空', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:44:41', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (16, '天下谁人不识君', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:44:49', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (17, '泽塔奥特曼', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:44:56', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (18, '天使凯拉', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:45:01', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (19, '波波', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:45:07', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (20, '刘老板', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:45:15', 1, '2021-04-10 17:49:36', 1, 0);
+INSERT INTO `auth_user` VALUES (21, '池总', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:45:33', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (22, 'user', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-03 16:45:45', 1, '2021-04-08 00:06:04', 1, 0);
+INSERT INTO `auth_user` VALUES (23, '赛罗奥特曼', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'PASSWORD', '2021-01-16 22:49:41', 1, '2021-04-10 17:55:25', 1, 0);
+INSERT INTO `auth_user` VALUES (24, 'herenpeng', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', 1, 0, 0, 0, 'GITHUB', '2021-04-10 18:14:03', 0, '2021-04-10 18:14:03', 0, 0);
 
 -- ----------------------------
 -- Table structure for auth_user_info

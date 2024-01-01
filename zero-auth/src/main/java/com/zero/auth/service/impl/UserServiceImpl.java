@@ -6,7 +6,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.entity.UserRole;
-import com.zero.auth.enums.UserTypeEnums;
+import com.zero.auth.enums.LoginTypeEnum;
 import com.zero.auth.kit.EncryptKit;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
@@ -17,13 +17,14 @@ import com.zero.auth.service.UserService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
+import com.zero.common.kit.ExcelKit;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         String encodePassword = EncryptKit.sha256(defaultPassword);
         user.setPassword(encodePassword);
         // 本地系统添加的用户类型为 LOCAL
-        user.setType(UserTypeEnums.LOCAL);
+        user.setType(LoginTypeEnum.PASSWORD);
         boolean result = super.save(user);
         // 赋予该用户默认角色
         roleService.setAcquiescence(user.getId());
@@ -142,7 +143,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public Boolean checkUsername(String username) throws Exception {
-        return baseMapper.checkUsername(username, UserTypeEnums.LOCAL);
+        return baseMapper.checkUsername(username, LoginTypeEnum.PASSWORD);
     }
 
     @Override
@@ -180,7 +181,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         for (User user : exportData) {
             user.setRoles(roleMapper.getByUserId(user.getId()));
         }
-        excelUtils.exportExcel("用户列表", User.class, exportData, response);
+        ExcelKit.exportExcel("用户列表", User.class, exportData, response);
     }
 
     @Override

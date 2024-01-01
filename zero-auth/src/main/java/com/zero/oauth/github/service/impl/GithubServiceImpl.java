@@ -3,7 +3,7 @@ package com.zero.oauth.github.service.impl;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
-import com.zero.auth.enums.UserTypeEnums;
+import com.zero.auth.enums.LoginTypeEnum;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
@@ -16,7 +16,6 @@ import com.zero.oauth.github.util.GithubUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -38,8 +37,6 @@ public class GithubServiceImpl implements GithubService {
     private final GithubUtils githubUtils;
 
     private final GithubUserMapper githubUserMapper;
-
-//    private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
 
@@ -83,7 +80,7 @@ public class GithubServiceImpl implements GithubService {
 //        user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
         user.setPassword(UUID.randomUUID().toString());
         // 添加的用户类型为 GITHUB
-        user.setType(UserTypeEnums.GITHUB);
+        user.setType(LoginTypeEnum.GITHUB);
         userMapper.insert(user);
         Integer userId = user.getId();
         // 赋予该用户默认角色

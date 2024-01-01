@@ -7,18 +7,19 @@ import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
+import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.ConfigConst;
 import com.zero.sys.entity.UserConfig;
 import com.zero.sys.mapper.ConfigConstMapper;
 import com.zero.sys.mapper.UserConfigMapper;
 import com.zero.sys.service.ConfigConstService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +109,7 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
     @Override
     public void exportExcel(ConfigConst queryConfigConst, HttpServletResponse response) throws Exception {
         List<ConfigConst> exportData = list(queryConfigConst);
-        excelUtils.exportExcel("系统配置常量表", ConfigConst.class, exportData, response);
+        ExcelKit.exportExcel("系统配置常量表", ConfigConst.class, exportData, response);
     }
 
 }

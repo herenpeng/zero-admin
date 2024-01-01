@@ -4,7 +4,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
-import com.zero.common.util.JsonUtils;
+import com.zero.common.kit.JsonKit;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class SecurityUtils {
 
-    private final JsonUtils jsonUtils;
+    private final JsonKit jsonKit;
 
     private final JwtUtils jwtUtils;
 
@@ -63,7 +63,7 @@ public class SecurityUtils {
     public User getUser(String jwt) {
         Claims claims = jwtUtils.parseJWT(jwt);
         String subject = claims.getSubject();
-        User user = jsonUtils.toObject(subject, User.class);
+        User user = jsonKit.toObject(subject, User.class);
         return user;
     }
 

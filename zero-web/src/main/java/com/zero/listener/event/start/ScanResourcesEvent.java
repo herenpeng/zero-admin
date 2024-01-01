@@ -8,8 +8,8 @@ import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.properties.RoleProperties;
-import com.zero.common.http.constant.HttpConst;
-import com.zero.common.http.constant.MethodTypeConst;
+import com.zero.common.constant.AppConst;
+import com.zero.common.constant.MethodTypeConst;
 import com.zero.common.listener.annotation.EventSort;
 import com.zero.common.listener.event.StartEvent;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -261,11 +261,11 @@ public class ScanResourcesEvent implements StartEvent {
      * @return 返回拼接之后的路径
      */
     private String splicingUri(String beanPath, String methodPath) {
-        if (StringUtils.isNoneBlank(beanPath) && !beanPath.startsWith(HttpConst.PATH_SEPARATOR)) {
-            beanPath = HttpConst.PATH_SEPARATOR + beanPath;
+        if (StringUtils.isNoneBlank(beanPath) && !beanPath.startsWith(AppConst.PATH_SEPARATOR)) {
+            beanPath = AppConst.PATH_SEPARATOR + beanPath;
         }
-        if (StringUtils.isNoneBlank(methodPath) && !methodPath.startsWith(HttpConst.PATH_SEPARATOR)) {
-            methodPath = HttpConst.PATH_SEPARATOR + methodPath;
+        if (StringUtils.isNoneBlank(methodPath) && !methodPath.startsWith(AppConst.PATH_SEPARATOR)) {
+            methodPath = AppConst.PATH_SEPARATOR + methodPath;
         }
         return beanPath + methodPath;
     }

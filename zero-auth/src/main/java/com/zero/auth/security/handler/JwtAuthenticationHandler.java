@@ -5,10 +5,10 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.util.SecurityUtils;
-import com.zero.common.constant.StringConst;
+import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
-import com.zero.common.util.RedisUtils;
+import com.zero.common.kit.RedisKit;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
 
     private final SecurityUtils securityUtils;
     private final JwtProperties jwtProperties;
-    private final RedisUtils redisUtils;
+    private final RedisKit redisKit;
     private final ResourcesMapper resourcesMapper;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -47,8 +47,8 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
             log.error("[系统登录功能]解析token失败");
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
         }
-        String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
-        Object redisToken = redisUtils.get(tokenRedisKey);
+        String tokenRedisKey = jwtProperties.getKey() + AppConst.COLON + tokenId;
+        Object redisToken = redisKit.get(tokenRedisKey);
         if (!StringUtils.equals(token, String.valueOf(redisToken))) {
             log.error("[系统登录功能]该token已失效或已过期");
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);

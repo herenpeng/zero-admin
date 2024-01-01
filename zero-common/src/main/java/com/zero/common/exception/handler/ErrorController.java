@@ -2,7 +2,7 @@ package com.zero.common.exception.handler;
 
 import com.zero.common.exception.AppExceptionEnum;
 import com.zero.common.response.domain.ResponseData;
-import com.zero.common.util.JsonUtils;
+import com.zero.common.kit.JsonKit;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,12 +28,12 @@ import java.util.Map;
 @RestController
 public class ErrorController extends BasicErrorController {
 
-    public ErrorController(JsonUtils jsonUtils) {
+    public ErrorController(JsonKit jsonKit) {
         super(new DefaultErrorAttributes(), new ErrorProperties());
-        this.jsonUtils = jsonUtils;
+        this.jsonKit = jsonKit;
     }
 
-    private final JsonUtils jsonUtils;
+    private final JsonKit jsonKit;
 
     @SneakyThrows
     @Override
@@ -45,7 +45,7 @@ public class ErrorController extends BasicErrorController {
         //         ErrorAttributeOptions.Include.STACK_TRACE,
         //         ErrorAttributeOptions.Include.BINDING_ERRORS));
         ResponseData<Void> responseData = ResponseData.code(AppExceptionEnum.ILLEGAL_TOKEN.getCode(), AppExceptionEnum.ILLEGAL_TOKEN.getMessage());
-        Map<String, Object> map = jsonUtils.toMap(responseData);
+        Map<String, Object> map = jsonKit.toMap(responseData);
         return ResponseEntity.ok(map);
     }
 

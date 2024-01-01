@@ -12,13 +12,14 @@ import com.zero.auth.service.RoleService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
+import com.zero.common.kit.ExcelKit;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.List;
 
@@ -118,7 +119,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     @Override
     public void exportExcel(Role queryRole, HttpServletResponse response) throws Exception {
         List<Role> exportData = list(queryRole);
-        excelUtils.exportExcel("角色列表", Role.class, exportData, response);
+        ExcelKit.exportExcel("角色列表", Role.class, exportData, response);
     }
 
 

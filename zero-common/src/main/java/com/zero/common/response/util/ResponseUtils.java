@@ -1,7 +1,7 @@
 package com.zero.common.response.util;
 
-import com.zero.common.enums.EncodingEnums;
-import com.zero.common.util.JsonUtils;
+import com.zero.common.enums.EncodingEnum;
+import com.zero.common.kit.JsonKit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 @Component
 public class ResponseUtils {
 
-    private final JsonUtils jsonUtils;
+    private final JsonKit jsonKit;
 
     /**
      * response对象返回json数据给前端的封装方法，将object参数转换为json数据，并返回给前台
@@ -33,9 +33,9 @@ public class ResponseUtils {
      */
     public void responseJson(HttpServletResponse response, Object object) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setCharacterEncoding(EncodingEnums.UTF_8.getValue());
+        response.setCharacterEncoding(EncodingEnum.UTF_8.getValue());
         PrintWriter writer = response.getWriter();
-        writer.write(jsonUtils.toJson(object));
+        writer.write(jsonKit.toJson(object));
         writer.flush();
         writer.close();
     }

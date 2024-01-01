@@ -9,20 +9,20 @@ import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.security.jwt.properties.JwtProperties;
 import com.zero.auth.security.jwt.util.JwtUtils;
 import com.zero.auth.service.LoginLogService;
-import com.zero.common.constant.StringConst;
-import com.zero.common.util.FreeMarkerUtils;
-import com.zero.common.util.JsonUtils;
-import com.zero.common.util.RedisUtils;
+import com.zero.common.constant.AppConst;
+import com.zero.common.kit.FreeMarkerKit;
+import com.zero.common.kit.JsonKit;
+import com.zero.common.kit.RedisKit;
 import com.zero.mail.domain.ToMail;
 import com.zero.mail.template.login.LoginMailParams;
 import com.zero.mail.template.login.LoginMailProperties;
 import com.zero.mail.util.MailUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
@@ -34,13 +34,13 @@ import java.util.UUID;
 @Component
 public class LoginUtils {
 
-    private final JsonUtils jsonUtils;
+    private final JsonKit jsonKit;
 
     private final JwtProperties jwtProperties;
 
     private final JwtUtils jwtUtils;
 
-    private final RedisUtils<String, Object> redisUtils;
+    private final RedisKit redisKit;
 
     private final LoginLogService loginLogService;
 
@@ -51,8 +51,6 @@ public class LoginUtils {
     private final LoginLogMapper loginLogMapper;
 
     private final LoginMailProperties loginMailProperties;
-
-    private final FreeMarkerUtils freeMarkerUtils;
 
     private final MailUtils mailUtils;
 
@@ -66,12 +64,12 @@ public class LoginUtils {
     public String generateJwt(User user, HttpServletRequest request) {
         user.setPassword(null);
         String tokenId = UUID.randomUUID().toString();
-        String subject = jsonUtils.toJson(user);
+        String subject = jsonKit.toJson(user);
         // 创建JWT
         String jwt = jwtUtils.createJWT(tokenId, subject);
         // 将jwt存放入redis中
-        String tokenRedisKey = jwtProperties.getKey() + StringConst.COLON + tokenId;
-        redisUtils.set(tokenRedisKey, jwt, jwtProperties.getTtl());
+        String tokenRedisKey = jwtProperties.getKey() + AppConst.COLON + tokenId;
+        redisKit.set(tokenRedisKey, jwt, jwtProperties.getTtl());
         // 记录登录日志
         LoginLog loginLog = loginLogService.loginLog(request, user.getId(), tokenId);
         // sendLoginMail(loginLog);
@@ -97,10 +95,10 @@ public class LoginUtils {
             LoginMailParams loginMailParams = new LoginMailParams();
             loginMailParams.setUsername(user.getUsername());
             loginMailParams.setLoginTime(loginLog.getLoginTime());
-            loginMailParams.setLoginAddress(loginLog.getCountry() + StringConst.SPACE + loginLog.getRegion() + StringConst.SPACE + loginLog.getCity());
+            loginMailParams.setLoginAddress(loginLog.getCountry() + AppConst.SPACE + loginLog.getRegion() + AppConst.SPACE + loginLog.getCity());
             loginMailParams.setLoginIp(loginLog.getIp());
             // 通过邮件模板参数和属性，获取模板内容字符串
-            String content = freeMarkerUtils.getTemplateContent(loginMailParams, loginMailProperties.getPath(), loginMailProperties.getFile());
+            String content = FreeMarkerKit.getTemplateContent(loginMailParams, loginMailProperties.getPath(), loginMailProperties.getFile());
             toMail.setContent(content);
             // 发送邮件
             mailUtils.sendTemplateMail(toMail);

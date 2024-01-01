@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.kit.ExcelKit;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.mapper.FileManageMapper;
 import com.zero.upload.service.FileManageService;
 import com.zero.upload.util.UploadUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 
@@ -80,7 +81,7 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
     @Override
     public void exportExcel(FileManage queryFileManage, HttpServletResponse response) throws Exception {
         List<FileManage> exportData = list(queryFileManage);
-        excelUtils.exportExcel("文件资源管理表", FileManage.class, exportData, response);
+        ExcelKit.exportExcel("文件资源管理表", FileManage.class, exportData, response);
     }
 
     @Override

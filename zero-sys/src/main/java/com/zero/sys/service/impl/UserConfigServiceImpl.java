@@ -9,18 +9,19 @@ import com.zero.auth.security.util.SecurityUtils;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
+import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.ConfigConst;
 import com.zero.sys.entity.UserConfig;
 import com.zero.sys.mapper.ConfigConstMapper;
 import com.zero.sys.mapper.UserConfigMapper;
 import com.zero.sys.service.UserConfigService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -114,7 +115,7 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
     @Override
     public void exportExcel(UserConfig queryUserConfig, HttpServletResponse response) throws Exception {
         List<UserConfig> exportData = list(queryUserConfig);
-        excelUtils.exportExcel("系统用户配置表", UserConfig.class, exportData, response);
+        ExcelKit.exportExcel("系统用户配置表", UserConfig.class, exportData, response);
     }
 
 }

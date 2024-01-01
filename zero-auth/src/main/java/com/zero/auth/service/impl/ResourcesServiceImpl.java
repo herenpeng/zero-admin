@@ -10,12 +10,13 @@ import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.service.ResourcesService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.kit.ExcelKit;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -94,6 +95,6 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
         for (Resources resources : exportData) {
             resources.setRoles(roleMapper.getByResourcesId(resources.getId()));
         }
-        excelUtils.exportExcel("系统资源列表", Resources.class, exportData, response);
+        ExcelKit.exportExcel("系统资源列表", Resources.class, exportData, response);
     }
 }
