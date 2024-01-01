@@ -26,10 +26,10 @@ public enum ExcelStyleEnum {
     /**
      * 样式名称
      */
-    private String styleName;
+    private final String styleName;
 
     /**
      * 样式实现类字节码对象
      */
-    private Class<? extends IExcelExportStyler> styleClass;
+    private final Class<? extends IExcelExportStyler> styleClass;
 }

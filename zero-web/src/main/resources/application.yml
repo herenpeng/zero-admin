@@ -152,12 +152,6 @@ zero:
       allowTypes:
         - image/jpeg
         - image/png
-  common:
-    listener:
-      # 系统启动事件开关，true为开启，false为关闭
-      execution-start: true
-      # 系统停止事件开关，true为开启，false为关闭
-      execution-stop: true
     http:
       third:
         api:

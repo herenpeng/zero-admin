@@ -1,9 +1,9 @@
-package com.zero.listener.event.stop;
+package com.zero.sys.event;
 
 import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.mapper.ResourcesRoleMapper;
-import com.zero.common.listener.annotation.EventSort;
-import com.zero.common.listener.event.StopEvent;
+import com.zero.common.event.AppEvent;
+import com.zero.common.event.AppStopEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @RequiredArgsConstructor
-@EventSort
+@AppStopEvent
 @Component
-public class DestroyResourcesEvent implements StopEvent {
+public class DestroyResourcesEvent implements AppEvent {
 
     private final ResourcesMapper resourcesMapper;
 

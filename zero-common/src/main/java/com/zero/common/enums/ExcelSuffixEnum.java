@@ -19,6 +19,6 @@ public enum ExcelSuffixEnum {
     /**
      * 文件后缀名
      */
-    String suffix;
+    private final String suffix;
 
 }

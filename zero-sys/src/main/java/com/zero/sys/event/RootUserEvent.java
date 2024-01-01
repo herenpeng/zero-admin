@@ -1,4 +1,4 @@
-package com.zero.listener.event.start;
+package com.zero.sys.event;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.auth.entity.Role;
@@ -11,8 +11,8 @@ import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.mapper.UserRoleMapper;
 import com.zero.auth.properties.RoleProperties;
 import com.zero.auth.properties.UserProperties;
-import com.zero.common.listener.annotation.EventSort;
-import com.zero.common.listener.event.StartEvent;
+import com.zero.common.event.AppEvent;
+import com.zero.common.event.AppStartEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -26,9 +26,9 @@ import org.springframework.util.ObjectUtils;
  */
 @Slf4j
 @RequiredArgsConstructor
-@EventSort(1)
+@AppStartEvent(sort = 1, enable = true)
 @Component
-public class RootUserEvent implements StartEvent {
+public class RootUserEvent implements AppEvent {
 
     private final UserProperties userProperties;
 

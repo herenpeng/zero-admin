@@ -1,11 +1,11 @@
-package com.zero.listener.event.start;
+package com.zero.sys.event;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.properties.RoleProperties;
-import com.zero.common.listener.annotation.EventSort;
-import com.zero.common.listener.event.StartEvent;
+import com.zero.common.event.AppEvent;
+import com.zero.common.event.AppStartEvent;
 import com.zero.sys.entity.Menu;
 import com.zero.sys.entity.MenuRole;
 import com.zero.sys.mapper.MenuMapper;
@@ -25,9 +25,9 @@ import java.util.List;
  */
 @Slf4j
 @RequiredArgsConstructor
-@EventSort(2)
+@AppStartEvent(sort = 2, enable = true)
 @Component
-public class RootMenuEvent implements StartEvent {
+public class RootMenuEvent implements AppEvent {
 
     private final MenuMapper menuMapper;
 

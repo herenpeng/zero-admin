@@ -1,4 +1,4 @@
-package com.zero.common.listener.annotation;
+package com.zero.common.event;
 
 import java.lang.annotation.*;
 
@@ -16,13 +16,21 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface EventSort {
+public @interface AppStopEvent {
 
     /**
      * 事件排序
      *
      * @return 事件排序序号
      */
-    int value() default 5;
+    int sort() default 0;
+
+
+    /**
+     * 事件是否启用
+     *
+     * @return 是否启用
+     */
+    boolean enable() default false;
 
 }

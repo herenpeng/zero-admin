@@ -1,4 +1,4 @@
-package com.zero.listener.event.start;
+package com.zero.sys.event;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.auth.entity.Resources;
@@ -10,8 +10,8 @@ import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.properties.RoleProperties;
 import com.zero.common.constant.AppConst;
 import com.zero.common.constant.MethodTypeConst;
-import com.zero.common.listener.annotation.EventSort;
-import com.zero.common.listener.event.StartEvent;
+import com.zero.common.event.AppEvent;
+import com.zero.common.event.AppStartEvent;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -36,9 +36,9 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 @RequiredArgsConstructor
-@EventSort(5)
+@AppStartEvent(sort = 5, enable = true)
 @Component
-public class ScanResourcesEvent implements StartEvent {
+public class ScanResourcesEvent implements AppEvent {
 
     /**
      * 匹配的正则表达式，例如{id}
