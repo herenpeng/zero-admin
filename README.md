@@ -38,7 +38,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 
 
 ## 项目开发环境
-- JDK 11
+- JDK 17
 - Maven 3.6.3
 - MySQL 5.7.30
 - Redis(Windows) 3.2.100
@@ -69,7 +69,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 
 5、启动Redis数据库。
 
-6、运行MyApplication的main()方法，启动项目。
+6、运行Application的main()方法，启动项目。
 
 【备注】
 
