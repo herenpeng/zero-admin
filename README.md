@@ -22,7 +22,7 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 
 <p align="center">
 	<a target="_blank" href="https://www.oracle.com/java/technologies/downloads/#java11">
-		<img src="https://img.shields.io/badge/JDK-11-green.svg" alt="JDK 11" />
+		<img src="https://img.shields.io/badge/JDK-17-green.svg" alt="JDK 11" />
 	</a>
 	<br />
 	<a target="_blank" href='https://gitee.com/herenpeng/zero-admin'>
