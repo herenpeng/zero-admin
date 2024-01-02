@@ -1,7 +1,7 @@
 package com.zero.upload.controller;
 
 import com.zero.common.annotation.LogOperation;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.upload.service.UploadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -36,8 +36,8 @@ public class UploadController {
             @Parameter(name = "file", description = "上传的图片文件", required = true)
     })
     @PostMapping("image")
-    public ResponseData<String> image(@RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<String> image(@RequestParam("file") MultipartFile file) throws Exception {
         String filePath = uploadService.uploadImage(file);
-        return ResponseData.ok(filePath);
+        return ResponseEntity.ok(filePath);
     }
 }

@@ -3,7 +3,7 @@ package com.zero.upload.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.upload.entity.FileManage;
 import com.zero.upload.service.FileManageService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,12 +35,12 @@ public class FileManageController extends BaseController<FileManageService, File
             @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<FileManage>> page(
+    public ResponseEntity<IPage<FileManage>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             FileManage queryFileManage) throws Exception {
         IPage<FileManage> page = baseService.page(currentPage, size, queryFileManage);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -50,8 +50,8 @@ public class FileManageController extends BaseController<FileManageService, File
             @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<FileManage>> list(FileManage queryFileManage) throws Exception {
-        return ResponseData.ok(baseService.list(queryFileManage));
+    public ResponseEntity<List<FileManage>> list(FileManage queryFileManage) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryFileManage));
     }
 
 
@@ -63,12 +63,12 @@ public class FileManageController extends BaseController<FileManageService, File
             @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<FileManage>> recoverPage(
+    public ResponseEntity<IPage<FileManage>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             FileManage queryFileManage) throws Exception {
         IPage<FileManage> page = baseService.recoverPage(currentPage, size, queryFileManage);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -78,9 +78,9 @@ public class FileManageController extends BaseController<FileManageService, File
             @Parameter(name = "id", description = "文件资源管理表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -90,9 +90,9 @@ public class FileManageController extends BaseController<FileManageService, File
             @Parameter(name = "id", description = "文件资源管理表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该文件资源管理表数据");
+        return ResponseEntity.message("彻底删除该文件资源管理表数据");
     }
 
 
@@ -113,9 +113,9 @@ public class FileManageController extends BaseController<FileManageService, File
             @Parameter(name = "id", description = "文件资源管理表主键", required = true)
     })
     @PostMapping("bak/{id}")
-    public ResponseData<Void> bak(@PathVariable Integer id) throws Exception {
+    public ResponseEntity<Void> bak(@PathVariable Integer id) throws Exception {
         baseService.bak(id);
-        return ResponseData.message("备份成功");
+        return ResponseEntity.message("备份成功");
     }
 
     @LogOperation
@@ -125,9 +125,9 @@ public class FileManageController extends BaseController<FileManageService, File
             @Parameter(name = "file", description = "文件资源", required = true)
     })
     @PostMapping("replace")
-    public ResponseData<Void> replace(@RequestParam("id") Integer id, @RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<Void> replace(@RequestParam("id") Integer id, @RequestParam("file") MultipartFile file) throws Exception {
         baseService.replace(id, file);
-        return ResponseData.message("替换成功");
+        return ResponseEntity.message("替换成功");
     }
 
 }

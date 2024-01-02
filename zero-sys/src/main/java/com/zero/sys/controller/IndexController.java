@@ -2,7 +2,7 @@ package com.zero.sys.controller;
 
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.http.domain.WeatherInfo;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.service.IndexService;
 import com.zero.sys.vo.LoginMap;
 import com.zero.sys.vo.PanelGroup;
@@ -33,25 +33,25 @@ public class IndexController {
     @LogOperation
     @Operation(description = "获取当前城市的天气预报信息")
     @GetMapping("weather")
-    public ResponseData<WeatherInfo.Data> weather(HttpServletRequest request) throws Exception {
+    public ResponseEntity<WeatherInfo.Data> weather(HttpServletRequest request) throws Exception {
         WeatherInfo.Data data = indexService.weather(request);
-        return ResponseData.ok(data);
+        return ResponseEntity.ok(data);
     }
 
     @LogOperation
     @Operation(description = "获取系统首页的展示数据")
     @GetMapping("panel/group")
-    public ResponseData<PanelGroup> panelGroup() throws Exception {
+    public ResponseEntity<PanelGroup> panelGroup() throws Exception {
         PanelGroup panelGroup = indexService.panelGroup();
-        return ResponseData.ok(panelGroup);
+        return ResponseEntity.ok(panelGroup);
     }
 
     @LogOperation
     @Operation(description = "获取系统首页的用户登录地图数据")
     @GetMapping("login/map")
-    public ResponseData<List<LoginMap>> loginMap() throws Exception {
+    public ResponseEntity<List<LoginMap>> loginMap() throws Exception {
         List<LoginMap> list = indexService.loginMap();
-        return ResponseData.ok(list);
+        return ResponseEntity.ok(list);
     }
 
 }

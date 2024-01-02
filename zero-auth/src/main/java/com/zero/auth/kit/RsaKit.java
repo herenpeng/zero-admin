@@ -1,13 +1,13 @@
-package com.zero.auth.security.jwt.util;
+package com.zero.auth.kit;
 
-import com.zero.auth.security.jwt.properties.RsaProperties;
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,7 +25,21 @@ import java.util.Base64;
 @Component
 public class RsaKit {
 
-    private final RsaProperties rsaProperties;
+    /**
+     * 加密秘钥信息
+     */
+    @Value("${zero.auth.jwt.rsa.secret}")
+    private String secret;
+    /**
+     * 私钥存放路径
+     */
+    @Value("${zero.auth.jwt.rsa.private-file}")
+    private String privateFile;
+    /**
+     * 公钥存放路径
+     */
+    @Value("${zero.auth.jwt.rsa.public-file}")
+    private String publicFile;
 
     /**
      * 默认的密文长度，在默认的密文长度和指定的密文长度之间选择最大的值，即密文长度不可以小于默认的密文长度
@@ -54,14 +68,14 @@ public class RsaKit {
     @PostConstruct
     public void initRsaKey() throws Exception {
         // 生成私钥和公钥文件
-        generateKey(rsaProperties.getPublicFile(), rsaProperties.getPrivateFile(), rsaProperties.getSecret());
+        generateKey(publicFile, privateFile, secret);
         // 读取私钥对象
-        if (StringUtils.isNotBlank(rsaProperties.getPrivateFile())) {
-            privateKey = getPrivateKey(rsaProperties.getPrivateFile());
+        if (StringUtils.isNotBlank(privateFile)) {
+            privateKey = getPrivateKey(privateFile);
         }
         // 读取公钥对象
-        if (StringUtils.isNotBlank(rsaProperties.getPublicFile())) {
-            publicKey = getPublicKey(rsaProperties.getPublicFile());
+        if (StringUtils.isNotBlank(publicFile)) {
+            publicKey = getPublicKey(publicFile);
         }
     }
 

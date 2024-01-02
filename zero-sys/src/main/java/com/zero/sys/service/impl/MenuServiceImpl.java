@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.RoleMapper;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.Menu;
@@ -36,7 +36,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     private final MenuRoleMapper menuRoleMapper;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     @Override
     public IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu) throws Exception {
@@ -59,7 +59,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public List<Menu> getRoutes() throws Exception {
-        Integer userId = securityUtils.getUserId(request);
+        Integer userId = tokenKit.getUserId(request);
         List<Menu> parentList = baseMapper.getRoutes(userId, null);
         for (Menu menu : parentList) {
             menu.setChildren(baseMapper.getRoutes(userId, menu.getId()));

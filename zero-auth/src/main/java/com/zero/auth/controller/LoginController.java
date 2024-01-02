@@ -1,7 +1,7 @@
 package com.zero.auth.controller;
 
 import com.zero.auth.service.LoginService;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -30,19 +30,19 @@ public class LoginController {
             @Parameter(name = "loginInfo", description = "登录信息", required = true)
     })
     @PostMapping("login")
-    public ResponseData<String> login(@RequestBody LoginInfo loginInfo, HttpServletRequest request) throws Exception {
+    public ResponseEntity<String> login(@RequestBody LoginInfo loginInfo, HttpServletRequest request) throws Exception {
         String username = loginInfo.username();
         String password = loginInfo.password();
         String token = loginService.login(username, password, request);
-        return ResponseData.ok(token);
+        return ResponseEntity.ok(token);
     }
 
 
     @Operation(description = "登出接口")
     @PostMapping("logout")
-    public ResponseData<String> logout(HttpServletRequest request) throws Exception {
+    public ResponseEntity<String> logout(HttpServletRequest request) throws Exception {
         loginService.logout(request);
-        return ResponseData.message("退出成功");
+        return ResponseEntity.message("退出成功");
     }
 
 

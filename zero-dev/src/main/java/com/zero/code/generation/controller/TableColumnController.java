@@ -3,7 +3,7 @@ package com.zero.code.generation.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.service.TableColumnService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,12 +34,12 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
             @Parameter(name = "queryTableColumn", description = "系统数据库表字段信息表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<TableColumn>> page(
+    public ResponseEntity<IPage<TableColumn>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             TableColumn queryTableColumn) throws Exception {
         IPage<TableColumn> page = baseService.page(currentPage, size, queryTableColumn);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -49,8 +49,8 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
             @Parameter(name = "queryTableColumn", description = "系统数据库表字段信息表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<TableColumn>> list(TableColumn queryTableColumn) throws Exception {
-        return ResponseData.ok(baseService.list(queryTableColumn));
+    public ResponseEntity<List<TableColumn>> list(TableColumn queryTableColumn) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryTableColumn));
     }
 
 
@@ -62,12 +62,12 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
             @Parameter(name = "queryTableColumn", description = "系统数据库表字段信息表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<TableColumn>> recoverPage(
+    public ResponseEntity<IPage<TableColumn>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             TableColumn queryTableColumn) throws Exception {
         IPage<TableColumn> page = baseService.recoverPage(currentPage, size, queryTableColumn);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -77,9 +77,9 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
             @Parameter(name = "id", description = "系统数据库表字段信息表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -89,9 +89,9 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
             @Parameter(name = "id", description = "系统数据库表字段信息表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统数据库表字段信息表数据");
+        return ResponseEntity.message("彻底删除该系统数据库表字段信息表数据");
     }
 
     @LogOperation
@@ -100,9 +100,9 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
             @Parameter(name = "tableInfoId", description = "tableInfo主键", required = true)
     })
     @GetMapping("table/info/{tableInfoId}")
-    public ResponseData<List<TableColumn>> getByTableInfoId(@PathVariable("tableInfoId") Integer tableInfoId) throws Exception {
+    public ResponseEntity<List<TableColumn>> getByTableInfoId(@PathVariable("tableInfoId") Integer tableInfoId) throws Exception {
         List<TableColumn> tableColumns = baseService.getByTableInfoId(tableInfoId);
-        return ResponseData.ok(tableColumns);
+        return ResponseEntity.ok(tableColumns);
     }
 
 

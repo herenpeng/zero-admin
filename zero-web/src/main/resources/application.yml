@@ -96,13 +96,12 @@ zero:
       root-name: root
       # root角色默认描述信息
       root-description: root权限，系统的最高权限
-    security:
-      jwt:
-        ttl: 3600000
-        issuer: ${zero.domain-name}
-        key: accessToken
-        rsa:
-          secret: HdGkiOiI4ODgiLCJzdWIiOiLlsIdkdusdmnwlsYdfDSkpqlzelqJhdSKDxljHlNKKjds
+    jwt:
+      ttl: 3600000
+      issuer: ${zero.domain-name}
+      key: accessToken
+      rsa:
+        secret: HdGkiOiI4ODgiLCJzdWIiOiLlsIdkdusdmnwlsYdfDSkpqlzelqJhdSKDxljHlNKKjds
     oauth:
       target-origin-key: targetOrigin
       message-page: oauth-login
@@ -152,6 +151,7 @@ zero:
       allowTypes:
         - image/jpeg
         - image/png
+  common:
     http:
       third:
         api:

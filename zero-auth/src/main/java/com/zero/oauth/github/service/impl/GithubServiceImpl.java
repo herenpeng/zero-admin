@@ -8,7 +8,7 @@ import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.security.util.LoginUtils;
+import com.zero.auth.kit.LoginUtils;
 import com.zero.auth.service.RoleService;
 import com.zero.oauth.github.entity.GithubUser;
 import com.zero.oauth.github.mapper.GithubUserMapper;

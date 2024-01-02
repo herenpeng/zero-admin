@@ -1,7 +1,7 @@
 package com.zero.mail.controller;
 
 import com.zero.common.annotation.LogOperation;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.mail.domain.ToMail;
 import com.zero.mail.service.MailService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,9 +35,9 @@ public class MailController {
             @Parameter(name = "toMail", description = "邮件接收封装实体", required = true)}
     )
     @PostMapping("text")
-    public ResponseData<Boolean> text(ToMail toMail) throws Exception {
+    public ResponseEntity<Boolean> text(ToMail toMail) throws Exception {
         boolean result = mailService.sendTextMail(toMail);
-        return ResponseData.ok(result);
+        return ResponseEntity.ok(result);
     }
 
 
@@ -47,9 +47,9 @@ public class MailController {
             @Parameter(name = "toMail", description = "邮件接收封装实体", required = true)}
     )
     @PostMapping("template")
-    public ResponseData<Boolean> template(ToMail toMail) throws Exception {
+    public ResponseEntity<Boolean> template(ToMail toMail) throws Exception {
         boolean result = mailService.sendTemplateMail(toMail);
-        return ResponseData.ok(result);
+        return ResponseEntity.ok(result);
     }
 
 }

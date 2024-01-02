@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.User;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
@@ -40,7 +40,7 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
 
     private final UserMapper userMapper;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     @Override
     public IPage<UserConfig> page(Integer currentPage, Integer size, UserConfig queryUserConfig) throws Exception {
@@ -73,7 +73,7 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
             log.error("[用户配置业务层]系统配置的KEY值：{}不允许用户配置", key);
             throw new AppException(AppExceptionEnum.CONFIG_KEY_NOT_CAN);
         }
-        Integer userId = securityUtils.getUserId(request);
+        Integer userId = tokenKit.getUserId(request);
         UserConfig userConfig = baseMapper.getByUserIdAndConfigId(userId, configConst.getId());
         if (ObjectUtils.isEmpty(userConfig)) {
             log.info("[用户配置业务层]用户未配置该系统配置，新增用户配置，用户系统配置KEY值：{}", key);

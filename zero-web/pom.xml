@@ -16,6 +16,10 @@
             <groupId>com.zero</groupId>
             <artifactId>zero-sys</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zero</groupId>
+            <artifactId>zero-dev</artifactId>
+        </dependency>
     </dependencies>
 
 

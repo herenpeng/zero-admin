@@ -3,7 +3,7 @@ package com.zero.sys.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.ConfigConst;
 import com.zero.sys.service.ConfigConstService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,12 +35,12 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
             @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<ConfigConst>> page(
+    public ResponseEntity<IPage<ConfigConst>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             ConfigConst queryConfigConst) throws Exception {
         IPage<ConfigConst> page = baseService.page(currentPage, size, queryConfigConst);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -50,8 +50,8 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
             @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<ConfigConst>> list(ConfigConst queryConfigConst) throws Exception {
-        return ResponseData.ok(baseService.list(queryConfigConst));
+    public ResponseEntity<List<ConfigConst>> list(ConfigConst queryConfigConst) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryConfigConst));
     }
 
 
@@ -62,8 +62,8 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
             @Parameter(name = "userable", description = "是否允许用户配置")
     })
     @GetMapping("list/key")
-    public ResponseData<List<String>> keyList(String key, Boolean userable) throws Exception {
-        return ResponseData.ok(baseService.getKeyList(key, userable));
+    public ResponseEntity<List<String>> keyList(String key, Boolean userable) throws Exception {
+        return ResponseEntity.ok(baseService.getKeyList(key, userable));
     }
 
     @LogOperation
@@ -72,8 +72,8 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
 
     })
     @GetMapping("key")
-    public ResponseData<String> key(String key) throws Exception {
-        return ResponseData.ok(baseService.getByKey(key));
+    public ResponseEntity<String> key(String key) throws Exception {
+        return ResponseEntity.ok(baseService.getByKey(key));
     }
 
 
@@ -83,8 +83,8 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
             @Parameter(name = "keys", description = "常量键值集合")
     })
     @PostMapping("keys")
-    public ResponseData<Map<String, String>> keys(@RequestBody List<String> keys) throws Exception {
-        return ResponseData.ok(baseService.getByKeys(keys));
+    public ResponseEntity<Map<String, String>> keys(@RequestBody List<String> keys) throws Exception {
+        return ResponseEntity.ok(baseService.getByKeys(keys));
     }
 
 
@@ -96,12 +96,12 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
             @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<ConfigConst>> recoverPage(
+    public ResponseEntity<IPage<ConfigConst>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             ConfigConst queryConfigConst) throws Exception {
         IPage<ConfigConst> page = baseService.recoverPage(currentPage, size, queryConfigConst);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -111,9 +111,9 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
             @Parameter(name = "id", description = "系统配置常量表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -123,9 +123,9 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
             @Parameter(name = "id", description = "系统配置常量表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统配置常量表数据");
+        return ResponseEntity.message("彻底删除该系统配置常量表数据");
     }
 
 

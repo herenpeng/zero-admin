@@ -3,7 +3,7 @@ package com.zero.sys.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.Log;
 import com.zero.sys.service.LogService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,12 +34,12 @@ public class LogController extends BaseController<LogService, Log> {
             @Parameter(name = "queryLog", description = "系统操作日志表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<Log>> page(
+    public ResponseEntity<IPage<Log>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Log queryLog) throws Exception {
         IPage<Log> page = baseService.page(currentPage, size, queryLog);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -49,8 +49,8 @@ public class LogController extends BaseController<LogService, Log> {
             @Parameter(name = "queryLog", description = "系统操作日志表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<Log>> list(Log queryLog) throws Exception {
-        return ResponseData.ok(baseService.list(queryLog));
+    public ResponseEntity<List<Log>> list(Log queryLog) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryLog));
     }
 
 
@@ -62,12 +62,12 @@ public class LogController extends BaseController<LogService, Log> {
             @Parameter(name = "queryLog", description = "系统操作日志表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<Log>> recoverPage(
+    public ResponseEntity<IPage<Log>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Log queryLog) throws Exception {
         IPage<Log> page = baseService.recoverPage(currentPage, size, queryLog);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -77,9 +77,9 @@ public class LogController extends BaseController<LogService, Log> {
             @Parameter(name = "id", description = "系统操作日志表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
     @LogOperation
@@ -88,9 +88,9 @@ public class LogController extends BaseController<LogService, Log> {
             @Parameter(name = "id", description = "系统操作日志表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统操作日志数据");
+        return ResponseEntity.message("彻底删除该系统操作日志数据");
     }
 
     @LogOperation

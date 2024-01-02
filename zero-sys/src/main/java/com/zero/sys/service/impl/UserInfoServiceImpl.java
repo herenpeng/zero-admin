@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.mapper.UserInfoMapper;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.constant.AppConst;
 import com.zero.common.kit.ExcelKit;
@@ -42,7 +42,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
 
     private final UploadService uploadService;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     private final VerifyProperties verifyProperties;
 
@@ -88,7 +88,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
     @Override
     public String avatar(MultipartFile file) throws Exception {
         String avatar = uploadService.uploadImage(file);
-        Integer id = securityUtils.getUserId(request);
+        Integer id = tokenKit.getUserId(request);
         UserInfo userInfo = baseMapper.selectById(id);
         if (ObjectUtils.isEmpty(userInfo)) {
             userInfo = new UserInfo();
@@ -104,14 +104,14 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
 
     @Override
     public String getAvatar() throws Exception {
-        Integer userId = securityUtils.getUserId(request);
+        Integer userId = tokenKit.getUserId(request);
         UserInfo userInfo = baseMapper.selectById(userId);
         return userInfo.getAvatar();
     }
 
     @Override
     public UserInfo info() throws Exception {
-        Integer userId = securityUtils.getUserId(request);
+        Integer userId = tokenKit.getUserId(request);
         UserInfo userInfo = baseMapper.selectById(userId);
         return userInfo;
     }
@@ -127,7 +127,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         // 通过随机数生成邮件验证码
         String verify = NumberKit.generateRandomNumberString(verifyProperties.getLength());
         // 准备邮件模板参数
-        VerifyParams verifyParams = new VerifyParams(securityUtils.getUsername(request), mail, verify);
+        VerifyParams verifyParams = new VerifyParams(tokenKit.getUsername(request), mail, verify);
         // 将邮箱验证码存放入Redis中，以指定配置的key值前缀和邮箱账号名称作为key值，
         String verifyRedisKey = verifyProperties.getKey() + AppConst.COLON + mail;
         redisKit.set(verifyRedisKey, verify, verifyProperties.getTtl());
@@ -145,7 +145,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
             // 删除redis
             redisKit.del(verifyRedisKey);
             // 更新数据库
-            Integer id = securityUtils.getUserId(request);
+            Integer id = tokenKit.getUserId(request);
             UserInfo userInfo = new UserInfo();
             userInfo.setId(id);
             userInfo.setMail(mail);

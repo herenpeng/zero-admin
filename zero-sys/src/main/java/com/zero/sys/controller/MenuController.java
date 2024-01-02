@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.Role;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.Menu;
 import com.zero.sys.service.MenuService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,20 +35,20 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "queryMenu", description = "系统菜单表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<Menu>> page(
+    public ResponseEntity<IPage<Menu>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Menu queryMenu) throws Exception {
         IPage<Menu> page = baseService.page(currentPage, size, queryMenu);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
     @LogOperation
     @Operation(description = "[动态路由]获取所有启用的系统菜单")
     @GetMapping("routes")
-    public ResponseData<List<Menu>> routes() throws Exception {
+    public ResponseEntity<List<Menu>> routes() throws Exception {
         List<Menu> routes = baseService.getRoutes();
-        return ResponseData.ok(routes);
+        return ResponseEntity.ok(routes);
     }
 
 
@@ -59,11 +59,11 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "hidden", description = "true为隐藏，false为显示", required = true)
     })
     @PutMapping("hidden/{id}")
-    public ResponseData<Void> hidden(
+    public ResponseEntity<Void> hidden(
             @PathVariable("id") Integer id,
             @RequestParam("hidden") Boolean hidden) throws Exception {
         baseService.hidden(id, hidden);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
     @LogOperation
@@ -73,11 +73,11 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "enabled", description = "true为启用，false为禁用", required = true)
     })
     @PutMapping("enabled/{id}")
-    public ResponseData<Void> enabled(
+    public ResponseEntity<Void> enabled(
             @PathVariable("id") Integer id,
             @RequestParam("enabled") Boolean enabled) throws Exception {
         baseService.enabled(id, enabled);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -88,11 +88,11 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "roleId", description = "角色主键", required = true)
     })
     @DeleteMapping("role/{menuId}")
-    public ResponseData<Void> deleteMenuRole(
+    public ResponseEntity<Void> deleteMenuRole(
             @PathVariable("menuId") Integer menuId,
             @RequestParam("roleId") Integer roleId) throws Exception {
         baseService.deleteMenuRole(menuId, roleId);
-        return ResponseData.message("删除菜单角色成功");
+        return ResponseEntity.message("删除菜单角色成功");
     }
 
 
@@ -102,10 +102,10 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "menuId", description = "菜单主键", required = true)
     })
     @GetMapping("role/{menuId}")
-    public ResponseData<List<Role>> getMenuNotRoleList(
+    public ResponseEntity<List<Role>> getMenuNotRoleList(
             @PathVariable("menuId") Integer menuId) throws Exception {
         List<Role> roleList = baseService.getMenuNotRoleList(menuId);
-        return ResponseData.ok(roleList);
+        return ResponseEntity.ok(roleList);
     }
 
 
@@ -116,11 +116,11 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "roleId", description = "角色主键", required = true)
     })
     @PostMapping("role/{menuId}")
-    public ResponseData<Void> addUserRole(
+    public ResponseEntity<Void> addUserRole(
             @PathVariable("menuId") Integer menuId,
             @RequestParam Integer roleId) throws Exception {
         baseService.addMenuRole(menuId, roleId);
-        return ResponseData.message("添加菜单角色成功");
+        return ResponseEntity.message("添加菜单角色成功");
     }
 
 
@@ -132,12 +132,12 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "queryMenu", description = "系统菜单表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<Menu>> recoverPage(
+    public ResponseEntity<IPage<Menu>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Menu queryMenu) throws Exception {
         IPage<Menu> page = baseService.recoverPage(currentPage, size, queryMenu);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -147,9 +147,9 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "id", description = "系统菜单表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
     @LogOperation
@@ -158,9 +158,9 @@ public class MenuController extends BaseController<MenuService, Menu> {
             @Parameter(name = "id", description = "系统菜单表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统菜单表数据");
+        return ResponseEntity.message("彻底删除该系统菜单表数据");
     }
 
     @LogOperation

@@ -1,7 +1,7 @@
 package com.zero.common.exception.handler;
 
 import com.zero.common.exception.AppExceptionEnum;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.common.kit.JsonKit;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,15 +37,15 @@ public class ErrorController extends BasicErrorController {
     @SneakyThrows
     @Override
     @RequestMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
+    public org.springframework.http.ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
         // Map<String, Object> errorAttributes = getErrorAttributes(request, ErrorAttributeOptions.of(
         //         ErrorAttributeOptions.Include.EXCEPTION,
         //         ErrorAttributeOptions.Include.MESSAGE,
         //         ErrorAttributeOptions.Include.STACK_TRACE,
         //         ErrorAttributeOptions.Include.BINDING_ERRORS));
-        ResponseData<Void> responseData = ResponseData.code(AppExceptionEnum.ILLEGAL_TOKEN.getCode(), AppExceptionEnum.ILLEGAL_TOKEN.getMessage());
-        Map<String, Object> map = jsonKit.toMap(responseData);
-        return ResponseEntity.ok(map);
+        ResponseEntity<Void> responseEntity = ResponseEntity.code(AppExceptionEnum.ILLEGAL_TOKEN.getCode(), AppExceptionEnum.ILLEGAL_TOKEN.getMessage());
+        Map<String, Object> map = jsonKit.toMap(responseEntity);
+        return org.springframework.http.ResponseEntity.ok(map);
     }
 
 }

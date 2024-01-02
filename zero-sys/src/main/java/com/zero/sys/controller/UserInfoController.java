@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.UserInfo;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,12 +35,12 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<UserInfo>> page(
+    public ResponseEntity<IPage<UserInfo>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             UserInfo queryUserInfo) throws Exception {
         IPage<UserInfo> page = baseService.page(currentPage, size, queryUserInfo);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -50,16 +50,16 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<UserInfo>> list(UserInfo queryUserInfo) throws Exception {
-        return ResponseData.ok(baseService.list(queryUserInfo));
+    public ResponseEntity<List<UserInfo>> list(UserInfo queryUserInfo) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryUserInfo));
     }
 
     @LogOperation
     @Operation(description = "查询当前登录用户的信息数据")
     @GetMapping
-    public ResponseData<UserInfo> info() throws Exception {
+    public ResponseEntity<UserInfo> info() throws Exception {
         UserInfo userInfo = baseService.info();
-        return ResponseData.ok(userInfo);
+        return ResponseEntity.ok(userInfo);
     }
 
 
@@ -71,12 +71,12 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<UserInfo>> recoverPage(
+    public ResponseEntity<IPage<UserInfo>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             UserInfo queryUserInfo) throws Exception {
         IPage<UserInfo> page = baseService.recoverPage(currentPage, size, queryUserInfo);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -86,9 +86,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "id", description = "系统用户信息表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -98,9 +98,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "id", description = "系统用户信息表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统用户信息表数据");
+        return ResponseEntity.message("彻底删除该系统用户信息表数据");
     }
 
 
@@ -122,18 +122,18 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "file", description = "上传的用户头像", required = true)
     })
     @PostMapping("avatar")
-    public ResponseData<String> avatar(@RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<String> avatar(@RequestParam("file") MultipartFile file) throws Exception {
         String avatar = baseService.avatar(file);
-        return ResponseData.ok(avatar);
+        return ResponseEntity.ok(avatar);
     }
 
 
     @LogOperation
     @Operation(description = "获取用户头像路径")
     @GetMapping("avatar")
-    public ResponseData<String> getAvatar() throws Exception {
+    public ResponseEntity<String> getAvatar() throws Exception {
         String avatar = baseService.getAvatar();
-        return ResponseData.ok(avatar);
+        return ResponseEntity.ok(avatar);
     }
 
 
@@ -143,9 +143,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "mail", description = "电子邮件号码", required = true)
     })
     @PostMapping("mail/verify/send")
-    public ResponseData<Boolean> sendVerifyMail(String mail) throws Exception {
+    public ResponseEntity<Boolean> sendVerifyMail(String mail) throws Exception {
         boolean result = baseService.sendVerifyMail(mail);
-        return ResponseData.ok(result);
+        return ResponseEntity.ok(result);
     }
 
     @LogOperation
@@ -155,9 +155,9 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
             @Parameter(name = "verify", description = "电子邮件验证码", required = true)
     })
     @PostMapping("mail/verify")
-    public ResponseData<Boolean> verify(String mail, String verify) throws Exception {
+    public ResponseEntity<Boolean> verify(String mail, String verify) throws Exception {
         boolean result = baseService.verify(mail, verify);
-        return ResponseData.ok(result);
+        return ResponseEntity.ok(result);
     }
 
 }

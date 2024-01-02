@@ -1,20 +1,14 @@
 package com.zero.code.generation.util;
 
-import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.enums.CodeTypeEnum;
 import com.zero.code.generation.enums.TemplateEnum;
-import com.zero.code.generation.mapper.TableColumnMapper;
-import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.common.constant.AppConst;
 import com.zero.common.enums.EncodingEnum;
 import com.zero.common.kit.FreeMarkerKit;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.io.*;
-import java.util.List;
 
 /**
  * 代码生成工具类
@@ -23,25 +17,14 @@ import java.util.List;
  * @since 2020-11-11 22:53
  */
 @Slf4j
-@RequiredArgsConstructor
-@Component
-public class CodeGenerationUtils {
-
-    private final TableInfoMapper tableInfoMapper;
-
-    private final TableColumnMapper tableColumnMapper;
-
+public class CodeGenerationKit {
 
     /**
      * 代码生成方法
      *
-     * @param id 表信息主键
      * @throws Exception
      */
-    public void generation(Integer id) throws Exception {
-        TableInfo tableInfo = tableInfoMapper.selectById(id);
-        List<TableColumn> tableColumnList = tableColumnMapper.getByTableInfoId(tableInfo.getId());
-        tableInfo.setTableColumnList(tableColumnList);
+    public static void generation(TableInfo tableInfo) throws Exception {
         generationFile(tableInfo, TemplateEnum.ENTITY);
         generationFile(tableInfo, TemplateEnum.MAPPER);
         generationFile(tableInfo, TemplateEnum.SERVICE);
@@ -61,7 +44,7 @@ public class CodeGenerationUtils {
      * @param templateEnum 需要生成的文件类型枚举，其中含有对应的生成信息
      * @throws IOException IO异常
      */
-    private void generationFile(TableInfo tableInfo, TemplateEnum templateEnum) throws IOException {
+    private static void generationFile(TableInfo tableInfo, TemplateEnum templateEnum) throws IOException {
         // 拼接文件的全路径
         StringBuilder generationFilePath = new StringBuilder();
         CodeTypeEnum codeTypeEnum = templateEnum.getCodeTypeEnum();
@@ -96,7 +79,7 @@ public class CodeGenerationUtils {
      * @param packageName 包名转
      * @return 文件路径名称
      */
-    private String packageNameToPath(String packageName) {
+    private static String packageNameToPath(String packageName) {
         return File.separator + packageName.replace(AppConst.POINT, File.separator);
     }
 

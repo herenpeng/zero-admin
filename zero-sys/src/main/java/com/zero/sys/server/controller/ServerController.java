@@ -1,6 +1,6 @@
 package com.zero.sys.server.controller;
 
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.server.util.OshiUtils;
 import com.zero.sys.server.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,20 +24,20 @@ public class ServerController {
 
     @Operation(description = "获取系统服务器的CPU，内存，JVM饼图信息")
     @GetMapping("piechart")
-    public ResponseData<ServerPieChart> getServerPirChartInfo() throws Exception {
+    public ResponseEntity<ServerPieChart> getServerPirChartInfo() throws Exception {
         Cpu cpu = OshiUtils.getCpuInfo();
         Mem mem = OshiUtils.getMemInfo();
         Jvm jvm = OshiUtils.getJvmInfo();
         ServerPieChart serverPieChart = new ServerPieChart(cpu, mem, jvm);
-        return ResponseData.ok(serverPieChart);
+        return ResponseEntity.ok(serverPieChart);
     }
 
     @Operation(description = "获取系统服务器的监控信息")
     @GetMapping("info")
-    public ResponseData<Server> getInfo() throws Exception {
+    public ResponseEntity<Server> getInfo() throws Exception {
         Server server = new Server();
         server.copyTo();
-        return ResponseData.ok(server);
+        return ResponseEntity.ok(server);
     }
 
 

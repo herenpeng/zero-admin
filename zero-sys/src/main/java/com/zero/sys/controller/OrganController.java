@@ -3,7 +3,7 @@ package com.zero.sys.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.Organ;
 import com.zero.sys.service.OrganService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,12 +34,12 @@ public class OrganController extends BaseController<OrganService, Organ> {
             @Parameter(name = "queryOrgan", description = "系统组织机构表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<Organ>> page(
+    public ResponseEntity<IPage<Organ>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Organ queryOrgan) throws Exception {
         IPage<Organ> page = baseService.page(currentPage, size, queryOrgan);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -49,8 +49,8 @@ public class OrganController extends BaseController<OrganService, Organ> {
             @Parameter(name = "queryOrgan", description = "系统组织机构表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<Organ>> list(Organ queryOrgan) throws Exception {
-        return ResponseData.ok(baseService.list(queryOrgan));
+    public ResponseEntity<List<Organ>> list(Organ queryOrgan) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryOrgan));
     }
 
 
@@ -62,12 +62,12 @@ public class OrganController extends BaseController<OrganService, Organ> {
             @Parameter(name = "queryOrgan", description = "系统组织机构表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<Organ>> recoverPage(
+    public ResponseEntity<IPage<Organ>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Organ queryOrgan) throws Exception {
         IPage<Organ> page = baseService.recoverPage(currentPage, size, queryOrgan);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -77,9 +77,9 @@ public class OrganController extends BaseController<OrganService, Organ> {
             @Parameter(name = "id", description = "系统组织机构表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -89,9 +89,9 @@ public class OrganController extends BaseController<OrganService, Organ> {
             @Parameter(name = "id", description = "系统组织机构表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统组织机构表数据");
+        return ResponseEntity.message("彻底删除该系统组织机构表数据");
     }
 
 

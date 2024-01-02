@@ -6,7 +6,7 @@ import com.zero.auth.entity.User;
 import com.zero.auth.service.UserService;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -35,12 +35,12 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "queryUser", description = "用户查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<User>> page(
+    public ResponseEntity<IPage<User>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             User queryUser) throws Exception {
         IPage<User> page = baseService.page(currentPage, size, queryUser);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -51,11 +51,11 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "enabled", description = "true为启用，false为禁用", required = true)
     })
     @PutMapping("enabled/{id}")
-    public ResponseData<Void> enabled(
+    public ResponseEntity<Void> enabled(
             @PathVariable("id") Integer id,
             @RequestParam("enabled") Boolean enabled) throws Exception {
         baseService.enabled(id, enabled);
-        return ResponseData.message("更新用户状态成功");
+        return ResponseEntity.message("更新用户状态成功");
     }
 
 
@@ -64,9 +64,9 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "accessToken", description = "用户请求token", required = true)
     })
     @GetMapping("token")
-    public ResponseData<User> token(@RequestHeader("accessToken") String accessToken) throws Exception {
+    public ResponseEntity<User> token(@RequestHeader("accessToken") String accessToken) throws Exception {
         User user = baseService.token(accessToken);
-        return ResponseData.ok(user);
+        return ResponseEntity.ok(user);
     }
 
 
@@ -77,11 +77,11 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "roleId", description = "角色主键", required = true)
     })
     @DeleteMapping("role/{userId}")
-    public ResponseData<Void> deleteUserRole(
+    public ResponseEntity<Void> deleteUserRole(
             @PathVariable("userId") Integer userId,
             @RequestParam("roleId") Integer roleId) throws Exception {
         baseService.deleteUserRole(userId, roleId);
-        return ResponseData.message("删除用户角色成功");
+        return ResponseEntity.message("删除用户角色成功");
     }
 
 
@@ -91,10 +91,10 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "userId", description = "用户主键", required = true)
     })
     @GetMapping("role/{userId}")
-    public ResponseData<List<Role>> getUserNotRoleList(
+    public ResponseEntity<List<Role>> getUserNotRoleList(
             @PathVariable("userId") Integer userId) throws Exception {
         List<Role> roleList = baseService.getUserNotRoleList(userId);
-        return ResponseData.ok(roleList);
+        return ResponseEntity.ok(roleList);
     }
 
 
@@ -105,11 +105,11 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "roleId", description = "角色主键", required = true)
     })
     @PostMapping("role/{userId}")
-    public ResponseData<Void> addUserRole(
+    public ResponseEntity<Void> addUserRole(
             @PathVariable("userId") Integer userId,
             @RequestParam Integer roleId) throws Exception {
         baseService.addUserRole(userId, roleId);
-        return ResponseData.message("添加用户角色成功");
+        return ResponseEntity.message("添加用户角色成功");
     }
 
 
@@ -119,9 +119,9 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "username", description = "用户名", required = true)
     })
     @GetMapping("check/username")
-    public ResponseData<Boolean> checkUsername(@RequestParam("username") String username) throws Exception {
+    public ResponseEntity<Boolean> checkUsername(@RequestParam("username") String username) throws Exception {
         Boolean result = baseService.checkUsername(username);
-        return ResponseData.ok(result);
+        return ResponseEntity.ok(result);
     }
 
     @LogOperation
@@ -130,9 +130,9 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "password", description = "用户密码", required = true)
     })
     @GetMapping("check/password")
-    public ResponseData<Boolean> checkPassword(@RequestParam("password") String password) throws Exception {
+    public ResponseEntity<Boolean> checkPassword(@RequestParam("password") String password) throws Exception {
         Boolean result = baseService.checkPassword(password);
-        return ResponseData.ok(result);
+        return ResponseEntity.ok(result);
     }
 
     @LogOperation
@@ -143,12 +143,12 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "queryUser", description = "用户查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<User>> recoverPage(
+    public ResponseEntity<IPage<User>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             User queryUser) throws Exception {
         IPage<User> page = baseService.recoverPage(currentPage, size, queryUser);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -158,9 +158,9 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "id", description = "用户ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -170,9 +170,9 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "id", description = "用户ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该用户数据");
+        return ResponseEntity.message("彻底删除该用户数据");
     }
 
 
@@ -195,11 +195,11 @@ public class UserController extends BaseController<UserService, User> {
             @Parameter(name = "newPassword", description = "新密码"),
     })
     @PutMapping("reset/password")
-    public ResponseData<Void> resetPassword(
+    public ResponseEntity<Void> resetPassword(
             @RequestParam("oldPassword") String oldPassword,
             @RequestParam("newPassword") String newPassword) throws Exception {
         baseService.resetPassword(oldPassword, newPassword);
-        return ResponseData.message("账号密码重置成功，该账号即将自动登出，请重新登录系统");
+        return ResponseEntity.message("账号密码重置成功，该账号即将自动登出，请重新登录系统");
     }
 
 }

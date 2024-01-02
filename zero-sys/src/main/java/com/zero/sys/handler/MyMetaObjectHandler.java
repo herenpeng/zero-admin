@@ -1,8 +1,8 @@
-package com.zero.sys.mybatisplus.handler;
+package com.zero.sys.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.zero.auth.entity.User;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     private final HttpServletRequest request;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     /**
      * 数据的创建用户的属性名称
@@ -58,7 +58,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         // 用户Id为0，表示为系统
         Integer userId = 0;
         try {
-            User user = securityUtils.getUser(request);
+            User user = tokenKit.getUser(request);
             userId = user.getId();
         } catch (Exception e) {
             log.debug("[数据操作用户拦截器]当前数据操作为系统执行");

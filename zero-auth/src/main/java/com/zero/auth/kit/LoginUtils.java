@@ -1,4 +1,4 @@
-package com.zero.auth.security.util;
+package com.zero.auth.kit;
 
 import com.zero.auth.entity.LoginLog;
 import com.zero.auth.entity.User;
@@ -6,8 +6,7 @@ import com.zero.auth.entity.UserInfo;
 import com.zero.auth.mapper.LoginLogMapper;
 import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.security.jwt.properties.JwtProperties;
-import com.zero.auth.security.jwt.util.JwtUtils;
+import com.zero.auth.properties.JwtProperties;
 import com.zero.auth.service.LoginLogService;
 import com.zero.common.constant.AppConst;
 import com.zero.common.kit.FreeMarkerKit;
@@ -38,7 +37,7 @@ public class LoginUtils {
 
     private final JwtProperties jwtProperties;
 
-    private final JwtUtils jwtUtils;
+    private final JwtKit jwtKit;
 
     private final RedisKit redisKit;
 
@@ -66,7 +65,7 @@ public class LoginUtils {
         String tokenId = UUID.randomUUID().toString();
         String subject = jsonKit.toJson(user);
         // 创建JWT
-        String jwt = jwtUtils.createJWT(tokenId, subject);
+        String jwt = jwtKit.createJWT(tokenId, subject);
         // 将jwt存放入redis中
         String tokenRedisKey = jwtProperties.getKey() + AppConst.COLON + tokenId;
         redisKit.set(tokenRedisKey, jwt, jwtProperties.getTtl());

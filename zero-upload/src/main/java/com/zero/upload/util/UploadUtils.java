@@ -1,6 +1,6 @@
 package com.zero.upload.util;
 
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
@@ -37,7 +37,7 @@ public class UploadUtils {
 
     private final UploadProperties uploadProperties;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     private final HttpServletRequest request;
 
@@ -92,7 +92,7 @@ public class UploadUtils {
         fileManage.setPath(newFile.getPath());
         fileManage.setUri(uri);
         fileManage.setUploadTime(new Date());
-        fileManage.setUploadUserId(securityUtils.getUserId(request));
+        fileManage.setUploadUserId(tokenKit.getUserId(request));
         fileManageMapper.insert(fileManage);
         return uri;
     }
@@ -197,7 +197,7 @@ public class UploadUtils {
         bakFile.setName(fileManage.getName());
         bakFile.setType(fileManage.getType());
         bakFile.setUploadTime(new Date());
-        bakFile.setUploadUserId(securityUtils.getUserId(request));
+        bakFile.setUploadUserId(tokenKit.getUserId(request));
         // 源文件磁盘路径
         String path = fileManage.getPath();
         // 获取源文件

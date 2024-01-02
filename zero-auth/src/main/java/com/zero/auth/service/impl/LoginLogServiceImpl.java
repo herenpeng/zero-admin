@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.LoginLog;
 import com.zero.auth.mapper.LoginLogMapper;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.security.jwt.properties.JwtProperties;
+import com.zero.auth.properties.JwtProperties;
 import com.zero.auth.service.LoginLogService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.constant.AppConst;

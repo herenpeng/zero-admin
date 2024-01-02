@@ -1,13 +1,12 @@
-package com.zero.auth.security.jwt.util;
+package com.zero.auth.kit;
 
-import com.zero.auth.security.jwt.properties.JwtProperties;
+import com.zero.auth.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -20,7 +19,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class JwtUtils {
+public class JwtKit {
 
     private final JwtProperties jwtProperties;
 
@@ -35,9 +34,8 @@ public class JwtUtils {
      * @param ttlMillis JWT的有效时间，单位是毫秒
      * @param claims    创建payload的私有声明，也就是自定义的JWT信息
      * @return 返回JWT
-     * @throws Exception 抛出异常
      */
-    public String createJWT(String id, String subject, String issuer, Long ttlMillis, Map<String, Object> claims) {
+    private String createJWT(String id, String subject, String issuer, Long ttlMillis, Map<String, Object> claims) {
         // 指定签名的时候使用的签名算法，也就是header那部分，jjwt已经将这部分内容封装好了。
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS256;
 
@@ -53,7 +51,7 @@ public class JwtUtils {
         builder.setIssuer(issuer);
         // sub：代表这个JWT的主体，即它的所有人，这个是一个json格式的字符串，可以存放用户信息的，作为什么用户的唯一标志
         builder.setSubject(subject);
-        if (ObjectUtils.allNotNull(claims)) {
+        if (claims != null) {
             // 如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
             builder.setClaims(claims);
         }
@@ -75,7 +73,6 @@ public class JwtUtils {
      * @param ttlMillis JWT的有效时间，单位是毫秒
      * @param claims    创建payload的私有声明，也就是自定义的JWT信息
      * @return 返回JWT
-     * @throws Exception 抛出异常
      */
     public String createJWT(String id, String subject, Long ttlMillis, Map<String, Object> claims) {
         return createJWT(id, subject, jwtProperties.getIssuer(), ttlMillis, claims);
@@ -88,7 +85,6 @@ public class JwtUtils {
      * @param subject JWT主体信息，一般以Json格式的数据存储
      * @param claims  创建payload的私有声明，也就是自定义的JWT信息
      * @return 返回JWT
-     * @throws Exception 抛出异常
      */
     public String createJWT(String id, String subject, Map<String, Object> claims) {
         return createJWT(id, subject, jwtProperties.getIssuer(), jwtProperties.getTtl(), claims);
@@ -100,7 +96,6 @@ public class JwtUtils {
      * @param id      JWT的ID
      * @param subject JWT主体信息，一般以Json格式的数据存储
      * @return 返回JWT
-     * @throws Exception 抛出异常
      */
     public String createJWT(String id, String subject) {
         return createJWT(id, subject, jwtProperties.getIssuer(), jwtProperties.getTtl(), null);

@@ -3,7 +3,7 @@ package com.zero.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
@@ -38,7 +38,7 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
 
     private final UserConfigMapper userConfigMapper;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     @Override
     public IPage<ConfigConst> page(Integer currentPage, Integer size, ConfigConst queryConfigConst) throws Exception {
@@ -68,7 +68,7 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
         }
         if (configConst.getUserable()) {
             log.debug("系统配置的KEY值：{}允许用户自定义配置，检查用户自定义配置", key);
-            Integer userId = securityUtils.getUserId(request);
+            Integer userId = tokenKit.getUserId(request);
             UserConfig userConfig = userConfigMapper.getByUserIdAndConfigId(userId, configConst.getId());
             if (!ObjectUtils.isEmpty(userConfig)) {
                 log.debug("系统配置的KEY值：{}允许用户自定义配置，用户自定义配置id为：{}，配置值为：{}", key, userConfig.getId(), userConfig.getValue());

@@ -5,7 +5,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.service.RoleService;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -34,12 +34,12 @@ public class RoleController extends BaseController<RoleService, Role> {
             @Parameter(name = "queryRole", description = "角色查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<Role>> page(
+    public ResponseEntity<IPage<Role>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Role queryRole) throws Exception {
         IPage<Role> page = baseService.page(currentPage, size, queryRole);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
     /**
@@ -53,8 +53,8 @@ public class RoleController extends BaseController<RoleService, Role> {
             @Parameter(name = "queryRole", description = "角色查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<Role>> list(Role queryRole) throws Exception {
-        return ResponseData.ok(baseService.list(queryRole));
+    public ResponseEntity<List<Role>> list(Role queryRole) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryRole));
     }
 
     @LogOperation
@@ -63,9 +63,9 @@ public class RoleController extends BaseController<RoleService, Role> {
             @Parameter(name = "name", description = "角色名称", required = true)
     })
     @GetMapping("check/name")
-    public ResponseData<Boolean> checkName(@RequestParam("name") String name) throws Exception {
+    public ResponseEntity<Boolean> checkName(@RequestParam("name") String name) throws Exception {
         Boolean result = baseService.checkName(name);
-        return ResponseData.ok(result);
+        return ResponseEntity.ok(result);
     }
 
     @LogOperation
@@ -74,9 +74,9 @@ public class RoleController extends BaseController<RoleService, Role> {
             @Parameter(name = "role", description = "角色实体", required = true)
     })
     @PutMapping("acquiescence")
-    public ResponseData<Void> updateAcquiescence(@RequestBody Role role) throws Exception {
+    public ResponseEntity<Void> updateAcquiescence(@RequestBody Role role) throws Exception {
         baseService.updateAcquiescence(role);
-        return ResponseData.message("默认角色修改成功");
+        return ResponseEntity.message("默认角色修改成功");
     }
 
 
@@ -88,12 +88,12 @@ public class RoleController extends BaseController<RoleService, Role> {
             @Parameter(name = "queryRole", description = "系统角色表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<Role>> recoverPage(
+    public ResponseEntity<IPage<Role>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Role queryRole) throws Exception {
         IPage<Role> page = baseService.recoverPage(currentPage, size, queryRole);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -103,9 +103,9 @@ public class RoleController extends BaseController<RoleService, Role> {
             @Parameter(name = "id", description = "系统角色表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
     @LogOperation
@@ -114,9 +114,9 @@ public class RoleController extends BaseController<RoleService, Role> {
             @Parameter(name = "id", description = "系统角色表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该角色数据");
+        return ResponseEntity.message("彻底删除该角色数据");
     }
 
     @LogOperation

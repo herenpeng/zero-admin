@@ -3,7 +3,7 @@ package com.zero.sys.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.UserConfig;
 import com.zero.sys.service.UserConfigService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,12 +34,12 @@ public class UserConfigController extends BaseController<UserConfigService, User
             @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<UserConfig>> page(
+    public ResponseEntity<IPage<UserConfig>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             UserConfig queryUserConfig) throws Exception {
         IPage<UserConfig> page = baseService.page(currentPage, size, queryUserConfig);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -49,8 +49,8 @@ public class UserConfigController extends BaseController<UserConfigService, User
             @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<UserConfig>> list(UserConfig queryUserConfig) throws Exception {
-        return ResponseData.ok(baseService.list(queryUserConfig));
+    public ResponseEntity<List<UserConfig>> list(UserConfig queryUserConfig) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryUserConfig));
     }
 
 
@@ -61,9 +61,9 @@ public class UserConfigController extends BaseController<UserConfigService, User
             @Parameter(name = "value", description = "用户配置值")
     })
     @PutMapping("key")
-    public ResponseData<Void> key(@RequestParam("key") String key, @RequestParam("value") String value) throws Exception {
+    public ResponseEntity<Void> key(@RequestParam("key") String key, @RequestParam("value") String value) throws Exception {
         baseService.updateByKey(key, value);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -75,12 +75,12 @@ public class UserConfigController extends BaseController<UserConfigService, User
             @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<UserConfig>> recoverPage(
+    public ResponseEntity<IPage<UserConfig>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             UserConfig queryUserConfig) throws Exception {
         IPage<UserConfig> page = baseService.recoverPage(currentPage, size, queryUserConfig);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -90,9 +90,9 @@ public class UserConfigController extends BaseController<UserConfigService, User
             @Parameter(name = "id", description = "系统用户配置表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -102,9 +102,9 @@ public class UserConfigController extends BaseController<UserConfigService, User
             @Parameter(name = "id", description = "系统用户配置表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统用户配置表数据");
+        return ResponseEntity.message("彻底删除该系统用户配置表数据");
     }
 
 

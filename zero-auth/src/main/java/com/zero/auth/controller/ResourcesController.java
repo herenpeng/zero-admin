@@ -6,7 +6,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.service.ResourcesService;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -35,12 +35,12 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @Parameter(name = "queryResources", description = "系统资源查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<Resources>> page(
+    public ResponseEntity<IPage<Resources>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Resources queryResources) throws Exception {
         IPage<Resources> page = baseService.page(currentPage, size, queryResources);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -51,11 +51,11 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @Parameter(name = "roleId", description = "角色主键", required = true)
     })
     @DeleteMapping("role/{resourcesId}")
-    public ResponseData<Void> deleteResourcesRole(
+    public ResponseEntity<Void> deleteResourcesRole(
             @PathVariable("resourcesId") Integer resourcesId,
             @RequestParam("roleId") Integer roleId) throws Exception {
         baseService.deleteResourcesRole(resourcesId, roleId);
-        return ResponseData.message("删除系统资源角色成功");
+        return ResponseEntity.message("删除系统资源角色成功");
     }
 
 
@@ -65,10 +65,10 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @Parameter(name = "resourcesId", description = "系统资源主键", required = true)
     })
     @GetMapping("role/{resourcesId}")
-    public ResponseData<List<Role>> getResourcesNotRoleList(
+    public ResponseEntity<List<Role>> getResourcesNotRoleList(
             @PathVariable("resourcesId") Integer resourcesId) throws Exception {
         List<Role> roleList = baseService.getResourcesNotRoleList(resourcesId);
-        return ResponseData.ok(roleList);
+        return ResponseEntity.ok(roleList);
     }
 
 
@@ -79,11 +79,11 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @Parameter(name = "roleId", description = "角色主键", required = true)
     })
     @PostMapping("role/{resourcesId}")
-    public ResponseData<Void> addResourcesRole(
+    public ResponseEntity<Void> addResourcesRole(
             @PathVariable("resourcesId") Integer resourcesId,
             @RequestParam Integer roleId) throws Exception {
         baseService.addResourcesRole(resourcesId, roleId);
-        return ResponseData.message("添加系统资源角色成功");
+        return ResponseEntity.message("添加系统资源角色成功");
     }
 
 
@@ -95,12 +95,12 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @Parameter(name = "queryResources", description = "系统资源表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<Resources>> recoverPage(
+    public ResponseEntity<IPage<Resources>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             Resources queryResources) throws Exception {
         IPage<Resources> page = baseService.recoverPage(currentPage, size, queryResources);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -110,9 +110,9 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @Parameter(name = "id", description = "系统资源表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
     @LogOperation
@@ -121,9 +121,9 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
             @Parameter(name = "id", description = "系统资源表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统资源数据");
+        return ResponseEntity.message("彻底删除该系统资源数据");
     }
 
     @LogOperation

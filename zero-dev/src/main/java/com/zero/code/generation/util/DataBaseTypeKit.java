@@ -1,8 +1,5 @@
-package com.zero.code.generation.constant;
+package com.zero.code.generation.util;
 
-import org.springframework.stereotype.Component;
-
-import jakarta.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,14 +9,12 @@ import java.util.Map;
  * @author herenpeng
  * @since 2020-11-12 23:56
  */
-@Component
-public class DataBaseTypeConst {
+public class DataBaseTypeKit {
 
-    private Map<String, String> jdbcTypeMap = new HashMap<>(16);
-    private Map<String, String> javaTypeMap = new HashMap<>(16);
+    private static final Map<String, String> jdbcTypeMap = new HashMap<>(16);
+    private static final Map<String, String> javaTypeMap = new HashMap<>(16);
 
-    @PostConstruct
-    private void init() {
+    static {
         initJdbcTypeMap();
         initJavaTypeMap();
     }
@@ -27,7 +22,7 @@ public class DataBaseTypeConst {
     /**
      * 初始化数据库类型和Jdbc类型的映射关系
      */
-    private void initJdbcTypeMap() {
+    private static void initJdbcTypeMap() {
         jdbcTypeMap.put("int", "INTEGER");
         jdbcTypeMap.put("bigint", "BIGINT");
         jdbcTypeMap.put("char", "CHAR");
@@ -46,7 +41,7 @@ public class DataBaseTypeConst {
     /**
      * 初始化数据库类型和Java类型的映射关系
      */
-    private void initJavaTypeMap() {
+    private static void initJavaTypeMap() {
         javaTypeMap.put("int", "Integer");
         javaTypeMap.put("bigint", "Long");
         javaTypeMap.put("char", "String");
@@ -69,7 +64,7 @@ public class DataBaseTypeConst {
      * @return JDBC类型
      * @throws Exception
      */
-    public String getJdbcType(String databaseType) {
+    public static String getJdbcType(String databaseType) {
         return jdbcTypeMap.get(databaseType);
     }
 
@@ -80,7 +75,7 @@ public class DataBaseTypeConst {
      * @return Java类型
      * @throws Exception
      */
-    public String getJavaType(String databaseType) {
+    public static String getJavaType(String databaseType) {
         return javaTypeMap.get(databaseType);
     }
 

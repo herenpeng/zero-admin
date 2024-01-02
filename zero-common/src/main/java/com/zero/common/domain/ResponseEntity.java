@@ -1,6 +1,5 @@
-package com.zero.common.response.domain;
+package com.zero.common.domain;
 
-import com.zero.common.response.CodeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -14,7 +13,7 @@ import java.io.Serializable;
  */
 @Schema(name = "响应数据实体类")
 @Data
-public class ResponseData<T> implements Serializable {
+public class ResponseEntity<T> implements Serializable {
 
     /**
      * 业务状态码，区别于HTTP协议状态码，
@@ -37,7 +36,7 @@ public class ResponseData<T> implements Serializable {
     /**
      * 私有构造方法，这样就只能够通过静态方法code()和ok()创建ResponseData对象
      */
-    private ResponseData() {
+    private ResponseEntity() {
     }
 
     /**
@@ -47,17 +46,17 @@ public class ResponseData<T> implements Serializable {
      * @param <T>  返回数据的泛型
      * @return 返回一个业务状态为code的ResponseData对象
      */
-    private static <T> ResponseData<T> code(Integer code) {
-        ResponseData<T> responseData = new ResponseData<>();
-        responseData.setCode(code);
-        return responseData;
+    private static <T> ResponseEntity<T> code(Integer code) {
+        ResponseEntity<T> responseEntity = new ResponseEntity<>();
+        responseEntity.setCode(code);
+        return responseEntity;
     }
 
 
-    public static <T> ResponseData<T> code(Integer code, String message) {
-        ResponseData<T> responseData = code(code);
-        responseData.setMessage(message);
-        return responseData;
+    public static <T> ResponseEntity<T> code(Integer code, String message) {
+        ResponseEntity<T> responseEntity = code(code);
+        responseEntity.setMessage(message);
+        return responseEntity;
     }
 
 
@@ -67,8 +66,8 @@ public class ResponseData<T> implements Serializable {
      * @param <T> 返回数据的泛型
      * @return 返回一个业务状态为20000，返回数据为null的ResponseData对象
      */
-    public static <T> ResponseData<T> ok() {
-        return code(CodeEnum.OK.getValue());
+    public static <T> ResponseEntity<T> ok() {
+        return code(CodeEnum.OK.value());
     }
 
     /**
@@ -78,10 +77,10 @@ public class ResponseData<T> implements Serializable {
      * @param <T>  返回数据的泛型
      * @return 返回一个业务状态为20000，返回数据为data的ResponseData对象
      */
-    public static <T> ResponseData<T> ok(T data) {
-        ResponseData<T> responseData = ok();
-        responseData.setData(data);
-        return responseData;
+    public static <T> ResponseEntity<T> ok(T data) {
+        ResponseEntity<T> responseEntity = ok();
+        responseEntity.setData(data);
+        return responseEntity;
     }
 
 
@@ -92,10 +91,30 @@ public class ResponseData<T> implements Serializable {
      * @param <T>     返回数据的泛型
      * @return 返回一个返回数据为data的ResponseData对象
      */
-    public static <T> ResponseData<T> message(String message) {
-        ResponseData<T> responseData = ok();
-        responseData.setMessage(message);
-        return responseData;
+    public static <T> ResponseEntity<T> message(String message) {
+        ResponseEntity<T> responseEntity = ok();
+        responseEntity.setMessage(message);
+        return responseEntity;
     }
+
+
+    private enum CodeEnum {
+        /**
+         * code为20000，代表正常返回数据
+         */
+        OK(20000);
+
+        private final Integer value;
+
+        CodeEnum(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return this.value;
+        }
+
+    }
+
 
 }

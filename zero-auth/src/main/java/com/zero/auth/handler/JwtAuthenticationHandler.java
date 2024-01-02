@@ -1,17 +1,17 @@
-package com.zero.auth.security.handler;
+package com.zero.auth.handler;
 
 import com.zero.auth.entity.Resources;
 import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.ResourcesMapper;
-import com.zero.auth.security.jwt.properties.JwtProperties;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.properties.JwtProperties;
+import com.zero.auth.kit.TokenKit;
 import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
 import com.zero.common.kit.RedisKit;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -21,19 +21,19 @@ import java.util.List;
 import java.util.Objects;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class JwtAuthenticationHandler implements HandlerInterceptor {
 
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
     private final JwtProperties jwtProperties;
     private final RedisKit redisKit;
     private final ResourcesMapper resourcesMapper;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 获取token
-        String token = securityUtils.getToken(request);
+        String token = tokenKit.getToken(request);
         if (StringUtils.isBlank(token)) {
             // 没有token，拒绝访问
             log.error("[系统登录功能]该请求{}未携带token，token为空", request.getRequestURI());
@@ -42,7 +42,7 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
         // 解析token
         String tokenId;
         try {
-            tokenId = securityUtils.getId(token);
+            tokenId = tokenKit.getId(token);
         } catch (Exception e) {
             log.error("[系统登录功能]解析token失败");
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
@@ -53,9 +53,10 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
             log.error("[系统登录功能]该token已失效或已过期");
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
         }
-        // 系统鉴权处理器，对于SecurityFilter解析的权限和token中携带的权限进行鉴定
+        // 系统鉴权处理器
         String requestURI = request.getRequestURI();
         String uri = requestURI.substring(request.getContextPath().length());
+        log.debug("[登录权限鉴定器]请求路径：{}", uri);
         Resources resources = resourcesMapper.getByRegexUriAndMethodType(uri, request.getMethod().toUpperCase());
         if (resources == null) {
             throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
@@ -63,7 +64,7 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
         // 该资源权限需要的角色
         List<Role> roles = resources.getRoles();
         // 玩家拥有的权限
-        List<Role> roleList = securityUtils.getRoleList(token);
+        List<Role> roleList = tokenKit.getRoleList(token);
 
         for (Role role : roles) {
             // 判断逻辑：当然登录用户角色只要满足资源路径的其中一个角色便可以访问
@@ -73,6 +74,7 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
                 }
             }
         }
+        log.warn("[登录权限鉴定器]请求{}权限错误", uri);
         throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
     }
 

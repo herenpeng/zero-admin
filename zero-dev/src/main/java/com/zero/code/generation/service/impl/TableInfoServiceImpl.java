@@ -2,13 +2,13 @@ package com.zero.code.generation.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.code.generation.constant.DataBaseTypeConst;
 import com.zero.code.generation.entity.TableColumn;
 import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.mapper.TableColumnMapper;
 import com.zero.code.generation.mapper.TableInfoMapper;
 import com.zero.code.generation.service.TableInfoService;
-import com.zero.code.generation.util.CodeGenerationUtils;
+import com.zero.code.generation.util.CodeGenerationKit;
+import com.zero.code.generation.util.DataBaseTypeKit;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.CamelCaseKit;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +30,8 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, TableInfo> implements TableInfoService {
 
+    private final TableInfoMapper tableInfoMapper;
     private final TableColumnMapper tableColumnMapper;
-
-    private final DataBaseTypeConst dataBaseTypeConst;
-
-    private final CodeGenerationUtils codeGenerationUtils;
 
     @Override
     public IPage<TableInfo> page(Integer currentPage, Integer size, TableInfo queryTableInfo) throws Exception {
@@ -55,8 +52,8 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
         for (TableColumn tableColumn : tableColumnList) {
             tableColumn.setTableInfoId(tableInfo.getId());
             tableColumn.setJavaName(CamelCaseKit.toCamelCase(tableColumn.getName()));
-            tableColumn.setJdbcType(dataBaseTypeConst.getJdbcType(tableColumn.getDatabaseType()));
-            tableColumn.setJavaType(dataBaseTypeConst.getJavaType(tableColumn.getDatabaseType()));
+            tableColumn.setJdbcType(DataBaseTypeKit.getJdbcType(tableColumn.getDatabaseType()));
+            tableColumn.setJavaType(DataBaseTypeKit.getJavaType(tableColumn.getDatabaseType()));
             tableColumnMapper.insert(tableColumn);
         }
         return result;
@@ -64,7 +61,10 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
 
     @Override
     public void codeGeneration(Integer id) throws Exception {
-        codeGenerationUtils.generation(id);
+        TableInfo tableInfo = tableInfoMapper.selectById(id);
+        List<TableColumn> tableColumnList = tableColumnMapper.getByTableInfoId(tableInfo.getId());
+        tableInfo.setTableColumnList(tableColumnList);
+        CodeGenerationKit.generation(tableInfo);
     }
 
     @Override

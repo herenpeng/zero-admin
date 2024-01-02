@@ -1,13 +1,12 @@
-package com.zero.common.response.util;
+package com.zero.common.kit;
 
 import com.zero.common.enums.EncodingEnum;
-import com.zero.common.kit.JsonKit;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,7 +19,7 @@ import java.io.PrintWriter;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class ResponseUtils {
+public class ResponseKit {
 
     private final JsonKit jsonKit;
 

@@ -1,6 +1,6 @@
 package com.zero.oauth.github.controller;
 
-import com.zero.auth.security.jwt.properties.JwtProperties;
+import com.zero.auth.properties.JwtProperties;
 import com.zero.common.properties.AppProperties;
 import com.zero.oauth.github.service.GithubService;
 import com.zero.oauth.properties.OAuthProperties;

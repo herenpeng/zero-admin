@@ -5,9 +5,10 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/zero-admin?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: admin
-  redis:
-    host: 127.0.0.1
-    port: 6379
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
   # rabbitmq连接配置信息
 #  rabbitmq:
 #    host: 127.0.0.1
@@ -29,11 +30,10 @@ zero:
   domain-name: http://zeroadmin.herenpeng.com
   vue-domain: http://zeroadmin.herenpeng.com
   auth:
-    security:
-      jwt:
-        rsa:
-          private-file: /usr/app/zero-admin/rsa/rsa.pri
-          public-file: /usr/app/zero-admin/rsa/rsa.pub
+    jwt:
+      rsa:
+        private-file: /usr/app/zero-admin/rsa/rsa.pri
+        public-file: /usr/app/zero-admin/rsa/rsa.pub
   upload:
     # 文件上传目标路径
     path: /usr/app/zero-admin/static/

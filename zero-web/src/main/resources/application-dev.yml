@@ -43,11 +43,10 @@ zero:
   domain-name: http://127.0.0.1:10000
   vue-domain: http://127.0.0.1:20000
   auth:
-    security:
-      jwt:
-        rsa:
-          private-file: F:\\tmp\\rsa\\rsa.pri
-          public-file: F:\\tmp\\rsa\\rsa.pub
+    jwt:
+      rsa:
+        private-file: F:\\tmp\\rsa\\rsa.pri
+        public-file: F:\\tmp\\rsa\\rsa.pub
   upload:
     # 文件上传目标路径
     path: F:\tmp\

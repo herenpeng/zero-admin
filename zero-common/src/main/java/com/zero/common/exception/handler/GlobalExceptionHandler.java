@@ -2,7 +2,7 @@ package com.zero.common.exception.handler;
 
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,11 +27,11 @@ public class GlobalExceptionHandler {
      * @return 响应对象
      */
     @ExceptionHandler(AppException.class)
-    public ResponseData<Void> AppExceptionHandler(HttpServletRequest request, AppException e) {
+    public ResponseEntity<Void> AppExceptionHandler(HttpServletRequest request, AppException e) {
         e.printStackTrace();
         log.error("[全局异常处理]发生业务异常，异常信息：{}", e.getMessage());
         AppExceptionEnum exceptionEnum = e.getExceptionEnum();
-        return ResponseData.code(exceptionEnum.getCode(), exceptionEnum.getMessage());
+        return ResponseEntity.code(exceptionEnum.getCode(), exceptionEnum.getMessage());
     }
 
 
@@ -43,10 +43,10 @@ public class GlobalExceptionHandler {
      * @return 响应对象
      */
     @ExceptionHandler(Exception.class)
-    public ResponseData<Void> exceptionHandler(HttpServletRequest request, Exception e) {
+    public ResponseEntity<Void> exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
         log.error("[全局异常处理]发生系统异常，异常信息：{}", e.getMessage());
-        return ResponseData.code(AppExceptionEnum.SYS_EXCEPTION.getCode(), "系统发生异常");
+        return ResponseEntity.code(AppExceptionEnum.SYS_EXCEPTION.getCode(), "系统发生异常");
     }
 
 

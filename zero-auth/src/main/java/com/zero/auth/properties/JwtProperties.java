@@ -1,4 +1,4 @@
-package com.zero.auth.security.jwt.properties;
+package com.zero.auth.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@ConfigurationProperties(prefix = "zero.auth.security.jwt")
+@ConfigurationProperties(prefix = "zero.auth.jwt")
 public class JwtProperties {
 
     /**

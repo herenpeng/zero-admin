@@ -4,9 +4,9 @@ import com.zero.auth.entity.User;
 import com.zero.auth.enums.LoginTypeEnum;
 import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.security.jwt.properties.JwtProperties;
-import com.zero.auth.security.util.LoginUtils;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.properties.JwtProperties;
+import com.zero.auth.kit.LoginUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.auth.service.LoginLogService;
 import com.zero.auth.service.LoginService;
 import com.zero.common.constant.AppConst;
@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
     private final JwtProperties jwtProperties;
     private final RedisKit redisKit;
     private final LoginLogService loginLogService;
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     @Override
     public String login(String username, String password, HttpServletRequest request) {
@@ -62,9 +62,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void logout(HttpServletRequest request) {
-        String token = securityUtils.getToken(request);
-        String tokenId = securityUtils.getId(token);
-        Integer userId = securityUtils.getUserId(token);
+        String token = tokenKit.getToken(request);
+        String tokenId = tokenKit.getId(token);
+        Integer userId = tokenKit.getUserId(token);
 
         // 登出的时候，更新登入记录
         loginLogService.logoutLog(userId, tokenId);

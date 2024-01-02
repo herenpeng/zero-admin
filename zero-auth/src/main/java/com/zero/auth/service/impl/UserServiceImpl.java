@@ -10,7 +10,7 @@ import com.zero.auth.enums.LoginTypeEnum;
 import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.*;
 import com.zero.auth.properties.UserProperties;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.auth.service.LoginLogService;
 import com.zero.auth.service.RoleService;
 import com.zero.auth.service.UserService;
@@ -48,7 +48,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     private final UserProperties userProperties;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     private final LoginLogMapper loginLogMapper;
 
@@ -103,7 +103,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public User token(String accessToken) throws Exception {
-        User user = securityUtils.getUser(accessToken);
+        User user = tokenKit.getUser(accessToken);
         UserInfo userInfo = userInfoMapper.selectById(user.getId());
         user.setUserInfo(userInfo);
         return user;
@@ -148,7 +148,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public Boolean checkPassword(String password) throws Exception {
-        Integer id = securityUtils.getUserId(request);
+        Integer id = tokenKit.getUserId(request);
         User user = baseMapper.selectById(id);
         return StringUtils.equals(PasswordKit.sha256(password), user.getPassword());
     }
@@ -185,7 +185,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public void resetPassword(String oldPassword, String newPassword) throws Exception {
-        Integer id = securityUtils.getUserId(request);
+        Integer id = tokenKit.getUserId(request);
         User user = baseMapper.selectById(id);
         // 后端进行旧密码和用户输入的旧密码匹配校验
         if (!checkPassword(oldPassword)) {

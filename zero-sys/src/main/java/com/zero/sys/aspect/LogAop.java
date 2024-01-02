@@ -1,7 +1,7 @@
 package com.zero.sys.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.zero.auth.security.util.SecurityUtils;
+import com.zero.auth.kit.TokenKit;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.constant.AppConst;
 import com.zero.common.http.util.IpUtils;
@@ -39,7 +39,7 @@ public class LogAop {
 
     private final HttpServletRequest request;
 
-    private final SecurityUtils securityUtils;
+    private final TokenKit tokenKit;
 
     private final IpUtils ipUtils;
 
@@ -82,7 +82,7 @@ public class LogAop {
         // 设置方法的执行时间
         log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
         // 设置操作用户主键
-        Integer userId = securityUtils.getUserId(request);
+        Integer userId = tokenKit.getUserId(request);
         log.setOperationUserId(userId);
         // 获取用户请求的真实地址
         log.setIp(ipUtils.getIpAddr(request));

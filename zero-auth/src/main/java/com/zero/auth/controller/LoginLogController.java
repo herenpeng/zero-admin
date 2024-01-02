@@ -5,7 +5,7 @@ import com.zero.auth.entity.LoginLog;
 import com.zero.auth.service.LoginLogService;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
-import com.zero.common.response.domain.ResponseData;
+import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -34,12 +34,12 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
             @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseData<IPage<LoginLog>> page(
+    public ResponseEntity<IPage<LoginLog>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             LoginLog queryLoginLog) throws Exception {
         IPage<LoginLog> page = baseService.page(currentPage, size, queryLoginLog);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -49,8 +49,8 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
             @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件")
     })
     @GetMapping("list")
-    public ResponseData<List<LoginLog>> list(LoginLog queryLoginLog) throws Exception {
-        return ResponseData.ok(baseService.list(queryLoginLog));
+    public ResponseEntity<List<LoginLog>> list(LoginLog queryLoginLog) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryLoginLog));
     }
 
 
@@ -62,12 +62,12 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
             @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseData<IPage<LoginLog>> recoverPage(
+    public ResponseEntity<IPage<LoginLog>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             LoginLog queryLoginLog) throws Exception {
         IPage<LoginLog> page = baseService.recoverPage(currentPage, size, queryLoginLog);
-        return ResponseData.ok(page);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -77,9 +77,9 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
             @Parameter(name = "id", description = "系统账号登录日志表ID", required = true)
     })
     @PutMapping("recover/{id}")
-    public ResponseData<Void> recover(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recover(@PathVariable("id") Integer id) throws Exception {
         baseService.recover(id);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 
@@ -89,9 +89,9 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
             @Parameter(name = "id", description = "系统账号登录日志表ID", required = true)
     })
     @DeleteMapping("recover/{id}")
-    public ResponseData<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Void> recoverDelete(@PathVariable("id") Integer id) throws Exception {
         baseService.recoverDelete(id);
-        return ResponseData.message("彻底删除该系统账号登录日志表数据");
+        return ResponseEntity.message("彻底删除该系统账号登录日志表数据");
     }
 
 
@@ -112,9 +112,9 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
             @Parameter(name = "userId", description = "当前在线的用户主键", required = true)
     })
     @GetMapping("online/{userId}")
-    public ResponseData<List<LoginLog>> online(@PathVariable("userId") Integer userId) throws Exception {
+    public ResponseEntity<List<LoginLog>> online(@PathVariable("userId") Integer userId) throws Exception {
         List<LoginLog> loginLogs = baseService.online(userId);
-        return ResponseData.ok(loginLogs);
+        return ResponseEntity.ok(loginLogs);
     }
 
     @LogOperation
@@ -124,11 +124,11 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
             @Parameter(name = "tokenId", description = "指定下线的用户tokenId", required = true)
     })
     @PutMapping("offline/{userId}")
-    public ResponseData<Void> offline(
+    public ResponseEntity<Void> offline(
             @PathVariable("userId") Integer userId,
             @RequestParam("tokenId") String tokenId) throws Exception {
         baseService.offline(userId, tokenId);
-        return ResponseData.ok();
+        return ResponseEntity.ok();
     }
 
 }
