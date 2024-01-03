@@ -32,7 +32,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/v3/**",
                         // 静态资源文件
                         "/image/**",
-                        "/oauth/github/**"
+                        "/oauth/github/**",
+                        "/error"
                 );
     }
 

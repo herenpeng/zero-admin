@@ -1,6 +1,7 @@
 package com.zero.common.kit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -111,13 +113,13 @@ public class JsonKit {
      * @param json JSON 格式的字符串
      * @return Map 类型的对象
      */
-    public Map toMap(final String json) {
+    public <K, V> Map<K, V> toMap(final String json) {
         if (StringUtils.isBlank(json)) {
             log.debug("[Json工具类]JSON字符串{}为空", json);
             return null;
         }
         try {
-            return objectMapper.readValue(json, Map.class);
+            return objectMapper.readValue(json, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
             log.error("[Json工具类]将JSON格式的字符串{}格式化为Map类型的Java对象失败", json);
             e.printStackTrace();

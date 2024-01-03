@@ -84,7 +84,7 @@ public class UploadUtils {
         file.transferTo(newFile);
 
         // 生成http请求引用路径
-        String uri = generateFileUri(fileUpload, fileName);
+        String uri = generateFileUri(fileUpload.getPath(), fileName);
 
         FileManage fileManage = new FileManage();
         fileManage.setName(file.getOriginalFilename());
@@ -123,16 +123,16 @@ public class UploadUtils {
      * 生成日期格式的http引用路径
      * 例如：2021-01-30上传的文件，日期引用路径为2020/01/30
      *
-     * @param fileUpload 上传文件的类型以及相关的属性
+     * @param uploadPath 上传文件的类型以及相关的属性
      * @param fileName   文件名称
      * @return 文件引用路径
      */
-    private String generateFileUri(FileUpload fileUpload, String fileName) {
+    private String generateFileUri(String uploadPath, String fileName) {
         Calendar calendar = Calendar.getInstance();
         // 项目http域名
         return appProperties.getApiPath() +
                 // 存储图片的顶级路径
-                AppConst.PATH_SEPARATOR + fileUpload.getPath() +
+                AppConst.PATH_SEPARATOR + uploadPath +
                 // 存储年份路径
                 AppConst.PATH_SEPARATOR + calendar.get(Calendar.YEAR) +
                 // 存储月份路径
@@ -169,25 +169,15 @@ public class UploadUtils {
      */
     private String generateUniqueFileName(String oldName) {
         String suffix = oldName.substring(oldName.lastIndexOf(AppConst.POINT));
-        return generateUniqueId() + suffix;
+        return UUID.randomUUID().toString() + suffix;
     }
 
-    /**
-     * 唯一ID生成器，可以生成唯一ID
-     * 生成规则，通过uuid拼接当前的时间戳作为文件ID
-     *
-     * @return 唯一ID字符串
-     */
-    private String generateUniqueId() {
-        return UUID.randomUUID().toString();
-    }
 
     /**
      * 通过源文件备份一个备份文件
      *
      * @param fileManage 需要备份的源文件对象
      * @param bakCount   源文件已有的备份文件个数
-     * @return 备份文件的对象
      * @throws IOException 抛出IO异常
      */
     public void bakFile(FileManage fileManage, Integer bakCount) throws IOException {
@@ -211,7 +201,7 @@ public class UploadUtils {
         // 设置备份文件磁盘路径
         bakFile.setPath(generateFilePath(fileUpload, bakFileName));
         // 设置备份文件http引用路径
-        bakFile.setUri(generateFileUri(fileUpload, bakFileName));
+        bakFile.setUri(generateFileUri(fileUpload.getPath(), bakFileName));
         File destFile = new File(bakFile.getPath());
         FileUtils.copyFile(srcFile, destFile);
         // 保存文件对象放在最后，防止未备份文件却生成了备份文件信息

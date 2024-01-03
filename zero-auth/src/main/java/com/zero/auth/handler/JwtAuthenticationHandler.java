@@ -32,11 +32,13 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
     private final ResourcesMapper resourcesMapper;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String requestURI = request.getRequestURI();
+        String uri = requestURI.substring(request.getContextPath().length());
         // 获取token
         String token = tokenKit.getToken(request);
         if (StringUtils.isBlank(token)) {
             // 没有token，拒绝访问
-            log.error("[系统登录功能]该请求{}未携带token，token为空", request.getRequestURI());
+            log.error("[系统登录功能]该请求{}未携带token，token为空", uri);
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
         }
         // 解析token
@@ -54,8 +56,6 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
         }
         // 系统鉴权处理器
-        String requestURI = request.getRequestURI();
-        String uri = requestURI.substring(request.getContextPath().length());
         log.debug("[登录权限鉴定器]请求路径：{}", uri);
         Resources resources = resourcesMapper.getByRegexUriAndMethodType(uri, request.getMethod().toUpperCase());
         if (resources == null) {
