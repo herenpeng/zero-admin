@@ -6,9 +6,9 @@ import com.zero.auth.entity.User;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
-import com.zero.sys.entity.Log;
-import com.zero.sys.mapper.LogMapper;
-import com.zero.sys.service.LogService;
+import com.zero.sys.entity.OperationLog;
+import com.zero.sys.mapper.OperationLogMapper;
+import com.zero.sys.service.OperationLogService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +27,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements LogService {
+public class OperationLogServiceImpl extends BaseServiceImpl<OperationLogMapper, OperationLog> implements OperationLogService {
 
     private final UserMapper userMapper;
 
     @Override
-    public IPage<Log> page(Integer currentPage, Integer size, Log queryLog) throws Exception {
-        IPage<Log> page = new Page<>(currentPage, size);
-        IPage<Log> pageInfo = baseMapper.getPage(page, queryLog);
-        for (Log log : pageInfo.getRecords()) {
+    public IPage<OperationLog> page(Integer currentPage, Integer size, OperationLog queryOperationLog) throws Exception {
+        IPage<OperationLog> page = new Page<>(currentPage, size);
+        IPage<OperationLog> pageInfo = baseMapper.getPage(page, queryOperationLog);
+        for (OperationLog log : pageInfo.getRecords()) {
             User user = userMapper.selectById(log.getOperationUserId());
             log.setUser(user);
         }
@@ -43,15 +43,15 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements L
     }
 
     @Override
-    public List<Log> list(Log queryLog) throws Exception {
-        return baseMapper.getList(queryLog);
+    public List<OperationLog> list(OperationLog queryOperationLog) throws Exception {
+        return baseMapper.getList(queryOperationLog);
     }
 
     @Override
-    public IPage<Log> recoverPage(Integer currentPage, Integer size, Log queryLog) throws Exception {
-        IPage<Log> page = new Page<>(currentPage, size);
-        IPage<Log> pageInfo = baseMapper.getRecoverPage(page, queryLog);
-        for (Log log : pageInfo.getRecords()) {
+    public IPage<OperationLog> recoverPage(Integer currentPage, Integer size, OperationLog queryOperationLog) throws Exception {
+        IPage<OperationLog> page = new Page<>(currentPage, size);
+        IPage<OperationLog> pageInfo = baseMapper.getRecoverPage(page, queryOperationLog);
+        for (OperationLog log : pageInfo.getRecords()) {
             User user = userMapper.selectById(log.getOperationUserId());
             log.setUser(user);
         }
@@ -69,8 +69,8 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, Log> implements L
     }
 
     @Override
-    public void exportExcel(Log queryLog, HttpServletResponse response) throws Exception {
-        List<Log> exportData = list(queryLog);
-        ExcelKit.exportExcel("操作日志列表", Log.class, exportData, response);
+    public void exportExcel(OperationLog queryOperationLog, HttpServletResponse response) throws Exception {
+        List<OperationLog> exportData = list(queryOperationLog);
+        ExcelKit.exportExcel("操作日志列表", OperationLog.class, exportData, response);
     }
 }

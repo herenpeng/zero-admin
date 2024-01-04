@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.auth.entity.User;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,8 +25,8 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("sys_log")
-public class Log extends BaseEntity {
+@TableName("sys_operation_log")
+public class OperationLog extends BaseEntity {
 
     /**
      * 操作日志用户

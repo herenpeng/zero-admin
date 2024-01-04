@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zero.sys.mapper.LogMapper">
+<mapper namespace="com.zero.sys.mapper.OperationLogMapper">
 
-    <resultMap id="resultMap" type="com.zero.sys.entity.Log">
+    <resultMap id="resultMap" type="com.zero.sys.entity.OperationLog">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="operation_user_id" jdbcType="INTEGER" property="operationUserId"/>
         <result column="access_time" jdbcType="TIMESTAMP" property="accessTime"/>
@@ -29,51 +29,51 @@
     </sql>
 
     <sql id="baseQuery">
-        <if test="queryLog.queryUsername != null and queryLog.queryUsername != ''">
-            and operation_user_id in (select id from auth_user where username like concat('%', #{queryLog.queryUsername}, '%'))
+        <if test="queryOperationLog.queryUsername != null and queryOperationLog.queryUsername != ''">
+            and operation_user_id in (select id from auth_user where username like concat('%', #{queryOperationLog.queryUsername}, '%'))
         </if>
-        <if test="queryLog.accessTime != null">
-            and access_time = #{queryLog.accessTime}
+        <if test="queryOperationLog.accessTime != null">
+            and access_time = #{queryOperationLog.accessTime}
         </if>
-        <if test="queryLog.ip != null and queryLog.ip != ''">
-            and ip like concat('%', #{queryLog.ip}, '%')
+        <if test="queryOperationLog.ip != null and queryOperationLog.ip != ''">
+            and ip like concat('%', #{queryOperationLog.ip}, '%')
         </if>
-        <if test="queryLog.uri != null and queryLog.uri != ''">
-            and uri like concat('%', #{queryLog.uri}, '%')
+        <if test="queryOperationLog.uri != null and queryOperationLog.uri != ''">
+            and uri like concat('%', #{queryOperationLog.uri}, '%')
         </if>
-        <if test="queryLog.methodType != null and queryLog.methodType != ''">
-            and method_type like concat('%', #{queryLog.methodType}, '%')
+        <if test="queryOperationLog.methodType != null and queryOperationLog.methodType != ''">
+            and method_type like concat('%', #{queryOperationLog.methodType}, '%')
         </if>
-        <if test="queryLog.method != null and queryLog.method != ''">
-            and method like concat('%', #{queryLog.method}, '%')
+        <if test="queryOperationLog.method != null and queryOperationLog.method != ''">
+            and method like concat('%', #{queryOperationLog.method}, '%')
         </if>
-        <if test="queryLog.executionTime != null">
-            and execution_time = #{queryLog.executionTime}
+        <if test="queryOperationLog.executionTime != null">
+            and execution_time = #{queryOperationLog.executionTime}
         </if>
-        <if test="queryLog.result != null">
-            and result = #{queryLog.result}
+        <if test="queryOperationLog.result != null">
+            and result = #{queryOperationLog.result}
         </if>
-        <if test="queryLog.description != null and queryLog.description != ''">
-            and description like concat('%', #{queryLog.description}, '%')
+        <if test="queryOperationLog.description != null and queryOperationLog.description != ''">
+            and description like concat('%', #{queryOperationLog.description}, '%')
         </if>
-        <if test="queryLog.exceptionName != null and queryLog.exceptionName != ''">
-            and exception_name like concat('%', #{queryLog.exceptionName}, '%')
+        <if test="queryOperationLog.exceptionName != null and queryOperationLog.exceptionName != ''">
+            and exception_name like concat('%', #{queryOperationLog.exceptionName}, '%')
         </if>
-        <if test="queryLog.exceptionMessage != null and queryLog.exceptionMessage != ''">
-            and exception_message like concat('%', #{queryLog.exceptionMessage}, '%')
+        <if test="queryOperationLog.exceptionMessage != null and queryOperationLog.exceptionMessage != ''">
+            and exception_message like concat('%', #{queryOperationLog.exceptionMessage}, '%')
         </if>
-        <if test="queryLog.queryStartDate != null">
-            and access_time &gt;= #{queryLog.queryStartDate}
+        <if test="queryOperationLog.queryStartDate != null">
+            and access_time &gt;= #{queryOperationLog.queryStartDate}
         </if>
-        <if test="queryLog.queryEndDate != null">
-            and access_time &lt;= #{queryLog.queryEndDate}
+        <if test="queryOperationLog.queryEndDate != null">
+            and access_time &lt;= #{queryOperationLog.queryEndDate}
         </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,
         `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
-        from sys_log
+        from sys_operation_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
@@ -81,7 +81,7 @@
     <select id="getList" resultMap="resultMap">
         select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,
         `execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time
-        from sys_log
+        from sys_operation_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
@@ -89,7 +89,7 @@
     <select id="getRecoverPage" resultMap="resultMap">
         select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,
         `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
-        from sys_log
+        from sys_operation_log
         where deleted = 1
         <include refid="baseQuery"></include>
     </select>

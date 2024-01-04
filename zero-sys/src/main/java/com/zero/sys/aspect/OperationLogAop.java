@@ -6,8 +6,8 @@ import com.zero.common.annotation.LogOperation;
 import com.zero.common.constant.AppConst;
 import com.zero.common.http.util.IpUtils;
 import com.zero.common.kit.JsonKit;
-import com.zero.sys.entity.Log;
-import com.zero.sys.mapper.LogMapper;
+import com.zero.sys.entity.OperationLog;
+import com.zero.sys.mapper.OperationLogMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -35,7 +35,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Aspect
 @Component
-public class LogAop {
+public class OperationLogAop {
 
     private final HttpServletRequest request;
 
@@ -45,7 +45,7 @@ public class LogAop {
 
     private final JsonKit jsonKit;
 
-    private final LogMapper logMapper;
+    private final OperationLogMapper operationLogMapper;
 
     @Pointcut("@annotation(com.zero.common.annotation.LogOperation)")
     public void logOperationAop() {
@@ -54,20 +54,20 @@ public class LogAop {
     @Around("logOperationAop()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed = null;
-        Log log = new Log();
-        log.setAccessTime(new Date());
+        OperationLog operationLog = new OperationLog();
+        operationLog.setAccessTime(new Date());
         try {
-            setLog(log, joinPoint);
+            setLog(operationLog, joinPoint);
             proceed = joinPoint.proceed();
             // 设置执行结果为成功
-            log.setResult(true);
+            operationLog.setResult(true);
         } catch (Exception e) {
             // 设置执行结果为失败
-            log.setResult(false);
-            log.setExceptionName(e.getClass().getName());
-            log.setExceptionMessage(e.getMessage());
+            operationLog.setResult(false);
+            operationLog.setExceptionName(e.getClass().getName());
+            operationLog.setExceptionMessage(e.getMessage());
         } finally {
-            logMapper.insert(log);
+            operationLogMapper.insert(operationLog);
         }
         return proceed;
     }
@@ -78,7 +78,7 @@ public class LogAop {
      * @param joinPoint AOP切入点
      * @throws JsonProcessingException Json处理异常
      */
-    private void setLog(Log log, JoinPoint joinPoint) throws JsonProcessingException {
+    private void setLog(OperationLog log, JoinPoint joinPoint) throws JsonProcessingException {
         // 设置方法的执行时间
         log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
         // 设置操作用户主键

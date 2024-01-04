@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.LogOperation;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
-import com.zero.sys.entity.Log;
-import com.zero.sys.service.LogService;
+import com.zero.sys.entity.OperationLog;
+import com.zero.sys.service.OperationLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -21,24 +21,24 @@ import java.util.List;
  * @author herenpeng
  * @since 2020-12-01 22:31
  */
-@Tag(description = "系统操作日志表操作接口", name = "LogController")
+@Tag(description = "系统操作日志表操作接口", name = "OperationLogController")
 @RestController
-@RequestMapping("log")
-public class LogController extends BaseController<LogService, Log> {
+@RequestMapping("operation/log")
+public class OperationLogController extends BaseController<OperationLogService, OperationLog> {
 
     @LogOperation
     @Operation(description = "分页查询系统操作日志表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
             @Parameter(name = "size", description = "当前页大小", example = "10"),
-            @Parameter(name = "queryLog", description = "系统操作日志表查询条件")
+            @Parameter(name = "queryOperationLog", description = "系统操作日志表查询条件")
     })
     @GetMapping("page/{currentPage}")
-    public ResponseEntity<IPage<Log>> page(
+    public ResponseEntity<IPage<OperationLog>> page(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
-            Log queryLog) throws Exception {
-        IPage<Log> page = baseService.page(currentPage, size, queryLog);
+            OperationLog queryOperationLog) throws Exception {
+        IPage<OperationLog> page = baseService.page(currentPage, size, queryOperationLog);
         return ResponseEntity.ok(page);
     }
 
@@ -46,11 +46,11 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @Operation(description = "查询所有的系统操作日志表数据")
     @Parameters({
-            @Parameter(name = "queryLog", description = "系统操作日志表查询条件")
+            @Parameter(name = "queryOperationLog", description = "系统操作日志表查询条件")
     })
     @GetMapping("list")
-    public ResponseEntity<List<Log>> list(Log queryLog) throws Exception {
-        return ResponseEntity.ok(baseService.list(queryLog));
+    public ResponseEntity<List<OperationLog>> list(OperationLog queryOperationLog) throws Exception {
+        return ResponseEntity.ok(baseService.list(queryOperationLog));
     }
 
 
@@ -59,14 +59,14 @@ public class LogController extends BaseController<LogService, Log> {
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
             @Parameter(name = "size", description = "当前页大小", example = "10"),
-            @Parameter(name = "queryLog", description = "系统操作日志表查询条件")
+            @Parameter(name = "queryOperationLog", description = "系统操作日志表查询条件")
     })
     @GetMapping("recover/page/{currentPage}")
-    public ResponseEntity<IPage<Log>> recoverPage(
+    public ResponseEntity<IPage<OperationLog>> recoverPage(
             @PathVariable("currentPage") Integer currentPage,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
-            Log queryLog) throws Exception {
-        IPage<Log> page = baseService.recoverPage(currentPage, size, queryLog);
+            OperationLog queryOperationLog) throws Exception {
+        IPage<OperationLog> page = baseService.recoverPage(currentPage, size, queryOperationLog);
         return ResponseEntity.ok(page);
     }
 
@@ -96,12 +96,12 @@ public class LogController extends BaseController<LogService, Log> {
     @LogOperation
     @Operation(description = "导出操作日志列表数据的Excel文件")
     @Parameters({
-            @Parameter(name = "queryLog", description = "操作日志查询条件"),
+            @Parameter(name = "queryOperationLog", description = "操作日志查询条件"),
             @Parameter(name = "response", description = "HttpServletResponse对象"),
     })
     @GetMapping("export/excel")
-    public void exportExcel(Log queryLog, HttpServletResponse response) throws Exception {
-        baseService.exportExcel(queryLog, response);
+    public void exportExcel(OperationLog queryOperationLog, HttpServletResponse response) throws Exception {
+        baseService.exportExcel(queryOperationLog, response);
     }
 
 }

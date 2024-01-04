@@ -2,7 +2,7 @@ package com.zero.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.sys.entity.Log;
+import com.zero.sys.entity.OperationLog;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,36 +19,36 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface LogMapper extends BaseMapper<Log> {
+public interface OperationLogMapper extends BaseMapper<OperationLog> {
 
     /**
      * 分页查询系统操作日志表数据，区别于selectPage的是，该方法添加了查询条件
      *
-     * @param page     分页查询
-     * @param queryLog Log查询条件
-     * @return Log集合
+     * @param page              分页查询
+     * @param queryOperationLog OperationLog查询条件
+     * @return OperationLog集合
      * @throws Exception 抛出异常
      */
-    IPage<Log> getPage(IPage page, @Param("queryLog") Log queryLog) throws Exception;
+    IPage<OperationLog> getPage(IPage page, @Param("queryOperationLog") OperationLog queryOperationLog) throws Exception;
 
     /**
      * 获取所有的系统操作日志表数据，区别于selectList的是，该方法添加了查询条件
      *
-     * @param queryLog Log查询条件
-     * @return Log集合
+     * @param queryOperationLog OperationLog查询条件
+     * @return OperationLog集合
      * @throws Exception 抛出异常
      */
-    List<Log> getList(@Param("queryLog") Log queryLog) throws Exception;
+    List<OperationLog> getList(@Param("queryOperationLog") OperationLog queryOperationLog) throws Exception;
 
     /**
      * 分页查询逻辑删除的系统操作日志表数据
      *
-     * @param page     分页查询
-     * @param queryLog Log查询条件
-     * @return Log集合
+     * @param page              分页查询
+     * @param queryOperationLog OperationLog查询条件
+     * @return OperationLog集合
      * @throws Exception 抛出异常
      */
-    IPage<Log> getRecoverPage(IPage page, @Param("queryLog") Log queryLog) throws Exception;
+    IPage<OperationLog> getRecoverPage(IPage page, @Param("queryOperationLog") OperationLog queryOperationLog) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统操作日志表数据
@@ -56,7 +56,7 @@ public interface LogMapper extends BaseMapper<Log> {
      * @param id 系统操作日志表主键
      * @throws Exception 抛出异常
      */
-    @Update("update sys_log set deleted = 0 where id = #{id}")
+    @Update("update sys_operation_log set deleted = 0 where id = #{id}")
     void recoverById(@Param("id") Integer id) throws Exception;
 
     /**
@@ -65,7 +65,7 @@ public interface LogMapper extends BaseMapper<Log> {
      * @param id 系统操作日志表主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from sys_log where id = #{id}")
+    @Delete("delete from sys_operation_log where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
 }
