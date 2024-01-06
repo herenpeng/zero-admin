@@ -43,13 +43,20 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         IPage<Menu> page = new Page<>(currentPage, size);
         IPage<Menu> pageInfo = baseMapper.getPage(page, queryMenu);
         for (Menu menu : pageInfo.getRecords()) {
-            menu.setRoles(roleMapper.getByMenuId(menu.getId()));
-            menu.setChildren(baseMapper.getByParentId(menu.getId()));
-            for (Menu child : menu.getChildren()) {
-                child.setRoles(roleMapper.getByMenuId(child.getId()));
-            }
+            findChildren(menu);
         }
         return pageInfo;
+    }
+
+
+    private void findChildren(Menu menu) throws Exception {
+        List<Role> roles = roleMapper.getByMenuId(menu.getId());
+        menu.setRoles(roles);
+        List<Menu> children = baseMapper.getByParentId(menu.getId());
+        menu.setChildren(children);
+        for (Menu child : children) {
+            findChildren(child);
+        }
     }
 
     @Override
@@ -60,9 +67,15 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @Override
     public List<Menu> getRoutes() throws Exception {
         Integer userId = tokenKit.getUserId(request);
-        List<Menu> parentList = baseMapper.getRoutes(userId, null);
+        return getRoutes(userId, null);
+    }
+
+
+    private List<Menu> getRoutes(Integer userId, Integer parentId) throws Exception {
+        List<Menu> parentList = baseMapper.getRoutes(userId, parentId);
         for (Menu menu : parentList) {
-            menu.setChildren(baseMapper.getRoutes(userId, menu.getId()));
+            List<Menu> children = getRoutes(userId, menu.getId());
+            menu.setChildren(children);
         }
         return parentList;
     }

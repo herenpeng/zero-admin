@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.auth.entity.Role;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -64,13 +63,6 @@ public class Menu extends BaseEntity {
     @Excel(name = "菜单图标", width = 15, needMerge = true)
     @TableField(value = "meta_icon")
     private String metaIcon;
-    /**
-     * 父级菜单定向路由路径
-     */
-    @Schema(name = "父级菜单定向路由路径")
-    @Excel(name = "父级菜单定向路由路径", width = 15, needMerge = true)
-    @TableField(value = "redirect")
-    private String redirect;
     /**
      * 菜单排序
      */
