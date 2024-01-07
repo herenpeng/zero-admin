@@ -43,6 +43,19 @@ public class MenuController extends BaseController<MenuService, Menu> {
         return ResponseEntity.ok(page);
     }
 
+
+    @LogOperation
+    @Operation(description = "分页查询系统菜单表数据")
+    @Parameters({
+            @Parameter(name = "queryMenu", description = "系统菜单表查询条件")
+    })
+    @GetMapping("list")
+    public ResponseEntity<List<Menu>> list(Menu queryMenu) throws Exception {
+        List<Menu> list = baseService.list(queryMenu);
+        return ResponseEntity.ok(list);
+    }
+
+
     @LogOperation
     @Operation(description = "[动态路由]获取所有启用的系统菜单")
     @GetMapping("routes")

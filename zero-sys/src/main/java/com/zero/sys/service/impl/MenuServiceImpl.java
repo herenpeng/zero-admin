@@ -61,7 +61,12 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public List<Menu> list(Menu queryMenu) throws Exception {
-        return baseMapper.getList(queryMenu);
+        queryMenu.setParentId(0);
+        List<Menu> list = baseMapper.getList(queryMenu);
+        for (Menu menu : list) {
+            findChildren(menu);
+        }
+        return list;
     }
 
     @Override
@@ -137,7 +142,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public void exportExcel(Menu queryMenu, HttpServletResponse response) throws Exception {
-        List<Menu> exportData = list(queryMenu);
+        List<Menu> exportData = baseMapper.getList(queryMenu);
         for (Menu menu : exportData) {
             menu.setRoles(roleMapper.getByMenuId(menu.getId()));
         }
