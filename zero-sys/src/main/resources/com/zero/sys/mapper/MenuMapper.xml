@@ -6,7 +6,6 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="path" jdbcType="VARCHAR" property="path"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="component" jdbcType="VARCHAR" property="component"/>
         <result column="meta_title" jdbcType="VARCHAR" property="metaTitle"/>
         <result column="meta_icon" jdbcType="VARCHAR" property="metaIcon"/>
         <result column="sort" jdbcType="INTEGER" property="sort"/>
@@ -21,7 +20,7 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`,`path`,`name`,`component`,`meta_title`,`meta_icon`,`sort`,`hidden`,`enabled`,`parent_id`,
+        `id`,`path`,`name`,`meta_title`,`meta_icon`,`sort`,`hidden`,`enabled`,`parent_id`,
         `create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
     </sql>
 
@@ -31,9 +30,6 @@
         </if>
         <if test="queryMenu.name != null and queryMenu.name != ''">
             and name like concat('%', #{queryMenu.name}, '%')
-        </if>
-        <if test="queryMenu.component != null and queryMenu.component != ''">
-            and component like concat('%', #{queryMenu.component}, '%')
         </if>
         <if test="queryMenu.metaTitle != null and queryMenu.metaTitle != ''">
             and meta_title like concat('%', #{queryMenu.metaTitle}, '%')
@@ -53,7 +49,7 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select distinct sm.id as id,sm.path as path,sm.name as name,sm.component as component,
+        select distinct sm.id as id,sm.path as path,sm.name as name,
         sm.meta_title as meta_title,sm.meta_icon as meta_icon,
         sm.sort as sort,sm.hidden as hidden,sm.enabled as enabled,sm.parent_id as parent_id
         from sys_menu sm
@@ -66,10 +62,6 @@
         <if test="queryMenu.name != null and queryMenu.name != ''">
             and (sm.name like concat('%', #{queryMenu.name}, '%')
             or csm.name like concat('%', #{queryMenu.name}, '%'))
-        </if>
-        <if test="queryMenu.component != null and queryMenu.component != ''">
-            and (sm.component like concat('%', #{queryMenu.component}, '%')
-            or csm.component like concat('%', #{queryMenu.component}, '%'))
         </if>
         <if test="queryMenu.metaTitle != null and queryMenu.metaTitle != ''">
             and (sm.meta_title like concat('%', #{queryMenu.metaTitle}, '%')
@@ -98,7 +90,7 @@
     </select>
 
     <select id="getByParentId" resultMap="resultMap">
-        select `id` as id,`path` as path,`name` as name,`component` as component,
+        select `id` as id,`path` as path,`name` as name,
         `meta_title` as meta_title,`meta_icon` as meta_icon,
         `sort` as sort,`hidden` as hidden,`enabled` as enabled,`parent_id` as parent_id
         from sys_menu
@@ -110,7 +102,7 @@
     </select>
 
     <select id="getRoutes" resultMap="resultMap">
-        select distinct sm.id as id,sm.path as path,sm.name as name,sm.component as component,
+        select distinct sm.id as id,sm.path as path,sm.name as name,
         sm.meta_title as meta_title,sm.meta_icon as meta_icon,
         sm.sort as sort,sm.hidden as hidden,sm.enabled as enabled,sm.parent_id as parent_id
         from sys_menu sm
@@ -130,7 +122,7 @@
     </select>
 
     <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`path` as path,`name` as name,`component` as component,`meta_title` as meta_title,
+        select `id` as id,`path` as path,`name` as name,`meta_title` as meta_title,
         `meta_icon` as meta_icon,`sort` as sort,`hidden` as hidden, `enabled` as enabled,`parent_id` as parent_id
         from sys_menu
         where deleted = 1
@@ -141,7 +133,7 @@
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id,`path` as path,`name` as name,`component` as component,`meta_title` as meta_title,
+        select `id` as id,`path` as path,`name` as name,`meta_title` as meta_title,
         `meta_icon` as meta_icon,`sort` as sort,`hidden` as hidden,`enabled` as enabled,`parent_id` as parent_id
         from sys_menu
         where deleted = 0
@@ -149,6 +141,7 @@
         <if test="queryMenu.queryRoleId != null">
             and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
         </if>
+        order by sort
     </select>
 
 </mapper>

@@ -43,13 +43,6 @@ public class Menu extends BaseEntity {
     @TableField(value = "name")
     private String name;
     /**
-     * 菜单模块路径
-     */
-    @Schema(name = "菜单模块路径")
-    @Excel(name = "菜单模块路径", width = 15, needMerge = true)
-    @TableField(value = "component")
-    private String component;
-    /**
      * 菜单名称
      */
     @Schema(name = "菜单名称")
