@@ -68,30 +68,26 @@
         <if test="queryOperationLog.queryEndDate != null">
             and access_time &lt;= #{queryOperationLog.queryEndDate}
         </if>
+        <if test="queryOperationLog.deleted != null">
+            and deleted = #{queryOperationLog.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,
         `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
         from sys_operation_log
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,
-        `execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message,`create_time` as create_time
+        `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
         from sys_operation_log
         where deleted = 0
         <include refid="baseQuery"></include>
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,
-        `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
-        from sys_operation_log
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 </mapper>

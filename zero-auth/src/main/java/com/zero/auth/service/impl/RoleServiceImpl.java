@@ -43,8 +43,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     public IPage<Role> page(Integer currentPage, Integer size, Role queryRole) throws Exception {
         IPage<Role> page = new Page<>(currentPage, size);
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>(queryRole);
-        IPage<Role> pageInfo = baseMapper.selectPage(page, queryWrapper);
-        return pageInfo;
+        return baseMapper.selectPage(page, queryWrapper);
     }
 
     @Override
@@ -101,9 +100,9 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
 
     @Override
     public IPage<Role> recoverPage(Integer currentPage, Integer size, Role queryRole) throws Exception {
+        queryRole.setDeleted(true);
         IPage<Role> page = new Page<>(currentPage, size);
-        IPage<Role> pageInfo = baseMapper.getRecoverPage(page, queryRole);
-        return pageInfo;
+        return baseMapper.getPage(page, queryRole);
     }
 
     @Override

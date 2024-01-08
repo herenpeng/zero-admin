@@ -28,12 +28,15 @@
         <if test="queryRole.acquiescence != null">
             and acquiescence = #{queryRole.acquiescence}
         </if>
+        <if test="queryRole.deleted != null">
+            and deleted = #{queryRole.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id, `name` as name, `description` as description, `acquiescence` as acquiescence
         from auth_role
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -95,11 +98,5 @@
         (select smr.role_id from sys_menu_role smr where smr.menu_id = #{menuId})
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`description` as description,`acquiescence` as acquiescence
-        from auth_role
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 </mapper>

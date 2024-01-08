@@ -47,6 +47,11 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     @Override
     public IPage<LoginLog> page(Integer currentPage, Integer size, LoginLog queryLoginLog) throws Exception {
+        return page(currentPage, size, queryLoginLog, false);
+    }
+
+    private IPage<LoginLog> page(Integer currentPage, Integer size, LoginLog queryLoginLog, Boolean deleted) throws Exception {
+        queryLoginLog.setDeleted(deleted);
         IPage<LoginLog> page = new Page<>(currentPage, size);
         IPage<LoginLog> pageInfo = baseMapper.getPage(page, queryLoginLog);
         for (LoginLog loginLog : pageInfo.getRecords()) {
@@ -54,6 +59,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
         }
         return pageInfo;
     }
+
 
     @Override
     public List<LoginLog> list(LoginLog queryLoginLog) throws Exception {
@@ -64,12 +70,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     @Override
     public IPage<LoginLog> recoverPage(Integer currentPage, Integer size, LoginLog queryLoginLog) throws Exception {
-        IPage<LoginLog> page = new Page<>(currentPage, size);
-        IPage<LoginLog> pageInfo = baseMapper.getRecoverPage(page, queryLoginLog);
-        for (LoginLog loginLog : pageInfo.getRecords()) {
-            loginLog.setUser(userMapper.selectById(loginLog.getUserId()));
-        }
-        return pageInfo;
+        return page(currentPage, size, queryLoginLog, true);
     }
 
     @Override

@@ -60,15 +60,6 @@ public interface ConfigConstMapper extends BaseMapper<ConfigConst> {
      */
     ConfigConst getByKey(@Param("key") String key) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统配置常量表数据
-     *
-     * @param page             分页查询
-     * @param queryConfigConst ConfigConst查询条件
-     * @return ConfigConst集合
-     * @throws Exception 抛出异常
-     */
-    IPage<ConfigConst> getRecoverPage(IPage page, @Param("queryConfigConst") ConfigConst queryConfigConst) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统配置常量表数据

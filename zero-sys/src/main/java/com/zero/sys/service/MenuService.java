@@ -37,6 +37,14 @@ public interface MenuService extends BaseService<Menu> {
     List<Menu> list(Menu queryMenu) throws Exception;
 
     /**
+     * 查询系统菜单表并构建树状结构
+     * @param queryMenu 查询系统菜单的条件
+     * @return 查询系统菜单表并构建树状结构
+     * @throws Exception 抛出异常
+     */
+    List<Menu> tree(Menu queryMenu) throws Exception;
+
+    /**
      * [动态路由]获取所有启用（enabled=1）的父级菜单信息，以及菜单的子菜单
      *
      * @return 所有的父级菜单信息，以及菜单的子菜单

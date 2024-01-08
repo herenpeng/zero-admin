@@ -68,15 +68,6 @@ public interface TableColumnMapper extends BaseMapper<TableColumn> {
      */
     List<TableColumn> getList(@Param("queryTableColumn") TableColumn queryTableColumn) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统数据库表字段信息表数据
-     *
-     * @param page             分页查询
-     * @param queryTableColumn TableColumn查询条件
-     * @return TableColumn集合
-     * @throws Exception 抛出异常
-     */
-    IPage<TableColumn> getRecoverPage(IPage page, @Param("queryTableColumn") TableColumn queryTableColumn) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统数据库表字段信息表数据

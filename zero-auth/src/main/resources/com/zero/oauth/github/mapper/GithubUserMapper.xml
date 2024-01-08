@@ -148,6 +148,9 @@
         <if test="queryGithubUser.updatedAt != null">
             and updated_at = #{queryGithubUser.updatedAt}
         </if>
+        <if test="queryGithubUser.deleted != null">
+            and deleted = #{queryGithubUser.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
@@ -164,7 +167,7 @@
         created_at,
         `updated_at` as updated_at
         from oauth_github_user
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -186,22 +189,5 @@
         <include refid="baseQuery"></include>
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`login` as login,`user_id` as user_id,`github_id` as github_id,`node_id` as node_id,`url` as
-        url,
-        `html_url` as html_url,`type` as type,`public_repos` as public_repos,`avatar_url` as avatar_url,
-        `public_gists` as public_gists,`gravatar_id` as gravatar_id,`followers_url` as followers_url,
-        `site_admin` as site_admin,`following_url` as following_url,`gists_url` as gists_url,`starred_url` as
-        starred_url,
-        `subscriptions_url` as subscriptions_url,`organizations_url` as organizations_url,`repos_url` as repos_url,
-        `events_url` as events_url,`received_events_url` as received_events_url,`name` as name,`company` as company,
-        `blog` as blog,`location` as location,`email` as email,`hireable` as hireable,`bio` as bio,
-        `twitter_username` as twitter_username,`followers` as followers,`following` as following,`created_at` as
-        created_at,
-        `updated_at` as updated_at
-        from oauth_github_user
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 </mapper>

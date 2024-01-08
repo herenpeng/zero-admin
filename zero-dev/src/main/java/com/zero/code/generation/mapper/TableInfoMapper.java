@@ -48,15 +48,6 @@ public interface TableInfoMapper extends BaseMapper<TableInfo> {
      */
     List<TableInfo> getNotAddList() throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统数据库表信息表数据
-     *
-     * @param page           分页查询
-     * @param queryTableInfo TableInfo查询条件
-     * @return TableInfo集合
-     * @throws Exception 抛出异常
-     */
-    IPage<TableInfo> getRecoverPage(IPage page, @Param("queryTableInfo") TableInfo queryTableInfo) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统数据库表信息表数据

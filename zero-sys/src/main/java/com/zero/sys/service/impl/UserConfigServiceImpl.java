@@ -93,8 +93,9 @@ public class UserConfigServiceImpl extends BaseServiceImpl<UserConfigMapper, Use
 
     @Override
     public IPage<UserConfig> recoverPage(Integer currentPage, Integer size, UserConfig queryUserConfig) throws Exception {
+        queryUserConfig.setDeleted(true);
         IPage<UserConfig> page = new Page<>(currentPage, size);
-        IPage<UserConfig> pageInfo = baseMapper.getRecoverPage(page, queryUserConfig);
+        IPage<UserConfig> pageInfo = baseMapper.getPage(page, queryUserConfig);
         for (UserConfig userConfig : pageInfo.getRecords()) {
             ConfigConst configConst = configConstMapper.selectById(userConfig.getConfigId());
             userConfig.setConfigConst(configConst);

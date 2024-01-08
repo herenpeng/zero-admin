@@ -38,6 +38,8 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
 
     @Override
     public IPage<FileManage> page(Integer currentPage, Integer size, FileManage queryFileManage) throws Exception {
+        queryFileManage.setParentId(0);
+        queryFileManage.setDeleted(false);
         IPage<FileManage> page = new Page<>(currentPage, size);
         IPage<FileManage> pageInfo = baseMapper.getPage(page, queryFileManage);
         for (FileManage fileManage : pageInfo.getRecords()) {
@@ -57,8 +59,9 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
 
     @Override
     public IPage<FileManage> recoverPage(Integer currentPage, Integer size, FileManage queryFileManage) throws Exception {
+        queryFileManage.setDeleted(true);
         IPage<FileManage> page = new Page<>(currentPage, size);
-        IPage<FileManage> pageInfo = baseMapper.getRecoverPage(page, queryFileManage);
+        IPage<FileManage> pageInfo = baseMapper.getPage(page, queryFileManage);
         for (FileManage fileManage : pageInfo.getRecords()) {
             fileManage.setUser(userMapper.selectById(fileManage.getUploadUserId()));
         }

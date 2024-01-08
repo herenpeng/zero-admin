@@ -35,9 +35,13 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
 
     @Override
     public IPage<TableInfo> page(Integer currentPage, Integer size, TableInfo queryTableInfo) throws Exception {
-        Page page = new Page(currentPage, size);
-        IPage<TableInfo> pageInfo = baseMapper.getPage(page, queryTableInfo);
-        return pageInfo;
+        return page(currentPage, size, queryTableInfo, false);
+    }
+
+    private IPage<TableInfo> page(Integer currentPage, Integer size, TableInfo queryTableInfo, Boolean deleted) throws Exception {
+        queryTableInfo.setDeleted(deleted);
+        IPage<TableInfo> page = new Page<>(currentPage, size);
+        return baseMapper.getPage(page, queryTableInfo);
     }
 
     @Override
@@ -69,9 +73,7 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableInfoMapper, Table
 
     @Override
     public IPage<TableInfo> recoverPage(Integer currentPage, Integer size, TableInfo queryTableInfo) throws Exception {
-        Page page = new Page(currentPage, size);
-        IPage<TableInfo> pageInfo = baseMapper.getRecoverPage(page, queryTableInfo);
-        return pageInfo;
+        return page(currentPage, size, queryTableInfo, true);
     }
 
     @Override

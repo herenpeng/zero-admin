@@ -46,47 +46,21 @@
         <if test="queryMenu.parentId != null">
             and parent_id = #{queryMenu.parentId}
         </if>
+        <if test="queryMenu.deleted != null">
+            and deleted = #{queryMenu.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select distinct sm.id as id,sm.path as path,sm.name as name,
-        sm.meta_title as meta_title,sm.meta_icon as meta_icon,
-        sm.sort as sort,sm.hidden as hidden,sm.enabled as enabled,sm.parent_id as parent_id
-        from sys_menu sm
-        left join sys_menu csm on csm.parent_id = sm.id
-        where sm.deleted = 0
-        <if test="queryMenu.path != null and queryMenu.path != ''">
-            and (sm.path like concat('%', #{queryMenu.path}, '%')
-            or csm.path like concat('%', #{queryMenu.path}, '%'))
-        </if>
-        <if test="queryMenu.name != null and queryMenu.name != ''">
-            and (sm.name like concat('%', #{queryMenu.name}, '%')
-            or csm.name like concat('%', #{queryMenu.name}, '%'))
-        </if>
-        <if test="queryMenu.metaTitle != null and queryMenu.metaTitle != ''">
-            and (sm.meta_title like concat('%', #{queryMenu.metaTitle}, '%')
-            or csm.meta_title like concat('%', #{queryMenu.metaTitle}, '%'))
-        </if>
-        <if test="queryMenu.metaIcon != null and queryMenu.metaIcon != ''">
-            and (sm.meta_icon like concat('%', #{queryMenu.metaIcon}, '%')
-            or csm.meta_icon like concat('%', #{queryMenu.metaIcon}, '%'))
-        </if>
-        <if test="queryMenu.hidden != null">
-            and sm.hidden = #{queryMenu.hidden}
-        </if>
-        <if test="queryMenu.enabled != null">
-            and sm.enabled = #{queryMenu.enabled}
-        </if>
-        <if test="queryMenu.parentId != null">
-            and sm.parent_id = #{queryMenu.parentId}
-        </if>
-        <if test="queryMenu.parentId == null">
-            and sm.parent_id = 0
-        </if>
+        select `id` as id,`path` as path,`name` as name,`meta_title` as meta_title,
+        `meta_icon` as meta_icon,`sort` as sort,`hidden` as hidden,`enabled` as enabled,`parent_id` as parent_id
+        from sys_menu
+        where 1 = 1
+        <include refid="baseQuery"></include>
         <if test="queryMenu.queryRoleId != null">
-            and sm.id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
+            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
         </if>
-        order by sm.sort
+        order by sort
     </select>
 
     <select id="getByParentId" resultMap="resultMap">
@@ -121,16 +95,6 @@
         order by sm.sort
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`path` as path,`name` as name,`meta_title` as meta_title,
-        `meta_icon` as meta_icon,`sort` as sort,`hidden` as hidden, `enabled` as enabled,`parent_id` as parent_id
-        from sys_menu
-        where deleted = 1
-        <include refid="baseQuery"></include>
-        <if test="queryMenu.queryRoleId != null">
-            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
-        </if>
-    </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`path` as path,`name` as name,`meta_title` as meta_title,

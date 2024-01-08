@@ -78,6 +78,9 @@
             region like concat('%', #{queryLoginLog.queryAddress}, '%') or
             city like concat('%', #{queryLoginLog.queryAddress}, '%'))
         </if>
+        <if test="queryLoginLog.deleted != null">
+            and deleted = #{queryLoginLog.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
@@ -85,7 +88,7 @@
         `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
         `logout_time` as logout_time,`logout` as logout
         from auth_login_log
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -98,14 +101,6 @@
         <include refid="baseQuery"></include>
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
-        `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
-        `logout_time` as logout_time,`logout` as logout
-        from auth_login_log
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
     <select id="getOnlineByUserId" resultMap="resultMap">
         select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,

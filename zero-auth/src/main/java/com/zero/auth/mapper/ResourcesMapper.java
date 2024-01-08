@@ -58,15 +58,6 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
     @Delete("delete from auth_resources")
     void deleteAll() throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统资源表数据
-     *
-     * @param page           分页查询
-     * @param queryResources Resources查询条件
-     * @return Resources集合
-     * @throws Exception 抛出异常
-     */
-    IPage<Resources> getRecoverPage(IPage page, @Param("queryResources") Resources queryResources) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统资源表数据

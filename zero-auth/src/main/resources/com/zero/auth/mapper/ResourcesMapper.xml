@@ -34,13 +34,16 @@
         <if test="queryResources.methodType != null and queryResources.methodType != ''">
             and method_type = #{queryResources.methodType}
         </if>
+        <if test="queryResources.deleted != null">
+            and deleted = #{queryResources.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`uri` as uri,`description` as description,
         `method_type` as method_type
         from auth_resources
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
         <if test="queryResources.queryRoleId != null">
             and id in (select resources_id from auth_resources_role where role_id = #{queryResources.queryRoleId})
@@ -67,15 +70,5 @@
         where #{uri} regexp ares.regex and ares.method_type = #{methodType}
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`uri` as uri,`description` as description,
-        `method_type` as method_type
-        from auth_resources
-        where deleted = 1
-        <include refid="baseQuery"></include>
-        <if test="queryResources.queryRoleId != null">
-            and id in (select resources_id from auth_resources_role where role_id = #{queryResources.queryRoleId})
-        </if>
-    </select>
 
 </mapper>

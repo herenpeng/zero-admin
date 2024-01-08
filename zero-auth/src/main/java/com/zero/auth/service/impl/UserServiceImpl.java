@@ -58,6 +58,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
+        queryUser.setDeleted(false);
         IPage<User> page = new Page<>(currentPage, size);
         IPage<User> pageInfo = baseMapper.getPage(page, queryUser);
         for (User user : pageInfo.getRecords()) {
@@ -155,8 +156,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public IPage<User> recoverPage(Integer currentPage, Integer size, User queryUser) throws Exception {
+        queryUser.setDeleted(true);
         IPage<User> page = new Page<>(currentPage, size);
-        IPage<User> pageInfo = baseMapper.getRecoverPage(page, queryUser);
+        IPage<User> pageInfo = baseMapper.getPage(page, queryUser);
         for (User user : pageInfo.getRecords()) {
             user.setRoles(roleMapper.getByUserId(user.getId()));
         }

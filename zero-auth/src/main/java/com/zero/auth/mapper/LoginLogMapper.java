@@ -40,15 +40,6 @@ public interface LoginLogMapper extends BaseMapper<LoginLog> {
      */
     List<LoginLog> getList(@Param("queryLoginLog") LoginLog queryLoginLog) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统账号登录日志表数据
-     *
-     * @param page          分页查询
-     * @param queryLoginLog LoginLog查询条件
-     * @return LoginLog集合
-     * @throws Exception 抛出异常
-     */
-    IPage<LoginLog> getRecoverPage(IPage page, @Param("queryLoginLog") LoginLog queryLoginLog) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统账号登录日志表数据

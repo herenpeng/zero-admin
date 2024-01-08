@@ -42,9 +42,14 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
 
     @Override
     public IPage<ConfigConst> page(Integer currentPage, Integer size, ConfigConst queryConfigConst) throws Exception {
+        return page(currentPage, size, queryConfigConst, false);
+    }
+
+
+    private IPage<ConfigConst> page(Integer currentPage, Integer size, ConfigConst queryConfigConst, Boolean deleted) throws Exception {
+        queryConfigConst.setDeleted(deleted);
         IPage<ConfigConst> page = new Page<>(currentPage, size);
-        IPage<ConfigConst> pageInfo = baseMapper.getPage(page, queryConfigConst);
-        return pageInfo;
+        return baseMapper.getPage(page, queryConfigConst);
     }
 
     @Override
@@ -91,9 +96,7 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
 
     @Override
     public IPage<ConfigConst> recoverPage(Integer currentPage, Integer size, ConfigConst queryConfigConst) throws Exception {
-        IPage<ConfigConst> page = new Page<>(currentPage, size);
-        IPage<ConfigConst> pageInfo = baseMapper.getRecoverPage(page, queryConfigConst);
-        return pageInfo;
+        return page(currentPage, size, queryConfigConst, true);
     }
 
     @Override

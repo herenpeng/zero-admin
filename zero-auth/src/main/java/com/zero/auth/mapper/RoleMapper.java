@@ -102,15 +102,6 @@ public interface RoleMapper extends BaseMapper<Role> {
     @Select("select count(*) from auth_role where name = #{name}")
     Boolean checkName(@Param("name") String name) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统角色表数据
-     *
-     * @param page      分页查询
-     * @param queryRole Role查询条件
-     * @return Role集合
-     * @throws Exception 抛出异常
-     */
-    IPage<Role> getRecoverPage(IPage page, @Param("queryRole") Role queryRole) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统角色表数据

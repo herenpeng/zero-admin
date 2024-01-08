@@ -52,13 +52,16 @@
         <if test="queryUserInfo.avatar != null and queryUserInfo.avatar != ''">
             and avatar like concat('%', #{queryUserInfo.avatar}, '%')
         </if>
+        <if test="queryUserInfo.deleted != null">
+            and deleted = #{queryUserInfo.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,
         `id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar
         from auth_user_info
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -70,12 +73,5 @@
         <include refid="baseQuery"></include>
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,
-        `id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar
-        from auth_user_info
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 </mapper>

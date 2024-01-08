@@ -37,15 +37,6 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
      */
     List<FileManage> getList(@Param("queryFileManage") FileManage queryFileManage) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的文件资源管理表数据
-     *
-     * @param page            分页查询
-     * @param queryFileManage FileManage查询条件
-     * @return FileManage集合
-     * @throws Exception 抛出异常
-     */
-    IPage<FileManage> getRecoverPage(IPage page, @Param("queryFileManage") FileManage queryFileManage) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的文件资源管理表数据

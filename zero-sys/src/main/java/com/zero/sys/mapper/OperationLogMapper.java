@@ -40,15 +40,6 @@ public interface OperationLogMapper extends BaseMapper<OperationLog> {
      */
     List<OperationLog> getList(@Param("queryOperationLog") OperationLog queryOperationLog) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统操作日志表数据
-     *
-     * @param page              分页查询
-     * @param queryOperationLog OperationLog查询条件
-     * @return OperationLog集合
-     * @throws Exception 抛出异常
-     */
-    IPage<OperationLog> getRecoverPage(IPage page, @Param("queryOperationLog") OperationLog queryOperationLog) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统操作日志表数据

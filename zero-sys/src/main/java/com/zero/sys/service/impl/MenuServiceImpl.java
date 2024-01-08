@@ -61,6 +61,12 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public List<Menu> list(Menu queryMenu) throws Exception {
+        return baseMapper.getList(queryMenu);
+    }
+
+
+    @Override
+    public List<Menu> tree(Menu queryMenu) throws Exception {
         queryMenu.setParentId(0);
         List<Menu> list = baseMapper.getList(queryMenu);
         for (Menu menu : list) {
@@ -68,6 +74,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         }
         return list;
     }
+
 
     @Override
     public List<Menu> getRoutes() throws Exception {
@@ -121,12 +128,8 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public IPage<Menu> recoverPage(Integer currentPage, Integer size, Menu queryMenu) throws Exception {
-        IPage<Menu> page = new Page<>(currentPage, size);
-        IPage<Menu> pageInfo = baseMapper.getRecoverPage(page, queryMenu);
-        for (Menu menu : pageInfo.getRecords()) {
-            menu.setRoles(roleMapper.getByMenuId(menu.getId()));
-        }
-        return pageInfo;
+        queryMenu.setDeleted(true);
+        return page(currentPage, size, queryMenu);
     }
 
     @Override

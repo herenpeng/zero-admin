@@ -40,15 +40,6 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
      */
     List<UserInfo> getList(@Param("queryUserInfo") UserInfo queryUserInfo) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统用户信息表数据
-     *
-     * @param page          分页查询
-     * @param queryUserInfo UserInfo查询条件
-     * @return UserInfo集合
-     * @throws Exception 抛出异常
-     */
-    IPage<UserInfo> getRecoverPage(IPage page, @Param("queryUserInfo") UserInfo queryUserInfo) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统用户信息表数据

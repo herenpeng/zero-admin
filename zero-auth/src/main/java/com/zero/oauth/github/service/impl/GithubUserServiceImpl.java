@@ -32,6 +32,14 @@ public class GithubUserServiceImpl extends BaseServiceImpl<GithubUserMapper, Git
     public IPage<GithubUser> page(Integer currentPage, Integer size, GithubUser queryGithubUser) throws Exception {
         IPage<GithubUser> page = new Page<>(currentPage, size);
         QueryWrapper<GithubUser> queryWrapper = new QueryWrapper<>(queryGithubUser);
+        return baseMapper.selectPage(page, queryWrapper);
+    }
+
+
+    private IPage<GithubUser> page(Integer currentPage, Integer size, GithubUser queryGithubUser, Boolean deleted) throws Exception {
+        queryGithubUser.setDeleted(deleted);
+        IPage<GithubUser> page = new Page<>(currentPage, size);
+        QueryWrapper<GithubUser> queryWrapper = new QueryWrapper<>(queryGithubUser);
         IPage<GithubUser> pageInfo = baseMapper.selectPage(page, queryWrapper);
         return pageInfo;
     }
@@ -39,15 +47,12 @@ public class GithubUserServiceImpl extends BaseServiceImpl<GithubUserMapper, Git
     @Override
     public List<GithubUser> list(GithubUser queryGithubUser) throws Exception {
         QueryWrapper<GithubUser> queryWrapper = new QueryWrapper<>(queryGithubUser);
-        List<GithubUser> githubUserList = baseMapper.selectList(queryWrapper);
-        return githubUserList;
+        return baseMapper.selectList(queryWrapper);
     }
 
     @Override
     public IPage<GithubUser> recoverPage(Integer currentPage, Integer size, GithubUser queryGithubUser) throws Exception {
-        IPage<GithubUser> page = new Page<>(currentPage, size);
-        IPage<GithubUser> pageInfo = baseMapper.getRecoverPage(page, queryGithubUser);
-        return pageInfo;
+        return page(currentPage, size, queryGithubUser, true);
     }
 
     @Override

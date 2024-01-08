@@ -37,15 +37,6 @@ public interface GithubUserMapper extends BaseMapper<GithubUser> {
      */
     List<GithubUser> getList(@Param("queryGithubUser") GithubUser queryGithubUser) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的Github用户信息表数据
-     *
-     * @param page            分页查询
-     * @param queryGithubUser GithubUser查询条件
-     * @return GithubUser集合
-     * @throws Exception 抛出异常
-     */
-    IPage<GithubUser> getRecoverPage(IPage page, @Param("queryGithubUser") GithubUser queryGithubUser) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的Github用户信息表数据

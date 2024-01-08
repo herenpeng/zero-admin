@@ -40,15 +40,6 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      */
     List<${entityName}> getList(@Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的${comment}数据
-     *
-     * @param page      分页查询
-     * @param query${entityName} ${entityName}查询条件
-     * @return ${entityName}集合
-     * @throws Exception 抛出异常
-     */
-    IPage<${entityName}> getRecoverPage(IPage page, @Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的${comment}数据

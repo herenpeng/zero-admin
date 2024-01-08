@@ -52,6 +52,9 @@
         <if test="queryTableColumn.tableInfoId != null">
             and table_info_id = #{queryTableColumn.tableInfoId}
         </if>
+        <if test="queryTableColumn.deleted != null">
+            and deleted = #{queryTableColumn.deleted}
+        </if>
     </sql>
 
     <select id="getTableColumnByInformationSchema" resultMap="resultMap">
@@ -77,7 +80,7 @@
         `database_type` as database_type,`jdbc_type` as jdbc_type,`java_type` as java_type,
         `query` as query, `sort` as sort,`table_info_id` as table_info_id
         from dev_table_column
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -90,14 +93,6 @@
         <include refid="baseQuery"></include>
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`java_name` as java_name,`comment` as comment,
-        `database_type` as database_type,`jdbc_type` as jdbc_type,`java_type` as java_type,
-        `query` as query, `sort` as sort,`table_info_id` as table_info_id
-        from dev_table_column
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 
 </mapper>

@@ -50,15 +50,6 @@ public interface UserConfigMapper extends BaseMapper<UserConfig> {
      */
     UserConfig getByUserIdAndConfigId(@Param("userId") Integer userId, @Param("configId") Integer configId) throws Exception;
 
-    /**
-     * 分页查询逻辑删除的系统用户配置表数据
-     *
-     * @param page            分页查询
-     * @param queryUserConfig UserConfig查询条件
-     * @return UserConfig集合
-     * @throws Exception 抛出异常
-     */
-    IPage<UserConfig> getRecoverPage(IPage page, @Param("queryUserConfig") UserConfig queryUserConfig) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统用户配置表数据

@@ -52,15 +52,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> getRoutes(@Param("userId") Integer userId, @Param("parentId") Integer parentId) throws Exception;
 
 
-    /**
-     * 分页查询逻辑删除的系统菜单表数据
-     *
-     * @param page      分页查询
-     * @param queryMenu Menu查询条件
-     * @return Menu集合
-     * @throws Exception 抛出异常
-     */
-    IPage<Menu> getRecoverPage(IPage page, @Param("queryMenu") Menu queryMenu) throws Exception;
 
     /**
      * 查询所有的系统菜单数据

@@ -18,7 +18,7 @@
 
     <sql id="baseQuery">
         <#list tableColumnList as column>
-        <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+        <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id">
         <#if column.javaType == "String">
         <if test="query${entityName}.${column.javaName} != null and query${entityName}.${column.javaName} != ''">
             and ${column.name} like concat('%', ${"#"}{query${entityName}.${column.javaName}}, '%')
@@ -35,7 +35,7 @@
     <select id="getPage" resultMap="resultMap">
         select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
         from ${name}
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -46,11 +46,5 @@
         <include refid="baseQuery"></include>
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
-        from ${name}
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 </mapper>

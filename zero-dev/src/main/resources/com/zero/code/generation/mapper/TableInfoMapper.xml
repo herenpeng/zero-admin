@@ -41,6 +41,9 @@
         <if test="queryTableInfo.codeAuthor != null and queryTableInfo.codeAuthor != ''">
             and code_author like concat('%', #{queryTableInfo.codeAuthor}, '%')
         </if>
+        <if test="queryTableInfo.deleted != null">
+            and deleted = #{queryTableInfo.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
@@ -48,7 +51,7 @@
         `java_package_name` as java_package_name,`java_code_path` as java_code_path,`vue_code_path` as vue_code_path,
         `vue_package` as vue_package, `code_author` as code_author
         from dev_table_info
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -66,13 +69,5 @@
         and table_name not in (select name from dev_table_info dti where dti.deleted = 0)
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,`request_mapping` as request_mapping,
-        `java_package_name` as java_package_name,`java_code_path` as java_code_path,`vue_code_path` as vue_code_path,
-        `vue_package` as vue_package,`code_author` as code_author
-        from dev_table_info
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 </mapper>

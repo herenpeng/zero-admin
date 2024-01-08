@@ -43,6 +43,9 @@
         <if test="queryUser.passwordExpire != null">
             and password_expire = #{queryUser.passwordExpire}
         </if>
+        <if test="queryUser.deleted != null">
+            and deleted = #{queryUser.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
@@ -50,7 +53,7 @@
         `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
         `password_expire` as password_expire
         from auth_user
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
         <if test="queryUser.queryRoleId != null">
             and id in (select user_id from auth_user_role where role_id = #{queryUser.queryRoleId})
@@ -81,17 +84,6 @@
         and au.type = #{type}
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`username` as username,`password` as password,
-        `enabled` as enabled,`locked` as locked,`account_expire` as account_expire,
-        `password_expire` as password_expire
-        from auth_user
-        where deleted = 1
-        <include refid="baseQuery"></include>
-        <if test="queryUser.queryRoleId != null">
-            and id in (select user_id from auth_user_role where role_id = #{queryUser.queryRoleId})
-        </if>
-    </select>
 
 
 </mapper>

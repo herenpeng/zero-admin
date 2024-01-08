@@ -33,6 +33,12 @@ public class OperationLogServiceImpl extends BaseServiceImpl<OperationLogMapper,
 
     @Override
     public IPage<OperationLog> page(Integer currentPage, Integer size, OperationLog queryOperationLog) throws Exception {
+        return page(currentPage, size, queryOperationLog, false);
+    }
+
+
+    private IPage<OperationLog> page(Integer currentPage, Integer size, OperationLog queryOperationLog, Boolean deleted) throws Exception {
+        queryOperationLog.setDeleted(deleted);
         IPage<OperationLog> page = new Page<>(currentPage, size);
         IPage<OperationLog> pageInfo = baseMapper.getPage(page, queryOperationLog);
         for (OperationLog log : pageInfo.getRecords()) {
@@ -42,6 +48,7 @@ public class OperationLogServiceImpl extends BaseServiceImpl<OperationLogMapper,
         return pageInfo;
     }
 
+
     @Override
     public List<OperationLog> list(OperationLog queryOperationLog) throws Exception {
         return baseMapper.getList(queryOperationLog);
@@ -49,13 +56,7 @@ public class OperationLogServiceImpl extends BaseServiceImpl<OperationLogMapper,
 
     @Override
     public IPage<OperationLog> recoverPage(Integer currentPage, Integer size, OperationLog queryOperationLog) throws Exception {
-        IPage<OperationLog> page = new Page<>(currentPage, size);
-        IPage<OperationLog> pageInfo = baseMapper.getRecoverPage(page, queryOperationLog);
-        for (OperationLog log : pageInfo.getRecords()) {
-            User user = userMapper.selectById(log.getOperationUserId());
-            log.setUser(user);
-        }
-        return pageInfo;
+        return page(currentPage, size, queryOperationLog, true);
     }
 
     @Override

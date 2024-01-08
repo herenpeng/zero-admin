@@ -52,10 +52,15 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
 
     @Override
     public IPage<UserInfo> page(Integer currentPage, Integer size, UserInfo queryUserInfo) throws Exception {
-        IPage<UserInfo> page = new Page<>(currentPage, size);
-        IPage<UserInfo> pageInfo = baseMapper.getPage(page, queryUserInfo);
-        return pageInfo;
+        return page(currentPage, size, queryUserInfo, false);
     }
+
+    public IPage<UserInfo> page(Integer currentPage, Integer size, UserInfo queryUserInfo, Boolean deleted) throws Exception {
+        queryUserInfo.setDeleted(deleted);
+        IPage<UserInfo> page = new Page<>(currentPage, size);
+        return baseMapper.getPage(page, queryUserInfo);
+    }
+
 
     @Override
     public List<UserInfo> list(UserInfo queryUserInfo) throws Exception {
@@ -64,9 +69,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
 
     @Override
     public IPage<UserInfo> recoverPage(Integer currentPage, Integer size, UserInfo queryUserInfo) throws Exception {
-        IPage<UserInfo> page = new Page<>(currentPage, size);
-        IPage<UserInfo> pageInfo = baseMapper.getRecoverPage(page, queryUserInfo);
-        return pageInfo;
+        return page(currentPage, size, queryUserInfo, true);
     }
 
     @Override

@@ -37,6 +37,12 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
 
     @Override
     public IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources) throws Exception {
+        return page(currentPage, size, queryResources, false);
+    }
+
+
+    private IPage<Resources> page(Integer currentPage, Integer size, Resources queryResources, Boolean deleted) throws Exception {
+        queryResources.setDeleted(deleted);
         IPage<Resources> page = new Page<>(currentPage, size);
         IPage<Resources> pageInfo = baseMapper.getPage(page, queryResources);
         for (Resources resources : pageInfo.getRecords()) {
@@ -70,12 +76,7 @@ public class ResourcesServiceImpl extends BaseServiceImpl<ResourcesMapper, Resou
 
     @Override
     public IPage<Resources> recoverPage(Integer currentPage, Integer size, Resources queryResources) throws Exception {
-        IPage<Resources> page = new Page(currentPage, size);
-        IPage<Resources> pageInfo = baseMapper.getRecoverPage(page, queryResources);
-        for (Resources resources : pageInfo.getRecords()) {
-            resources.setRoles(roleMapper.getByResourcesId(resources.getId()));
-        }
-        return pageInfo;
+        return page(currentPage, size, queryResources, true);
     }
 
     @Override

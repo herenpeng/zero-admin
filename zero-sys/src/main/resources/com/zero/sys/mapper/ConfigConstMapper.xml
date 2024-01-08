@@ -32,12 +32,15 @@
         <if test="queryConfigConst.userable != null">
             and userable = #{queryConfigConst.userable}
         </if>
+        <if test="queryConfigConst.deleted != null">
+            and deleted = #{queryConfigConst.deleted}
+        </if>
     </sql>
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
         from sys_config_const
-        where deleted = 0
+        where 1 = 1
         <include refid="baseQuery"></include>
     </select>
 
@@ -66,12 +69,6 @@
         </if>
     </select>
 
-    <select id="getRecoverPage" resultMap="resultMap">
-        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
-        from sys_config_const
-        where deleted = 1
-        <include refid="baseQuery"></include>
-    </select>
 
 
 </mapper>

@@ -32,22 +32,20 @@ public class TableColumnServiceImpl extends BaseServiceImpl<TableColumnMapper, T
     public IPage<TableColumn> page(Integer currentPage, Integer size, TableColumn queryTableColumn) throws Exception {
         IPage<TableColumn> page = new Page<>(currentPage, size);
         QueryWrapper<TableColumn> queryWrapper = new QueryWrapper<>(queryTableColumn);
-        IPage<TableColumn> pageInfo = baseMapper.selectPage(page, queryWrapper);
-        return pageInfo;
+        return baseMapper.selectPage(page, queryWrapper);
     }
 
     @Override
     public List<TableColumn> list(TableColumn queryTableColumn) throws Exception {
         QueryWrapper<TableColumn> queryWrapper = new QueryWrapper<>(queryTableColumn);
-        List<TableColumn> tableColumnList = baseMapper.selectList(queryWrapper);
-        return tableColumnList;
+        return baseMapper.selectList(queryWrapper);
     }
 
     @Override
     public IPage<TableColumn> recoverPage(Integer currentPage, Integer size, TableColumn queryTableColumn) throws Exception {
+        queryTableColumn.setDeleted(true);
         IPage<TableColumn> page = new Page<>(currentPage, size);
-        IPage<TableColumn> pageInfo = baseMapper.getRecoverPage(page, queryTableColumn);
-        return pageInfo;
+        return baseMapper.getPage(page, queryTableColumn);
     }
 
     @Override
