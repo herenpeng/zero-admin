@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
  * 系统组织机构表
  *
  * @author herenpeng
- * @since 2024-01-13 15:53
+ * @since 2024-01-13 22:07
  */
 @Schema(name = "系统组织机构表")
 @Data

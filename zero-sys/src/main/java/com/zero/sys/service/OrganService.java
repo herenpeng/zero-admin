@@ -11,7 +11,7 @@ import java.util.List;
  * 系统组织机构表业务逻辑层接口
  *
  * @author herenpeng
- * @since 2024-01-13 15:53
+ * @since 2024-01-13 22:07
  */
 public interface OrganService extends BaseService<Organ> {
 

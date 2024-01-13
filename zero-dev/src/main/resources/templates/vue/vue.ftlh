@@ -1,5 +1,91 @@
 <template>
   <div class="app-container">
+    <#if tree>
+<#--      树状结构-->
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <el-input
+          v-model="filterText"
+          placeholder="输入关键字进行过滤"
+        />
+        <el-tree
+          ref="tree"
+          class="filter-tree"
+          :data="${entityName?uncap_first}Tree"
+          node-key="id"
+          :default-expanded-keys="expandedKeys"
+          :filter-node-method="filterNode"
+          @node-expand="nodeExpand"
+          @node-collapse="nodeCollapse"
+        >
+          <span slot-scope="{ node }" class="custom-tree-node">
+            <span><i :class="node.data.name" />{{ node.data.name }}</span>
+          </span>
+        </el-tree>
+      </el-col>
+      <el-col :span="18">
+        <div class="filter-container">
+          <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+            查询
+          </el-button>
+          <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit"
+                     @click="handleCreate"
+          >
+            添加
+          </el-button>
+          <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download"
+                     @click="handleDownload"
+          >
+            导出
+          </el-button>
+        </div>
+
+        <el-table
+          :key="tableKey"
+          v-loading="listLoading"
+          :data="list"
+          row-key="id"
+          border
+          fit
+          size="mini"
+          style="width: 100%;"
+          :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+          @sort-change="sortChange"
+        >
+          <el-table-column label="序号" sortable="true" align="center" width="80" />
+          <#list tableColumnList as column>
+            <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+              <#if column.javaType == "String" || column.javaType == "Integer">
+          <el-table-column label="${column.comment}" width="150px" align="center">
+            <template v-slot="{row}">
+              <span>{{ row.${column.javaName} }}</span>
+            </template>
+          </el-table-column>
+              </#if>
+              <#if column.javaType == "Boolean">
+          <el-table-column label="${column.comment}" width="100px" align="center">
+            <template v-slot="{row}">
+              <span>{{ row.${column.javaName} | ${column.javaName}Filter }}</span>
+            </template>
+          </el-table-column>
+              </#if>
+            </#if>
+          </#list>
+          <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300px">
+            <template v-slot="{row}">
+              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row)">
+                编辑
+              </el-button>
+              <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteData(row)">
+                删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
+    <#else>
+<#--    普通表格  -->
     <div class="filter-container">
       <#list tableColumnList as column>
         <#if column.query>
@@ -80,6 +166,7 @@
                 :limit="page.size"
                 @pagination="handlePagination"
     />
+    </#if>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="${entityName?uncap_first}" label-position="left" label-width="120px"
@@ -120,26 +207,36 @@
 
 <script>
 import {
+  <#if tree>
+  get${entityName}Tree,
+  <#else>
   get${entityName}Page,
+  </#if>
   create${entityName},
   update${entityName},
   delete${entityName},
   export${entityName}Excel
 } from '@/api/${vuePackage?replace(".","/")}'
+<#if !tree>
 import Pagination from '@/components/Pagination'
+</#if>
 
 export default {
   name: '${entityName}',
+  <#if !tree>
   components: { Pagination },
+  </#if>
   data() {
     return {
       tableKey: 0,
       list: [],
+      <#if !tree>
       page: {
         currentPage: 1,
         size: 10,
         total: 0
       },
+      </#if>
       listLoading: false,
       <#assign queryNumber = 0>
       <#list tableColumnList as column>
@@ -177,13 +274,62 @@ export default {
           </#if>
         </#list>
       },
-      downloadLoading: false
+      downloadLoading: false,
+      <#if tree>
+      ${entityName?uncap_first}Tree: [],
+      filterText: '',
+      expandedKeys: []
+      </#if>
     }
   },
+  <#if tree>
+  watch: {
+    filterText(val) {
+      this.$refs.tree.filter(val)
+    }
+  },
+  </#if>
   created() {
     this.loadData()
   },
   methods: {
+    <#if tree>
+    loadData() {
+      this.listLoading = true
+      get${entityName}Tree().then(res => {
+        setTimeout(() => {
+          if (this.listLoading === true) {
+            this.listLoading = false
+          }
+        }, 1000)
+        this.list = res.data
+        this.listLoading = false
+        this.${entityName?uncap_first}Tree = this.buildTree(this.list)
+      })
+    },
+    buildTree(${entityName?uncap_first}s) {
+      const tree = []
+      for (const ${entityName?uncap_first} of ${entityName?uncap_first}s) {
+        ${entityName?uncap_first}.disabled = ${entityName?uncap_first}.hidden || !${entityName?uncap_first}.enabled
+        const node = JSON.parse(JSON.stringify(${entityName?uncap_first}))
+        tree.push(node)
+        this.buildTree(node.children)
+      }
+      return tree
+    },
+    filterNode(value, data) {
+      if (!value) {
+        return true
+      }
+      return data.name.indexOf(value) !== -1
+    },
+    nodeExpand(data) {
+      this.expandedKeys.push(data.id)
+    },
+    nodeCollapse(data) {
+      this.expandedKeys.remove(data.id)
+    },
+    <#else>
     loadData() {
       this.listLoading = true
       get${entityName}Page(this.page, this.listQuery).then(res => {
@@ -196,8 +342,10 @@ export default {
         this.list = page.records
         this.page.total = page.total
         this.listLoading = false
+        this.${entityName?uncap_first}Tree = this.buildTree(this.list)
       })
     },
+    </#if>
     handlePagination(page) {
       this.page.currentPage = page.page
       this.page.size = page.limit
@@ -272,7 +420,9 @@ export default {
       })
     },
     handleFilter() {
+      <#if !tree>
       this.page.currentPage = 1
+      </#if>
       this.loadData()
     },
     sortChange(data) {

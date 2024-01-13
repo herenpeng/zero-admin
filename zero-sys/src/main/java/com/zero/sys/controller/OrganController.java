@@ -19,7 +19,7 @@ import java.util.List;
  * 系统组织机构表的数据交互控制器
  *
  * @author herenpeng
- * @since 2024-01-13 15:53
+ * @since 2024-01-13 22:07
  */
 @Tag(description = "系统组织机构表操作接口", name = "OrganController")
 @RestController
