@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * @since 2020-09-07 19:13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("auth_resources_role")

@@ -36,15 +36,27 @@
         select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
         from ${name}
         where 1 = 1
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
     <select id="getList" resultMap="resultMap">
         select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
         from ${name}
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
+
+    <#if tree>
+    <select id="getByParentId" resultMap="resultMap">
+        select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
+        from ${name}
+        where deleted = 0
+        <if test="parentId != null">
+            and parent_id = ${"#"}{parentId}
+        </if>
+        order by sort
+    </select>
+    </#if>
 
 </mapper>

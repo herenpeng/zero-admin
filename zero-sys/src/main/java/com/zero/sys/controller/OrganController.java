@@ -19,7 +19,7 @@ import java.util.List;
  * 系统组织机构表的数据交互控制器
  *
  * @author herenpeng
- * @since 2023-09-03 16:42
+ * @since 2024-01-13 15:53
  */
 @Tag(description = "系统组织机构表操作接口", name = "OrganController")
 @RestController
@@ -51,6 +51,15 @@ public class OrganController extends BaseController<OrganService, Organ> {
     @GetMapping("list")
     public ResponseEntity<List<Organ>> list(Organ queryOrgan) throws Exception {
         return ResponseEntity.ok(baseService.list(queryOrgan));
+    }
+
+
+    @LogOperation
+    @Operation(description = "查询系统组织机构表数据并构建树状结构")
+    @GetMapping("tree")
+    public ResponseEntity<List<Organ>> tree() throws Exception {
+        List<Organ> tree = baseService.tree();
+        return ResponseEntity.ok(tree);
     }
 
 

@@ -3,26 +3,24 @@ package com.zero.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.auth.entity.User;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.Organ;
 import com.zero.sys.mapper.OrganMapper;
-import com.zero.sys.mapper.UserOrganMapper;
 import com.zero.sys.service.OrganService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
  * 系统组织机构表业务逻辑层的实现类
  *
  * @author herenpeng
- * @since 2023-09-03 16:42
+ * @since 2024-01-13 15:53
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -30,42 +28,44 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class OrganServiceImpl extends BaseServiceImpl<OrganMapper, Organ> implements OrganService {
 
-    private final UserOrganMapper userOrganMapper;
-
     @Override
     public IPage<Organ> page(Integer currentPage, Integer size, Organ queryOrgan) throws Exception {
-        IPage<Organ> page = new Page<>(currentPage, size);
-        IPage<Organ> pageInfo = baseMapper.getPage(page, queryOrgan);
-        for (Organ organ : pageInfo.getRecords()) {
-            findChildren(organ);
-        }
-        return pageInfo;
+        return page(currentPage, size, queryOrgan, false);
     }
 
-
-    private void findChildren(Organ organ) throws Exception {
-        List<User> users = userOrganMapper.getUserByOrganId(organ.getId());
-        organ.setUsers(users);
-        List<Organ> children = baseMapper.getByParentId(organ.getId());
-        organ.setChildren(children);
-        for (Organ child : children) {
-            findChildren(child);
-        }
+    private IPage<Organ> page(Integer currentPage, Integer size, Organ queryOrgan, Boolean deleted) throws Exception {
+        queryOrgan.setDeleted(deleted);
+        IPage<Organ> page = new Page<>(currentPage, size);
+        return baseMapper.getPage(page, queryOrgan);
     }
 
 
     @Override
     public List<Organ> list(Organ queryOrgan) throws Exception {
         QueryWrapper<Organ> queryWrapper = new QueryWrapper<>(queryOrgan);
-        List<Organ> organList = baseMapper.selectList(queryWrapper);
-        return organList;
+        return baseMapper.selectList(queryWrapper);
     }
+
+
+    @Override
+    public List<Organ> tree() throws Exception {
+        return findChildren(0);
+    }
+
+
+    private List<Organ> findChildren(Integer parentId) throws Exception {
+        List<Organ> organs = baseMapper.getByParentId(parentId);
+        for (Organ organ : organs) {
+            List<Organ> children = findChildren(organ.getId());
+            organ.setChildren(children);
+        }
+        return organs;
+    }
+
 
     @Override
     public IPage<Organ> recoverPage(Integer currentPage, Integer size, Organ queryOrgan) throws Exception {
-        IPage<Organ> page = new Page<>(currentPage, size);
-        IPage<Organ> pageInfo = baseMapper.getRecoverPage(page, queryOrgan);
-        return pageInfo;
+        return page(currentPage, size, queryOrgan, true);
     }
 
     @Override

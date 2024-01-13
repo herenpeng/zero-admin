@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
  */
 @Schema(name = "系统数据库表字段信息实体类")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("dev_table_column")

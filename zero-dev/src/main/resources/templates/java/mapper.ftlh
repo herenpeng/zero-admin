@@ -29,7 +29,7 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      * @return ${entityName}集合
      * @throws Exception 抛出异常
      */
-    IPage<${entityName}> getPage(IPage page, @Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
+    IPage<${entityName}> getPage(IPage<${entityName}> page, @Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
     /**
      * 获取所有的${comment}数据，区别于selectList的是，该方法添加了查询条件
@@ -40,6 +40,16 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      */
     List<${entityName}> getList(@Param("query${entityName}") ${entityName} query${entityName}) throws Exception;
 
+    <#if tree>
+    /**
+     * 通过父节点主键，获取节点的所有子节点${comment}数据
+     *
+     * @param parentId 父节点主键Id
+     * @return 节点的所有子节点${comment}数据
+     * @throws Exception 抛出异常
+     */
+    List<${entityName}> getByParentId(@Param("parentId") Integer parentId) throws Exception;
+    </#if>
 
     /**
      * 通过主键恢复逻辑删除的${comment}数据

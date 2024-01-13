@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 @Schema(name = "系统数据库表信息实体类")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("dev_table_info")
@@ -81,6 +80,11 @@ public class TableInfo extends BaseEntity {
     @Schema(name = "Vue包路径")
     @TableField(value = "vue_package")
     private String vuePackage;
+
+
+    @Schema(name = "是否为树状结构")
+    @TableField(value = "tree")
+    private Boolean tree;
 
     /**
      * 代码作者

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  */
 @Schema(name = "用户组织机构关系表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_user_organ")

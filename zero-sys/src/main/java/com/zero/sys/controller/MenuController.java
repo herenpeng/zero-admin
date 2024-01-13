@@ -58,12 +58,9 @@ public class MenuController extends BaseController<MenuService, Menu> {
 
     @LogOperation
     @Operation(description = "查询系统菜单表并构建树状结构")
-    @Parameters({
-            @Parameter(name = "queryMenu", description = "系统菜单表查询条件")
-    })
     @GetMapping("tree")
-    public ResponseEntity<List<Menu>> tree(Menu queryMenu) throws Exception {
-        List<Menu> tree = baseService.tree(queryMenu);
+    public ResponseEntity<List<Menu>> tree() throws Exception {
+        List<Menu> tree = baseService.tree();
         return ResponseEntity.ok(tree);
     }
 
@@ -197,7 +194,6 @@ public class MenuController extends BaseController<MenuService, Menu> {
     @GetMapping("export/excel")
     public void exportExcel(Menu queryMenu, HttpServletResponse response) throws Exception {
         baseService.exportExcel(queryMenu, response);
-
     }
 
 }

@@ -29,18 +29,28 @@ public interface ${entityName}Service extends BaseService<${entityName}> {
     /**
      * 查询所有的${comment}数据
      *
-     * @param query${entityName}   查询${comment}的条件
+     * @param query${entityName} 查询${comment}的条件
      * @return 查询所有的${comment}数据
      * @throws Exception 抛出异常
      */
     List<${entityName}> list(${entityName} query${entityName}) throws Exception;
+
+    <#if tree>
+    /**
+     * 查询${comment}数据并构建树状结构
+     *
+     * @return 查询${comment}数据并构建树状结构
+     * @throws Exception 抛出异常
+     */
+    List<${entityName}> tree() throws Exception;
+    </#if>
 
     /**
      * 分页查询逻辑删除的${comment}数据
      *
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
-     * @param query${entityName}   查询${comment}的条件
+     * @param query${entityName}  查询${comment}的条件
      * @return 分页查询逻辑删除的${comment}数据
      * @throws Exception 抛出异常
      */

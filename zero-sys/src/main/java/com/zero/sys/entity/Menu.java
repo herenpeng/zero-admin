@@ -5,7 +5,7 @@ import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.auth.entity.Role;
-import com.zero.common.base.entity.BaseEntity;
+import com.zero.common.base.entity.BaseTreeEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +22,11 @@ import java.util.List;
  */
 @Schema(name = "系统菜单表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_menu")
-public class Menu extends BaseEntity {
+public class Menu extends BaseTreeEntity {
 
     /**
      * 菜单路由路径
@@ -57,13 +57,6 @@ public class Menu extends BaseEntity {
     @TableField(value = "meta_icon")
     private String metaIcon;
     /**
-     * 菜单排序
-     */
-    @Schema(name = "菜单排序")
-    @Excel(name = "菜单排序", width = 15, needMerge = true)
-    @TableField(value = "sort")
-    private Integer sort;
-    /**
      * 菜单是否隐藏，0(false)为正常，1(true)为隐藏，该隐藏只是对于页面左侧菜单不可见
      */
     @Schema(name = "菜单是否隐藏，0为正常，1为隐藏")
@@ -77,20 +70,13 @@ public class Menu extends BaseEntity {
     @Excel(name = "菜单是否启用", width = 15, needMerge = true)
     @TableField(value = "enabled")
     private Boolean enabled;
-    /**
-     * 父级菜单主键，如果为顶级菜单，值为0
-     */
-    @Schema(name = "父级菜单主键，如果为顶级菜单，值为0")
-    @Excel(name = "父级菜单主键", width = 15, needMerge = true)
-    @TableField(value = "parent_id")
-    private Integer parentId;
 
-    /**
-     * 菜单下级的子菜单，非数据库字段
-     */
-    @Schema(name = "菜单下级的子菜单")
-    @TableField(exist = false)
-    private List<Menu> children;
+//    /**
+//     * 菜单下级的子菜单，非数据库字段
+//     */
+//    @Schema(name = "菜单下级的子菜单")
+//    @TableField(exist = false)
+//    private List<Menu> children;
 
     /**
      * 拥有该菜单的角色信息，非数据库字段

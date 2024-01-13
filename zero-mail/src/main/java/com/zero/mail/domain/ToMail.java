@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @since 2021-01-17 18:59
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class ToMail implements Serializable {

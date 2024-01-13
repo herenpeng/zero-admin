@@ -11,7 +11,7 @@ import java.util.List;
  * 系统组织机构表业务逻辑层接口
  *
  * @author herenpeng
- * @since 2023-09-03 16:42
+ * @since 2024-01-13 15:53
  */
 public interface OrganService extends BaseService<Organ> {
 
@@ -29,18 +29,26 @@ public interface OrganService extends BaseService<Organ> {
     /**
      * 查询所有的系统组织机构表数据
      *
-     * @param queryOrgan   查询系统组织机构表的条件
+     * @param queryOrgan 查询系统组织机构表的条件
      * @return 查询所有的系统组织机构表数据
      * @throws Exception 抛出异常
      */
     List<Organ> list(Organ queryOrgan) throws Exception;
 
     /**
+     * 查询系统组织机构表数据并构建树状结构
+     *
+     * @return 查询系统组织机构表数据并构建树状结构
+     * @throws Exception 抛出异常
+     */
+    List<Organ> tree() throws Exception;
+
+    /**
      * 分页查询逻辑删除的系统组织机构表数据
      *
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
-     * @param queryOrgan   查询系统组织机构表的条件
+     * @param queryOrgan  查询系统组织机构表的条件
      * @return 分页查询逻辑删除的系统组织机构表数据
      * @throws Exception 抛出异常
      */

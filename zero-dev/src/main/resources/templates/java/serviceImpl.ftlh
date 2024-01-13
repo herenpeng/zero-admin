@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
+import com.zero.common.kit.ExcelKit;
 import ${javaPackageName}.entity.${entityName};
 import ${javaPackageName}.mapper.${entityName}Mapper;
 import ${javaPackageName}.service.${entityName}Service;
@@ -38,11 +39,31 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
         return baseMapper.getPage(page, query${entityName});
     }
 
+
     @Override
     public List<${entityName}> list(${entityName} query${entityName}) throws Exception {
         QueryWrapper<${entityName}> queryWrapper = new QueryWrapper<>(query${entityName});
         return baseMapper.selectList(queryWrapper);
     }
+
+
+    <#if tree>
+    @Override
+    public List<${entityName}> tree() throws Exception {
+        return findChildren(0);
+    }
+
+
+    private List<${entityName}> findChildren(Integer parentId) throws Exception {
+        List<${entityName}> ${entityName?uncap_first}s = baseMapper.getByParentId(parentId);
+        for (${entityName} ${entityName?uncap_first} : ${entityName?uncap_first}s) {
+            List<${entityName}> children = findChildren(${entityName?uncap_first}.getId());
+            ${entityName?uncap_first}.setChildren(children);
+        }
+        return ${entityName?uncap_first}s;
+    }
+    </#if>
+
 
     @Override
     public IPage<${entityName}> recoverPage(Integer currentPage, Integer size, ${entityName} query${entityName}) throws Exception {
@@ -62,7 +83,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     @Override
     public void exportExcel(${entityName} query${entityName}, HttpServletResponse response) throws Exception {
         List<${entityName}> exportData = list(query${entityName});
-        excelUtils.exportExcel("${comment}", ${entityName}.class, exportData, response);
+        ExcelKit.exportExcel("${comment}", ${entityName}.class, exportData, response);
     }
 
 }

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  */
 @Schema(name = "系统配置常量表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_config_const")

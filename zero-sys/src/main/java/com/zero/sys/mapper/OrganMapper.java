@@ -15,7 +15,7 @@ import java.util.List;
  * 系统组织机构表的Mapper接口
  *
  * @author herenpeng
- * @since 2023-09-03 16:42
+ * @since 2024-01-13 15:53
  */
 @Mapper
 @Repository
@@ -29,17 +29,7 @@ public interface OrganMapper extends BaseMapper<Organ> {
      * @return Organ集合
      * @throws Exception 抛出异常
      */
-    IPage<Organ> getPage(IPage page, @Param("queryOrgan") Organ queryOrgan) throws Exception;
-
-
-    /**
-     * 通过父组织结构主键，获取组织结构的所有下级子组织结构
-     *
-     * @param parentId 组织结构主键Id
-     * @return 组织结构下级的所有子组织结构
-     * @throws Exception 抛出异常
-     */
-    List<Organ> getByParentId(@Param("parentId") Integer parentId) throws Exception;
+    IPage<Organ> getPage(IPage<Organ> page, @Param("queryOrgan") Organ queryOrgan) throws Exception;
 
     /**
      * 获取所有的系统组织机构表数据，区别于selectList的是，该方法添加了查询条件
@@ -51,14 +41,13 @@ public interface OrganMapper extends BaseMapper<Organ> {
     List<Organ> getList(@Param("queryOrgan") Organ queryOrgan) throws Exception;
 
     /**
-     * 分页查询逻辑删除的系统组织机构表数据
+     * 通过父节点主键，获取节点的所有子节点系统组织机构表数据
      *
-     * @param page      分页查询
-     * @param queryOrgan Organ查询条件
-     * @return Organ集合
+     * @param parentId 父节点主键Id
+     * @return 节点的所有子节点系统组织机构表数据
      * @throws Exception 抛出异常
      */
-    IPage<Organ> getRecoverPage(IPage page, @Param("queryOrgan") Organ queryOrgan) throws Exception;
+    List<Organ> getByParentId(@Param("parentId") Integer parentId) throws Exception;
 
     /**
      * 通过主键恢复逻辑删除的系统组织机构表数据

@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Schema(name = "用户信息实体类")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("auth_user")

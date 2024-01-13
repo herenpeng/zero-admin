@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Schema(name = "文件资源管理表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("upload_file_manage")

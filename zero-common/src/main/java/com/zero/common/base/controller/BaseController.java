@@ -1,6 +1,7 @@
 package com.zero.common.base.controller;
 
 import com.zero.common.annotation.LogOperation;
+import com.zero.common.base.entity.BaseEntity;
 import com.zero.common.base.service.BaseService;
 import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @author herenpeng
  * @since 2020-10-22 14:25
  */
-public class BaseController<S extends BaseService<E>, E> {
+public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
 
     @Autowired
     protected S baseService;

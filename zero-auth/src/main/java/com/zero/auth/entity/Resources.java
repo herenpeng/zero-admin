@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Schema(name = "系统资源实体类")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("auth_resources")

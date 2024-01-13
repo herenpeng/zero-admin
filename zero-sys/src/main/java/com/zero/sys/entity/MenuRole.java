@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
  */
 @Schema(name = "系统菜单角色关系表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_menu_role")

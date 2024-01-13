@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
  */
 @Schema(name = "系统用户配置表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_user_config")

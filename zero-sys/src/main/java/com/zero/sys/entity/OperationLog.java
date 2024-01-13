@@ -22,7 +22,7 @@ import java.util.Date;
  */
 @Schema(name = "系统操作日志表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_operation_log")

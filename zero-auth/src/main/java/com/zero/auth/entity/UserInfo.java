@@ -22,7 +22,7 @@ import java.util.Date;
  */
 @Schema(name = "系统用户信息表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("auth_user_info")

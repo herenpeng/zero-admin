@@ -3,8 +3,8 @@ package com.zero.sys.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.entity.Role;
-import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.kit.TokenKit;
+import com.zero.auth.mapper.RoleMapper;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
 import com.zero.sys.entity.Menu;
@@ -40,24 +40,16 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu) throws Exception {
+        return page(currentPage, size, queryMenu, false);
+    }
+
+
+    private IPage<Menu> page(Integer currentPage, Integer size, Menu queryMenu, Boolean deleted) throws Exception {
+        queryMenu.setDeleted(deleted);
         IPage<Menu> page = new Page<>(currentPage, size);
-        IPage<Menu> pageInfo = baseMapper.getPage(page, queryMenu);
-        for (Menu menu : pageInfo.getRecords()) {
-            findChildren(menu);
-        }
-        return pageInfo;
+        return baseMapper.getPage(page, queryMenu);
     }
 
-
-    private void findChildren(Menu menu) throws Exception {
-        List<Role> roles = roleMapper.getByMenuId(menu.getId());
-        menu.setRoles(roles);
-        List<Menu> children = baseMapper.getByParentId(menu.getId());
-        menu.setChildren(children);
-        for (Menu child : children) {
-            findChildren(child);
-        }
-    }
 
     @Override
     public List<Menu> list(Menu queryMenu) throws Exception {
@@ -66,20 +58,27 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
 
     @Override
-    public List<Menu> tree(Menu queryMenu) throws Exception {
-        queryMenu.setParentId(0);
-        List<Menu> list = baseMapper.getList(queryMenu);
-        for (Menu menu : list) {
-            findChildren(menu);
+    public List<Menu> tree() throws Exception {
+        return findChildren(0);
+    }
+
+
+    private List<Menu> findChildren(Integer parentId) throws Exception {
+        List<Menu> menus = baseMapper.getByParentId(parentId);
+        for (Menu menu : menus) {
+            List<Role> roles = roleMapper.getByMenuId(menu.getId());
+            menu.setRoles(roles);
+            List<Menu> children = findChildren(menu.getId());
+            menu.setChildren(children);
         }
-        return list;
+        return menus;
     }
 
 
     @Override
     public List<Menu> getRoutes() throws Exception {
         Integer userId = tokenKit.getUserId(request);
-        return getRoutes(userId, null);
+        return getRoutes(userId, 0);
     }
 
 
@@ -128,8 +127,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public IPage<Menu> recoverPage(Integer currentPage, Integer size, Menu queryMenu) throws Exception {
-        queryMenu.setDeleted(true);
-        return page(currentPage, size, queryMenu);
+        return page(currentPage, size, queryMenu, true);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.zero.common.base.service.BaseService;
 import com.zero.sys.entity.Menu;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.List;
 
 /**
@@ -38,11 +39,11 @@ public interface MenuService extends BaseService<Menu> {
 
     /**
      * 查询系统菜单表并构建树状结构
-     * @param queryMenu 查询系统菜单的条件
+     *
      * @return 查询系统菜单表并构建树状结构
      * @throws Exception 抛出异常
      */
-    List<Menu> tree(Menu queryMenu) throws Exception;
+    List<Menu> tree() throws Exception;
 
     /**
      * [动态路由]获取所有启用（enabled=1）的父级菜单信息，以及菜单的子菜单

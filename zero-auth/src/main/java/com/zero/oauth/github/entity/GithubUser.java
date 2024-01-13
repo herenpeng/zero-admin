@@ -60,7 +60,7 @@ import java.util.Date;
 @Hidden
 @Schema(name = "Github用户信息表")
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("oauth_github_user")

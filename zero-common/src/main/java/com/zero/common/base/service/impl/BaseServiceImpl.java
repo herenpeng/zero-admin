@@ -2,6 +2,7 @@ package com.zero.common.base.service.impl;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zero.common.base.entity.BaseEntity;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author herenpeng
  * @since 2020-10-30 22:06
  */
-public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
+public class BaseServiceImpl<M extends BaseMapper<E>, E extends BaseEntity> extends ServiceImpl<M, E> {
 
     @Autowired
     protected HttpServletRequest request;
