@@ -32,7 +32,11 @@ public class CodeGenerationKit {
         generationFile(tableInfo, TemplateEnum.CONTROLLER);
         generationFile(tableInfo, TemplateEnum.MAPPER_XML);
         // 生成前端代码
-        generationFile(tableInfo, TemplateEnum.VUE);
+        if (tableInfo.getTree()) {
+            generationFile(tableInfo, TemplateEnum.TREE);
+        } else {
+            generationFile(tableInfo, TemplateEnum.TABLE);
+        }
         generationFile(tableInfo, TemplateEnum.API);
     }
 

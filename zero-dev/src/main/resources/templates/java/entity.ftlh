@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
     <#if column.javaType == "BigDecimal" && HasBigDecimal>
 import java.math.BigDecimal;
     <#assign HasBigDecimal = false>
-    </#if>
-    <#if column.javaType == "Date" && HasDate && column.name != "create_time" && column.name != "update_time">
+    <#elseif column.javaType == "Date" && HasDate && column.name != "create_time" && column.name != "update_time">
 import java.util.Date;
     <#assign HasDate = false>
     </#if>

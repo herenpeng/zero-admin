@@ -84,9 +84,17 @@ public enum TemplateEnum {
     /**
      * Vue组件代码
      */
-    VUE(CodeTypeEnum.VUE,
+    TABLE(CodeTypeEnum.VUE,
             "/templates/vue",
-            "vue.ftlh",
+            "table.ftlh",
+            "/src/views",
+            "",
+            File.separator + "index",
+            ".vue"),
+
+    TREE(CodeTypeEnum.VUE,
+            "/templates/vue",
+            "tree.ftlh",
             "/src/views",
             "",
             File.separator + "index",

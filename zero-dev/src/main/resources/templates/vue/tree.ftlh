@@ -1,7 +1,5 @@
 <template>
   <div class="app-container">
-    <#if tree>
-<#--      树状结构-->
     <el-row :gutter="20">
       <el-col :span="6">
         <el-input
@@ -61,8 +59,7 @@
               <span>{{ row.${column.javaName} }}</span>
             </template>
           </el-table-column>
-              </#if>
-              <#if column.javaType == "Boolean">
+              <#elseif column.javaType == "Boolean">
           <el-table-column label="${column.comment}" width="100px" align="center">
             <template v-slot="{row}">
               <span>{{ row.${column.javaName} | ${column.javaName}Filter }}</span>
@@ -84,117 +81,32 @@
         </el-table>
       </el-col>
     </el-row>
-    <#else>
-<#--    普通表格  -->
-    <div class="filter-container">
-      <#list tableColumnList as column>
-        <#if column.query>
-      <#if column.javaType == "String">
-      <el-input v-model="listQuery.${column.javaName}" placeholder="${column.comment}" style="width: 200px;" class="filter-item"
-                @keyup.enter.native="handleFilter"
-      />
-      </#if>
-      <#if column.javaType == "Boolean">
-      <el-select v-model="listQuery.${column.javaName}" placeholder="${column.comment}" clearable class="filter-item"
-                 @change="handleFilter"
-      >
-        <el-option value="true" label="是" />
-        <el-option value="false" label="否" />
-      </el-select>
-      </#if>
-        </#if>
-      </#list>
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-        查询
-      </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit"
-                 @click="handleCreate"
-      >
-        添加
-      </el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download"
-                 @click="handleDownload"
-      >
-        导出
-      </el-button>
-    </div>
-
-    <el-table
-      :key="tableKey"
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      size="mini"
-      style="width: 100%;"
-      @sort-change="sortChange"
-    >
-      <el-table-column label="序号" type="index" sortable="true" align="center" width="80" />
-      <#list tableColumnList as column>
-        <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-            <#if column.javaType == "String" || column.javaType == "Integer">
-      <el-table-column label="${column.comment}" width="150px" align="center">
-        <template v-slot="{row}">
-          <span>{{ row.${column.javaName} }}</span>
-        </template>
-      </el-table-column>
-            </#if>
-            <#if column.javaType == "Boolean">
-      <el-table-column label="${column.comment}" width="100px" align="center">
-        <template v-slot="{row}">
-          <span>{{ row.${column.javaName} | ${column.javaName}Filter }}</span>
-        </template>
-      </el-table-column>
-            </#if>
-        </#if>
-      </#list>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300px">
-        <template v-slot="{row}">
-          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row)">
-            编辑
-          </el-button>
-          <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteData(row)">
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <pagination v-show="page.total > 0"
-                :total="page.total"
-                :page="page.currentPage"
-                :limit="page.size"
-                @pagination="handlePagination"
-    />
-    </#if>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="${entityName?uncap_first}" label-position="left" label-width="120px"
                style="width: 400px; margin-left:50px;"
       >
-      <#list tableColumnList as column>
-        <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-          <#if column.javaType == "String">
+        <#list tableColumnList as column>
+          <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+            <#if column.javaType == "String">
         <el-form-item label="${column.comment}" prop="${column.javaName}">
           <el-input v-model="${entityName?uncap_first}.${column.javaName}" placeholder="请输入${column.comment}" />
         </el-form-item>
-          </#if>
-          <#if column.javaType == "Integer">
+            <#elseif column.javaType == "Integer">
         <el-form-item label="${column.comment}" prop="${column.javaName}">
           <el-input v-model="${entityName?uncap_first}.${column.javaName}" type="number" placeholder="请输入${column.comment}" />
         </el-form-item>
-          </#if>
-          <#if column.javaType == "Boolean">
+            <#elseif column.javaType == "Boolean">
         <el-form-item label="是否${column.comment}" prop="${column.javaName}">
           <el-switch
-                v-model="${entityName?uncap_first}.${column.javaName}"
-                active-text="是"
-                inactive-text="否"
+              v-model="${entityName?uncap_first}.${column.javaName}"
+              active-text="是"
+              inactive-text="否"
           />
         </el-form-item>
+            </#if>
           </#if>
-        </#if>
-      </#list>
+        </#list>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">关闭</el-button>
@@ -207,58 +119,41 @@
 
 <script>
 import {
-  <#if tree>
   get${entityName}Tree,
-  <#else>
-  get${entityName}Page,
-  </#if>
   create${entityName},
   update${entityName},
   delete${entityName},
   export${entityName}Excel
 } from '@/api/${vuePackage?replace(".","/")}'
-<#if !tree>
-import Pagination from '@/components/Pagination'
-</#if>
 
 export default {
   name: '${entityName}',
-  <#if !tree>
-  components: { Pagination },
-  </#if>
   data() {
     return {
       tableKey: 0,
       list: [],
-      <#if !tree>
-      page: {
-        currentPage: 1,
-        size: 10,
-        total: 0
-      },
-      </#if>
       listLoading: false,
       <#assign queryNumber = 0>
       <#list tableColumnList as column>
-        <#if column.query>
-          <#assign queryNumber = queryNumber + 1>
-        </#if>
+      <#if column.query>
+      <#assign queryNumber = queryNumber + 1>
+      </#if>
       </#list>
       <#assign hasQueryNumber = 0>
       listQuery: {
         <#list tableColumnList as column>
-          <#if column.query>
-            <#assign hasQueryNumber = hasQueryNumber + 1>
-        ${column.javaName}: null<#if hasQueryNumber &lt; queryNumber>,</#if>
-          </#if>
+        <#if column.query>
+        <#assign hasQueryNumber = hasQueryNumber + 1>
+        ${column.javaName}: null<#if hasQueryNumber &lt; queryNumber>, </#if>
+        </#if>
         </#list>
       },
       tagType: ['', 'success', 'info', 'warning', 'danger'],
       ${entityName?uncap_first}: {
         <#list tableColumnList as column>
-          <#if column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+        <#if column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
         ${column.javaName}: null<#if column_index &lt; (tableColumnList?size - 6) >,</#if>
-          </#if>
+        </#if>
         </#list>
       },
       dialogFormVisible: false,
@@ -269,31 +164,26 @@ export default {
       },
       rules: {
         <#list tableColumnList as column>
-          <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+        <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
         ${column.javaName}: [{ required: true, message: '请输入${column.comment}', trigger: 'change' }]<#if column_index &lt; (tableColumnList?size - 6) >,</#if>
-          </#if>
+        </#if>
         </#list>
       },
       downloadLoading: false,
-      <#if tree>
       ${entityName?uncap_first}Tree: [],
       filterText: '',
       expandedKeys: []
-      </#if>
     }
   },
-  <#if tree>
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val)
     }
   },
-  </#if>
   created() {
     this.loadData()
   },
   methods: {
-    <#if tree>
     loadData() {
       this.listLoading = true
       get${entityName}Tree().then(res => {
@@ -329,23 +219,6 @@ export default {
     nodeCollapse(data) {
       this.expandedKeys.remove(data.id)
     },
-    <#else>
-    loadData() {
-      this.listLoading = true
-      get${entityName}Page(this.page, this.listQuery).then(res => {
-        setTimeout(() => {
-          if (this.listLoading === true) {
-            this.listLoading = false
-          }
-        }, 1000)
-        const page = res.data
-        this.list = page.records
-        this.page.total = page.total
-        this.listLoading = false
-        this.${entityName?uncap_first}Tree = this.buildTree(this.list)
-      })
-    },
-    </#if>
     handlePagination(page) {
       this.page.currentPage = page.page
       this.page.size = page.limit
@@ -420,9 +293,6 @@ export default {
       })
     },
     handleFilter() {
-      <#if !tree>
-      this.page.currentPage = 1
-      </#if>
       this.loadData()
     },
     sortChange(data) {
