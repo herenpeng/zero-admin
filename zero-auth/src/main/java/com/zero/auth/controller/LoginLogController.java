@@ -3,7 +3,7 @@ package com.zero.auth.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.LoginLog;
 import com.zero.auth.service.LoginLogService;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("login/log")
 public class LoginLogController extends BaseController<LoginLogService, LoginLog> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统账号登录日志表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -43,7 +43,7 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的系统账号登录日志表数据")
     @Parameters({
             @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件")
@@ -54,7 +54,7 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统账号登录日志表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -71,7 +71,7 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统账号登录日志表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统账号登录日志表ID", required = true)
@@ -83,7 +83,7 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统账号登录日志表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统账号登录日志表ID", required = true)
@@ -95,7 +95,7 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统账号登录日志表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryLoginLog", description = "系统账号登录日志表查询条件"),
@@ -106,7 +106,7 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
         baseService.exportExcel(queryLoginLog, response);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取当前在线的用户记录")
     @Parameters({
             @Parameter(name = "userId", description = "当前在线的用户主键", required = true)
@@ -117,7 +117,7 @@ public class LoginLogController extends BaseController<LoginLogService, LoginLog
         return ResponseEntity.ok(loginLogs);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过tokenId下线用户")
     @Parameters({
             @Parameter(name = "userId", description = "指定下线的用户主键", required = true),

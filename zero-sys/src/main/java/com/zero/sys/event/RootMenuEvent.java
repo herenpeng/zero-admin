@@ -45,7 +45,7 @@ public class RootMenuEvent implements AppEvent {
             MenuRole queryMenuRole = new MenuRole();
             queryMenuRole.setMenuId(menu.getId());
             queryMenuRole.setRoleId(role.getId());
-            QueryWrapper<MenuRole> queryWrapper = new QueryWrapper(queryMenuRole);
+            QueryWrapper<MenuRole> queryWrapper = new QueryWrapper<>(queryMenuRole);
             MenuRole menuRole = menuRoleMapper.selectOne(queryWrapper);
             if (ObjectUtils.isEmpty(menuRole)) {
                 menuRoleMapper.insert(menuRole);

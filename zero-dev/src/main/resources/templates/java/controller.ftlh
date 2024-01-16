@@ -1,7 +1,7 @@
 package ${javaPackageName}.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import ${javaPackageName}.entity.${entityName};
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("${requestMapping}")
 public class ${entityName}Controller extends BaseController<${entityName}Service, ${entityName}> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询${comment}数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -43,7 +43,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的${comment}数据")
     @Parameters({
             @Parameter(name = "query${entityName}", description = "${comment}查询条件")
@@ -55,7 +55,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
 
 
     <#if tree>
-    @LogOperation
+    @AppLog
     @Operation(description = "查询${comment}数据并构建树状结构")
     @GetMapping("tree")
     public ResponseEntity<List<${entityName}>> tree() throws Exception {
@@ -65,7 +65,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     </#if>
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的${comment}数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -82,7 +82,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的${comment}数据")
     @Parameters({
             @Parameter(name = "id", description = "${comment}ID", required = true)
@@ -94,7 +94,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条${comment}数据")
     @Parameters({
             @Parameter(name = "id", description = "${comment}ID", required = true)
@@ -106,7 +106,7 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出${comment}数据的Excel文件")
     @Parameters({
             @Parameter(name = "query${entityName}", description = "${comment}查询条件"),

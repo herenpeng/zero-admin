@@ -3,7 +3,7 @@ package com.zero.code.generation.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.code.generation.entity.TableInfo;
 import com.zero.code.generation.service.TableInfoService;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("table/info")
 public class TableInfoController extends BaseController<TableInfoService, TableInfo> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统数据库表信息数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -42,7 +42,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取还没有插入数据库中的数据库表信息")
     @GetMapping("not/list")
     public ResponseEntity<List<TableInfo>> getNotAddList() throws Exception {
@@ -51,7 +51,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "生成代码")
     @PostMapping("code/generation/{id}")
     public ResponseEntity<Void> codeGeneration(@PathVariable("id") Integer id) throws Exception {
@@ -59,7 +59,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
         return ResponseEntity.message("代码生成成功");
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统数据库表信息表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -76,7 +76,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统数据库表信息表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统数据库表信息表ID", required = true)
@@ -87,7 +87,7 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
         return ResponseEntity.ok();
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统数据库表信息表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统数据库表信息表ID", required = true)

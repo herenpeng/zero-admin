@@ -1,7 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.Organ;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("organ")
 public class OrganController extends BaseController<OrganService, Organ> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统组织机构表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -43,7 +43,7 @@ public class OrganController extends BaseController<OrganService, Organ> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的系统组织机构表数据")
     @Parameters({
             @Parameter(name = "queryOrgan", description = "系统组织机构表查询条件")
@@ -54,7 +54,7 @@ public class OrganController extends BaseController<OrganService, Organ> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询系统组织机构表数据并构建树状结构")
     @GetMapping("tree")
     public ResponseEntity<List<Organ>> tree() throws Exception {
@@ -63,7 +63,7 @@ public class OrganController extends BaseController<OrganService, Organ> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统组织机构表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -80,7 +80,7 @@ public class OrganController extends BaseController<OrganService, Organ> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统组织机构表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统组织机构表ID", required = true)
@@ -92,7 +92,7 @@ public class OrganController extends BaseController<OrganService, Organ> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统组织机构表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统组织机构表ID", required = true)
@@ -104,7 +104,7 @@ public class OrganController extends BaseController<OrganService, Organ> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统组织机构表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryOrgan", description = "系统组织机构表查询条件"),

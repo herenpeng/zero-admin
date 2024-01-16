@@ -1,6 +1,6 @@
 package com.zero.upload.controller;
 
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.upload.service.UploadService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +30,7 @@ public class UploadController {
 
     private final UploadService uploadService;
 
-    @LogOperation
+    @AppLog
     @Operation(description = "上传图片文件")
     @Parameters({
             @Parameter(name = "file", description = "上传的图片文件", required = true)

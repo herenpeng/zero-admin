@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.service.UserService;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController extends BaseController<UserService, User> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询用户数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -44,7 +44,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "启用或者禁用一个用户账号")
     @Parameters({
             @Parameter(name = "id", description = "用户ID", required = true),
@@ -70,7 +70,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "删除用户角色")
     @Parameters({
             @Parameter(name = "userId", description = "用户主键", required = true),
@@ -85,7 +85,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取该用户未拥有的角色")
     @Parameters({
             @Parameter(name = "userId", description = "用户主键", required = true)
@@ -98,7 +98,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "添加用户角色")
     @Parameters({
             @Parameter(name = "userId", description = "用户主键", required = true),
@@ -113,7 +113,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "检测用户名是否已存在")
     @Parameters({
             @Parameter(name = "username", description = "用户名", required = true)
@@ -124,7 +124,7 @@ public class UserController extends BaseController<UserService, User> {
         return ResponseEntity.ok(result);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "检测用户密码是否正确")
     @Parameters({
             @Parameter(name = "password", description = "用户密码", required = true)
@@ -135,7 +135,7 @@ public class UserController extends BaseController<UserService, User> {
         return ResponseEntity.ok(result);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的用户数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -152,7 +152,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的用户数据")
     @Parameters({
             @Parameter(name = "id", description = "用户ID", required = true)
@@ -164,7 +164,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条用户数据")
     @Parameters({
             @Parameter(name = "id", description = "用户ID", required = true)
@@ -176,7 +176,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出用户列表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryUser", description = "用户查询条件"),
@@ -188,7 +188,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "重置用户账号密码")
     @Parameters({
             @Parameter(name = "oldPassword", description = "旧密码"),

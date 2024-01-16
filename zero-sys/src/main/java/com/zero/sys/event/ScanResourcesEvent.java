@@ -261,10 +261,10 @@ public class ScanResourcesEvent implements AppEvent {
      * @return 返回拼接之后的路径
      */
     private String splicingUri(String beanPath, String methodPath) {
-        if (StringUtils.isNoneBlank(beanPath) && !beanPath.startsWith(AppConst.PATH_SEPARATOR)) {
+        if (StringUtils.isNotBlank(beanPath) && !beanPath.startsWith(AppConst.PATH_SEPARATOR)) {
             beanPath = AppConst.PATH_SEPARATOR + beanPath;
         }
-        if (StringUtils.isNoneBlank(methodPath) && !methodPath.startsWith(AppConst.PATH_SEPARATOR)) {
+        if (StringUtils.isNotBlank(methodPath) && !methodPath.startsWith(AppConst.PATH_SEPARATOR)) {
             methodPath = AppConst.PATH_SEPARATOR + methodPath;
         }
         return beanPath + methodPath;

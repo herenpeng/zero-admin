@@ -3,6 +3,7 @@ package com.zero.common.http.util;
 import com.zero.common.constant.AppConst;
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.properties.HttpThirdApi;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -12,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * IP工具类

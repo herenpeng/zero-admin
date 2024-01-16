@@ -2,7 +2,7 @@ package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.UserInfo;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.service.UserInfoService;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("user/info")
 public class UserInfoController extends BaseController<UserInfoService, UserInfo> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统用户信息表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -44,7 +44,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的系统用户信息表数据")
     @Parameters({
             @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件")
@@ -54,7 +54,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
         return ResponseEntity.ok(baseService.list(queryUserInfo));
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询当前登录用户的信息数据")
     @GetMapping
     public ResponseEntity<UserInfo> info() throws Exception {
@@ -63,7 +63,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统用户信息表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -80,7 +80,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统用户信息表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统用户信息表ID", required = true)
@@ -92,7 +92,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统用户信息表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统用户信息表ID", required = true)
@@ -104,7 +104,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统用户信息表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryUserInfo", description = "系统用户信息表查询条件"),
@@ -116,7 +116,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "上传用户头像")
     @Parameters({
             @Parameter(name = "file", description = "上传的用户头像", required = true)
@@ -128,7 +128,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取用户头像路径")
     @GetMapping("avatar")
     public ResponseEntity<String> getAvatar() throws Exception {
@@ -137,7 +137,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "发送电子邮件号码验证邮件")
     @Parameters({
             @Parameter(name = "mail", description = "电子邮件号码", required = true)
@@ -148,7 +148,7 @@ public class UserInfoController extends BaseController<UserInfoService, UserInfo
         return ResponseEntity.ok(result);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "验证邮件验证码")
     @Parameters({
             @Parameter(name = "mail", description = "电子邮件号码", required = true),

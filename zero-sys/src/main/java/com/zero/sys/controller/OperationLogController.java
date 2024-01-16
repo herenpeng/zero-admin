@@ -1,7 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.OperationLog;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("operation/log")
 public class OperationLogController extends BaseController<OperationLogService, OperationLog> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统操作日志表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -43,7 +43,7 @@ public class OperationLogController extends BaseController<OperationLogService, 
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的系统操作日志表数据")
     @Parameters({
             @Parameter(name = "queryOperationLog", description = "系统操作日志表查询条件")
@@ -54,7 +54,7 @@ public class OperationLogController extends BaseController<OperationLogService, 
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统操作日志表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -71,7 +71,7 @@ public class OperationLogController extends BaseController<OperationLogService, 
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统操作日志表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统操作日志表ID", required = true)
@@ -82,7 +82,7 @@ public class OperationLogController extends BaseController<OperationLogService, 
         return ResponseEntity.ok();
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统操作日志表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统操作日志表ID", required = true)
@@ -93,7 +93,7 @@ public class OperationLogController extends BaseController<OperationLogService, 
         return ResponseEntity.message("彻底删除该系统操作日志数据");
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出操作日志列表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryOperationLog", description = "操作日志查询条件"),

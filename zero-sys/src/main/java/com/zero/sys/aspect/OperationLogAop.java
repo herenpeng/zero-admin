@@ -2,7 +2,7 @@ package com.zero.sys.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zero.auth.kit.TokenKit;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.constant.AppConst;
 import com.zero.common.http.util.IpUtils;
 import com.zero.common.kit.JsonKit;
@@ -13,7 +13,6 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -47,11 +46,11 @@ public class OperationLogAop {
 
     private final OperationLogMapper operationLogMapper;
 
-    @Pointcut("@annotation(com.zero.common.annotation.LogOperation)")
-    public void logOperationAop() {
+    @Pointcut("@annotation(com.zero.common.annotation.AppLog)")
+    public void operationLogAop() {
     }
 
-    @Around("logOperationAop()")
+    @Around("operationLogAop()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed = null;
         OperationLog operationLog = new OperationLog();
@@ -99,12 +98,12 @@ public class OperationLogAop {
         // 设置方法描述信息
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
-        LogOperation logOperation = method.getAnnotation(LogOperation.class);
-        if (ObjectUtils.allNotNull(logOperation) && StringUtils.isNotBlank(logOperation.value())) {
-            log.setDescription(logOperation.value());
+        AppLog appLog = method.getAnnotation(AppLog.class);
+        if (appLog != null && StringUtils.isNotBlank(appLog.value())) {
+            log.setDescription(appLog.value());
         } else {
             Operation apiOperation = method.getAnnotation(Operation.class);
-            if (ObjectUtils.allNotNull(apiOperation)) {
+            if (apiOperation != null) {
                 log.setDescription(apiOperation.description());
             }
         }

@@ -2,7 +2,7 @@ package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.Role;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.Menu;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("menu")
 public class MenuController extends BaseController<MenuService, Menu> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统菜单表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -44,7 +44,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询系统菜单表数据")
     @Parameters({
             @Parameter(name = "queryMenu", description = "系统菜单表查询条件")
@@ -56,7 +56,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询系统菜单表并构建树状结构")
     @GetMapping("tree")
     public ResponseEntity<List<Menu>> tree() throws Exception {
@@ -65,7 +65,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "[动态路由]获取所有启用的系统菜单")
     @GetMapping("routes")
     public ResponseEntity<List<Menu>> routes() throws Exception {
@@ -74,7 +74,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "隐藏或者显示一个菜单")
     @Parameters({
             @Parameter(name = "id", description = "菜单ID", required = true),
@@ -88,7 +88,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
         return ResponseEntity.ok();
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "启用或者禁用一个菜单")
     @Parameters({
             @Parameter(name = "id", description = "菜单ID", required = true),
@@ -103,7 +103,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "删除菜单角色")
     @Parameters({
             @Parameter(name = "menuId", description = "菜单主键", required = true),
@@ -118,7 +118,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取该菜单未拥有的角色")
     @Parameters({
             @Parameter(name = "menuId", description = "菜单主键", required = true)
@@ -131,7 +131,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "添加菜单角色")
     @Parameters({
             @Parameter(name = "menuId", description = "菜单主键", required = true),
@@ -146,7 +146,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统菜单表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -163,7 +163,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统菜单表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统菜单表ID", required = true)
@@ -174,7 +174,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
         return ResponseEntity.ok();
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统菜单表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统菜单表ID", required = true)
@@ -185,7 +185,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
         return ResponseEntity.message("彻底删除该系统菜单表数据");
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统菜单列表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryMenu", description = "系统菜单查询条件"),

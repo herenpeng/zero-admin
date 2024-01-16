@@ -1,6 +1,6 @@
 package com.zero.sys.controller;
 
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.http.domain.WeatherInfo;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.service.IndexService;
@@ -30,7 +30,7 @@ public class IndexController {
 
     private final IndexService indexService;
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取当前城市的天气预报信息")
     @GetMapping("weather")
     public ResponseEntity<WeatherInfo.Data> weather(HttpServletRequest request) throws Exception {
@@ -38,7 +38,7 @@ public class IndexController {
         return ResponseEntity.ok(data);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取系统首页的展示数据")
     @GetMapping("panel/group")
     public ResponseEntity<PanelGroup> panelGroup() throws Exception {
@@ -46,7 +46,7 @@ public class IndexController {
         return ResponseEntity.ok(panelGroup);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取系统首页的用户登录地图数据")
     @GetMapping("login/map")
     public ResponseEntity<List<LoginMap>> loginMap() throws Exception {

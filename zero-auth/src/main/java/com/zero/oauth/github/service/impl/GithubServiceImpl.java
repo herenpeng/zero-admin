@@ -4,16 +4,17 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.enums.LoginTypeEnum;
+import com.zero.auth.kit.LoginUtils;
 import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserInfoMapper;
 import com.zero.auth.mapper.UserMapper;
-import com.zero.auth.kit.LoginUtils;
 import com.zero.auth.service.RoleService;
 import com.zero.oauth.github.entity.GithubUser;
 import com.zero.oauth.github.mapper.GithubUserMapper;
 import com.zero.oauth.github.service.GithubService;
 import com.zero.oauth.github.util.GithubUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 

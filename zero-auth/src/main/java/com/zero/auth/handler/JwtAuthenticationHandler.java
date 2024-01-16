@@ -2,9 +2,9 @@ package com.zero.auth.handler;
 
 import com.zero.auth.entity.Resources;
 import com.zero.auth.entity.Role;
+import com.zero.auth.kit.TokenKit;
 import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.properties.JwtProperties;
-import com.zero.auth.kit.TokenKit;
 import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;

@@ -1,7 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.UserConfig;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("user/config")
 public class UserConfigController extends BaseController<UserConfigService, UserConfig> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统用户配置表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -43,7 +43,7 @@ public class UserConfigController extends BaseController<UserConfigService, User
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的系统用户配置表数据")
     @Parameters({
             @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件")
@@ -54,7 +54,7 @@ public class UserConfigController extends BaseController<UserConfigService, User
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "更新用户配置数据")
     @Parameters({
             @Parameter(name = "key", description = "常量键值"),
@@ -67,7 +67,7 @@ public class UserConfigController extends BaseController<UserConfigService, User
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统用户配置表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -84,7 +84,7 @@ public class UserConfigController extends BaseController<UserConfigService, User
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统用户配置表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统用户配置表ID", required = true)
@@ -96,7 +96,7 @@ public class UserConfigController extends BaseController<UserConfigService, User
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统用户配置表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统用户配置表ID", required = true)
@@ -108,7 +108,7 @@ public class UserConfigController extends BaseController<UserConfigService, User
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统用户配置表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryUserConfig", description = "系统用户配置表查询条件"),

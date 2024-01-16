@@ -1,7 +1,7 @@
 package com.zero.code.generation.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.code.generation.entity.TableColumn;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("table/column")
 public class TableColumnController extends BaseController<TableColumnService, TableColumn> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统数据库表字段信息表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -43,7 +43,7 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的系统数据库表字段信息表数据")
     @Parameters({
             @Parameter(name = "queryTableColumn", description = "系统数据库表字段信息表查询条件")
@@ -54,7 +54,7 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统数据库表字段信息表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -71,7 +71,7 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统数据库表字段信息表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统数据库表字段信息表ID", required = true)
@@ -83,7 +83,7 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统数据库表字段信息表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统数据库表字段信息表ID", required = true)
@@ -94,7 +94,7 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
         return ResponseEntity.message("彻底删除该系统数据库表字段信息表数据");
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过tableInfoId获取所有的字段信息")
     @Parameters({
             @Parameter(name = "tableInfoId", description = "tableInfo主键", required = true)
@@ -106,7 +106,7 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统数据库表字段信息表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryTableColumn", description = "系统数据库表字段信息表查询条件"),

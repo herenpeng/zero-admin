@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.Resources;
 import com.zero.auth.entity.Role;
 import com.zero.auth.service.ResourcesService;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("resources")
 public class ResourcesController extends BaseController<ResourcesService, Resources> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统资源数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -44,7 +44,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "删除系统资源角色")
     @Parameters({
             @Parameter(name = "ResourcesId", description = "系统资源主键", required = true),
@@ -59,7 +59,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "获取未拥有该系统资源的角色")
     @Parameters({
             @Parameter(name = "resourcesId", description = "系统资源主键", required = true)
@@ -72,7 +72,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "添加系统资源角色")
     @Parameters({
             @Parameter(name = "ResourcesId", description = "系统资源主键", required = true),
@@ -87,7 +87,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统资源表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -104,7 +104,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统资源表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统资源表ID", required = true)
@@ -115,7 +115,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
         return ResponseEntity.ok();
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统资源表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统资源表ID", required = true)
@@ -126,7 +126,7 @@ public class ResourcesController extends BaseController<ResourcesService, Resour
         return ResponseEntity.message("彻底删除该系统资源数据");
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统资源列表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryResources", description = "系统资源查询条件"),

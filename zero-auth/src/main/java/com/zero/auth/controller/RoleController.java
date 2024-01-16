@@ -3,7 +3,7 @@ package com.zero.auth.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.Role;
 import com.zero.auth.service.RoleService;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("role")
 public class RoleController extends BaseController<RoleService, Role> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询角色数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -47,7 +47,7 @@ public class RoleController extends BaseController<RoleService, Role> {
      *
      * @return 所有的用户角色集合
      */
-    @LogOperation
+    @AppLog
     @Operation(description = "获取所有的用户角色")
     @Parameters({
             @Parameter(name = "queryRole", description = "角色查询条件")
@@ -57,7 +57,7 @@ public class RoleController extends BaseController<RoleService, Role> {
         return ResponseEntity.ok(baseService.list(queryRole));
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "检测角色名称是否已存在")
     @Parameters({
             @Parameter(name = "name", description = "角色名称", required = true)
@@ -68,7 +68,7 @@ public class RoleController extends BaseController<RoleService, Role> {
         return ResponseEntity.ok(result);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键设置或者取消默认角色")
     @Parameters({
             @Parameter(name = "role", description = "角色实体", required = true)
@@ -80,7 +80,7 @@ public class RoleController extends BaseController<RoleService, Role> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统角色表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -97,7 +97,7 @@ public class RoleController extends BaseController<RoleService, Role> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统角色表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统角色表ID", required = true)
@@ -108,7 +108,7 @@ public class RoleController extends BaseController<RoleService, Role> {
         return ResponseEntity.ok();
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统角色表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统角色表ID", required = true)
@@ -119,7 +119,7 @@ public class RoleController extends BaseController<RoleService, Role> {
         return ResponseEntity.message("彻底删除该角色数据");
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出角色列表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryRole", description = "角色查询条件"),

@@ -1,6 +1,6 @@
 package com.zero.mail.controller;
 
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.mail.domain.ToMail;
 import com.zero.mail.service.MailService;
@@ -29,7 +29,7 @@ public class MailController {
 
     private final MailService mailService;
 
-    @LogOperation
+    @AppLog
     @Operation(description = "发送普通文本邮件")
     @Parameters({
             @Parameter(name = "toMail", description = "邮件接收封装实体", required = true)}
@@ -41,7 +41,7 @@ public class MailController {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "发送HTML模板邮件")
     @Parameters({
             @Parameter(name = "toMail", description = "邮件接收封装实体", required = true)}

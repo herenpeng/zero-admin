@@ -1,6 +1,6 @@
 package com.zero.common.base.controller;
 
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.entity.BaseEntity;
 import com.zero.common.base.service.BaseService;
 import com.zero.common.domain.ResponseEntity;
@@ -21,7 +21,7 @@ public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
     @Autowired
     protected S baseService;
 
-    @LogOperation
+    @AppLog
     @Operation(description = "[通用方法]通过主键获取一条对应实体类的数据库记录")
     @Parameters({
             @Parameter(name = "id", description = "实体主键", required = true)
@@ -32,7 +32,7 @@ public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
         return ResponseEntity.ok(entity);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "[通用方法]插入一条对应实体类的数据库记录")
     @Parameters({
             @Parameter(name = "entity", description = "实体对象", required = true)
@@ -44,7 +44,7 @@ public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "[通用方法]更新一条对应实体类的数据库记录")
     @Parameters({
             @Parameter(name = "entity", description = "实体对象", required = true)
@@ -56,7 +56,7 @@ public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "[通用方法]通过主键删除一条对应实体类的数据库记录")
     @Parameters({
             @Parameter(name = "id", description = "实体主键", required = true)

@@ -2,11 +2,11 @@ package com.zero.auth.service.impl;
 
 import com.zero.auth.entity.User;
 import com.zero.auth.enums.LoginTypeEnum;
+import com.zero.auth.kit.LoginUtils;
 import com.zero.auth.kit.PasswordKit;
+import com.zero.auth.kit.TokenKit;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.properties.JwtProperties;
-import com.zero.auth.kit.LoginUtils;
-import com.zero.auth.kit.TokenKit;
 import com.zero.auth.service.LoginLogService;
 import com.zero.auth.service.LoginService;
 import com.zero.common.constant.AppConst;

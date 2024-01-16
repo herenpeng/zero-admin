@@ -1,7 +1,7 @@
 package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.entity.ConfigConst;
@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ import java.util.Map;
 @RequestMapping("config/const")
 public class ConfigConstController extends BaseController<ConfigConstService, ConfigConst> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询系统配置常量表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -44,7 +45,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的系统配置常量表数据")
     @Parameters({
             @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件")
@@ -55,7 +56,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的常量键值数据")
     @Parameters({
             @Parameter(name = "key", description = "常量键值"),
@@ -66,7 +67,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
         return ResponseEntity.ok(baseService.getKeyList(key, userable));
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询常量键值配置数据")
     @Parameters({
 
@@ -77,7 +78,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "批量查询常量键值配置数据")
     @Parameters({
             @Parameter(name = "keys", description = "常量键值集合")
@@ -88,7 +89,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的系统配置常量表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -105,7 +106,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的系统配置常量表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统配置常量表ID", required = true)
@@ -117,7 +118,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条系统配置常量表数据")
     @Parameters({
             @Parameter(name = "id", description = "系统配置常量表ID", required = true)
@@ -129,7 +130,7 @@ public class ConfigConstController extends BaseController<ConfigConstService, Co
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出系统配置常量表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryConfigConst", description = "系统配置常量表查询条件"),

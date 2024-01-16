@@ -1,7 +1,7 @@
 package com.zero.upload.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.common.annotation.LogOperation;
+import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
 import com.zero.upload.entity.FileManage;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("file/manage")
 public class FileManageController extends BaseController<FileManageService, FileManage> {
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询文件资源管理表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -44,7 +44,7 @@ public class FileManageController extends BaseController<FileManageService, File
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "查询所有的文件资源管理表数据")
     @Parameters({
             @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件")
@@ -55,7 +55,7 @@ public class FileManageController extends BaseController<FileManageService, File
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "分页查询逻辑删除的文件资源管理表数据")
     @Parameters({
             @Parameter(name = "currentPage", description = "当前页码", required = true),
@@ -72,7 +72,7 @@ public class FileManageController extends BaseController<FileManageService, File
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键恢复逻辑删除的文件资源管理表数据")
     @Parameters({
             @Parameter(name = "id", description = "文件资源管理表ID", required = true)
@@ -84,7 +84,7 @@ public class FileManageController extends BaseController<FileManageService, File
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键彻底删除一条文件资源管理表数据")
     @Parameters({
             @Parameter(name = "id", description = "文件资源管理表ID", required = true)
@@ -96,7 +96,7 @@ public class FileManageController extends BaseController<FileManageService, File
     }
 
 
-    @LogOperation
+    @AppLog
     @Operation(description = "导出文件资源管理表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryFileManage", description = "文件资源管理表查询条件"),
@@ -107,7 +107,7 @@ public class FileManageController extends BaseController<FileManageService, File
         baseService.exportExcel(queryFileManage, response);
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键备份一个文件资源")
     @Parameters({
             @Parameter(name = "id", description = "文件资源管理表主键", required = true)
@@ -118,7 +118,7 @@ public class FileManageController extends BaseController<FileManageService, File
         return ResponseEntity.message("备份成功");
     }
 
-    @LogOperation
+    @AppLog
     @Operation(description = "通过主键替换一个文件资源")
     @Parameters({
             @Parameter(name = "id", description = "文件资源管理表主键", required = true),
