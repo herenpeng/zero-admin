@@ -1,4 +1,4 @@
-package com.zero.code.generation.enums;
+package com.zero.code.generate.enums;
 
 /**
  * @author herenpeng

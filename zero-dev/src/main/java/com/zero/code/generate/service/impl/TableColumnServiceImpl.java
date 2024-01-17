@@ -1,11 +1,11 @@
-package com.zero.code.generation.service.impl;
+package com.zero.code.generate.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zero.code.generation.entity.TableColumn;
-import com.zero.code.generation.mapper.TableColumnMapper;
-import com.zero.code.generation.service.TableColumnService;
+import com.zero.code.generate.entity.TableColumn;
+import com.zero.code.generate.mapper.TableColumnMapper;
+import com.zero.code.generate.service.TableColumnService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
 import jakarta.servlet.http.HttpServletResponse;

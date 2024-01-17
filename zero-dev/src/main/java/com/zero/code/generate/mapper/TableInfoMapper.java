@@ -1,8 +1,8 @@
-package com.zero.code.generation.mapper;
+package com.zero.code.generate.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.code.generation.entity.TableInfo;
+import com.zero.code.generate.entity.TableInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

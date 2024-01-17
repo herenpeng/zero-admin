@@ -17,8 +17,8 @@ public class CamelCaseKit {
      * @param string 小驼峰命名名称
      * @return 下划线命名名称
      */
-    public static String toUnderscoreName(String string) {
-        return toName(string, AppConst.UNDERSCORE_SEPARATOR);
+    public static String toUnderlineName(String string) {
+        return toName(string, AppConst.UNDERLINE_SEPARATOR);
     }
 
     /**
@@ -27,8 +27,8 @@ public class CamelCaseKit {
      * @param string 小驼峰命名名称
      * @return 中划线命名名称
      */
-    public static String toUnderlineName(String string) {
-        return toName(string, AppConst.UNDERLINE_SEPARATOR);
+    public static String toStrikeName(String string) {
+        return toName(string, AppConst.STRIKE_SEPARATOR);
     }
 
     /**
@@ -68,7 +68,7 @@ public class CamelCaseKit {
         boolean upperCase = false;
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
-            if (ch == AppConst.UNDERSCORE_SEPARATOR) {
+            if (ch == AppConst.UNDERLINE_SEPARATOR) {
                 upperCase = true;
             } else if (upperCase) {
                 sb.append(Character.toUpperCase(ch));
@@ -87,10 +87,10 @@ public class CamelCaseKit {
      * @return 大驼峰命名名称
      */
     public static String toCapitalizeCamelCase(String string) {
+        string = toCamelCase(string);
         if (StringUtils.isBlank(string)) {
             return null;
         }
-        string = toCamelCase(string);
         return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 

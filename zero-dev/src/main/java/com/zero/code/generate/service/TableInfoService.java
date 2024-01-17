@@ -1,7 +1,7 @@
-package com.zero.code.generation.service;
+package com.zero.code.generate.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.code.generation.entity.TableInfo;
+import com.zero.code.generate.entity.TableInfo;
 import com.zero.common.base.service.BaseService;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public interface TableInfoService extends BaseService<TableInfo> {
      * @param id 数据表信息表主键
      * @throws Exception 抛出异常
      */
-    void codeGeneration(Integer id) throws Exception;
+    void codeGenerate(Integer id) throws Exception;
 
     /**
      * 分页查询逻辑删除的系统数据库表信息表数据

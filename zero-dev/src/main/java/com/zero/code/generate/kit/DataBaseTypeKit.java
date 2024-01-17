@@ -1,4 +1,4 @@
-package com.zero.code.generation.util;
+package com.zero.code.generate.kit;
 
 import java.util.HashMap;
 import java.util.Map;

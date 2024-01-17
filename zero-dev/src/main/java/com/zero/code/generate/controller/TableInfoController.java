@@ -1,8 +1,8 @@
-package com.zero.code.generation.controller;
+package com.zero.code.generate.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.code.generation.entity.TableInfo;
-import com.zero.code.generation.service.TableInfoService;
+import com.zero.code.generate.entity.TableInfo;
+import com.zero.code.generate.service.TableInfoService;
 import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
@@ -53,9 +53,9 @@ public class TableInfoController extends BaseController<TableInfoService, TableI
 
     @AppLog
     @Operation(description = "生成代码")
-    @PostMapping("code/generation/{id}")
-    public ResponseEntity<Void> codeGeneration(@PathVariable("id") Integer id) throws Exception {
-        baseService.codeGeneration(id);
+    @PostMapping("code/generate/{id}")
+    public ResponseEntity<Void> codeGenerate(@PathVariable("id") Integer id) throws Exception {
+        baseService.codeGenerate(id);
         return ResponseEntity.message("代码生成成功");
     }
 

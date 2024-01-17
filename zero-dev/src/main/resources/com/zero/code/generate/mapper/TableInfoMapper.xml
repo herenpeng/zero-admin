@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zero.code.generation.mapper.TableInfoMapper">
+<mapper namespace="com.zero.code.generate.mapper.TableInfoMapper">
 
-    <resultMap id="resultMap" type="com.zero.code.generation.entity.TableInfo">
+    <resultMap id="resultMap" type="com.zero.code.generate.entity.TableInfo">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="comment" jdbcType="VARCHAR" property="comment"/>
@@ -13,6 +13,7 @@
         <result column="vue_code_path" jdbcType="VARCHAR" property="vueCodePath"/>
         <result column="vue_package" jdbcType="VARCHAR" property="vuePackage"/>
         <result column="tree" jdbcType="BOOLEAN" property="tree"/>
+        <result column="cover" jdbcType="BOOLEAN" property="cover"/>
         <result column="code_author" jdbcType="VARCHAR" property="codeAuthor"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
@@ -23,7 +24,7 @@
 
     <sql id="baseColumn">
         `id`, `name`, `comment`, `entity_name`, `request_mapping`, `java_code_path`, `vue_code_path`,
-        `vue_package`,`tree`,`java_package_name`, `code_author`
+        `vue_package`,`tree`,`cover`,`java_package_name`, `code_author`
     </sql>
 
     <sql id="baseQuery">
@@ -50,7 +51,7 @@
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,`request_mapping` as request_mapping,
         `java_package_name` as java_package_name,`java_code_path` as java_code_path,`vue_code_path` as vue_code_path,
-        `vue_package` as vue_package, `tree` as tree, `code_author` as code_author
+        `vue_package` as vue_package, `tree` as tree, `cover` as cover, `code_author` as code_author
         from dev_table_info
         where 1 = 1
         <include refid="baseQuery"/>

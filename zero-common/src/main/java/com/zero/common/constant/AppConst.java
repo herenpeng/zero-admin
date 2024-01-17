@@ -26,12 +26,12 @@ public class AppConst {
     /**
      * 下划线分隔符 Underscore
      */
-    public static final char UNDERSCORE_SEPARATOR = '_';
+    public static final char UNDERLINE_SEPARATOR = '_';
 
     /**
-     * 下划线分隔符 underline
+     * 中划线分隔符 underline
      */
-    public static final char UNDERLINE_SEPARATOR = '-';
+    public static final char STRIKE_SEPARATOR = '-';
 
     /**
      * 一个字符串空格位置

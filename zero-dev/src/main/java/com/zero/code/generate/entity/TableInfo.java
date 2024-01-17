@@ -1,4 +1,4 @@
-package com.zero.code.generation.entity;
+package com.zero.code.generate.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -81,10 +81,19 @@ public class TableInfo extends BaseEntity {
     @TableField(value = "vue_package")
     private String vuePackage;
 
-
+    /**
+     * 是否为树状结构
+     */
     @Schema(name = "是否为树状结构")
     @TableField(value = "tree")
     private Boolean tree;
+
+    /**
+     * 是否覆盖同名文件
+     */
+    @Schema(name = "是否覆盖同名文件")
+    @TableField(value = "cover")
+    private Boolean cover;
 
     /**
      * 代码作者

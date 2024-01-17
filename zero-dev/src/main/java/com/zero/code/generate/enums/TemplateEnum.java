@@ -1,4 +1,4 @@
-package com.zero.code.generation.enums;
+package com.zero.code.generate.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +23,6 @@ public enum TemplateEnum {
             "entity.ftlh",
             "/src/main/java",
             ".entity",
-            "",
             ".java"),
 
     /**
@@ -34,8 +33,7 @@ public enum TemplateEnum {
             "mapper.ftlh",
             "/src/main/java",
             ".mapper",
-            "Mapper",
-            ".java"),
+            "Mapper.java"),
 
     /**
      * Mapper层XML文件相关信息枚举
@@ -45,8 +43,7 @@ public enum TemplateEnum {
             "mapperXml.ftlh",
             "/src/main/resources",
             ".mapper",
-            "Mapper",
-            ".xml"),
+            "Mapper.xml"),
 
     /**
      * Service层接口相关信息枚举
@@ -56,8 +53,7 @@ public enum TemplateEnum {
             "service.ftlh",
             "/src/main/java",
             ".service",
-            "Service",
-            ".java"),
+            "Service.java"),
 
     /**
      * Service层接口实现类相关信息枚举
@@ -67,8 +63,7 @@ public enum TemplateEnum {
             "serviceImpl.ftlh",
             "/src/main/java",
             ".service.impl",
-            "ServiceImpl",
-            ".java"),
+            "ServiceImpl.java"),
 
     /**
      * Controller层相关信息枚举
@@ -78,8 +73,7 @@ public enum TemplateEnum {
             "controller.ftlh",
             "/src/main/java",
             ".controller",
-            "Controller",
-            ".java"),
+            "Controller.java"),
 
     /**
      * Vue组件代码
@@ -89,16 +83,22 @@ public enum TemplateEnum {
             "table.ftlh",
             "/src/views",
             "",
-            File.separator + "index",
-            ".vue"),
+            File.separator + "index.vue"),
 
     TREE(CodeTypeEnum.VUE,
             "/templates/vue",
             "tree.ftlh",
             "/src/views",
             "",
-            File.separator + "index",
-            ".vue"),
+            File.separator + "index.vue"),
+
+
+    RECOVER(CodeTypeEnum.VUE,
+            "/templates/vue",
+            "recover.ftlh",
+            "/src/views/recover",
+            "",
+            File.separator + "index.vue"),
 
     /**
      * Vue组件API代码
@@ -107,7 +107,6 @@ public enum TemplateEnum {
             "/templates/vue",
             "api.ftlh",
             "/src/api",
-            "",
             "",
             ".js");
 
@@ -140,9 +139,5 @@ public enum TemplateEnum {
      */
     private final String suffix;
 
-    /**
-     * 文件后缀名称
-     */
-    private final String fileSuffix;
 
 }

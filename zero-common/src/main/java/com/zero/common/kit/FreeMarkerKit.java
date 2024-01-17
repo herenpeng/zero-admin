@@ -36,16 +36,16 @@ public class FreeMarkerKit {
             template.process(object, out);
             return out.toString();
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("[freemarker工具类]FreeMarker读取模板文件异常");
+            e.printStackTrace();
         } finally {
             if (out != null) {
                 try {
                     out.flush();
                     out.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                     log.error("[freemarker工具类]FreeMarker读取模板文件输出流关闭异常");
+                    e.printStackTrace();
                 }
             }
         }

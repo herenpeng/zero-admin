@@ -1,11 +1,11 @@
-package com.zero.code.generation.controller;
+package com.zero.code.generate.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
-import com.zero.code.generation.entity.TableColumn;
-import com.zero.code.generation.service.TableColumnService;
+import com.zero.code.generate.entity.TableColumn;
+import com.zero.code.generate.service.TableColumnService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
