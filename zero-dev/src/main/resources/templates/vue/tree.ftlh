@@ -217,12 +217,12 @@ export default {
       this.expandedKeys.push(data.id)
     },
     nodeCollapse(data) {
-      this.expandedKeys.remove(data.id)
-    },
-    handlePagination(page) {
-      this.page.currentPage = page.page
-      this.page.size = page.limit
-      this.loadData()
+      this.expandedKeys = this.expandedKeys.filter(num => num !== data.id)
+      if (data.children) {
+        for (const child of data.children) {
+          this.nodeCollapse(child)
+        }
+      }
     },
     handleCreate() {
       this.${entityName?uncap_first} = {}
