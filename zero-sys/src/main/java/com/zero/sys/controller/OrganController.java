@@ -19,7 +19,7 @@ import java.util.List;
  * 系统组织机构表的数据交互控制器
  *
  * @author herenpeng
- * @since 2024-01-18 22:28
+ * @since 2024-01-20 10:11
  */
 @Tag(description = "系统组织机构表操作接口", name = "OrganController")
 @RestController
@@ -66,7 +66,7 @@ public class OrganController extends BaseController<OrganService, Organ> {
     @AppLog
     @Operation(description = "移动系统组织机构表树状结构节点")
     @Parameters({
-            @Parameter(name = "organ", description = "系统组织机构树状结构节节点")
+            @Parameter(name = "organ", description = "系统组织机构表树状结构节节点")
     })
     @PutMapping("move")
     public ResponseEntity<List<Organ>> move(@RequestBody Organ organ) throws Exception {

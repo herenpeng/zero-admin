@@ -20,7 +20,7 @@ public interface ${entityName}Service extends BaseService<${entityName}> {
      *
      * @param currentPage 当前页面数，页面从1开始
      * @param size        当前页的大小，默认为10
-     * @param query${entityName}   查询${comment}的条件
+     * @param query${entityName}  查询${comment}的条件
      * @return 分页查询所有的${comment}数据
      * @throws Exception 抛出异常
      */
@@ -51,7 +51,7 @@ public interface ${entityName}Service extends BaseService<${entityName}> {
      * @param ${entityName?uncap_first} ${comment}树状结构节节点
      * @throws Exception 抛出异常
      */
-     void move(${entityName} ${entityName?uncap_first}) throws Exception;
+    void move(${entityName} ${entityName?uncap_first}) throws Exception;
     </#if>
 
     /**

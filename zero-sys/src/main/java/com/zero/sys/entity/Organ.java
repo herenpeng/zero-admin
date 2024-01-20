@@ -5,14 +5,17 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseTreeEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 
 /**
  * 系统组织机构表
  *
  * @author herenpeng
- * @since 2024-01-18 22:28
+ * @since 2024-01-20 10:11
  */
 @Schema(name = "系统组织机构表")
 @Data

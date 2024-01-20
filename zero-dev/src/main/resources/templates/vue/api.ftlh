@@ -25,6 +25,14 @@ export function get${entityName}Tree() {
     method: 'get'
   })
 }
+
+export function move${entityName}(${entityName?uncap_first}) {
+  return request({
+    url: '/${requestMapping}/move',
+    method: 'put',
+    data: ${entityName?uncap_first}
+  })
+}
 </#if>
 
 export function create${entityName}(${entityName?uncap_first}) {

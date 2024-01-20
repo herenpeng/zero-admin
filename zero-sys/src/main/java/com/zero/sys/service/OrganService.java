@@ -11,7 +11,7 @@ import java.util.List;
  * 系统组织机构表业务逻辑层接口
  *
  * @author herenpeng
- * @since 2024-01-18 22:28
+ * @since 2024-01-20 10:11
  */
 public interface OrganService extends BaseService<Organ> {
 
@@ -47,7 +47,7 @@ public interface OrganService extends BaseService<Organ> {
     /**
      * 移动系统组织机构表树状结构节点
      *
-     * @param organ 系统组织机构树状结构节节点
+     * @param organ 系统组织机构表树状结构节节点
      * @throws Exception 抛出异常
      */
     void move(Organ organ) throws Exception;
@@ -83,7 +83,7 @@ public interface OrganService extends BaseService<Organ> {
      * 导出系统组织机构表列表数据的Excel文件
      *
      * @param queryOrgan 查询系统组织机构表的条件
-     * @param response   HttpServletResponse对象
+     * @param response  HttpServletResponse对象
      * @throws Exception 抛出异常
      */
     void exportExcel(Organ queryOrgan, HttpServletResponse response) throws Exception;

@@ -60,7 +60,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     @Override
     public void move(${entityName} ${entityName?uncap_first}) throws Exception {
         TreeKit.move(${entityName?uncap_first}.getId(), ${entityName?uncap_first}.getParentId(), ${entityName?uncap_first}.getSort(),
-        baseMapper::selectById, baseMapper::getByParentId, this::updateBatchById);
+                baseMapper::selectById, baseMapper::getByParentId, this::updateBatchById);
     }
     </#if>
 
