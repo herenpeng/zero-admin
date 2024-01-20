@@ -15,7 +15,7 @@ import java.util.List;
  * 系统组织机构表的Mapper接口
  *
  * @author herenpeng
- * @since 2024-01-14 21:31
+ * @since 2024-01-18 22:28
  */
 @Mapper
 @Repository
@@ -47,7 +47,7 @@ public interface OrganMapper extends BaseMapper<Organ> {
      * @return 节点的所有子节点系统组织机构表数据
      * @throws Exception 抛出异常
      */
-    List<Organ> getByParentId(@Param("parentId") Integer parentId) throws Exception;
+    List<Organ> getByParentId(@Param("parentId") Integer parentId);
 
     /**
      * 通过主键恢复逻辑删除的系统组织机构表数据

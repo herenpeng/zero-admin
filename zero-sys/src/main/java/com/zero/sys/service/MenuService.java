@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.auth.entity.Role;
 import com.zero.common.base.service.BaseService;
 import com.zero.sys.entity.Menu;
-
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
@@ -44,6 +43,15 @@ public interface MenuService extends BaseService<Menu> {
      * @throws Exception 抛出异常
      */
     List<Menu> tree() throws Exception;
+
+
+    /**
+     * 移动系统菜单表树状结构节点
+     *
+     * @param menu 系统菜单树状结构节节点
+     * @throws Exception 抛出异常
+     */
+    void move(Menu menu) throws Exception;
 
     /**
      * [动态路由]获取所有启用（enabled=1）的父级菜单信息，以及菜单的子菜单

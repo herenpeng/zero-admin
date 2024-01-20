@@ -12,7 +12,7 @@ export function get${entityName}Page(page, query) {
 
 export function get${entityName}List(query) {
   return request({
-  url: '/${requestMapping}/list',
+    url: '/${requestMapping}/list',
     method: 'get',
     params: query
   })
@@ -21,8 +21,8 @@ export function get${entityName}List(query) {
 <#if tree>
 export function get${entityName}Tree() {
   return request({
-  url: '/${requestMapping}/tree',
-  method: 'get'
+    url: '/${requestMapping}/tree',
+    method: 'get'
   })
 }
 </#if>

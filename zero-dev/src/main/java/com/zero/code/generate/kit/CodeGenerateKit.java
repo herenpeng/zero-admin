@@ -80,10 +80,12 @@ public class CodeGenerateKit {
             return;
         }
         File parentFile = generateFile.getParentFile();
-        boolean mkdirs = parentFile.mkdirs();
-        if (!mkdirs) {
-            log.warn("[代码生成工具]文件目录生成失败：{}", parentFile.getAbsolutePath());
-            return;
+        if (!parentFile.exists()) {
+            boolean mkdirs = parentFile.mkdirs();
+            if (!mkdirs) {
+                log.warn("[代码生成工具]文件目录生成失败：{}", parentFile.getAbsolutePath());
+                return;
+            }
         }
         OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(generateFile), EncodingEnum.UTF_8.getValue());
         BufferedWriter writer = new BufferedWriter(out);

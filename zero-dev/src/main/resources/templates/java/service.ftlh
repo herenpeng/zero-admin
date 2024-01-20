@@ -43,6 +43,15 @@ public interface ${entityName}Service extends BaseService<${entityName}> {
      * @throws Exception 抛出异常
      */
     List<${entityName}> tree() throws Exception;
+
+
+    /**
+     * 移动${comment}树状结构节点
+     *
+     * @param ${entityName?uncap_first} ${comment}树状结构节节点
+     * @throws Exception 抛出异常
+     */
+     void move(${entityName} ${entityName?uncap_first}) throws Exception;
     </#if>
 
     /**

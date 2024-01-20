@@ -48,7 +48,7 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      * @return 节点的所有子节点${comment}数据
      * @throws Exception 抛出异常
      */
-    List<${entityName}> getByParentId(@Param("parentId") Integer parentId) throws Exception;
+    List<${entityName}> getByParentId(@Param("parentId") Integer parentId);
     </#if>
 
     /**

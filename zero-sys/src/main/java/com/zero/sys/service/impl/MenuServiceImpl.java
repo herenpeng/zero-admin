@@ -7,6 +7,7 @@ import com.zero.auth.kit.TokenKit;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
+import com.zero.common.kit.TreeKit;
 import com.zero.sys.entity.Menu;
 import com.zero.sys.entity.MenuRole;
 import com.zero.sys.mapper.MenuMapper;
@@ -59,19 +60,14 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public List<Menu> tree() throws Exception {
-        return findChildren(0);
+        return TreeKit.findChildren(0, baseMapper::getByParentId);
     }
 
 
-    private List<Menu> findChildren(Integer parentId) throws Exception {
-        List<Menu> menus = baseMapper.getByParentId(parentId);
-        for (Menu menu : menus) {
-            List<Role> roles = roleMapper.getByMenuId(menu.getId());
-            menu.setRoles(roles);
-            List<Menu> children = findChildren(menu.getId());
-            menu.setChildren(children);
-        }
-        return menus;
+    @Override
+    public void move(Menu menu) throws Exception {
+        TreeKit.move(menu.getId(), menu.getParentId(), menu.getSort(),
+                baseMapper::selectById, baseMapper::getByParentId, this::updateBatchById);
     }
 
 

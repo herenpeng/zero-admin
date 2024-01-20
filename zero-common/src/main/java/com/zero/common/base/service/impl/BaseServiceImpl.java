@@ -3,6 +3,7 @@ package com.zero.common.base.service.impl;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zero.common.base.entity.BaseEntity;
+import com.zero.common.kit.JsonKit;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,5 +17,8 @@ public class BaseServiceImpl<M extends BaseMapper<E>, E extends BaseEntity> exte
 
     @Autowired
     protected HttpServletRequest request;
+
+    @Autowired
+    protected JsonKit jsonKit;
 
 }

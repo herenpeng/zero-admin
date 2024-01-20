@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
+<#if tree>
+import com.zero.common.kit.TreeKit;
+</#if>
 import ${javaPackageName}.entity.${entityName};
 import ${javaPackageName}.mapper.${entityName}Mapper;
 import ${javaPackageName}.service.${entityName}Service;
@@ -50,17 +53,14 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     <#if tree>
     @Override
     public List<${entityName}> tree() throws Exception {
-        return findChildren(0);
+        return TreeKit.findChildren(0, baseMapper::getByParentId);
     }
 
 
-    private List<${entityName}> findChildren(Integer parentId) throws Exception {
-        List<${entityName}> ${entityName?uncap_first}s = baseMapper.getByParentId(parentId);
-        for (${entityName} ${entityName?uncap_first} : ${entityName?uncap_first}s) {
-            List<${entityName}> children = findChildren(${entityName?uncap_first}.getId());
-            ${entityName?uncap_first}.setChildren(children);
-        }
-        return ${entityName?uncap_first}s;
+    @Override
+    public void move(${entityName} ${entityName?uncap_first}) throws Exception {
+        TreeKit.move(${entityName?uncap_first}.getId(), ${entityName?uncap_first}.getParentId(), ${entityName?uncap_first}.getSort(),
+        baseMapper::selectById, baseMapper::getByParentId, this::updateBatchById);
     }
     </#if>
 

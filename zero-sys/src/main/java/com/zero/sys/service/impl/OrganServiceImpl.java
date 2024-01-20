@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
+import com.zero.common.kit.TreeKit;
 import com.zero.sys.entity.Organ;
 import com.zero.sys.mapper.OrganMapper;
 import com.zero.sys.service.OrganService;
@@ -20,7 +21,7 @@ import java.util.List;
  * 系统组织机构表业务逻辑层的实现类
  *
  * @author herenpeng
- * @since 2024-01-14 21:31
+ * @since 2024-01-18 22:28
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -49,17 +50,14 @@ public class OrganServiceImpl extends BaseServiceImpl<OrganMapper, Organ> implem
 
     @Override
     public List<Organ> tree() throws Exception {
-        return findChildren(0);
+        return TreeKit.findChildren(0, baseMapper::getByParentId);
     }
 
 
-    private List<Organ> findChildren(Integer parentId) throws Exception {
-        List<Organ> organs = baseMapper.getByParentId(parentId);
-        for (Organ organ : organs) {
-            List<Organ> children = findChildren(organ.getId());
-            organ.setChildren(children);
-        }
-        return organs;
+    @Override
+    public void move(Organ organ) throws Exception {
+        TreeKit.move(organ.getId(), organ.getParentId(), organ.getSort(),
+                baseMapper::selectById, baseMapper::getByParentId, this::updateBatchById);
     }
 
 

@@ -11,9 +11,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -62,6 +62,18 @@ public class MenuController extends BaseController<MenuService, Menu> {
     public ResponseEntity<List<Menu>> tree() throws Exception {
         List<Menu> tree = baseService.tree();
         return ResponseEntity.ok(tree);
+    }
+
+
+    @AppLog
+    @Operation(description = "移动系统菜单树状结构节点")
+    @Parameters({
+            @Parameter(name = "menu", description = "系统菜单树状结构节节点")
+    })
+    @PutMapping("move")
+    public ResponseEntity<List<Menu>> move(@RequestBody Menu menu) throws Exception {
+        baseService.move(menu);
+        return ResponseEntity.message("操作成功");
     }
 
 

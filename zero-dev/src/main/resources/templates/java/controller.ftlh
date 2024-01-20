@@ -62,6 +62,18 @@ public class ${entityName}Controller extends BaseController<${entityName}Service
         List<${entityName}> tree = baseService.tree();
         return ResponseEntity.ok(tree);
     }
+
+
+    @AppLog
+    @Operation(description = "移动${comment}树状结构节点")
+    @Parameters({
+        @Parameter(name = "${entityName?uncap_first}", description = "${comment}树状结构节节点")
+    })
+    @PutMapping("move")
+    public ResponseEntity<List<${entityName}>> move(@RequestBody ${entityName} ${entityName?uncap_first}) throws Exception {
+        baseService.move(${entityName?uncap_first});
+        return ResponseEntity.message("操作成功");
+    }
     </#if>
 
 

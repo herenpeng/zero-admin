@@ -38,7 +38,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return 菜单下级的所有子菜单
      * @throws Exception 抛出异常
      */
-    List<Menu> getByParentId(@Param("parentId") Integer parentId) throws Exception;
+    List<Menu> getByParentId(@Param("parentId") Integer parentId);
 
 
     /**

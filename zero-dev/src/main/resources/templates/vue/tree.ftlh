@@ -100,6 +100,7 @@
         <el-form-item label="是否${column.comment}" prop="${column.javaName}">
           <el-switch
               v-model="${entityName?uncap_first}.${column.javaName}"
+              style="width: 190px"
               active-text="是"
               inactive-text="否"
           />
