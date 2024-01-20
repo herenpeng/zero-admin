@@ -62,7 +62,6 @@ public class DataBaseTypeKit {
      *
      * @param databaseType 数据库类型
      * @return JDBC类型
-     * @throws Exception
      */
     public static String getJdbcType(String databaseType) {
         return jdbcTypeMap.get(databaseType);
@@ -73,7 +72,6 @@ public class DataBaseTypeKit {
      *
      * @param databaseType 数据库类型
      * @return Java类型
-     * @throws Exception
      */
     public static String getJavaType(String databaseType) {
         return javaTypeMap.get(databaseType);

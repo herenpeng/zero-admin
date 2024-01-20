@@ -10,10 +10,15 @@ import java.util.function.Predicate;
 public class TreeKit {
 
 
-    public static <E extends BaseTreeEntity> List<E> findChildren(Integer parentId, Function<Integer, List<E>> getByParentId) throws Exception {
+    public static <E extends BaseTreeEntity> List<E> findChildren(Integer parentId,
+                                                                  Function<Integer, List<E>> getByParentId,
+                                                                  Consumer<E> consumer) throws Exception {
         List<E> tree = getByParentId.apply(parentId);
         for (E treeNode : tree) {
-            List<E> children = findChildren(treeNode.getId(), getByParentId);
+            if (consumer != null) {
+                consumer.accept(treeNode);
+            }
+            List<E> children = findChildren(treeNode.getId(), getByParentId, consumer);
             treeNode.setChildren(children);
         }
         return tree;

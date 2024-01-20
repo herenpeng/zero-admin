@@ -50,7 +50,7 @@ public class OrganServiceImpl extends BaseServiceImpl<OrganMapper, Organ> implem
 
     @Override
     public List<Organ> tree() throws Exception {
-        return TreeKit.findChildren(0, baseMapper::getByParentId);
+        return TreeKit.findChildren(0, baseMapper::getByParentId, null);
     }
 
 

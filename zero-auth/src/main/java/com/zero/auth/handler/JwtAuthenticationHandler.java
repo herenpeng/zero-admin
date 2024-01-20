@@ -46,7 +46,7 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
         try {
             tokenId = tokenKit.getId(token);
         } catch (Exception e) {
-            log.error("[系统登录功能]解析token失败");
+            log.error("[系统登录功能]解析token失败，{}", e.getMessage());
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
         }
         String tokenRedisKey = jwtProperties.getKey() + AppConst.COLON + tokenId;

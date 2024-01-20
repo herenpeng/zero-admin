@@ -32,6 +32,7 @@ public class CodeGenerateKit {
         generateFile(tableInfo, TemplateEnum.SERVICE_IMPL);
         generateFile(tableInfo, TemplateEnum.CONTROLLER);
         generateFile(tableInfo, TemplateEnum.MAPPER_XML);
+        generateFile(tableInfo, TemplateEnum.SQL);
         // 生成前端代码
         if (tableInfo.getTree()) {
             generateFile(tableInfo, TemplateEnum.TREE);
@@ -66,10 +67,13 @@ public class CodeGenerateKit {
                         .append(packageNameToPath(tableInfo.getJavaPackageName() + templateEnum.getPackageName()))
                         .append(File.separator).append(tableInfo.getEntityName()).append(templateEnum.getSuffix());
                 break;
+            case SQL:
+                generateFilePath.append(System.getProperty("user.dir")).append(templateEnum.getFileBasePath())
+                        .append(File.separator).append(tableInfo.getEntityName().toLowerCase()).append(templateEnum.getSuffix());
+                break;
             case VUE:
                 generateFilePath.append(tableInfo.getVueCodePath()).append(templateEnum.getFileBasePath())
-                        .append(packageNameToPath(tableInfo.getVuePackage() + templateEnum.getPackageName()))
-                        .append(templateEnum.getSuffix());
+                        .append(packageNameToPath(tableInfo.getVuePackage())).append(templateEnum.getSuffix());
                 break;
             default:
                 log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);

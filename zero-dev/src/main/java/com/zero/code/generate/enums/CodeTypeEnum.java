@@ -10,6 +10,10 @@ public enum CodeTypeEnum {
      */
     JAVA,
     /**
+     * Sql语句
+     */
+    SQL,
+    /**
      * Vue代码，前端页面
      */
     VUE;

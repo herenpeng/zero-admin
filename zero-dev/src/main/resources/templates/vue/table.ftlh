@@ -46,20 +46,20 @@
       <el-table-column label="序号" type="index" sortable="true" align="center" width="80" />
       <#list tableColumnList as column>
         <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-            <#if column.javaType == "String" || column.javaType == "Integer">
+          <#if column.javaType == "String" || column.javaType == "Integer">
       <el-table-column label="${column.comment}" width="150px" align="center">
         <template v-slot="{row}">
           <span>{{ row.${column.javaName} }}</span>
         </template>
       </el-table-column>
-            </#if>
-            <#if column.javaType == "Boolean">
+          </#if>
+          <#if column.javaType == "Boolean">
       <el-table-column label="${column.comment}" width="100px" align="center">
         <template v-slot="{row}">
-          <span>{{ row.${column.javaName} | ${column.javaName}Filter }}</span>
+          <span>{{ row.${column.javaName} ? '是' : '否' }}</span>
         </template>
       </el-table-column>
-            </#if>
+          </#if>
         </#if>
       </#list>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300px">

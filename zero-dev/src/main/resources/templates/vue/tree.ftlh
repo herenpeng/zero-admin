@@ -29,7 +29,7 @@
             查询
           </el-button>
           <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit"
-                     @click="handleCreate"
+                     @click="handleCreate(null)"
           >
             添加
           </el-button>
@@ -54,7 +54,9 @@
         >
           <el-table-column label="序号" sortable="true" align="center" width="80" />
           <#list tableColumnList as column>
-            <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+            <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" &&
+            column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted" &&
+            column.name != "parent_id">
               <#if column.javaType == "String" || column.javaType == "Integer">
           <el-table-column label="${column.comment}" width="150px" align="center">
             <template v-slot="{row}">
@@ -64,7 +66,7 @@
               <#elseif column.javaType == "Boolean">
           <el-table-column label="${column.comment}" width="100px" align="center">
             <template v-slot="{row}">
-              <span>{{ row.${column.javaName} | ${column.javaName}Filter }}</span>
+              <span>{{ row.${column.javaName} ? '是' : '否' }}</span>
             </template>
           </el-table-column>
               </#if>
@@ -78,6 +80,7 @@
               <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteData(row)">
                 删除
               </el-button>
+              <el-button size="mini" type="warning" icon="el-icon-circle-plus-outline" @click="handleCreate(row)" />
             </template>
           </el-table-column>
         </el-table>
@@ -228,8 +231,9 @@ export default {
         }
       }
     },
-    handleCreate() {
+    handleCreate(row) {
       this.${entityName?uncap_first} = {}
+      this.${entityName?uncap_first}.parentId = row === null ? 0 : row.id
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.$nextTick(() => {

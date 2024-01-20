@@ -78,10 +78,9 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 获取拥有该菜单的所有角色信息
      *
      * @param menuId 菜单主键
-     * @return
-     * @throws Exception 抛出异常
+     * @return 菜单拥有的角色信息
      */
-    List<Role> getByMenuId(@Param("menuId") Integer menuId) throws Exception;
+    List<Role> getByMenuId(@Param("menuId") Integer menuId);
 
     /**
      * 获取该菜单没有的角色信息

@@ -60,7 +60,10 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     public List<Menu> tree() throws Exception {
-        return TreeKit.findChildren(0, baseMapper::getByParentId);
+        return TreeKit.findChildren(0, baseMapper::getByParentId, menu -> {
+            List<Role> roles = roleMapper.getByMenuId(menu.getId());
+            menu.setRoles(roles);
+        });
     }
 
 

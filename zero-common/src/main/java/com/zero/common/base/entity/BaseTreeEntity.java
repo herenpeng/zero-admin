@@ -12,8 +12,11 @@ import java.util.List;
 @Data
 public class BaseTreeEntity extends BaseEntity {
 
-    @Schema(name = "父节点主键，如果为顶级节点，值为0")
-    @Excel(name = "父节点主键", width = 15, needMerge = true)
+    /**
+     * 父节点主键，如果为顶级节点，值为0
+     */
+    @Schema(name = "父节点Id")
+    @Excel(name = "父节点Id", width = 15, needMerge = true)
     @TableField(value = "parent_id")
     private Integer parentId;
 
@@ -25,7 +28,7 @@ public class BaseTreeEntity extends BaseEntity {
     /**
      * 节点的子节点，非数据库字段
      */
-    @Schema(name = "节点的子节点")
+    @Schema(name = "子节点")
     @TableField(exist = false)
     private List<? extends BaseTreeEntity> children;
 

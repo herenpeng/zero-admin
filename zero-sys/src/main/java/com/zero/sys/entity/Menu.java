@@ -70,14 +70,6 @@ public class Menu extends BaseTreeEntity {
     @Excel(name = "菜单是否启用", width = 15, needMerge = true)
     @TableField(value = "enabled")
     private Boolean enabled;
-
-//    /**
-//     * 菜单下级的子菜单，非数据库字段
-//     */
-//    @Schema(name = "菜单下级的子菜单")
-//    @TableField(exist = false)
-//    private List<Menu> children;
-
     /**
      * 拥有该菜单的角色信息，非数据库字段
      */

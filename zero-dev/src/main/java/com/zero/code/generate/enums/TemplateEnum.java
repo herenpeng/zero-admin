@@ -75,6 +75,17 @@ public enum TemplateEnum {
             ".controller",
             "Controller.java"),
 
+
+    /**
+     * SQL语言枚举
+     */
+    SQL(CodeTypeEnum.SQL,
+            "/templates/sql",
+            "sql.ftlh",
+            "/sql",
+            "",
+            ".sql"),
+
     /**
      * Vue组件代码
      */

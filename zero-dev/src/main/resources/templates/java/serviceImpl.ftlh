@@ -53,7 +53,7 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     <#if tree>
     @Override
     public List<${entityName}> tree() throws Exception {
-        return TreeKit.findChildren(0, baseMapper::getByParentId);
+        return TreeKit.findChildren(0, baseMapper::getByParentId, null);
     }
 
 
