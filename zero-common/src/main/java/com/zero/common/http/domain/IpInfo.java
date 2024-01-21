@@ -54,7 +54,7 @@ public class IpInfo {
     @lombok.Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public class Data {
+    public static class Data {
         /**
          * 区域
          */

@@ -12,6 +12,10 @@
         <result column="isp" jdbcType="VARCHAR" property="isp"/>
         <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
         <result column="token_id" jdbcType="VARCHAR" property="tokenId"/>
+        <result column="mobile" jdbcType="BOOLEAN" property="mobile"/>
+        <result column="browser_name" jdbcType="VARCHAR" property="browserName"/>
+        <result column="browser_version" jdbcType="VARCHAR" property="browserVersion"/>
+        <result column="os_name" jdbcType="VARCHAR" property="osName"/>
         <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime"/>
         <result column="logout" jdbcType="BOOLEAN" property="logout"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -22,7 +26,9 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`,`user_id`,`ip`,`country`,`region`,`city`,`isp`,`login_time`,`token_id`,`logout_time`,`logout`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`deleted`
+        `id`,`user_id`,`ip`,`country`,`region`,`city`,`isp`,`login_time`,`token_id`,`mobile`,`browser_name`,
+        `browser_version`,`os_name`, `logout_time`,`logout`,`create_time`,`create_user_id`,`update_time`,
+        `update_user_id`,`deleted`
     </sql>
 
     <sql id="baseQuery">
@@ -49,6 +55,18 @@
         </if>
         <if test="queryLoginLog.tokenId != null and queryLoginLog.tokenId != ''">
             and token_id like concat('%', #{queryLoginLog.tokenId}, '%')
+        </if>
+        <if test="queryLoginLog.mobile != null">
+            and mobile = #{queryLoginLog.mobile}
+        </if>
+        <if test="queryLoginLog.browserName != null and queryLoginLog.browserName != ''">
+            and browser_name like concat('%', #{queryLoginLog.browserName}, '%')
+        </if>
+        <if test="queryLoginLog.browserVersion != null and queryLoginLog.browserVersion != ''">
+            and browser_version like concat('%', #{queryLoginLog.browserVersion}, '%')
+        </if>
+        <if test="queryLoginLog.osName != null and queryLoginLog.osName != ''">
+            and os_name like concat('%', #{queryLoginLog.osName}, '%')
         </if>
         <if test="queryLoginLog.logoutTime != null">
             and logout_time = #{queryLoginLog.logoutTime}
@@ -86,25 +104,29 @@
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
         `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
+        `mobile` as mobile,`browser_name` as browser_name,`browser_version` as browser_version,`os_name` as os_name,
         `logout_time` as logout_time,`logout` as logout
         from auth_login_log
         where 1 = 1
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
+        order by id desc
     </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
         `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
+        `mobile` as mobile,`browser_name` as browser_name,`browser_version` as browser_version,`os_name` as os_name,
         `logout_time` as logout_time,`logout` as logout
         from auth_login_log
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
 
     <select id="getOnlineByUserId" resultMap="resultMap">
         select `id` as id,`user_id` as user_id,`ip` as ip,`country` as country,`region` as region,
         `city` as city,`isp` as isp,`login_time` as login_time,`token_id` as token_id,
+        `mobile` as mobile,`browser_name` as browser_name,`browser_version` as browser_version,`os_name` as os_name,
         `logout_time` as logout_time,`logout` as logout
         from auth_login_log
         where deleted = 0 and logout = 0 and logout_time &gt; now()

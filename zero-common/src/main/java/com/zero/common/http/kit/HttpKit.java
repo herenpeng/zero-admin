@@ -1,9 +1,11 @@
-package com.zero.common.http.util;
+package com.zero.common.http.kit;
 
 import com.zero.common.enums.EncodingEnum;
 import com.zero.common.kit.JsonKit;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +22,7 @@ import java.util.zip.GZIPInputStream;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class HttpUtils {
+public class HttpKit {
 
     private final JsonKit jsonKit;
 
@@ -33,9 +35,13 @@ public class HttpUtils {
      * @throws IOException IO异常
      */
     public <T> T gzipDecode(ResponseEntity<String> responseEntity, Class<T> clazz) throws IOException {
-        T clazzInstance = null;
+        T object = null;
         try {
-            byte[] bytes = responseEntity.getBody().getBytes(EncodingEnum.ISO_8859_1.getValue());
+            String body = responseEntity.getBody();
+            if (StringUtils.isBlank(body)) {
+                return object;
+            }
+            byte[] bytes = body.getBytes(EncodingEnum.ISO_8859_1.getValue());
             InputStream inputStream = new ByteArrayInputStream(bytes);
             GZIPInputStream gzipInputStream = new GZIPInputStream(inputStream);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -44,12 +50,15 @@ public class HttpUtils {
             while ((len = gzipInputStream.read(buffer)) >= 0) {
                 out.write(buffer, 0, len);
             }
-            clazzInstance = jsonKit.toObject(out.toString(), clazz);
+            object = jsonKit.toObject(out.toString(), clazz);
         } catch (Exception e) {
-            log.error("[HTTP工具类]gzip解码失败");
-            e.printStackTrace();
+            log.error("[HTTP工具类]gzip解码失败，{}", e.getMessage());
         }
-        return clazzInstance;
+        return object;
     }
+
+
+
+
 
 }

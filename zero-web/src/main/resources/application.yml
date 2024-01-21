@@ -151,12 +151,3 @@ zero:
       allowTypes:
         - image/jpeg
         - image/png
-  common:
-    http:
-      third:
-        api:
-          enable-ip-info: false
-          ip-info: https://ip.taobao.com/outGetIpInfo?accessKey=alibaba-inc&ip=
-          weather-info: http://wthrcdn.etouch.cn/weather_mini?city=
-
-

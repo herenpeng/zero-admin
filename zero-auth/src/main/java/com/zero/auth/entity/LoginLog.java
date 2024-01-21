@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -85,6 +84,35 @@ public class LoginLog extends BaseEntity {
     @Excel(name = "tokenId", width = 15, needMerge = true)
     @TableField(value = "token_id", condition = SqlCondition.LIKE)
     private String tokenId;
+    /**
+     * 是否为移动平台
+     */
+    @Schema(name = "是否为移动平台")
+    @Excel(name = "是否为移动平台", width = 15, needMerge = true)
+    @TableField(value = "mobile")
+    private Boolean mobile;
+    /**
+     * 浏览器名称
+     */
+    @Schema(name = "浏览器名称")
+    @Excel(name = "浏览器名称", width = 15, needMerge = true)
+    @TableField(value = "browser_name")
+    private String browserName;
+    /**
+     * 浏览器版本
+     */
+    @Schema(name = "浏览器版本")
+    @Excel(name = "浏览器版本", width = 15, needMerge = true)
+    @TableField(value = "browser_version")
+    private String browserVersion;
+    /**
+     * 客户端操作系统名称
+     */
+    @Schema(name = "客户端操作系统名称")
+    @Excel(name = "客户端操作系统名称", width = 15, needMerge = true)
+    @TableField(value = "os_name")
+    private String osName;
+
     /**
      * 登出时间，默认为登录时间+token失效时间，登出时更新
      */

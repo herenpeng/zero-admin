@@ -1,10 +1,9 @@
 package com.zero.sys.aspect;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zero.auth.kit.TokenKit;
 import com.zero.common.annotation.AppLog;
 import com.zero.common.constant.AppConst;
-import com.zero.common.http.util.IpUtils;
+import com.zero.common.http.kit.IpKit;
 import com.zero.common.kit.JsonKit;
 import com.zero.sys.entity.OperationLog;
 import com.zero.sys.mapper.OperationLogMapper;
@@ -40,7 +39,7 @@ public class OperationLogAop {
 
     private final TokenKit tokenKit;
 
-    private final IpUtils ipUtils;
+    private final IpKit ipUtils;
 
     private final JsonKit jsonKit;
 
@@ -53,10 +52,8 @@ public class OperationLogAop {
     @Around("operationLogAop()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed = null;
-        OperationLog operationLog = new OperationLog();
-        operationLog.setAccessTime(new Date());
+        OperationLog operationLog = initOperationLog(joinPoint);
         try {
-            setLog(operationLog, joinPoint);
             proceed = joinPoint.proceed();
             // 设置执行结果为成功
             operationLog.setResult(true);
@@ -66,6 +63,8 @@ public class OperationLogAop {
             operationLog.setExceptionName(e.getClass().getName());
             operationLog.setExceptionMessage(e.getMessage());
         } finally {
+            // 设置方法的执行时间
+            operationLog.setExecutionTime(System.currentTimeMillis() - operationLog.getAccessTime().getTime());
             operationLogMapper.insert(operationLog);
         }
         return proceed;
@@ -75,38 +74,38 @@ public class OperationLogAop {
      * 封装日志记录
      *
      * @param joinPoint AOP切入点
-     * @throws JsonProcessingException Json处理异常
      */
-    private void setLog(OperationLog log, JoinPoint joinPoint) throws JsonProcessingException {
-        // 设置方法的执行时间
-        log.setExecutionTime(System.currentTimeMillis() - log.getAccessTime().getTime());
+    private OperationLog initOperationLog(JoinPoint joinPoint) {
+        OperationLog operationLog = new OperationLog();
+        operationLog.setAccessTime(new Date());
         // 设置操作用户主键
         Integer userId = tokenKit.getUserId(request);
-        log.setOperationUserId(userId);
+        operationLog.setOperationUserId(userId);
         // 获取用户请求的真实地址
-        log.setIp(ipUtils.getIpAddr(request));
-        log.setUri(request.getRequestURI());
+        operationLog.setIp(ipUtils.getIpAddr(request));
+        operationLog.setUri(request.getRequestURI());
         // 设置请求方法类型
-        log.setMethodType(request.getMethod().toUpperCase());
+        operationLog.setMethodType(request.getMethod().toUpperCase());
         // 设置方法名称
-        log.setMethod(joinPoint.getTarget().getClass() + AppConst.POINT + joinPoint.getSignature().getName());
+        operationLog.setMethod(joinPoint.getTarget().getClass() + AppConst.POINT + joinPoint.getSignature().getName());
         // 设置请求参数
         Object[] args = joinPoint.getArgs();
         // 忽略一些特殊参数
         ignoreArgs(args);
-        log.setRequestArgs(jsonKit.toJson(args));
+        operationLog.setRequestArgs(jsonKit.toJson(args));
         // 设置方法描述信息
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
         AppLog appLog = method.getAnnotation(AppLog.class);
         if (appLog != null && StringUtils.isNotBlank(appLog.value())) {
-            log.setDescription(appLog.value());
+            operationLog.setDescription(appLog.value());
         } else {
             Operation apiOperation = method.getAnnotation(Operation.class);
             if (apiOperation != null) {
-                log.setDescription(apiOperation.description());
+                operationLog.setDescription(apiOperation.description());
             }
         }
+        return operationLog;
     }
 
     /**

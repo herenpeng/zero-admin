@@ -3,18 +3,18 @@ package com.zero.sys.service.impl;
 import com.zero.auth.mapper.LoginLogMapper;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.common.http.domain.WeatherInfo;
-import com.zero.common.http.util.WeatherUtils;
+import com.zero.common.http.kit.WeatherKit;
 import com.zero.sys.mapper.IndexMapper;
 import com.zero.sys.service.IndexService;
 import com.zero.sys.vo.LoginMap;
 import com.zero.sys.vo.PanelGroup;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -31,7 +31,7 @@ public class IndexServiceImpl implements IndexService {
 
     private final IndexMapper indexMapper;
 
-    private final WeatherUtils weatherUtils;
+    private final WeatherKit weatherKit;
 
     private final UserMapper userMapper;
 
@@ -39,7 +39,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public WeatherInfo.Data weather(HttpServletRequest request) throws Exception {
-        WeatherInfo weatherInfo = weatherUtils.getWeatherInfo(request);
+        WeatherInfo weatherInfo = weatherKit.getWeatherInfo(request);
         return ObjectUtils.isEmpty(weatherInfo) ? null : weatherInfo.getData();
     }
 

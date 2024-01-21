@@ -4,7 +4,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
 import com.zero.auth.enums.LoginTypeEnum;
-import com.zero.auth.kit.LoginUtils;
+import com.zero.auth.kit.LoginKit;
 import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserInfoMapper;
@@ -47,7 +47,7 @@ public class GithubServiceImpl implements GithubService {
 
     private final UserInfoMapper userInfoMapper;
 
-    private final LoginUtils loginUtils;
+    private final LoginKit loginKit;
 
     @Override
     public String login(String code, String state, HttpServletRequest request) throws Exception {
@@ -65,7 +65,7 @@ public class GithubServiceImpl implements GithubService {
         // 开始生成本地 JWT
         List<Role> roles = roleMapper.getByUserId(user.getId());
         user.setRoles(roles);
-        return loginUtils.generateJwt(user, request);
+        return loginKit.generateJwt(user, request);
     }
 
 

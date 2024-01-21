@@ -1,11 +1,11 @@
-package com.zero.common.http.util;
+package com.zero.common.http.kit;
 
 import com.zero.common.http.domain.IpInfo;
 import com.zero.common.http.domain.WeatherInfo;
-import com.zero.common.http.properties.HttpThirdApi;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +22,19 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class WeatherUtils {
+public class WeatherKit {
 
     private final RestTemplate restTemplate;
 
-    private final HttpThirdApi httpThirdApi;
+    private final IpKit ipUtils;
 
-    private final IpUtils ipUtils;
+    private final HttpKit httpKit;
 
-    private final HttpUtils httpUtils;
+    /**
+     * 中华万年历 天气 API
+     */
+    @Value("${zero.common.http.third.api.weather-info:http://wthrcdn.etouch.cn/weather_mini?city=}")
+    private String weatherInfo;
 
 
     /**
@@ -46,11 +50,11 @@ public class WeatherUtils {
         }
         String city = ipInfo.getData().getCity();
         try {
-            String url = httpThirdApi.getWeatherInfo() + city;
+            String url = weatherInfo + city;
             ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
             HttpStatusCode statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
-                WeatherInfo weatherInfo = httpUtils.gzipDecode(responseEntity, WeatherInfo.class);
+                WeatherInfo weatherInfo = httpKit.gzipDecode(responseEntity, WeatherInfo.class);
                 if (!ObjectUtils.isEmpty(weatherInfo) && OK_STATUS.equals(weatherInfo.getStatus())) {
                     return weatherInfo;
                 }

@@ -31,7 +31,7 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class LoginUtils {
+public class LoginKit {
 
     private final JsonKit jsonKit;
 

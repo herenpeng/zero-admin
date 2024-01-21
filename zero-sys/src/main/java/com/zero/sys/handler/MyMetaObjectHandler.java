@@ -3,13 +3,13 @@ package com.zero.sys.handler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.zero.auth.entity.User;
 import com.zero.auth.kit.TokenKit;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * MyBatisPlus拦截器，用于自动配置数据库数据的创建人和更新人

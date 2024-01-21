@@ -1,5 +1,9 @@
 package com.zero.auth.service.impl;
 
+import cn.hutool.http.useragent.Browser;
+import cn.hutool.http.useragent.OS;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,7 +15,7 @@ import com.zero.auth.service.LoginLogService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.constant.AppConst;
 import com.zero.common.http.domain.IpInfo;
-import com.zero.common.http.util.IpUtils;
+import com.zero.common.http.kit.IpKit;
 import com.zero.common.kit.ExcelKit;
 import com.zero.common.kit.RedisKit;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,7 +45,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     private final RedisKit redisKit;
 
-    private final IpUtils ipUtils;
+    private final IpKit ipKit;
 
     private final UserMapper userMapper;
 
@@ -115,14 +119,16 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
     @Override
     public LoginLog loginLog(HttpServletRequest request, Integer userId, String tokenId) {
         // 记录登录日志
-        String ip = ipUtils.getIpAddr(request);
+        String ip = ipKit.getIpAddr(request);
         LoginLog loginLog = new LoginLog();
         loginLog.setUserId(userId);
         loginLog.setIp(ip);
         loginLog.setTokenId(tokenId);
-        IpInfo ipInfo = ipUtils.getIpInfo(ip);
+        // 获取客户端信息
+        logUserAgent(loginLog, request);
+        IpInfo ipInfo = ipKit.getIpInfo(ip);
         // 登录的IP地址信息，如果可以获取则设置，如果获取不到则不设置
-        if (!ObjectUtils.isEmpty(ipInfo)) {
+        if (ipInfo != null) {
             IpInfo.Data data = ipInfo.getData();
             loginLog.setCountry(data.getCountry());
             loginLog.setRegion(data.getRegion());
@@ -139,6 +145,19 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
         baseMapper.insert(loginLog);
         return loginLog;
     }
+
+
+    private void logUserAgent(LoginLog loginLog, HttpServletRequest request) {
+        String userAgentString = request.getHeader("User-Agent");
+        UserAgent userAgent = UserAgentUtil.parse(userAgentString);
+        loginLog.setMobile(userAgent.isMobile());
+        Browser browser = userAgent.getBrowser();
+        loginLog.setBrowserName(browser.getName());
+        loginLog.setBrowserVersion(userAgent.getVersion());
+        OS os = userAgent.getOs();
+        loginLog.setOsName(os.getName());
+    }
+
 
     @Override
     public void logoutLog(Integer userId, String tokenId) {

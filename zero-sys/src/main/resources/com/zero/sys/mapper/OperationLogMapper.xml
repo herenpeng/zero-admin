@@ -78,7 +78,8 @@
         `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
         from sys_operation_log
         where 1 = 1
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
+        order by id desc
     </select>
 
     <select id="getList" resultMap="resultMap">
@@ -86,7 +87,7 @@
         `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
         from sys_operation_log
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
 

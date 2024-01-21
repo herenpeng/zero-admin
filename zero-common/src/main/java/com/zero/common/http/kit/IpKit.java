@@ -1,12 +1,12 @@
-package com.zero.common.http.util;
+package com.zero.common.http.kit;
 
 import com.zero.common.constant.AppConst;
 import com.zero.common.http.domain.IpInfo;
-import com.zero.common.http.properties.HttpThirdApi;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +23,20 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class IpUtils {
+public class IpKit {
 
     private final RestTemplate restTemplate;
 
-    private final HttpThirdApi httpThirdApi;
+    /**
+     * 第三方接口不可用，暂时关闭
+     */
+    @Value("${zero.common.http.third.api.enable-ip-info:true}")
+    private boolean enableIpInfo;
+    /**
+     * 通过ip获取ip的真实地址信息等等
+     */
+    @Value("${zero.common.http.third.api.ip-info:https://ip.taobao.com/outGetIpInfo?accessKey=alibaba-inc&ip=}")
+    private String ipInfo;
 
     /**
      * 通过 HttpServletRequest 对象获取真实地址
@@ -46,11 +55,11 @@ public class IpUtils {
      * @return 真实地址
      */
     public IpInfo getIpInfo(String ip) {
-        if (!httpThirdApi.isEnableIpInfo()) {
+        if (!enableIpInfo) {
             return null;
         }
         try {
-            String url = httpThirdApi.getIpInfo() + ip;
+            String url = ipInfo + ip;
             ResponseEntity<IpInfo> responseEntity = restTemplate.getForEntity(url, IpInfo.class);
             HttpStatusCode statusCode = responseEntity.getStatusCode();
             if (ObjectUtils.nullSafeEquals(statusCode, HttpStatus.OK)) {
@@ -60,8 +69,7 @@ public class IpUtils {
                 }
             }
         } catch (Exception e) {
-            log.warn("[获取IP信息]ip：{}信息获取失败", ip);
-            e.printStackTrace();
+            log.warn("[获取IP信息]ip：{}信息获取失败，{}", ip, e.getMessage());
         }
         return null;
     }
@@ -96,10 +104,8 @@ public class IpUtils {
             ip = request.getRemoteAddr();
         }
         // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
-        if (StringUtils.isNotBlank(ip) && ip.length() > IP_LENGTH) {
-            if (ip.indexOf(AppConst.COMMA) > 0) {
-                ip = ip.substring(0, ip.indexOf(AppConst.COMMA));
-            }
+        if (StringUtils.isNotBlank(ip) && ip.length() > IP_LENGTH && ip.indexOf(AppConst.COMMA) > 0) {
+            ip = ip.substring(0, ip.indexOf(AppConst.COMMA));
         }
         return ip;
     }

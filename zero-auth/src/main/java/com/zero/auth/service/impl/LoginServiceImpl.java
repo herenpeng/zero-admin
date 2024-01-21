@@ -2,7 +2,7 @@ package com.zero.auth.service.impl;
 
 import com.zero.auth.entity.User;
 import com.zero.auth.enums.LoginTypeEnum;
-import com.zero.auth.kit.LoginUtils;
+import com.zero.auth.kit.LoginKit;
 import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.kit.TokenKit;
 import com.zero.auth.mapper.UserMapper;
@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     private final UserMapper userMapper;
-    private final LoginUtils loginUtils;
+    private final LoginKit loginKit;
     private final JwtProperties jwtProperties;
     private final RedisKit redisKit;
     private final LoginLogService loginLogService;
@@ -57,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
         if (user.getPasswordExpire()) {
             throw new AppException(AppExceptionEnum.LOGIN_PASSWORD_EXPIRE);
         }
-        return loginUtils.generateJwt(user, request);
+        return loginKit.generateJwt(user, request);
     }
 
     @Override
