@@ -3,7 +3,6 @@ package com.zero.auth.service.impl;
 import cn.hutool.http.useragent.Browser;
 import cn.hutool.http.useragent.OS;
 import cn.hutool.http.useragent.UserAgent;
-import cn.hutool.http.useragent.UserAgentUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,6 +14,7 @@ import com.zero.auth.service.LoginLogService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.constant.AppConst;
 import com.zero.common.http.domain.IpInfo;
+import com.zero.common.http.kit.HttpKit;
 import com.zero.common.http.kit.IpKit;
 import com.zero.common.kit.ExcelKit;
 import com.zero.common.kit.RedisKit;
@@ -148,8 +148,7 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
 
     private void logUserAgent(LoginLog loginLog, HttpServletRequest request) {
-        String userAgentString = request.getHeader("User-Agent");
-        UserAgent userAgent = UserAgentUtil.parse(userAgentString);
+        UserAgent userAgent = HttpKit.getUserAgent(request);
         loginLog.setMobile(userAgent.isMobile());
         Browser browser = userAgent.getBrowser();
         loginLog.setBrowserName(browser.getName());

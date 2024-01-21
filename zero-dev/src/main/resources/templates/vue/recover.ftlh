@@ -59,7 +59,7 @@
           </#if>
         </#if>
       </#list>
-      <el-table-column label="操作" align="center" width="250px" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" width="250px" class-name="small-padding fixed-width" fixed="right">
         <template v-slot="{row}">
           <el-button type="success" size="mini" icon="el-icon-finished" @click="handleRecover(row)">
             数据恢复

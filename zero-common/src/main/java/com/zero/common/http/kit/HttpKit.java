@@ -1,5 +1,7 @@
 package com.zero.common.http.kit;
 
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.zero.common.enums.EncodingEnum;
 import com.zero.common.kit.JsonKit;
 import jakarta.servlet.http.HttpServletRequest;
@@ -58,7 +60,12 @@ public class HttpKit {
     }
 
 
+    private static final String USER_AGENT = "User-Agent";
 
+    public static UserAgent getUserAgent(HttpServletRequest request) {
+        String userAgentString = request.getHeader(USER_AGENT);
+        return UserAgentUtil.parse(userAgentString);
+    }
 
 
 }
