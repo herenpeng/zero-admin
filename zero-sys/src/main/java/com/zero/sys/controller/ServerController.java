@@ -1,8 +1,8 @@
-package com.zero.sys.server.controller;
+package com.zero.sys.controller;
 
 import com.zero.common.domain.ResponseEntity;
-import com.zero.sys.server.util.OshiUtils;
-import com.zero.sys.server.vo.*;
+import com.zero.sys.kit.OshiKit;
+import com.zero.sys.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +25,9 @@ public class ServerController {
     @Operation(description = "获取系统服务器的CPU，内存，JVM饼图信息")
     @GetMapping("piechart")
     public ResponseEntity<ServerPieChart> getServerPirChartInfo() throws Exception {
-        Cpu cpu = OshiUtils.getCpuInfo();
-        Mem mem = OshiUtils.getMemInfo();
-        Jvm jvm = OshiUtils.getJvmInfo();
+        Cpu cpu = OshiKit.getCpuInfo();
+        Mem mem = OshiKit.getMemInfo();
+        Jvm jvm = OshiKit.getJvmInfo();
         ServerPieChart serverPieChart = new ServerPieChart(cpu, mem, jvm);
         return ResponseEntity.ok(serverPieChart);
     }

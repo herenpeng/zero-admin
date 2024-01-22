@@ -1,4 +1,4 @@
-package com.zero.sys.server.util;
+package com.zero.common.kit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -46,7 +46,7 @@ public class SwaggerConfig {
                 // 标题信息
                 .title("zero-admin通用后台管理系统接口文档")
                 .description("该篇接口文档是关于zero-admin通用后台管理系统的接口说明文档，对于该系统中的所有接口进行了详细的描述！")
-                // // 系统版本
+                // 系统版本
                 .version("1.0.0")
                 .termsOfService("http://zeroadmin.herenpeng.com")
                 // 设置联系人信息

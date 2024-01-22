@@ -1,8 +1,8 @@
-package com.zero.sys.server.util;
+package com.zero.sys.kit;
 
-import com.zero.sys.server.vo.Cpu;
-import com.zero.sys.server.vo.Jvm;
-import com.zero.sys.server.vo.Mem;
+import com.zero.sys.vo.Cpu;
+import com.zero.sys.vo.Jvm;
+import com.zero.sys.vo.Mem;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
@@ -18,7 +18,7 @@ import java.util.Properties;
  * @author herenpeng
  * @since 2020-10-12 19:51
  */
-public class OshiUtils {
+public class OshiKit {
 
     private static final int OSHI_WAIT_SECOND = 1000;
 

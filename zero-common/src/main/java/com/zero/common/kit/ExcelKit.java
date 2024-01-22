@@ -3,9 +3,8 @@ package com.zero.common.kit;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import cn.afterturn.easypoi.excel.export.styler.ExcelExportStylerDefaultImpl;
 import com.zero.common.enums.EncodingEnum;
-import com.zero.common.enums.ExcelStyleEnum;
-import com.zero.common.enums.ExcelSuffixEnum;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -70,7 +69,7 @@ public class ExcelKit {
         exportParams.setCreateHeadRows(true);
         exportParams.setSheetName(sheetName);
         exportParams.setType(ExcelType.XSSF);
-        exportParams.setStyle(ExcelStyleEnum.DEFAULT.getStyleClass());
+        exportParams.setStyle(ExcelExportStylerDefaultImpl.class);
         defaultExport(fileName, exportParams, exportClass, exportData, response);
     }
 
@@ -101,7 +100,7 @@ public class ExcelKit {
     private static void downloadExcel(String fileName, Workbook workbook, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding(EncodingEnum.UTF_8.getValue());
         response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + ExcelSuffixEnum.XLSX.getSuffix(), EncodingEnum.UTF_8.getValue()));
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + ".xlsx", EncodingEnum.UTF_8.getValue()));
         workbook.write(response.getOutputStream());
         workbook.close();
     }

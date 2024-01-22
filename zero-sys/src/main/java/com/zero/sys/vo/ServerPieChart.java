@@ -1,4 +1,4 @@
-package com.zero.sys.server.vo;
+package com.zero.sys.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.zero.sys.server.vo;
+package com.zero.sys.vo;
 
-import com.zero.sys.server.util.ArithHelper;
+import com.zero.common.kit.ArithHelper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;

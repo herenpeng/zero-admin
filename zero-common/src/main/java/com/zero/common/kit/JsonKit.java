@@ -34,7 +34,7 @@ public class JsonKit {
      * @return JSON 格式的字符串
      */
     public String toJson(final Object object) {
-        if (ObjectUtils.isEmpty(object)) {
+        if (object == null) {
             log.debug("[Json工具类]对象{}为空", object);
             return null;
         }
@@ -66,8 +66,21 @@ public class JsonKit {
         try {
             return objectMapper.readValue(json, classType);
         } catch (JsonProcessingException e) {
-            log.error("[Json工具类]将JSON格式的字符串{}格式化为{}类型的Java对象失败", json, classType);
-            e.printStackTrace();
+            log.error("[Json工具类]将JSON格式的字符串{}格式化为{}类型的Java对象失败，{}", json, classType, e.getMessage());
+        }
+        return null;
+    }
+
+
+    public <T> T toObject(final String json, final TypeReference<T> tTypeReference) {
+        if (StringUtils.isBlank(json)) {
+            log.debug("[Json工具类]JSON字符串{}为空", json);
+            return null;
+        }
+        try {
+            return objectMapper.readValue(json, tTypeReference);
+        } catch (JsonProcessingException e) {
+            log.error("[Json工具类]将JSON格式的字符串{}格式化为{}类型的Java对象失败，{}", json, tTypeReference, e.getMessage());
         }
         return null;
     }

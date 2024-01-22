@@ -1,4 +1,4 @@
-package com.zero.sys.server.vo;
+package com.zero.sys.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

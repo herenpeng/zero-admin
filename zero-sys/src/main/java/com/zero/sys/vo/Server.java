@@ -1,7 +1,7 @@
-package com.zero.sys.server.vo;
+package com.zero.sys.vo;
 
-import com.zero.sys.server.util.ArithHelper;
-import com.zero.sys.server.util.OshiUtils;
+import com.zero.common.kit.ArithHelper;
+import com.zero.sys.kit.OshiKit;
 import lombok.Data;
 import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
@@ -51,9 +51,9 @@ public class Server {
     public void copyTo() throws Exception {
         SystemInfo systemInfo = new SystemInfo();
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
-        OshiUtils.setCpuInfo(cpu, hardware.getProcessor());
-        OshiUtils.setMemInfo(mem, hardware.getMemory());
-        OshiUtils.setJvmInfo(jvm);
+        OshiKit.setCpuInfo(cpu, hardware.getProcessor());
+        OshiKit.setMemInfo(mem, hardware.getMemory());
+        OshiKit.setJvmInfo(jvm);
         setSysInfo();
         setSysFiles(systemInfo.getOperatingSystem());
     }

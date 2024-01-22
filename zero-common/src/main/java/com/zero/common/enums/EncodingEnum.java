@@ -25,6 +25,6 @@ public enum EncodingEnum {
     /**
      * 编码格式
      */
-    private String value;
+    private final String value;
 
 }
