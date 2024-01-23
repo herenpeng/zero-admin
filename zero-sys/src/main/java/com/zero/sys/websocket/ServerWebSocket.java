@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class ServerWebSocketEvent {
+public class ServerWebSocket {
 
     private final AppWebSocket appWebSocket;
 

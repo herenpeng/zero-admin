@@ -22,7 +22,7 @@ public class OshiKit {
 
     private static final int OSHI_WAIT_SECOND = 1000;
 
-    private static HardwareAbstractionLayer hardware;
+    private static final HardwareAbstractionLayer hardware;
 
     static {
         SystemInfo systemInfo = new SystemInfo();
