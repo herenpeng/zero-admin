@@ -38,7 +38,7 @@ public class Cpu {
     /**
      * CPU用户使用率
      */
-    private double used;
+    private double user;
 
     /**
      * CPU当前等待率
@@ -58,8 +58,8 @@ public class Cpu {
         return ArithHelper.round(ArithHelper.mul(sys / total, 100), 2);
     }
 
-    public double getUsed() {
-        return ArithHelper.round(ArithHelper.mul(used / total, 100), 2);
+    public double getUser() {
+        return ArithHelper.round(ArithHelper.mul(user / total, 100), 2);
     }
 
     public double getWait() {

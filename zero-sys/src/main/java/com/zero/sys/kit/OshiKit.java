@@ -1,8 +1,10 @@
 package com.zero.sys.kit;
 
+import com.zero.common.kit.ArithHelper;
 import com.zero.sys.vo.Cpu;
 import com.zero.sys.vo.Jvm;
 import com.zero.sys.vo.Mem;
+import com.zero.sys.vo.ServerChart;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
@@ -10,6 +12,7 @@ import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.util.Util;
 
+import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -51,19 +54,15 @@ public class OshiKit {
         long[] prevTicks = processor.getSystemCpuLoadTicks();
         Util.sleep(OSHI_WAIT_SECOND);
         long[] ticks = processor.getSystemCpuLoadTicks();
-        long nice = ticks[TickType.NICE.getIndex()] - prevTicks[TickType.NICE.getIndex()];
-        long irq = ticks[TickType.IRQ.getIndex()] - prevTicks[TickType.IRQ.getIndex()];
-        long softirq = ticks[TickType.SOFTIRQ.getIndex()] - prevTicks[TickType.SOFTIRQ.getIndex()];
-        long steal = ticks[TickType.STEAL.getIndex()] - prevTicks[TickType.STEAL.getIndex()];
-        long cSys = ticks[TickType.SYSTEM.getIndex()] - prevTicks[TickType.SYSTEM.getIndex()];
+        long sys = ticks[TickType.SYSTEM.getIndex()] - prevTicks[TickType.SYSTEM.getIndex()];
         long user = ticks[TickType.USER.getIndex()] - prevTicks[TickType.USER.getIndex()];
         long iowait = ticks[TickType.IOWAIT.getIndex()] - prevTicks[TickType.IOWAIT.getIndex()];
         long idle = ticks[TickType.IDLE.getIndex()] - prevTicks[TickType.IDLE.getIndex()];
-        long totalCpu = user + nice + cSys + idle + iowait + irq + softirq + steal;
+        long total = Arrays.stream(ticks).sum() - Arrays.stream(prevTicks).sum();
         cpu.setCpuNum(processor.getLogicalProcessorCount());
-        cpu.setTotal(totalCpu);
-        cpu.setSys(cSys);
-        cpu.setUsed(user);
+        cpu.setTotal(total);
+        cpu.setSys(sys);
+        cpu.setUser(user);
         cpu.setWait(iowait);
         cpu.setFree(idle);
     }
@@ -114,6 +113,35 @@ public class OshiKit {
         jvm.setFree(Runtime.getRuntime().freeMemory());
         jvm.setVersion(props.getProperty("java.version"));
         jvm.setHome(props.getProperty("java.home"));
+    }
+
+
+    public static ServerChart getServerChart() {
+        CentralProcessor processor = hardware.getProcessor();
+        long[] prevTicks = processor.getSystemCpuLoadTicks();
+        Util.sleep(OSHI_WAIT_SECOND);
+        // CPU
+        long[] ticks = processor.getSystemCpuLoadTicks();
+        long cpuUser = ticks[TickType.USER.getIndex()] - prevTicks[TickType.USER.getIndex()];
+        long cpuSys = ticks[TickType.SYSTEM.getIndex()] - prevTicks[TickType.SYSTEM.getIndex()];
+        long cpuTotal = Arrays.stream(ticks).sum() - Arrays.stream(prevTicks).sum();
+        double cpuUserValue = ArithHelper.div(cpuUser * 100, cpuTotal, 2);
+        double cpuSysValue = ArithHelper.div(cpuSys * 100, cpuTotal, 2);
+        // 内存，单位B
+        GlobalMemory memory = hardware.getMemory();
+        long memFree = memory.getAvailable();
+        long memUsed = memory.getTotal() - memFree;
+        // 内存单位转为GB
+        double memFreeValue = ArithHelper.div(memFree, (1024 * 1024 * 1024), 2);
+        double memUsedValue = ArithHelper.div(memUsed, (1024 * 1024 * 1024), 2);
+        // JVM，单位B
+        long jvmFree = Runtime.getRuntime().freeMemory();
+        long jvmTotal = Runtime.getRuntime().totalMemory();
+        long jvmUsed = jvmTotal - jvmFree;
+        // JVM内存单位转为MB
+        double jvmFreeValue = ArithHelper.div(jvmFree, (1024 * 1024), 2);
+        double jvmUsedValue = ArithHelper.div(jvmUsed, (1024 * 1024), 2);
+        return new ServerChart(cpuUserValue, cpuSysValue, memUsedValue, memFreeValue, jvmUsedValue, jvmFreeValue);
     }
 
 }

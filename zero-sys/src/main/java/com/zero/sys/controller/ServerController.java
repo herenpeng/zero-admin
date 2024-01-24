@@ -23,13 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServerController {
 
     @Operation(description = "获取系统服务器的CPU，内存，JVM饼图信息")
-    @GetMapping("piechart")
-    public ResponseEntity<ServerPieChart> getServerPirChartInfo() throws Exception {
-        Cpu cpu = OshiKit.getCpuInfo();
-        Mem mem = OshiKit.getMemInfo();
-        Jvm jvm = OshiKit.getJvmInfo();
-        ServerPieChart serverPieChart = new ServerPieChart(cpu, mem, jvm);
-        return ResponseEntity.ok(serverPieChart);
+    @GetMapping("chart")
+    public ResponseEntity<ServerChart> getServerPirChartInfo() throws Exception {
+        ServerChart serverChart = OshiKit.getServerChart();
+        return ResponseEntity.ok(serverChart);
     }
 
     @Operation(description = "获取系统服务器的监控信息")
