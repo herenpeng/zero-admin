@@ -99,9 +99,9 @@ public class User extends BaseEntity {
     private UserInfo userInfo;
 
     /**
-     * 当前登录的用户登入日志记录
+     * 当前登录的用户登录日志记录
      */
-    @Schema(name = "当前登录的用户登入日志记录")
+    @Schema(name = "当前登录的用户登录日志记录")
     @TableField(exist = false)
     private List<LoginLog> onlineLoginLogs;
 

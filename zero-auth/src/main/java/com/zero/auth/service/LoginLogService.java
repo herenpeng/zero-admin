@@ -109,7 +109,7 @@ public interface LoginLogService extends BaseService<LoginLog> {
     LoginLog loginLog(HttpServletRequest request, Integer userId, String tokenId);
 
     /**
-     * 登出的时候，更新登入记录
+     * 登出的时候，更新登录记录
      *
      * @param userId  登录用户主键
      * @param tokenId tokenId

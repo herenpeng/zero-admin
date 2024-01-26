@@ -153,9 +153,9 @@ CREATE TABLE `base_table` (
 
 ![系统监控](./assets/image/05.png)
 
-- 登入日志
+- 登录日志
 
-![登入日志](./assets/image/10.png)
+![登录日志](./assets/image/10.png)
 
 - 日志管理
 

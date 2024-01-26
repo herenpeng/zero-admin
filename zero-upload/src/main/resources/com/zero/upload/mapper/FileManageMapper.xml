@@ -58,15 +58,16 @@
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
         from upload_file_manage
-        where 1 = 1
-        <include refid="baseQuery"></include>
+        <where>
+            <include refid="baseQuery"/>
+        </where>
     </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
         from upload_file_manage
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
 

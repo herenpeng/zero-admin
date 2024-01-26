@@ -160,11 +160,11 @@ public class LoginLogServiceImpl extends BaseServiceImpl<LoginLogMapper, LoginLo
 
     @Override
     public void logoutLog(Integer userId, String tokenId) {
-        // 更新登入记录
+        // 更新登录记录
         LoginLog queryLoginLog = new LoginLog();
         queryLoginLog.setUserId(userId);
         queryLoginLog.setTokenId(tokenId);
-        // 通过用户主键和tokenId获取对应的登入记录
+        // 通过用户主键和tokenId获取对应的登录记录
         LoginLog loginLog = baseMapper.selectOne(new QueryWrapper<>(queryLoginLog));
         if (ObjectUtils.isEmpty(loginLog)) {
             return;

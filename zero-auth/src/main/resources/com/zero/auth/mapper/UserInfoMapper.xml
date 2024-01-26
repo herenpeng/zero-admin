@@ -61,8 +61,10 @@
         select `id` as id,`name` as name,`gender` as gender,`mobile` as mobile,`mail` as mail,`birthday` as birthday,
         `id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar
         from auth_user_info
-        where 1 = 1
-        <include refid="baseQuery"></include>
+        <where>
+            <include refid="baseQuery"/>
+        </where>
+
     </select>
 
     <select id="getList" resultMap="resultMap">
@@ -70,7 +72,7 @@
         `id_number` as id_number,`qq` as qq,`we_chat` as we_chat,`avatar` as avatar
         from auth_user_info
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
 

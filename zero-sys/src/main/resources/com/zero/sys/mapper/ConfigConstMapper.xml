@@ -40,15 +40,16 @@
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
         from sys_config_const
-        where 1 = 1
-        <include refid="baseQuery"></include>
+        <where>
+            <include refid="baseQuery"/>
+        </where>
     </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
         from sys_config_const
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
     <select id="getKeyList" resultType="java.lang.String">

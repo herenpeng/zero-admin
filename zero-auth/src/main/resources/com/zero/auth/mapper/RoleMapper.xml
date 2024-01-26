@@ -36,15 +36,16 @@
     <select id="getPage" resultMap="resultMap">
         select `id` as id, `name` as name, `description` as description, `acquiescence` as acquiescence
         from auth_role
-        where 1 = 1
-        <include refid="baseQuery"></include>
+        <where>
+            <include refid="baseQuery"/>
+        </where>
     </select>
 
     <select id="getList" resultMap="resultMap">
         select `id` as id, `name` as name, `description` as description, `acquiescence` as acquiescence
         from auth_role
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
     <select id="getByUserId" resultMap="resultMap">

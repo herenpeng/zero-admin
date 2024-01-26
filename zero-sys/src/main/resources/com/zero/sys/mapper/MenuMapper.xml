@@ -55,11 +55,12 @@
         select `id` as id,`path` as path,`name` as name,`meta_title` as meta_title,
         `meta_icon` as meta_icon,`sort` as sort,`hidden` as hidden,`enabled` as enabled,`parent_id` as parent_id
         from sys_menu
-        where 1 = 1
-        <include refid="baseQuery"></include>
-        <if test="queryMenu.queryRoleId != null">
-            and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
-        </if>
+        <where>
+            <include refid="baseQuery"/>
+            <if test="queryMenu.queryRoleId != null">
+                and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
+            </if>
+        </where>
         order by sort
     </select>
 
@@ -98,7 +99,7 @@
         `meta_icon` as meta_icon,`sort` as sort,`hidden` as hidden,`enabled` as enabled,`parent_id` as parent_id
         from sys_menu
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
         <if test="queryMenu.queryRoleId != null">
             and id in (select menu_id from sys_menu_role where role_id = #{queryMenu.queryRoleId})
         </if>

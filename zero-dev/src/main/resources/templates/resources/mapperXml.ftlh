@@ -35,8 +35,9 @@
     <select id="getPage" resultMap="resultMap">
         select <#list tableColumnList as column>`${column.name}` as ${column.name}<#if (column_has_next)>,</#if></#list>
         from ${name}
-        where 1 = 1
-        <include refid="baseQuery"/>
+        <where>
+            <include refid="baseQuery"/>
+        </where>
     </select>
 
     <select id="getList" resultMap="resultMap">

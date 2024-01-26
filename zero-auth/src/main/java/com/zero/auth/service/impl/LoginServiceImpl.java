@@ -66,7 +66,7 @@ public class LoginServiceImpl implements LoginService {
         String tokenId = tokenKit.getId(token);
         Integer userId = tokenKit.getUserId(token);
 
-        // 登出的时候，更新登入记录
+        // 登出的时候，更新登录记录
         loginLogService.logoutLog(userId, tokenId);
         String tokenRedisKey = jwtProperties.getKey() + AppConst.COLON + tokenId;
         redisKit.del(tokenRedisKey);

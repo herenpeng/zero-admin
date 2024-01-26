@@ -77,8 +77,9 @@
         select `id` as id,`operation_user_id` as operation_user_id,`access_time` as access_time,`ip` as ip,`uri` as uri,`method_type` as method_type,`method` as method,
         `request_args` as request_args,`execution_time` as execution_time,`result` as result,`description` as description,`exception_name` as exception_name,`exception_message` as exception_message
         from sys_operation_log
-        where 1 = 1
-        <include refid="baseQuery"/>
+        <where>
+            <include refid="baseQuery"/>
+        </where>
         order by id desc
     </select>
 

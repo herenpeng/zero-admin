@@ -80,8 +80,9 @@
         `database_type` as database_type,`jdbc_type` as jdbc_type,`java_type` as java_type,
         `query` as query, `sort` as sort,`table_info_id` as table_info_id
         from dev_table_column
-        where 1 = 1
-        <include refid="baseQuery"></include>
+        <where>
+            <include refid="baseQuery"/>
+        </where>
     </select>
 
     <select id="getList" resultMap="resultMap">
@@ -90,7 +91,7 @@
         `query` as query, `sort` as sort,`table_info_id` as table_info_id
         from dev_table_column
         where deleted = 0
-        <include refid="baseQuery"></include>
+        <include refid="baseQuery"/>
     </select>
 
 

@@ -137,40 +137,40 @@ public class LoginLog extends BaseEntity {
 
 
     /**
-     * 非数据库字段，查询登入日志登入用户名称
+     * 非数据库字段，查询登录日志登录用户名称
      */
-    @Schema(name = "非数据库字段，查询登入日志登入用户名称")
+    @Schema(name = "非数据库字段，查询登录日志登录用户名称")
     @TableField(exist = false)
     private String queryUsername;
 
     /**
-     * 非数据库字段，查询登入日志登入时间范围开始时间
+     * 非数据库字段，查询登录日志登录时间范围开始时间
      */
-    @Schema(name = "非数据库字段，查询登入日志登入时间范围开始时间")
+    @Schema(name = "非数据库字段，查询登录日志登录时间范围开始时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(exist = false)
     private Date queryStartDate;
 
     /**
-     * 非数据库字段，查询登入日志登入时间范围结束时间
+     * 非数据库字段，查询登录日志登录时间范围结束时间
      */
-    @Schema(name = "非数据库字段，查询登入日志登入时间范围结束时间")
+    @Schema(name = "非数据库字段，查询登录日志登录时间范围结束时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(exist = false)
     private Date queryEndDate;
 
 
     /**
-     * 非数据库字段，查询登入日志账号是否在线
+     * 非数据库字段，查询登录日志账号是否在线
      */
-    @Schema(name = "非数据库字段，查询登入日志账号是否在线")
+    @Schema(name = "非数据库字段，查询登录日志账号是否在线")
     @TableField(exist = false)
     private Boolean queryOnline;
 
     /**
-     * 非数据库字段，查询登入日志登入地址
+     * 非数据库字段，查询登录日志登录地址
      */
-    @Schema(name = "非数据库字段，查询登入日志登入地址")
+    @Schema(name = "非数据库字段，查询登录日志登录地址")
     @TableField(exist = false)
     private String queryAddress;
 
