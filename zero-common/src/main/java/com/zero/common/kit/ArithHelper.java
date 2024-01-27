@@ -94,6 +94,20 @@ public class ArithHelper {
         return b1.divide(b2, scale, RoundingMode.HALF_UP).doubleValue();
     }
 
+
+    /**
+     * 计算百分率，结果默认乘以100
+     *
+     * @param v1    分子
+     * @param v2    分母
+     * @param scale 表示表示需要精确到小数点以后几位
+     * @return 百分率
+     */
+    public static double percent(double v1, double v2, int scale) {
+        // 这里精度默认+2，因为乘以100后，小数点向右移动了两位
+        return round(mul(div(v1, v2), 100), scale);
+    }
+
     /**
      * 提供精确的小数位四舍五入处理。
      *

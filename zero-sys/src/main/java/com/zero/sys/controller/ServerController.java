@@ -33,7 +33,11 @@ public class ServerController {
     @GetMapping("info")
     public ResponseEntity<Server> getInfo() throws Exception {
         Server server = new Server();
-        server.copyTo();
+        server.setCpu(OshiKit.getCpuInfo());
+        server.setMem(OshiKit.getMemInfo());
+        server.setJvm(OshiKit.getJvmInfo());
+        server.setSys(OshiKit.getSysInfo());
+        server.setSysFiles(OshiKit.getSysFiles());
         return ResponseEntity.ok(server);
     }
 

@@ -1,6 +1,5 @@
 package com.zero.sys.vo;
 
-import com.zero.common.kit.ArithHelper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,22 +31,9 @@ public class Mem {
      * 剩余内存
      */
     private double free;
-
-    public double getTotal() {
-        return ArithHelper.div(total, (1024 * 1024 * 1024), 2);
-    }
-
-    public double getUsed() {
-        return ArithHelper.div(used, (1024 * 1024 * 1024), 2);
-    }
-
-    public double getFree() {
-        return ArithHelper.div(free, (1024 * 1024 * 1024), 2);
-    }
-
-    public double getUsage() {
-        return ArithHelper.mul(ArithHelper.div(used, total, 4), 100);
-    }
-
+    /**
+     * 使用率
+     */
+    private double usage;
 
 }

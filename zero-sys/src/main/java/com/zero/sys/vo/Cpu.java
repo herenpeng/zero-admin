@@ -1,7 +1,6 @@
 package com.zero.sys.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.zero.common.kit.ArithHelper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,25 +48,5 @@ public class Cpu {
      * CPU当前空闲率
      */
     private double free;
-
-    public double getTotal() {
-        return ArithHelper.round(ArithHelper.mul(total, 100), 2);
-    }
-
-    public double getSys() {
-        return ArithHelper.round(ArithHelper.mul(sys / total, 100), 2);
-    }
-
-    public double getUser() {
-        return ArithHelper.round(ArithHelper.mul(user / total, 100), 2);
-    }
-
-    public double getWait() {
-        return ArithHelper.round(ArithHelper.mul(wait / total, 100), 2);
-    }
-
-    public double getFree() {
-        return ArithHelper.round(ArithHelper.mul(free / total, 100), 2);
-    }
 
 }
