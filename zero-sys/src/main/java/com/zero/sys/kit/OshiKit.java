@@ -57,7 +57,6 @@ public class OshiKit {
         cpu.setUser(ArithHelper.percent(user, total, 2));
         cpu.setWait(ArithHelper.percent(iowait, total, 2));
         cpu.setFree(ArithHelper.percent(idle, total, 2));
-        System.out.println(cpu);
         return cpu;
     }
 
