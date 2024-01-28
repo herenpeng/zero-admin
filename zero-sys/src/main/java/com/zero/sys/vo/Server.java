@@ -1,15 +1,22 @@
 package com.zero.sys.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author herenpeng
  * @since 2020-10-12 20:36
  */
+@Schema(name = "服务器信息实体类")
 @Data
-public class Server {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Server implements Serializable {
 
     /**
      * CPU相关信息
