@@ -2,7 +2,8 @@ package com.zero.sys.controller;
 
 import com.zero.common.domain.ResponseEntity;
 import com.zero.sys.kit.OshiKit;
-import com.zero.sys.vo.*;
+import com.zero.sys.pojo.vo.Server;
+import com.zero.sys.pojo.vo.ServerChart;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -25,11 +25,20 @@ public class DateKit {
 
 
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static final String MINUTE_PATTERN = "yyyy-MM-dd HH:mm";
+
+
+    public static long now() {
+        return System.currentTimeMillis();
+    }
 
     public static String format(long time) {
         return DateFormatUtils.format(new Date(time), DATE_PATTERN);
     }
 
+    public static String format(long time, String pattern) {
+        return DateFormatUtils.format(new Date(time), pattern);
+    }
 
 
 }

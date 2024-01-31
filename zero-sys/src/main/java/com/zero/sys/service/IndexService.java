@@ -1,10 +1,10 @@
 package com.zero.sys.service;
 
 import com.zero.common.http.domain.WeatherInfo;
-import com.zero.sys.vo.LoginMap;
-import com.zero.sys.vo.PanelGroup;
-
+import com.zero.sys.pojo.vo.IndexChart;
+import com.zero.sys.pojo.vo.LoginMap;
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 /**
@@ -30,7 +30,7 @@ public interface IndexService {
      * @return 系统首页的展示数据
      * @throws Exception 抛出异常
      */
-    PanelGroup panelGroup() throws Exception;
+    IndexChart indexChart() throws Exception;
 
     /**
      * 获取系统首页的用户登录地图数据

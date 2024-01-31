@@ -1,11 +1,11 @@
 package com.zero.sys.controller;
 
 import com.zero.common.annotation.AppLog;
-import com.zero.common.http.domain.WeatherInfo;
 import com.zero.common.domain.ResponseEntity;
+import com.zero.common.http.domain.WeatherInfo;
 import com.zero.sys.service.IndexService;
-import com.zero.sys.vo.LoginMap;
-import com.zero.sys.vo.PanelGroup;
+import com.zero.sys.pojo.vo.IndexChart;
+import com.zero.sys.pojo.vo.LoginMap;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,10 +40,10 @@ public class IndexController {
 
     @AppLog
     @Operation(description = "获取系统首页的展示数据")
-    @GetMapping("panel/group")
-    public ResponseEntity<PanelGroup> panelGroup() throws Exception {
-        PanelGroup panelGroup = indexService.panelGroup();
-        return ResponseEntity.ok(panelGroup);
+    @GetMapping("chart")
+    public ResponseEntity<IndexChart> panelGroup() throws Exception {
+        IndexChart indexChart = indexService.indexChart();
+        return ResponseEntity.ok(indexChart);
     }
 
     @AppLog

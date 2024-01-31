@@ -2,7 +2,7 @@ package com.zero.sys.kit;
 
 import com.zero.common.kit.ArithHelper;
 import com.zero.common.kit.DateKit;
-import com.zero.sys.vo.*;
+import com.zero.sys.pojo.vo.*;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;

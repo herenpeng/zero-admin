@@ -1,4 +1,4 @@
-package com.zero.sys.vo;
+package com.zero.sys.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;

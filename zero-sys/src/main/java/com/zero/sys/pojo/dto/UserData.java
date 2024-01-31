@@ -1,4 +1,4 @@
-package com.zero.sys.vo;
+package com.zero.sys.pojo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,10 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IndexChart implements Serializable {
+public class UserData implements Serializable {
 
-
-
+    private String time;
+    private Long loginNum;
+    private Long loginUserNum;
 
 }
