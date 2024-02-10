@@ -41,7 +41,7 @@ public class IndexController {
     @AppLog
     @Operation(description = "获取系统首页的展示数据")
     @GetMapping("chart")
-    public ResponseEntity<IndexChart> panelGroup() throws Exception {
+    public ResponseEntity<IndexChart> chart() throws Exception {
         IndexChart indexChart = indexService.indexChart();
         return ResponseEntity.ok(indexChart);
     }

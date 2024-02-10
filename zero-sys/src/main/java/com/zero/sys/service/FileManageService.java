@@ -1,8 +1,8 @@
-package com.zero.upload.service;
+package com.zero.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
-import com.zero.upload.entity.FileManage;
+import com.zero.sys.entity.FileManage;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletResponse;

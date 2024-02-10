@@ -1,8 +1,8 @@
-package com.zero.upload.controller;
+package com.zero.sys.controller;
 
 import com.zero.common.annotation.AppLog;
 import com.zero.common.domain.ResponseEntity;
-import com.zero.upload.service.UploadService;
+import com.zero.sys.service.UploadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

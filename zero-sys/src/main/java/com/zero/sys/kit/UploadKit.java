@@ -1,15 +1,16 @@
-package com.zero.upload.util;
+package com.zero.sys.kit;
 
 import com.zero.auth.kit.TokenKit;
 import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
 import com.zero.common.properties.AppProperties;
-import com.zero.upload.entity.FileManage;
-import com.zero.upload.enums.FileTypeEnums;
-import com.zero.upload.mapper.FileManageMapper;
-import com.zero.upload.properties.FileUpload;
-import com.zero.upload.properties.UploadProperties;
+import com.zero.sys.entity.FileManage;
+import com.zero.sys.enums.FileTypeEnum;
+import com.zero.sys.mapper.FileManageMapper;
+import com.zero.sys.properties.FileUpload;
+import com.zero.sys.properties.UploadProperties;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -31,7 +31,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class UploadUtils {
+public class UploadKit {
 
     private final AppProperties appProperties;
 
@@ -88,7 +88,7 @@ public class UploadUtils {
 
         FileManage fileManage = new FileManage();
         fileManage.setName(file.getOriginalFilename());
-        fileManage.setType(FileTypeEnums.IMAGE);
+        fileManage.setType(FileTypeEnum.IMAGE);
         fileManage.setPath(newFile.getPath());
         fileManage.setUri(uri);
         fileManage.setUploadTime(new Date());
@@ -152,24 +152,24 @@ public class UploadUtils {
      */
     private String generateBakFileName(String name, int bakCount) {
         // 获取源文件名称后缀
-        String suffix = name.substring(name.lastIndexOf(AppConst.POINT));
+        int index = name.lastIndexOf(AppConst.POINT);
+        String suffix = name.substring(index);
         // 获取源文件名称，不含后缀
-        String fileName = name.substring(0, name.lastIndexOf(AppConst.POINT));
+        String fileName = name.substring(0, index);
         // 生成备份文件的名称
-        String bakFileName = fileName + AppConst.POINT + uploadProperties.getBakSuffix()
+        return fileName + AppConst.POINT + uploadProperties.getBakSuffix()
                 + AppConst.POINT + (bakCount + 1) + suffix;
-        return bakFileName;
     }
 
     /**
      * 文件名称替换工具，将文件名称替换为随机名称
      *
-     * @param oldName
-     * @return
+     * @param oldName 旧文件名称
+     * @return 新文件名称
      */
     private String generateUniqueFileName(String oldName) {
         String suffix = oldName.substring(oldName.lastIndexOf(AppConst.POINT));
-        return UUID.randomUUID().toString() + suffix;
+        return UUID.randomUUID() + suffix;
     }
 
 
@@ -212,21 +212,21 @@ public class UploadUtils {
     /**
      * 文件枚举类型和文件上传信息的对照map结合
      */
-    private static final Map<FileTypeEnums, FileUpload> fileTypeMap = new HashMap<>();
+    private static final Map<FileTypeEnum, FileUpload> fileTypeMap = new HashMap<>();
 
     /**
      * 实现文件类型枚举和文件类型信息对应的转换方法，如果新增新的文件类型，需要在这个方法下新增型的类型映射
      *
-     * @param fileTypeEnums 文件类型枚举
+     * @param fileTypeEnum 文件类型枚举
      * @return 文件类型信息
      */
-    private FileUpload getFileUpload(FileTypeEnums fileTypeEnums) {
+    private FileUpload getFileUpload(FileTypeEnum fileTypeEnum) {
         if (ObjectUtils.isEmpty(fileTypeMap)) {
-            fileTypeMap.put(FileTypeEnums.DEFAULT_FILE, uploadProperties.getDefaultFile());
-            fileTypeMap.put(FileTypeEnums.IMAGE, uploadProperties.getImage());
-            fileTypeMap.put(FileTypeEnums.PDF, uploadProperties.getPdf());
+            fileTypeMap.put(FileTypeEnum.DEFAULT_FILE, uploadProperties.getDefaultFile());
+            fileTypeMap.put(FileTypeEnum.IMAGE, uploadProperties.getImage());
+            fileTypeMap.put(FileTypeEnum.PDF, uploadProperties.getPdf());
         }
-        FileUpload fileUpload = fileTypeMap.get(fileTypeEnums);
+        FileUpload fileUpload = fileTypeMap.get(fileTypeEnum);
         if (ObjectUtils.isEmpty(fileUpload)) {
             return uploadProperties.getDefaultFile();
         }

@@ -1,4 +1,4 @@
-package com.zero.upload.enums;
+package com.zero.sys.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum FileTypeEnums {
+public enum FileTypeEnum {
 
     /**
      * 默认文件类型的文件
@@ -32,12 +32,12 @@ public enum FileTypeEnums {
      * 持久化到数据库中的值
      */
     @EnumValue
-    private String value;
+    private final String value;
 
     /**
      * 格式化为json字符串时展示的数据
      */
     @JsonValue
-    private String description;
+    private final String description;
 
 }

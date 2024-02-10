@@ -1,4 +1,4 @@
-package com.zero.upload.properties;
+package com.zero.sys.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package com.zero.upload.service.impl;
+package com.zero.sys.service.impl;
 
-import com.zero.upload.service.UploadService;
-import com.zero.upload.util.UploadUtils;
+import com.zero.sys.kit.UploadKit;
+import com.zero.sys.service.UploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,11 @@ import java.io.IOException;
 @Transactional(rollbackFor = Exception.class)
 public class UploadServiceImpl implements UploadService {
 
-    private final UploadUtils uploadUtils;
+    private final UploadKit uploadKit;
 
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
-        return uploadUtils.uploadImage(file);
+        return uploadKit.uploadImage(file);
     }
 
 }

@@ -1,9 +1,12 @@
-package com.zero.upload.mapper;
+package com.zero.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zero.upload.entity.FileManage;
-import org.apache.ibatis.annotations.*;
+import com.zero.sys.entity.FileManage;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,7 +47,7 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
      * @param id 文件资源管理表主键
      * @throws Exception 抛出异常
      */
-    @Update("update upload_file_manage set deleted = 0 where id = #{id}")
+    @Update("update sys_file_manage set deleted = 0 where id = #{id}")
     void recoverById(@Param("id") Integer id) throws Exception;
 
     /**
@@ -53,7 +56,7 @@ public interface FileManageMapper extends BaseMapper<FileManage> {
      * @param id 文件资源管理表主键
      * @throws Exception 抛出异常
      */
-    @Delete("delete from upload_file_manage where id = #{id}")
+    @Delete("delete from sys_file_manage where id = #{id}")
     void recoverDelete(@Param("id") Integer id) throws Exception;
 
     /**

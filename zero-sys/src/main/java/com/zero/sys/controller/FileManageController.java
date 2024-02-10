@@ -1,11 +1,11 @@
-package com.zero.upload.controller;
+package com.zero.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.annotation.AppLog;
 import com.zero.common.base.controller.BaseController;
 import com.zero.common.domain.ResponseEntity;
-import com.zero.upload.entity.FileManage;
-import com.zero.upload.service.FileManageService;
+import com.zero.sys.entity.FileManage;
+import com.zero.sys.service.FileManageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

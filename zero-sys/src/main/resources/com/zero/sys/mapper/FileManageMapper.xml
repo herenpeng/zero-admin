@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zero.upload.mapper.FileManageMapper">
+<mapper namespace="com.zero.sys.mapper.FileManageMapper">
 
-    <resultMap id="resultMap" type="com.zero.upload.entity.FileManage">
+    <resultMap id="resultMap" type="com.zero.sys.entity.FileManage">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="type" jdbcType="VARCHAR" property="type"/>
@@ -57,7 +57,7 @@
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
-        from upload_file_manage
+        from sys_file_manage
         <where>
             <include refid="baseQuery"/>
         </where>
@@ -65,7 +65,7 @@
 
     <select id="getList" resultMap="resultMap">
         select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
-        from upload_file_manage
+        from sys_file_manage
         where deleted = 0
         <include refid="baseQuery"/>
     </select>
@@ -73,7 +73,7 @@
 
     <select id="getByParentId" resultMap="resultMap">
         select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
-        from upload_file_manage
+        from sys_file_manage
         where deleted = 0
         <if test="parentId != null">
             and parent_id = #{parentId}
@@ -82,7 +82,7 @@
 
     <select id="countByParentId" resultType="java.lang.Integer">
         select count(*) as count
-        from upload_file_manage
+        from sys_file_manage
         where deleted = 0
         <if test="parentId != null">
             and parent_id = #{parentId}
@@ -91,7 +91,7 @@
 
     <select id="selectRecoverById" resultMap="resultMap">
         select `id` as id,`name` as name,`type` as type,`uri` as uri,`path` as path,`upload_time` as upload_time,`upload_user_id` as upload_user_id,`parent_id` as parent_id,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
-        from upload_file_manage
+        from sys_file_manage
         where deleted = 1
         and id = #{id}
     </select>

@@ -13,7 +13,6 @@
         <module>zero-sys</module>
         <module>zero-common</module>
         <module>zero-dev</module>
-        <module>zero-upload</module>
         <module>zero-mail</module>
         <module>zero-auth</module>
     </modules>
@@ -40,7 +39,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>${spring-boot.version}</version>
         <relativePath/>
     </parent>
 
@@ -54,11 +53,6 @@
             <dependency>
                 <groupId>com.zero</groupId>
                 <artifactId>zero-mail</artifactId>
-                <version>${zero-admin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zero</groupId>
-                <artifactId>zero-upload</artifactId>
                 <version>${zero-admin.version}</version>
             </dependency>
             <dependency>
@@ -85,11 +79,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--SpringSecurity的依赖-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
         <!--SpringWebSocket的依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -200,7 +189,6 @@
         <!--swagger的依赖-->
         <dependency>
             <groupId>org.springdoc</groupId>
-<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>

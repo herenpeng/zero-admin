@@ -1,14 +1,14 @@
-package com.zero.upload.service.impl;
+package com.zero.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
-import com.zero.upload.entity.FileManage;
-import com.zero.upload.mapper.FileManageMapper;
-import com.zero.upload.service.FileManageService;
-import com.zero.upload.util.UploadUtils;
+import com.zero.sys.entity.FileManage;
+import com.zero.sys.kit.UploadKit;
+import com.zero.sys.mapper.FileManageMapper;
+import com.zero.sys.service.FileManageService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
 
     private final UserMapper userMapper;
 
-    private final UploadUtils uploadUtils;
+    private final UploadKit uploadKit;
 
     @Override
     public IPage<FileManage> page(Integer currentPage, Integer size, FileManage queryFileManage) throws Exception {
@@ -93,7 +93,7 @@ public class FileManageServiceImpl extends BaseServiceImpl<FileManageMapper, Fil
         // 统计源文件已有的备份文件个数
         Integer bakCount = baseMapper.countByParentId(id);
         // 备份文件
-        uploadUtils.bakFile(fileManage, bakCount);
+        uploadKit.bakFile(fileManage, bakCount);
     }
 
     @Override

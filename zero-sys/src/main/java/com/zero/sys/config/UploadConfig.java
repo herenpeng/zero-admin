@@ -1,4 +1,4 @@
-package com.zero.upload.config;
+package com.zero.sys.config;
 
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;

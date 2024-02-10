@@ -1,4 +1,4 @@
-package com.zero.upload.entity;
+package com.zero.sys.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -6,8 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zero.auth.entity.User;
 import com.zero.common.base.entity.BaseEntity;
-import com.zero.upload.enums.FileTypeEnums;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.zero.sys.enums.FileTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +28,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("upload_file_manage")
+@TableName("sys_file_manage")
 public class FileManage extends BaseEntity {
 
     /**
@@ -45,7 +44,7 @@ public class FileManage extends BaseEntity {
     @Schema(name = "文件类型")
     @Excel(name = "文件类型", width = 15, needMerge = true)
     @TableField("type")
-    private FileTypeEnums type;
+    private FileTypeEnum type;
     /**
      * 文件http引用路径
      */

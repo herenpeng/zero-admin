@@ -16,7 +16,7 @@ import com.zero.mail.template.verify.VerifyParams;
 import com.zero.mail.template.verify.VerifyProperties;
 import com.zero.mail.util.MailUtils;
 import com.zero.sys.service.UserInfoService;
-import com.zero.upload.service.UploadService;
+import com.zero.sys.service.UploadService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
