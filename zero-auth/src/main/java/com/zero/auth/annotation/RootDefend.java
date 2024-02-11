@@ -16,5 +16,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface VerifyRoot {
+public @interface RootDefend {
+    String userId() default "";
+    String roleId() default "";
+
 }

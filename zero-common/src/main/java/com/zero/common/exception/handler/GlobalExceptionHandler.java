@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AppException.class)
     public ResponseEntity<Void> AppExceptionHandler(HttpServletRequest request, AppException e) {
         AppExceptionEnum exceptionEnum = e.getExceptionEnum();
-        log.error("[全局异常处理]发生业务异常，异常信息：{}，code：{}，message：{}", e.getExceptionEnum(), exceptionEnum.getCode(), exceptionEnum.getMessage());
+        log.error("[全局异常处理]发生业务异常，异常信息：{}，code：{}，message：{}", exceptionEnum, exceptionEnum.getCode(), exceptionEnum.getMessage());
         return ResponseEntity.code(exceptionEnum.getCode(), exceptionEnum.getMessage());
     }
 

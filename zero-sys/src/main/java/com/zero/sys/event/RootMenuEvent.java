@@ -3,7 +3,7 @@ package com.zero.sys.event;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.RoleMapper;
-import com.zero.auth.properties.RoleProperties;
+import com.zero.auth.properties.RootProperties;
 import com.zero.common.event.AppEvent;
 import com.zero.common.event.AppStartEvent;
 import com.zero.sys.entity.Menu;
@@ -35,12 +35,12 @@ public class RootMenuEvent implements AppEvent {
 
     private final MenuRoleMapper menuRoleMapper;
 
-    private final RoleProperties roleProperties;
+    private final RootProperties rootProperties;
 
     @Override
     public void doEvent() throws Exception {
         List<Menu> menuList = menuMapper.selectList(null);
-        Role role = roleMapper.getByName(roleProperties.getRootName());
+        Role role = roleMapper.getByName(rootProperties.getRoleName());
         for (Menu menu : menuList) {
             MenuRole queryMenuRole = new MenuRole();
             queryMenuRole.setMenuId(menu.getId());

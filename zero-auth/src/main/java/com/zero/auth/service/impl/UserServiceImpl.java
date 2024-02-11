@@ -2,6 +2,7 @@ package com.zero.auth.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zero.auth.annotation.RootDefend;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.User;
 import com.zero.auth.entity.UserInfo;
@@ -10,7 +11,7 @@ import com.zero.auth.enums.LoginTypeEnum;
 import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.kit.TokenKit;
 import com.zero.auth.mapper.*;
-import com.zero.auth.properties.UserProperties;
+import com.zero.auth.properties.RootProperties;
 import com.zero.auth.service.LoginLogService;
 import com.zero.auth.service.RoleService;
 import com.zero.auth.service.UserService;
@@ -22,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +48,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     private final UserInfoMapper userInfoMapper;
 
-    private final UserProperties userProperties;
+    private final RootProperties rootProperties;
 
     private final TokenKit tokenKit;
 
@@ -55,6 +57,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     private final RoleService roleService;
 
     private final LoginLogService loginLogService;
+
+    /**
+     * 普通用户默认密码
+     */
+    @Value("${zero.auth.user.default-password:111111}")
+    private String defaultPassword;
 
     @Override
     public IPage<User> page(Integer currentPage, Integer size, User queryUser) throws Exception {
@@ -77,7 +85,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public boolean save(User user) {
         // 删除用户名中头尾的空格字符
         user.setUsername(StringUtils.trim(user.getUsername()));
-        String defaultPassword = userProperties.getDefaultPassword();
         String encodePassword = PasswordKit.sha256(defaultPassword);
         user.setPassword(encodePassword);
         // 本地系统添加的用户类型为 LOCAL
@@ -93,8 +100,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    @RootDefend(userId = "#id")
     public void enabled(Integer id, Boolean enabled) throws Exception {
-        verifyRootPermissions(id);
         User user = new User();
         user.setId(id);
         user.setEnabled(enabled);
@@ -111,20 +118,20 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    @RootDefend(userId = "#user.id")
     public boolean updateById(User user) {
-        verifyRootPermissions(user.getId());
         return super.updateById(user);
     }
 
     @Override
+    @RootDefend(userId = "#id")
     public boolean removeById(Serializable id) {
-        verifyRootPermissions(id);
         return super.removeById(id);
     }
 
     @Override
+    @RootDefend(userId = "#userId")
     public void deleteUserRole(Integer userId, Integer roleId) throws Exception {
-        verifyRootPermissions(userId);
         userRoleMapper.deleteUserRole(userId, roleId);
     }
 
@@ -134,8 +141,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    @RootDefend(userId = "#userId")
     public void addUserRole(Integer userId, Integer roleId) throws Exception {
-        verifyRootPermissions(userId);
         UserRole userRole = new UserRole();
         userRole.setUserId(userId);
         userRole.setRoleId(roleId);
@@ -200,18 +207,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         baseMapper.updateById(user);
         // 重置账号密码后对该账号的所有在线用户进行下线操作
         loginLogService.offlineAll(id);
-    }
-
-    /**
-     * 校验Root用户的权限，不允许所有用户对该Root账号进行修改，删除，增删角色等等操作
-     *
-     * @param id 用户主键
-     */
-    private void verifyRootPermissions(Serializable id) {
-        User user = baseMapper.selectById(id);
-        if (StringUtils.equals(userProperties.getRootUsername(), user.getUsername())) {
-            throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
-        }
     }
 
 

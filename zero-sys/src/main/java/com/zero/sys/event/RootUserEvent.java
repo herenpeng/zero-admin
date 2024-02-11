@@ -9,8 +9,7 @@ import com.zero.auth.kit.PasswordKit;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserMapper;
 import com.zero.auth.mapper.UserRoleMapper;
-import com.zero.auth.properties.RoleProperties;
-import com.zero.auth.properties.UserProperties;
+import com.zero.auth.properties.RootProperties;
 import com.zero.common.event.AppEvent;
 import com.zero.common.event.AppStartEvent;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +29,9 @@ import org.springframework.util.ObjectUtils;
 @Component
 public class RootUserEvent implements AppEvent {
 
-    private final UserProperties userProperties;
+    private final RootProperties rootProperties;
 
     private final UserMapper userMapper;
-
-    private final RoleProperties roleProperties;
 
     private final RoleMapper roleMapper;
 
@@ -43,11 +40,11 @@ public class RootUserEvent implements AppEvent {
     @Override
     public void doEvent() throws Exception {
         // 如果root用户为空，插入一个root用户
-        User user = userMapper.loadUserByUsername(userProperties.getRootUsername(), LoginTypeEnum.PASSWORD);
+        User user = userMapper.loadUserByUsername(rootProperties.getUsername(), LoginTypeEnum.PASSWORD);
         if (user == null) {
             user = new User();
-            user.setUsername(userProperties.getRootUsername());
-            String encodePassword = PasswordKit.sha256(userProperties.getRootPassword());
+            user.setUsername(rootProperties.getUsername());
+            String encodePassword = PasswordKit.sha256(rootProperties.getPassword());
             user.setPassword(encodePassword);
             user.setEnabled(true);
             user.setLocked(false);
@@ -56,11 +53,11 @@ public class RootUserEvent implements AppEvent {
             userMapper.insert(user);
         }
         // 如果root角色为空，插入一个root角色
-        Role role = roleMapper.getByName(roleProperties.getRootName());
+        Role role = roleMapper.getByName(rootProperties.getRoleName());
         if (ObjectUtils.isEmpty(role)) {
             role = new Role();
-            role.setName(roleProperties.getRootName());
-            role.setDescription(roleProperties.getRootDescription());
+            role.setName(rootProperties.getRoleName());
+            role.setDescription(rootProperties.getRoleDescription());
             roleMapper.insert(role);
         }
         // 如果root用户角色关系为空，插入一个root用户角色关系

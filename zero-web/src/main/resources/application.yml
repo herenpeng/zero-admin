@@ -84,18 +84,6 @@ mybatis-plus:
 zero:
   api-path: ${zero.domain-name}${server.servlet.context-path}
   auth:
-    user:
-      # root用户默认用户名
-      root-username: root
-      # root用户默认密码
-      root-password: 111111
-      # 普通用户默认密码
-      default-password: 111111
-    role:
-      # root角色默认角色名
-      root-name: root
-      # root角色默认描述信息
-      root-description: root权限，系统的最高权限
     jwt:
       ttl: 3600000
       issuer: ${zero.domain-name}

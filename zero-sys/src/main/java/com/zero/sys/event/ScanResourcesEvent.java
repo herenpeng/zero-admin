@@ -7,7 +7,7 @@ import com.zero.auth.entity.Role;
 import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.auth.mapper.RoleMapper;
-import com.zero.auth.properties.RoleProperties;
+import com.zero.auth.properties.RootProperties;
 import com.zero.common.constant.MethodTypeConst;
 import com.zero.common.event.AppEvent;
 import com.zero.common.event.AppStartEvent;
@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 @RequiredArgsConstructor
-@AppStartEvent(sort = 5, enable = true)
+@AppStartEvent(sort = 3, enable = true)
 @Component
 public class ScanResourcesEvent implements AppEvent {
 
@@ -41,7 +41,7 @@ public class ScanResourcesEvent implements AppEvent {
 
     private final RoleMapper roleMapper;
 
-    private final RoleProperties roleProperties;
+    private final RootProperties rootProperties;
 
     private final ResourcesMapper resourcesMapper;
 
@@ -60,7 +60,7 @@ public class ScanResourcesEvent implements AppEvent {
     private void scanResources(ConfigurableApplicationContext run) {
         // 获取@RestController注解的类名集合
         String[] restControllers = run.getBeanNamesForAnnotation(RestController.class);
-        Role rootRole = roleMapper.getByName(roleProperties.getRootName());
+        Role rootRole = roleMapper.getByName(rootProperties.getUsername());
         // 获取类对象名称
         for (String beanName : restControllers) {
             Object bean = run.getBean(beanName);

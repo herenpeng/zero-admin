@@ -3,15 +3,14 @@ package com.zero.auth.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zero.auth.annotation.RootDefend;
 import com.zero.auth.entity.Role;
 import com.zero.auth.entity.UserRole;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.mapper.UserRoleMapper;
-import com.zero.auth.properties.RoleProperties;
+import com.zero.auth.properties.RootProperties;
 import com.zero.auth.service.RoleService;
 import com.zero.common.base.service.impl.BaseServiceImpl;
-import com.zero.common.exception.AppException;
-import com.zero.common.exception.AppExceptionEnum;
 import com.zero.common.kit.ExcelKit;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implements RoleService {
 
-    private final RoleProperties roleProperties;
+    private final RootProperties rootProperties;
 
     private final UserRoleMapper userRoleMapper;
 
@@ -49,19 +48,18 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     @Override
     public List<Role> list(Role queryRole) throws Exception {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>(queryRole);
-        List<Role> roleList = baseMapper.selectList(queryWrapper);
-        return roleList;
+        return baseMapper.selectList(queryWrapper);
     }
 
     @Override
+    @RootDefend(roleId = "#role.id")
     public boolean updateById(Role role) {
-        verifyRootPermissions(role.getId());
         return super.updateById(role);
     }
 
     @Override
+    @RootDefend(roleId = "#id")
     public boolean removeById(Serializable id) {
-        verifyRootPermissions(id);
         return super.removeById(id);
     }
 
@@ -121,17 +119,5 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
         ExcelKit.exportExcel("角色列表", Role.class, exportData, response);
     }
 
-
-    /**
-     * 校验Root角色的权限，不允许所有用户对该Root角色进行修改，删除等等操作
-     *
-     * @param id 角色主键
-     */
-    private void verifyRootPermissions(Serializable id) {
-        Role role = baseMapper.selectById(id);
-        if (roleProperties.getRootName().equals(role.getName())) {
-            throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
-        }
-    }
 
 }
