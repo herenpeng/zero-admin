@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -48,11 +47,11 @@ public class ConfigConst extends BaseEntity {
     @TableField(value = "default_value")
     private String defaultValue;
     /**
-     * 用户是否可配置，true为可配置，false为不可配置
+     * 用户是否可自定义，true为可配置，false为不可配置
      */
-    @Schema(name = "用户是否可配置")
-    @Excel(name = "用户是否可配置", width = 15, needMerge = true)
-    @TableField(value = "userable")
-    private Boolean userable;
+    @Schema(name = "用户是否可自定义")
+    @Excel(name = "用户是否可自定义", width = 15, needMerge = true)
+    @TableField(value = "custom")
+    private Boolean custom;
 
 }

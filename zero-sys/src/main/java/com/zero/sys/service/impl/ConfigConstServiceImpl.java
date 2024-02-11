@@ -71,7 +71,7 @@ public class ConfigConstServiceImpl extends BaseServiceImpl<ConfigConstMapper, C
             log.error("[系统配置业务层]系统配置的KEY值：{}不存在", key);
             throw new AppException(AppExceptionEnum.CONFIG_KEY_NOT_EXIST);
         }
-        if (configConst.getUserable()) {
+        if (configConst.getCustom()) {
             log.debug("系统配置的KEY值：{}允许用户自定义配置，检查用户自定义配置", key);
             Integer userId = tokenKit.getUserId(request);
             UserConfig userConfig = userConfigMapper.getByUserIdAndConfigId(userId, configConst.getId());

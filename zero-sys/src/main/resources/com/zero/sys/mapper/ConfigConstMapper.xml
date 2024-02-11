@@ -7,7 +7,7 @@
         <result column="key" jdbcType="VARCHAR" property="key"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="default_value" jdbcType="VARCHAR" property="defaultValue"/>
-        <result column="userable" jdbcType="BOOLEAN" property="userable"/>
+        <result column="custom" jdbcType="BOOLEAN" property="custom"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -16,7 +16,7 @@
     </resultMap>
 
     <sql id="baseColumn">
-        `id`,`key`,`description`,`default_value`,`userable`
+        `id`,`key`,`description`,`default_value`,`custom`
     </sql>
 
     <sql id="baseQuery">
@@ -29,8 +29,8 @@
         <if test="queryConfigConst.defaultValue != null and queryConfigConst.defaultValue != ''">
             and default_value like concat('%', #{queryConfigConst.defaultValue}, '%')
         </if>
-        <if test="queryConfigConst.userable != null">
-            and userable = #{queryConfigConst.userable}
+        <if test="queryConfigConst.custom != null">
+            and custom = #{queryConfigConst.custom}
         </if>
         <if test="queryConfigConst.deleted != null">
             and deleted = #{queryConfigConst.deleted}
@@ -38,7 +38,7 @@
     </sql>
 
     <select id="getPage" resultMap="resultMap">
-        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
+        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`custom` as custom
         from sys_config_const
         <where>
             <include refid="baseQuery"/>
@@ -46,7 +46,7 @@
     </select>
 
     <select id="getList" resultMap="resultMap">
-        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
+        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`custom` as custom
         from sys_config_const
         where deleted = 0
         <include refid="baseQuery"/>
@@ -57,13 +57,13 @@
         <if test="key != null and key != ''">
             and `key` like concat('%', #{key}, '%')
         </if>
-        <if test="userable != null">
-            and userable = #{userable}
+        <if test="custom != null">
+            and custom = #{custom}
         </if>
     </select>
 
     <select id="getByKey" resultMap="resultMap">
-        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`userable` as userable
+        select `id` as id,`key` as `key`,`description` as description,`default_value` as default_value,`custom` as custom
         from sys_config_const where deleted = 0
         <if test="key != null and key != ''">
             and `key` = #{key}
