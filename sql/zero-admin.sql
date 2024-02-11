@@ -11,7 +11,7 @@
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 10/02/2024 20:37:02
+ Date: 11/02/2024 11:52:59
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `auth_login_log`  (
   `update_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '数据库数据更新用户主键',
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除标识，0为正常，1为逻辑删除，默认为0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 526 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统账号登录日志表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 540 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统账号登录日志表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of auth_login_log
@@ -90,6 +90,20 @@ INSERT INTO `auth_login_log` VALUES (522, 1, '127.0.0.1', NULL, NULL, NULL, NULL
 INSERT INTO `auth_login_log` VALUES (523, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-10 14:14:56', 'ac31cb27-ddc8-4fcc-bf5b-4891f26dc62f', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-10 15:14:56', 0, '2024-02-10 14:14:56', 0, '2024-02-10 14:14:56', 0, 0);
 INSERT INTO `auth_login_log` VALUES (524, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-10 18:03:43', '8c84fcfb-918c-4ca8-85f8-94d2b00b1f36', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-10 19:03:43', 0, '2024-02-10 18:03:42', 0, '2024-02-10 18:03:42', 0, 0);
 INSERT INTO `auth_login_log` VALUES (525, 1, '127.0.0.1', 'XX', 'XX', '内网IP', '内网IP', '2024-02-10 19:52:00', 'bd562c40-a955-4e46-bab5-4dfb02884eda', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-10 20:52:00', 0, '2024-02-10 19:51:59', 0, '2024-02-10 19:51:59', 0, 0);
+INSERT INTO `auth_login_log` VALUES (526, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 08:49:20', '8a081d05-8d4f-40e9-945b-1f183b88c12d', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 08:49:50', 0, '2024-02-11 08:49:20', 0, '2024-02-11 08:49:20', 0, 0);
+INSERT INTO `auth_login_log` VALUES (527, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 08:53:00', '01ab79f6-5770-432f-abda-e569a43bab62', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 08:53:30', 0, '2024-02-11 08:53:00', 0, '2024-02-11 08:53:00', 0, 0);
+INSERT INTO `auth_login_log` VALUES (528, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 08:57:55', '84a3cd6f-8356-43c3-ac73-3e3dd19c7d03', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 08:58:25', 0, '2024-02-11 08:57:55', 0, '2024-02-11 08:57:55', 0, 0);
+INSERT INTO `auth_login_log` VALUES (529, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 09:00:05', '4f740eaf-a00c-493b-a730-410a87fdc941', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 09:00:35', 0, '2024-02-11 09:00:05', 0, '2024-02-11 09:00:05', 0, 0);
+INSERT INTO `auth_login_log` VALUES (530, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 09:05:12', 'f61713d4-a317-43e0-9054-c5385ca13b21', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 09:05:42', 0, '2024-02-11 09:05:11', 0, '2024-02-11 09:05:11', 0, 0);
+INSERT INTO `auth_login_log` VALUES (531, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 09:09:10', '2031f327-0419-4504-bfde-9adfc8304baf', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 09:09:40', 0, '2024-02-11 09:09:09', 0, '2024-02-11 09:09:09', 0, 0);
+INSERT INTO `auth_login_log` VALUES (532, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 09:10:41', '010b11c1-e709-4776-902b-1228aed51b3a', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 09:11:11', 0, '2024-02-11 09:10:40', 0, '2024-02-11 09:10:40', 0, 0);
+INSERT INTO `auth_login_log` VALUES (533, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 09:13:16', 'c05e0190-782e-4d7a-b60a-02a5c5da754c', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 10:13:16', 0, '2024-02-11 09:13:15', 0, '2024-02-11 09:13:15', 0, 0);
+INSERT INTO `auth_login_log` VALUES (534, 1, '127.0.0.1', 'XX', 'XX', '内网IP', '内网IP', '2024-02-11 10:17:43', '49a0127a-7d5d-41f4-89c5-34904142f52b', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 11:17:43', 0, '2024-02-11 10:17:42', 0, '2024-02-11 10:17:42', 0, 0);
+INSERT INTO `auth_login_log` VALUES (535, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 11:23:47', 'ef0af977-e778-4780-9c65-a6e3be5e0a1d', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 11:44:48', 1, '2024-02-11 11:23:47', 0, '2024-02-11 11:23:47', 1, 0);
+INSERT INTO `auth_login_log` VALUES (536, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 11:44:51', 'a291e519-d087-4739-81a5-2e49db6b0e2a', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 11:46:22', 1, '2024-02-11 11:44:51', 0, '2024-02-11 11:44:51', 1, 0);
+INSERT INTO `auth_login_log` VALUES (537, 22, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 11:46:23', '41b34f0b-9ad2-4468-a572-9c2e8046e30f', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 11:46:30', 1, '2024-02-11 11:46:22', 0, '2024-02-11 11:46:22', 22, 0);
+INSERT INTO `auth_login_log` VALUES (538, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 11:46:32', '5c08829f-333a-437e-9a01-9963831ed708', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 12:46:32', 0, '2024-02-11 11:46:32', 0, '2024-02-11 11:46:32', 0, 0);
+INSERT INTO `auth_login_log` VALUES (539, 1, '127.0.0.1', NULL, NULL, NULL, NULL, '2024-02-11 11:52:39', '494209f9-3ba9-4c37-8caf-1905a5f82638', 0, 'Chrome', '120.0.0.0', 'Windows 10 or Windows Server 2016', '2024-02-11 12:52:39', 0, '2024-02-11 11:52:39', 0, '2024-02-11 11:52:39', 0, 0);
 
 -- ----------------------------
 -- Table structure for auth_resources
@@ -98,208 +112,210 @@ DROP TABLE IF EXISTS `auth_resources`;
 CREATE TABLE `auth_resources`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '资源主键',
   `uri` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资源定位符',
-  `regex` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '正则匹配',
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资源描述信息',
   `method_type` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资源方法类型：get/post/put/delete',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资源描述信息',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '数据库数据插入时间',
   `create_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '数据库数据插入用户主键',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '数据库数据更新时间',
   `update_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '数据库数据更新用户主键',
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除标识，0为正常，1为逻辑删除0，默认为0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 964 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统资源表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 967 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统资源表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of auth_resources
 -- ----------------------------
-INSERT INTO `auth_resources` VALUES (776, '/config/const/list', '^/config/const/list$', '查询所有的系统配置常量表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-07 23:00:32', 0, 0);
-INSERT INTO `auth_resources` VALUES (777, '/config/const/key', '^/config/const/key$', '查询常量键值配置数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (778, '/config/const/keys', '^/config/const/keys$', '批量查询常量键值配置数据', 'POST', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (779, '/config/const/page/{currentPage}', '^/config/const/page/[0-9]+$', '分页查询系统配置常量表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (780, '/config/const/recover/{id}', '^/config/const/recover/[0-9]+$', '通过主键彻底删除一条系统配置常量表数据', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (781, '/config/const/recover/page/{currentPage}', '^/config/const/recover/page/[0-9]+$', '分页查询逻辑删除的系统配置常量表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (782, '/config/const/recover/{id}', '^/config/const/recover/[0-9]+$', '通过主键恢复逻辑删除的系统配置常量表数据', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (783, '/config/const/list/key', '^/config/const/list/key$', '查询所有的常量键值数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (784, '/config/const/export/excel', '^/config/const/export/excel$', '导出系统配置常量表数据的Excel文件', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (785, '/config/const', '^/config/const$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (786, '/config/const', '^/config/const$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (787, '/config/const/{id}', '^/config/const/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (788, '/config/const/{id}', '^/config/const/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (789, '/index/weather', '^/index/weather$', '获取当前城市的天气预报信息', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (790, '/index/panel/group', '^/index/panel/group$', '获取系统首页的展示数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (791, '/index/login/map', '^/index/login/map$', '获取系统首页的用户登录地图数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (792, '/log/list', '^/log/list$', '查询所有的系统操作日志表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (793, '/log/page/{currentPage}', '^/log/page/[0-9]+$', '分页查询系统操作日志表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (794, '/log/recover/{id}', '^/log/recover/[0-9]+$', '通过主键彻底删除一条系统操作日志表数据', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (795, '/log/recover/page/{currentPage}', '^/log/recover/page/[0-9]+$', '分页查询逻辑删除的系统操作日志表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (796, '/log/recover/{id}', '^/log/recover/[0-9]+$', '通过主键恢复逻辑删除的系统操作日志表数据', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (797, '/log/export/excel', '^/log/export/excel$', '导出操作日志列表数据的Excel文件', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (798, '/log', '^/log$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (799, '/log', '^/log$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (800, '/log/{id}', '^/log/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (801, '/log/{id}', '^/log/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (802, '/menu/enabled/{id}', '^/menu/enabled/[0-9]+$', '启用或者禁用一个菜单', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (803, '/menu/hidden/{id}', '^/menu/hidden/[0-9]+$', '隐藏或者显示一个菜单', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (804, '/menu/routes', '^/menu/routes$', '[动态路由]获取所有启用的系统菜单', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (805, '/menu/role/{menuId}', '^/menu/role/[0-9]+$', '删除菜单角色', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (806, '/menu/role/{menuId}', '^/menu/role/[0-9]+$', '获取该菜单未拥有的角色', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (807, '/menu/role/{menuId}', '^/menu/role/[0-9]+$', '添加菜单角色', 'POST', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (808, '/menu/page/{currentPage}', '^/menu/page/[0-9]+$', '分页查询系统菜单表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (809, '/menu/recover/{id}', '^/menu/recover/[0-9]+$', '通过主键彻底删除一条系统菜单表数据', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (810, '/menu/recover/page/{currentPage}', '^/menu/recover/page/[0-9]+$', '分页查询逻辑删除的系统菜单表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (811, '/menu/recover/{id}', '^/menu/recover/[0-9]+$', '通过主键恢复逻辑删除的系统菜单表数据', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (812, '/menu/export/excel', '^/menu/export/excel$', '导出系统菜单列表数据的Excel文件', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (813, '/menu', '^/menu$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (814, '/menu', '^/menu$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (815, '/menu/{id}', '^/menu/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (816, '/menu/{id}', '^/menu/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (817, '/organ/list', '^/organ/list$', '查询所有的系统组织机构表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (818, '/organ/page/{currentPage}', '^/organ/page/[0-9]+$', '分页查询系统组织机构表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (819, '/organ/recover/{id}', '^/organ/recover/[0-9]+$', '通过主键彻底删除一条系统组织机构表数据', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (820, '/organ/recover/page/{currentPage}', '^/organ/recover/page/[0-9]+$', '分页查询逻辑删除的系统组织机构表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (821, '/organ/recover/{id}', '^/organ/recover/[0-9]+$', '通过主键恢复逻辑删除的系统组织机构表数据', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (822, '/organ/export/excel', '^/organ/export/excel$', '导出系统组织机构表数据的Excel文件', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (823, '/organ', '^/organ$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (824, '/organ', '^/organ$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (825, '/organ/{id}', '^/organ/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (826, '/organ/{id}', '^/organ/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (827, '/user/config/list', '^/user/config/list$', '查询所有的系统用户配置表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (828, '/user/config/key', '^/user/config/key$', '更新用户配置数据', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (829, '/user/config/page/{currentPage}', '^/user/config/page/[0-9]+$', '分页查询系统用户配置表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (830, '/user/config/recover/{id}', '^/user/config/recover/[0-9]+$', '通过主键彻底删除一条系统用户配置表数据', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (831, '/user/config/recover/page/{currentPage}', '^/user/config/recover/page/[0-9]+$', '分页查询逻辑删除的系统用户配置表数据', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (832, '/user/config/recover/{id}', '^/user/config/recover/[0-9]+$', '通过主键恢复逻辑删除的系统用户配置表数据', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (833, '/user/config/export/excel', '^/user/config/export/excel$', '导出系统用户配置表数据的Excel文件', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (834, '/user/config', '^/user/config$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (835, '/user/config', '^/user/config$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (836, '/user/config/{id}', '^/user/config/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (837, '/user/config/{id}', '^/user/config/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
-INSERT INTO `auth_resources` VALUES (838, '/user/info/list', '^/user/info/list$', '查询所有的系统用户信息表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (839, '/user/info', '^/user/info$', '查询当前登录用户的信息数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (840, '/user/info/mail/verify', '^/user/info/mail/verify$', '验证邮件验证码', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (841, '/user/info/page/{currentPage}', '^/user/info/page/[0-9]+$', '分页查询系统用户信息表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (842, '/user/info/recover/{id}', '^/user/info/recover/[0-9]+$', '通过主键彻底删除一条系统用户信息表数据', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (843, '/user/info/recover/page/{currentPage}', '^/user/info/recover/page/[0-9]+$', '分页查询逻辑删除的系统用户信息表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (844, '/user/info/recover/{id}', '^/user/info/recover/[0-9]+$', '通过主键恢复逻辑删除的系统用户信息表数据', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (845, '/user/info/export/excel', '^/user/info/export/excel$', '导出系统用户信息表数据的Excel文件', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (846, '/user/info/avatar', '^/user/info/avatar$', '获取用户头像路径', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (847, '/user/info/mail/verify/send', '^/user/info/mail/verify/send$', '发送电子邮件号码验证邮件', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (848, '/user/info/avatar', '^/user/info/avatar$', '上传用户头像', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (849, '/user/info', '^/user/info$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (850, '/user/info', '^/user/info$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (851, '/user/info/{id}', '^/user/info/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (852, '/user/info/{id}', '^/user/info/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (853, '/server/info', '^/server/info$', '获取系统服务器的监控信息', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (854, '/server/piechart', '^/server/piechart$', '获取系统服务器的CPU，内存，JVM饼图信息', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (855, '/file/manage/replace', '^/file/manage/replace$', '通过主键替换一个文件资源', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (856, '/file/manage/list', '^/file/manage/list$', '查询所有的文件资源管理表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (857, '/file/manage/page/{currentPage}', '^/file/manage/page/[0-9]+$', '分页查询文件资源管理表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (858, '/file/manage/recover/{id}', '^/file/manage/recover/[0-9]+$', '通过主键彻底删除一条文件资源管理表数据', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (859, '/file/manage/recover/page/{currentPage}', '^/file/manage/recover/page/[0-9]+$', '分页查询逻辑删除的文件资源管理表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (860, '/file/manage/recover/{id}', '^/file/manage/recover/[0-9]+$', '通过主键恢复逻辑删除的文件资源管理表数据', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (861, '/file/manage/export/excel', '^/file/manage/export/excel$', '导出文件资源管理表数据的Excel文件', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (862, '/file/manage/bak/{id}', '^/file/manage/bak/[0-9]+$', '通过主键备份一个文件资源', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (863, '/file/manage', '^/file/manage$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (864, '/file/manage', '^/file/manage$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (865, '/file/manage/{id}', '^/file/manage/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (866, '/file/manage/{id}', '^/file/manage/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (867, '/upload/image', '^/upload/image$', '上传图片文件', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (868, '/login/log/list', '^/login/log/list$', '查询所有的系统账号登录日志表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (869, '/login/log/page/{currentPage}', '^/login/log/page/[0-9]+$', '分页查询系统账号登录日志表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (870, '/login/log/recover/{id}', '^/login/log/recover/[0-9]+$', '通过主键彻底删除一条系统账号登录日志表数据', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (871, '/login/log/recover/page/{currentPage}', '^/login/log/recover/page/[0-9]+$', '分页查询逻辑删除的系统账号登录日志表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (872, '/login/log/recover/{id}', '^/login/log/recover/[0-9]+$', '通过主键恢复逻辑删除的系统账号登录日志表数据', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (873, '/login/log/export/excel', '^/login/log/export/excel$', '导出系统账号登录日志表数据的Excel文件', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (874, '/login/log/online/{userId}', '^/login/log/online/[0-9]+$', '获取当前在线的用户记录', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (875, '/login/log/offline/{userId}', '^/login/log/offline/[0-9]+$', '通过tokenId下线用户', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (876, '/login/log', '^/login/log$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (877, '/login/log', '^/login/log$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (878, '/login/log/{id}', '^/login/log/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (879, '/login/log/{id}', '^/login/log/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (880, '/resources/page/{currentPage}', '^/resources/page/[0-9]+$', '分页查询系统资源数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (881, '/resources/recover/{id}', '^/resources/recover/[0-9]+$', '通过主键彻底删除一条系统资源表数据', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (882, '/resources/recover/page/{currentPage}', '^/resources/recover/page/[0-9]+$', '分页查询逻辑删除的系统资源表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (883, '/resources/recover/{id}', '^/resources/recover/[0-9]+$', '通过主键恢复逻辑删除的系统资源表数据', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (884, '/resources/export/excel', '^/resources/export/excel$', '导出系统资源列表数据的Excel文件', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (885, '/resources/role/{resourcesId}', '^/resources/role/[0-9]+$', '添加系统资源角色', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (886, '/resources/role/{resourcesId}', '^/resources/role/[0-9]+$', '获取未拥有该系统资源的角色', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (887, '/resources/role/{resourcesId}', '^/resources/role/[0-9]+$', '删除系统资源角色', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (888, '/resources', '^/resources$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (889, '/resources', '^/resources$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (890, '/resources/{id}', '^/resources/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (891, '/resources/{id}', '^/resources/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (892, '/role/list', '^/role/list$', '获取所有的用户角色', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (893, '/role/check/name', '^/role/check/name$', '检测角色名称是否已存在', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (894, '/role/page/{currentPage}', '^/role/page/[0-9]+$', '分页查询角色数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (895, '/role/recover/{id}', '^/role/recover/[0-9]+$', '通过主键彻底删除一条系统角色表数据', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (896, '/role/recover/page/{currentPage}', '^/role/recover/page/[0-9]+$', '分页查询逻辑删除的系统角色表数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (897, '/role/recover/{id}', '^/role/recover/[0-9]+$', '通过主键恢复逻辑删除的系统角色表数据', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (898, '/role/export/excel', '^/role/export/excel$', '导出角色列表数据的Excel文件', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (899, '/role/acquiescence', '^/role/acquiescence$', '通过主键设置或者取消默认角色', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (900, '/role', '^/role$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (901, '/role', '^/role$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (902, '/role/{id}', '^/role/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (903, '/role/{id}', '^/role/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (904, '/user/enabled/{id}', '^/user/enabled/[0-9]+$', '启用或者禁用一个用户账号', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (905, '/user/token', '^/user/token$', '获取请求头上的accessToken，并根据accessToken返回用户信息', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (906, '/user/role/{userId}', '^/user/role/[0-9]+$', '添加用户角色', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (907, '/user/page/{currentPage}', '^/user/page/[0-9]+$', '分页查询用户数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (908, '/user/recover/{id}', '^/user/recover/[0-9]+$', '通过主键彻底删除一条用户数据', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (909, '/user/recover/page/{currentPage}', '^/user/recover/page/[0-9]+$', '分页查询逻辑删除的用户数据', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (910, '/user/recover/{id}', '^/user/recover/[0-9]+$', '通过主键恢复逻辑删除的用户数据', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (911, '/user/export/excel', '^/user/export/excel$', '导出用户列表数据的Excel文件', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (912, '/user/reset/password', '^/user/reset/password$', '重置用户账号密码', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (913, '/user/role/{userId}', '^/user/role/[0-9]+$', '获取该用户未拥有的角色', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (914, '/user/check/username', '^/user/check/username$', '检测用户名是否已存在', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (915, '/user/check/password', '^/user/check/password$', '检测用户密码是否正确', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (916, '/user/role/{userId}', '^/user/role/[0-9]+$', '删除用户角色', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (917, '/user', '^/user$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (918, '/user', '^/user$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (919, '/user/{id}', '^/user/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (920, '/user/{id}', '^/user/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (921, '/mail/text', '^/mail/text$', '发送普通文本邮件', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (922, '/mail/template', '^/mail/template$', '发送HTML模板邮件', 'POST', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (923, '/table/column/list', '^/table/column/list$', '查询所有的系统数据库表字段信息表数据', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (924, '/table/column/export/excel', '^/table/column/export/excel$', '导出系统数据库表字段信息表数据的Excel文件', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (925, '/table/column/recover/{id}', '^/table/column/recover/[0-9]+$', '通过主键恢复逻辑删除的系统数据库表字段信息表数据', 'PUT', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (926, '/table/column/recover/{id}', '^/table/column/recover/[0-9]+$', '通过主键彻底删除一条系统数据库表字段信息表数据', 'DELETE', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (927, '/table/column/recover/page/{currentPage}', '^/table/column/recover/page/[0-9]+$', '分页查询逻辑删除的系统数据库表字段信息表数据', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (928, '/table/column/page/{currentPage}', '^/table/column/page/[0-9]+$', '分页查询系统数据库表字段信息表数据', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (929, '/table/column/table/info/{tableInfoId}', '^/table/column/table/info/[0-9]+$', '通过tableInfoId获取所有的字段信息', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (930, '/table/column', '^/table/column$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (931, '/table/column', '^/table/column$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (932, '/table/column/{id}', '^/table/column/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (933, '/table/column/{id}', '^/table/column/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (934, '/table/info/recover/{id}', '^/table/info/recover/[0-9]+$', '通过主键恢复逻辑删除的系统数据库表信息表数据', 'PUT', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (935, '/table/info/recover/{id}', '^/table/info/recover/[0-9]+$', '通过主键彻底删除一条系统数据库表信息表数据', 'DELETE', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (936, '/table/info/recover/page/{currentPage}', '^/table/info/recover/page/[0-9]+$', '分页查询逻辑删除的系统数据库表信息表数据', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (937, '/table/info/page/{currentPage}', '^/table/info/page/[0-9]+$', '分页查询系统数据库表信息数据', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (938, '/table/info/code/generation/{id}', '^/table/info/code/generation/[0-9]+$', '生成代码', 'POST', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (939, '/table/info/not/list', '^/table/info/not/list$', '获取还没有插入数据库中的数据库表信息', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (940, '/table/info', '^/table/info$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (941, '/table/info', '^/table/info$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (942, '/table/info/{id}', '^/table/info/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (943, '/table/info/{id}', '^/table/info/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
-INSERT INTO `auth_resources` VALUES (944, '/operation/log/list', '^/operation/log/list$', '查询所有的系统操作日志表数据', 'GET', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (945, '/operation/log/page/{currentPage}', '^/operation/log/page/[0-9]+$', '分页查询系统操作日志表数据', 'GET', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (946, '/operation/log/export/excel', '^/operation/log/export/excel$', '导出操作日志列表数据的Excel文件', 'GET', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (947, '/operation/log/recover/page/{currentPage}', '^/operation/log/recover/page/[0-9]+$', '分页查询逻辑删除的系统操作日志表数据', 'GET', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (948, '/operation/log/recover/{id}', '^/operation/log/recover/[0-9]+$', '通过主键恢复逻辑删除的系统操作日志表数据', 'PUT', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (949, '/operation/log/recover/{id}', '^/operation/log/recover/[0-9]+$', '通过主键彻底删除一条系统操作日志表数据', 'DELETE', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (950, '/operation/log', '^/operation/log$', '[通用方法]插入一条对应实体类的数据库记录', 'POST', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (951, '/operation/log/{id}', '^/operation/log/[0-9]+$', '[通用方法]通过主键删除一条对应实体类的数据库记录', 'DELETE', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (952, '/operation/log', '^/operation/log$', '[通用方法]更新一条对应实体类的数据库记录', 'PUT', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (953, '/operation/log/{id}', '^/operation/log/[0-9]+$', '[通用方法]通过主键获取一条对应实体类的数据库记录', 'GET', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
-INSERT INTO `auth_resources` VALUES (954, '/menu/list', '^/menu/list$', '查询系统菜单表数据', 'GET', '2024-01-07 18:15:55', 0, '2024-01-07 18:15:55', 0, 0);
-INSERT INTO `auth_resources` VALUES (955, '/menu/tree', '^/menu/tree$', '查询系统菜单表并构建树状结构', 'GET', '2024-01-07 21:32:27', 0, '2024-01-07 21:32:27', 0, 0);
-INSERT INTO `auth_resources` VALUES (956, '/config/const/list', '^/config/const/list$', '查询所有的系统配置常量表数据', 'GET', '2024-01-07 22:57:50', 0, '2024-01-07 23:00:19', 1, 1);
-INSERT INTO `auth_resources` VALUES (957, '/organ/tree', '^/organ/tree$', '查询系统组织机构表数据并构建树状结构', 'GET', '2024-01-13 15:16:30', 0, '2024-01-13 15:16:30', 0, 0);
-INSERT INTO `auth_resources` VALUES (958, '/table/info/code/generate/{id}', '^/table/info/code/generate/[0-9]+$', '生成代码', 'POST', '2024-01-17 22:06:00', 0, '2024-01-17 22:06:00', 0, 0);
-INSERT INTO `auth_resources` VALUES (959, '/organ/move', '^/organ/move$', '移动系统组织机构表树状结构节点', 'GET', '2024-01-18 23:31:28', 0, '2024-01-18 23:31:28', 0, 0);
-INSERT INTO `auth_resources` VALUES (960, '/organ/move', '^/organ/move$', '移动系统组织机构表树状结构节点', 'PUT', '2024-01-18 23:33:29', 0, '2024-01-18 23:33:29', 0, 0);
-INSERT INTO `auth_resources` VALUES (961, '/menu/move', '^/menu/move$', '移动系统菜单树状结构节点', 'PUT', '2024-01-20 09:38:35', 0, '2024-01-20 09:38:35', 0, 0);
-INSERT INTO `auth_resources` VALUES (962, '/server/chart', '^/server/chart$', '获取系统服务器的CPU，内存，JVM饼图信息', 'GET', '2024-01-24 22:02:47', 0, '2024-01-24 22:02:47', 0, 0);
-INSERT INTO `auth_resources` VALUES (963, '/index/chart', '^/index/chart$', '获取系统首页的展示数据', 'GET', '2024-01-29 22:05:09', 0, '2024-01-29 22:05:09', 0, 0);
+INSERT INTO `auth_resources` VALUES (776, '/config/const/list', 'GET', '查询所有的系统配置常量表数据', '2024-01-01 23:45:54', 0, '2024-01-07 23:00:32', 0, 0);
+INSERT INTO `auth_resources` VALUES (777, '/config/const/key', 'GET', '查询常量键值配置数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (778, '/config/const/keys', 'POST', '批量查询常量键值配置数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (779, '/config/const/page/{currentPage}', 'GET', '分页查询系统配置常量表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (780, '/config/const/recover/{id}', 'DELETE', '通过主键彻底删除一条系统配置常量表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (781, '/config/const/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统配置常量表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (782, '/config/const/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统配置常量表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (783, '/config/const/list/key', 'GET', '查询所有的常量键值数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (784, '/config/const/export/excel', 'GET', '导出系统配置常量表数据的Excel文件', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (785, '/config/const', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (786, '/config/const', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (787, '/config/const/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (788, '/config/const/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (789, '/index/weather', 'GET', '获取当前城市的天气预报信息', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (790, '/index/panel/group', 'GET', '获取系统首页的展示数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (791, '/index/login/map', 'GET', '获取系统首页的用户登录地图数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (792, '/log/list', 'GET', '查询所有的系统操作日志表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (793, '/log/page/{currentPage}', 'GET', '分页查询系统操作日志表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (794, '/log/recover/{id}', 'DELETE', '通过主键彻底删除一条系统操作日志表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (795, '/log/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统操作日志表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (796, '/log/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统操作日志表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (797, '/log/export/excel', 'GET', '导出操作日志列表数据的Excel文件', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (798, '/log', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (799, '/log', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (800, '/log/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (801, '/log/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (802, '/menu/enabled/{id}', 'PUT', '启用或者禁用一个菜单', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (803, '/menu/hidden/{id}', 'PUT', '隐藏或者显示一个菜单', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (804, '/menu/routes', 'GET', '[动态路由]获取所有启用的系统菜单', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (805, '/menu/role/{menuId}', 'DELETE', '删除菜单角色', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (806, '/menu/role/{menuId}', 'GET', '获取该菜单未拥有的角色', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (807, '/menu/role/{menuId}', 'POST', '添加菜单角色', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (808, '/menu/page/{currentPage}', 'GET', '分页查询系统菜单表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (809, '/menu/recover/{id}', 'DELETE', '通过主键彻底删除一条系统菜单表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (810, '/menu/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统菜单表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (811, '/menu/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统菜单表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (812, '/menu/export/excel', 'GET', '导出系统菜单列表数据的Excel文件', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (813, '/menu', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (814, '/menu', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (815, '/menu/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (816, '/menu/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (817, '/organ/list', 'GET', '查询所有的系统组织机构表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (818, '/organ/page/{currentPage}', 'GET', '分页查询系统组织机构表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (819, '/organ/recover/{id}', 'DELETE', '通过主键彻底删除一条系统组织机构表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (820, '/organ/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统组织机构表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (821, '/organ/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统组织机构表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (822, '/organ/export/excel', 'GET', '导出系统组织机构表数据的Excel文件', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (823, '/organ', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (824, '/organ', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (825, '/organ/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (826, '/organ/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (827, '/user/config/list', 'GET', '查询所有的系统用户配置表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (828, '/user/config/key', 'PUT', '更新用户配置数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (829, '/user/config/page/{currentPage}', 'GET', '分页查询系统用户配置表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (830, '/user/config/recover/{id}', 'DELETE', '通过主键彻底删除一条系统用户配置表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (831, '/user/config/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统用户配置表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (832, '/user/config/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统用户配置表数据', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (833, '/user/config/export/excel', 'GET', '导出系统用户配置表数据的Excel文件', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (834, '/user/config', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (835, '/user/config', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (836, '/user/config/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (837, '/user/config/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:54', 0, '2024-01-01 23:45:54', 0, 0);
+INSERT INTO `auth_resources` VALUES (838, '/user/info/list', 'GET', '查询所有的系统用户信息表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (839, '/user/info', 'GET', '查询当前登录用户的信息数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (840, '/user/info/mail/verify', 'POST', '验证邮件验证码', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (841, '/user/info/page/{currentPage}', 'GET', '分页查询系统用户信息表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (842, '/user/info/recover/{id}', 'DELETE', '通过主键彻底删除一条系统用户信息表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (843, '/user/info/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统用户信息表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (844, '/user/info/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统用户信息表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (845, '/user/info/export/excel', 'GET', '导出系统用户信息表数据的Excel文件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (846, '/user/info/avatar', 'GET', '获取用户头像路径', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (847, '/user/info/mail/verify/send', 'POST', '发送电子邮件号码验证邮件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (848, '/user/info/avatar', 'POST', '上传用户头像', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (849, '/user/info', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (850, '/user/info', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (851, '/user/info/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (852, '/user/info/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (853, '/server/info', 'GET', '获取系统服务器的监控信息', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (854, '/server/piechart', 'GET', '获取系统服务器的CPU，内存，JVM饼图信息', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (855, '/file/manage/replace', 'POST', '通过主键替换一个文件资源', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (856, '/file/manage/list', 'GET', '查询所有的文件资源管理表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (857, '/file/manage/page/{currentPage}', 'GET', '分页查询文件资源管理表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (858, '/file/manage/recover/{id}', 'DELETE', '通过主键彻底删除一条文件资源管理表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (859, '/file/manage/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的文件资源管理表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (860, '/file/manage/recover/{id}', 'PUT', '通过主键恢复逻辑删除的文件资源管理表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (861, '/file/manage/export/excel', 'GET', '导出文件资源管理表数据的Excel文件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (862, '/file/manage/bak/{id}', 'POST', '通过主键备份一个文件资源', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (863, '/file/manage', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (864, '/file/manage', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (865, '/file/manage/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (866, '/file/manage/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (867, '/upload/image', 'POST', '上传图片文件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (868, '/login/log/list', 'GET', '查询所有的系统账号登录日志表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (869, '/login/log/page/{currentPage}', 'GET', '分页查询系统账号登录日志表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (870, '/login/log/recover/{id}', 'DELETE', '通过主键彻底删除一条系统账号登录日志表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (871, '/login/log/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统账号登录日志表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (872, '/login/log/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统账号登录日志表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (873, '/login/log/export/excel', 'GET', '导出系统账号登录日志表数据的Excel文件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (874, '/login/log/online/{userId}', 'GET', '获取当前在线的用户记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (875, '/login/log/offline/{userId}', 'PUT', '通过tokenId下线用户', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (876, '/login/log', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (877, '/login/log', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (878, '/login/log/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (879, '/login/log/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (880, '/resources/page/{currentPage}', 'GET', '分页查询系统资源数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (881, '/resources/recover/{id}', 'DELETE', '通过主键彻底删除一条系统资源表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (882, '/resources/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统资源表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (883, '/resources/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统资源表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (884, '/resources/export/excel', 'GET', '导出系统资源列表数据的Excel文件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (885, '/resources/role/{resourcesId}', 'POST', '添加系统资源角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (886, '/resources/role/{resourcesId}', 'GET', '获取未拥有该系统资源的角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (887, '/resources/role/{resourcesId}', 'DELETE', '删除系统资源角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (888, '/resources', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (889, '/resources', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (890, '/resources/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (891, '/resources/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (892, '/role/list', 'GET', '获取所有的用户角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (893, '/role/check/name', 'GET', '检测角色名称是否已存在', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (894, '/role/page/{currentPage}', 'GET', '分页查询角色数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (895, '/role/recover/{id}', 'DELETE', '通过主键彻底删除一条系统角色表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (896, '/role/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统角色表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (897, '/role/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统角色表数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (898, '/role/export/excel', 'GET', '导出角色列表数据的Excel文件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (899, '/role/acquiescence', 'PUT', '通过主键设置或者取消默认角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (900, '/role', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (901, '/role', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (902, '/role/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (903, '/role/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (904, '/user/enabled/{id}', 'PUT', '启用或者禁用一个用户账号', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (905, '/user/token', 'GET', '获取请求头上的accessToken，并根据accessToken返回用户信息', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (906, '/user/role/{userId}', 'POST', '添加用户角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (907, '/user/page/{currentPage}', 'GET', '分页查询用户数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (908, '/user/recover/{id}', 'DELETE', '通过主键彻底删除一条用户数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (909, '/user/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的用户数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (910, '/user/recover/{id}', 'PUT', '通过主键恢复逻辑删除的用户数据', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (911, '/user/export/excel', 'GET', '导出用户列表数据的Excel文件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (912, '/user/reset/password', 'PUT', '重置用户账号密码', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (913, '/user/role/{userId}', 'GET', '获取该用户未拥有的角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (914, '/user/check/username', 'GET', '检测用户名是否已存在', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (915, '/user/check/password', 'GET', '检测用户密码是否正确', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (916, '/user/role/{userId}', 'DELETE', '删除用户角色', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (917, '/user', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (918, '/user', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (919, '/user/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (920, '/user/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (921, '/mail/text', 'POST', '发送普通文本邮件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (922, '/mail/template', 'POST', '发送HTML模板邮件', '2024-01-01 23:45:55', 0, '2024-01-01 23:45:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (923, '/table/column/list', 'GET', '查询所有的系统数据库表字段信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (924, '/table/column/export/excel', 'GET', '导出系统数据库表字段信息表数据的Excel文件', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (925, '/table/column/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统数据库表字段信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (926, '/table/column/recover/{id}', 'DELETE', '通过主键彻底删除一条系统数据库表字段信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (927, '/table/column/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统数据库表字段信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (928, '/table/column/page/{currentPage}', 'GET', '分页查询系统数据库表字段信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (929, '/table/column/table/info/{tableInfoId}', 'GET', '通过tableInfoId获取所有的字段信息', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (930, '/table/column', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (931, '/table/column', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (932, '/table/column/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (933, '/table/column/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (934, '/table/info/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统数据库表信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (935, '/table/info/recover/{id}', 'DELETE', '通过主键彻底删除一条系统数据库表信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (936, '/table/info/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统数据库表信息表数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (937, '/table/info/page/{currentPage}', 'GET', '分页查询系统数据库表信息数据', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (938, '/table/info/code/generation/{id}', 'POST', '生成代码', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (939, '/table/info/not/list', 'GET', '获取还没有插入数据库中的数据库表信息', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (940, '/table/info', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (941, '/table/info', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (942, '/table/info/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (943, '/table/info/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-02 21:39:34', 0, '2024-01-02 21:39:34', 0, 0);
+INSERT INTO `auth_resources` VALUES (944, '/operation/log/list', 'GET', '查询所有的系统操作日志表数据', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (945, '/operation/log/page/{currentPage}', 'GET', '分页查询系统操作日志表数据', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (946, '/operation/log/export/excel', 'GET', '导出操作日志列表数据的Excel文件', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (947, '/operation/log/recover/page/{currentPage}', 'GET', '分页查询逻辑删除的系统操作日志表数据', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (948, '/operation/log/recover/{id}', 'PUT', '通过主键恢复逻辑删除的系统操作日志表数据', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (949, '/operation/log/recover/{id}', 'DELETE', '通过主键彻底删除一条系统操作日志表数据', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (950, '/operation/log', 'POST', '[通用方法]插入一条对应实体类的数据库记录', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (951, '/operation/log/{id}', 'DELETE', '[通用方法]通过主键删除一条对应实体类的数据库记录', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (952, '/operation/log', 'PUT', '[通用方法]更新一条对应实体类的数据库记录', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (953, '/operation/log/{id}', 'GET', '[通用方法]通过主键获取一条对应实体类的数据库记录', '2024-01-04 22:02:48', 0, '2024-01-04 22:02:48', 0, 0);
+INSERT INTO `auth_resources` VALUES (954, '/menu/list', 'GET', '查询系统菜单表数据', '2024-01-07 18:15:55', 0, '2024-01-07 18:15:55', 0, 0);
+INSERT INTO `auth_resources` VALUES (955, '/menu/tree', 'GET', '查询系统菜单表并构建树状结构', '2024-01-07 21:32:27', 0, '2024-01-07 21:32:27', 0, 0);
+INSERT INTO `auth_resources` VALUES (956, '/config/const/list', 'GET', '查询所有的系统配置常量表数据', '2024-01-07 22:57:50', 0, '2024-01-07 23:00:19', 1, 1);
+INSERT INTO `auth_resources` VALUES (957, '/organ/tree', 'GET', '查询系统组织机构表数据并构建树状结构', '2024-01-13 15:16:30', 0, '2024-01-13 15:16:30', 0, 0);
+INSERT INTO `auth_resources` VALUES (958, '/table/info/code/generate/{id}', 'POST', '生成代码', '2024-01-17 22:06:00', 0, '2024-01-17 22:06:00', 0, 0);
+INSERT INTO `auth_resources` VALUES (959, '/organ/move', 'GET', '移动系统组织机构表树状结构节点', '2024-01-18 23:31:28', 0, '2024-01-18 23:31:28', 0, 0);
+INSERT INTO `auth_resources` VALUES (960, '/organ/move', 'PUT', '移动系统组织机构表树状结构节点', '2024-01-18 23:33:29', 0, '2024-01-18 23:33:29', 0, 0);
+INSERT INTO `auth_resources` VALUES (961, '/menu/move', 'PUT', '移动系统菜单树状结构节点', '2024-01-20 09:38:35', 0, '2024-01-20 09:38:35', 0, 0);
+INSERT INTO `auth_resources` VALUES (962, '/server/chart', 'GET', '获取系统服务器的CPU，内存，JVM饼图信息', '2024-01-24 22:02:47', 0, '2024-01-24 22:02:47', 0, 0);
+INSERT INTO `auth_resources` VALUES (963, '/index/chart', 'GET', '获取系统首页的展示数据', '2024-01-29 22:05:09', 0, '2024-01-29 22:05:09', 0, 0);
+INSERT INTO `auth_resources` VALUES (964, '/config/const/GET', 'list', '查询所有的系统配置常量表数据', '2024-02-11 10:09:59', 0, '2024-02-11 10:09:59', 0, 0);
+INSERT INTO `auth_resources` VALUES (965, '/config/const/GET', 'key', '查询常量键值配置数据', '2024-02-11 10:09:59', 0, '2024-02-11 10:09:59', 0, 0);
+INSERT INTO `auth_resources` VALUES (966, '/config/const/POST', 'keys', '批量查询常量键值配置数据', '2024-02-11 10:09:59', 0, '2024-02-11 10:09:59', 0, 0);
 
 -- ----------------------------
 -- Table structure for auth_resources_role
@@ -315,7 +331,7 @@ CREATE TABLE `auth_resources_role`  (
   `update_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '数据库数据更新用户主键',
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除标识，0为正常，1为逻辑删除，默认为0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1131 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '资源角色关系表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1134 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '资源角色关系表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of auth_resources_role
@@ -531,7 +547,6 @@ INSERT INTO `auth_resources_role` VALUES (1099, 869, 3, '2024-01-04 23:07:31', 1
 INSERT INTO `auth_resources_role` VALUES (1100, 871, 3, '2024-01-04 23:07:32', 1, '2024-01-04 23:07:32', 1, 0);
 INSERT INTO `auth_resources_role` VALUES (1101, 880, 3, '2024-01-04 23:07:39', 1, '2024-01-04 23:07:39', 1, 0);
 INSERT INTO `auth_resources_role` VALUES (1102, 882, 3, '2024-01-04 23:07:40', 1, '2024-01-04 23:07:40', 1, 0);
-INSERT INTO `auth_resources_role` VALUES (1103, 894, 3, '2024-01-04 23:07:42', 1, '2024-01-04 23:07:42', 1, 0);
 INSERT INTO `auth_resources_role` VALUES (1104, 896, 3, '2024-01-04 23:07:44', 1, '2024-01-04 23:07:44', 1, 0);
 INSERT INTO `auth_resources_role` VALUES (1105, 907, 3, '2024-01-04 23:07:45', 1, '2024-01-04 23:07:45', 1, 0);
 INSERT INTO `auth_resources_role` VALUES (1106, 909, 3, '2024-01-04 23:07:47', 1, '2024-01-04 23:07:47', 1, 0);
@@ -558,6 +573,9 @@ INSERT INTO `auth_resources_role` VALUES (1127, 960, 1, '2024-01-18 23:33:29', 0
 INSERT INTO `auth_resources_role` VALUES (1128, 961, 1, '2024-01-20 09:38:35', 0, '2024-01-20 09:38:35', 0, 0);
 INSERT INTO `auth_resources_role` VALUES (1129, 962, 1, '2024-01-24 22:02:47', 0, '2024-01-24 22:02:47', 0, 0);
 INSERT INTO `auth_resources_role` VALUES (1130, 963, 1, '2024-01-29 22:05:09', 0, '2024-01-29 22:05:09', 0, 0);
+INSERT INTO `auth_resources_role` VALUES (1131, 964, 1, '2024-02-11 10:09:59', 0, '2024-02-11 10:09:59', 0, 0);
+INSERT INTO `auth_resources_role` VALUES (1132, 965, 1, '2024-02-11 10:09:59', 0, '2024-02-11 10:09:59', 0, 0);
+INSERT INTO `auth_resources_role` VALUES (1133, 966, 1, '2024-02-11 10:09:59', 0, '2024-02-11 10:09:59', 0, 0);
 
 -- ----------------------------
 -- Table structure for auth_role
@@ -1131,7 +1149,7 @@ CREATE TABLE `sys_operation_log`  (
   `update_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '数据库数据更新用户主键',
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除标识，0为正常，1为逻辑删除，默认为0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4914 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统操作日志表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5018 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统操作日志表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -2497,6 +2515,110 @@ INSERT INTO `sys_operation_log` VALUES (4910, 1, '2024-02-10 19:52:00', '127.0.0
 INSERT INTO `sys_operation_log` VALUES (4911, 1, '2024-02-10 19:52:01', '127.0.0.1', '/api/index/login/map', 'GET', 'class com.zero.sys.controller.IndexController.loginMap', '[]', 7, 1, '获取系统首页的用户登录地图数据', NULL, NULL, '2024-02-10 19:52:00', 1, '2024-02-10 19:52:00', 1, 0);
 INSERT INTO `sys_operation_log` VALUES (4912, 1, '2024-02-10 19:52:01', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 53, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-10 19:52:00', 1, '2024-02-10 19:52:00', 1, 0);
 INSERT INTO `sys_operation_log` VALUES (4913, 1, '2024-02-10 19:52:01', '127.0.0.1', '/api/index/chart', 'GET', 'class com.zero.sys.controller.IndexController.chart', '[]', 199, 1, '获取系统首页的展示数据', NULL, NULL, '2024-02-10 19:52:00', 1, '2024-02-10 19:52:00', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4914, 1, '2024-02-11 08:49:20', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 86, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 08:49:20', 1, '2024-02-11 08:49:20', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4915, 1, '2024-02-11 08:49:22', '127.0.0.1', '/api/index/login/map', 'GET', 'class com.zero.sys.controller.IndexController.loginMap', '[]', 7, 1, '获取系统首页的用户登录地图数据', NULL, NULL, '2024-02-11 08:49:22', 1, '2024-02-11 08:49:22', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4916, 1, '2024-02-11 08:49:22', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 87, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 08:49:22', 1, '2024-02-11 08:49:22', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4917, 1, '2024-02-11 08:49:22', '127.0.0.1', '/api/index/chart', 'GET', 'class com.zero.sys.controller.IndexController.chart', '[]', 207, 1, '获取系统首页的展示数据', NULL, NULL, '2024-02-11 08:49:22', 1, '2024-02-11 08:49:22', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4918, 1, '2024-02-11 08:53:01', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 69, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 08:53:00', 1, '2024-02-11 08:53:00', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4919, 1, '2024-02-11 08:53:01', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 56, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 08:53:00', 1, '2024-02-11 08:53:00', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4920, 1, '2024-02-11 08:53:01', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 103, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 08:53:01', 1, '2024-02-11 08:53:01', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4921, 1, '2024-02-11 08:53:01', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 352, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 08:53:01', 1, '2024-02-11 08:53:01', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4922, 1, '2024-02-11 08:53:08', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 23, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 08:53:08', 1, '2024-02-11 08:53:08', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4923, 1, '2024-02-11 08:53:19', '127.0.0.1', '/api/user/page/2', 'GET', 'class com.zero.auth.controller.UserController.page', '[2,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 48, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 08:53:18', 1, '2024-02-11 08:53:18', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4924, 1, '2024-02-11 08:53:20', '127.0.0.1', '/api/user/page/3', 'GET', 'class com.zero.auth.controller.UserController.page', '[3,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 25, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 08:53:20', 1, '2024-02-11 08:53:20', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4925, 1, '2024-02-11 08:53:22', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 41, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 08:53:21', 1, '2024-02-11 08:53:21', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4926, 1, '2024-02-11 08:57:55', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 76, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 08:57:55', 1, '2024-02-11 08:57:55', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4927, 1, '2024-02-11 08:57:56', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 58, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 08:57:55', 1, '2024-02-11 08:57:55', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4928, 1, '2024-02-11 08:57:56', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 51, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 08:57:56', 1, '2024-02-11 08:57:56', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4929, 1, '2024-02-11 08:57:56', '127.0.0.1', '/api/menu/tree', 'GET', 'class com.zero.sys.controller.MenuController.tree', '[]', 113, 1, '查询系统菜单表并构建树状结构', NULL, NULL, '2024-02-11 08:57:56', 1, '2024-02-11 08:57:56', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4930, 1, '2024-02-11 08:57:58', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 131, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 08:57:58', 1, '2024-02-11 08:57:58', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4931, 1, '2024-02-11 08:58:00', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 55, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 08:58:00', 1, '2024-02-11 08:58:00', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4932, 1, '2024-02-11 09:00:05', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 54, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 09:00:05', 1, '2024-02-11 09:00:05', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4933, 1, '2024-02-11 09:00:05', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 48, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 09:00:05', 1, '2024-02-11 09:00:05', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4934, 1, '2024-02-11 09:00:06', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 56, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 09:00:06', 1, '2024-02-11 09:00:06', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4935, 1, '2024-02-11 09:00:06', '127.0.0.1', '/api/organ/tree', 'GET', 'class com.zero.sys.controller.OrganController.tree', '[]', 46, 1, '查询系统组织机构表数据并构建树状结构', NULL, NULL, '2024-02-11 09:00:06', 1, '2024-02-11 09:00:06', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4936, 1, '2024-02-11 09:00:09', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 74, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 09:00:08', 1, '2024-02-11 09:00:08', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4937, 1, '2024-02-11 09:00:11', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 80, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 09:00:10', 1, '2024-02-11 09:00:10', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4938, 1, '2024-02-11 09:00:11', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 55, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 09:00:11', 1, '2024-02-11 09:00:11', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4939, 1, '2024-02-11 09:00:12', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 63, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 09:00:11', 1, '2024-02-11 09:00:11', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4940, 1, '2024-02-11 09:00:12', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 125, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 09:00:11', 1, '2024-02-11 09:00:11', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4941, 1, '2024-02-11 09:00:32', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 30, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 09:00:32', 1, '2024-02-11 09:00:32', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4942, 1, '2024-02-11 09:10:46', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 47, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 09:10:45', 1, '2024-02-11 09:10:45', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4943, 1, '2024-02-11 09:13:16', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 110, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 09:13:15', 1, '2024-02-11 09:13:15', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4944, 1, '2024-02-11 09:13:16', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 37, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 09:13:15', 1, '2024-02-11 09:13:15', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4945, 1, '2024-02-11 09:13:16', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 63, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 09:13:16', 1, '2024-02-11 09:13:16', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4946, 1, '2024-02-11 09:13:16', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":null,\"regex\":null,\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 164, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 09:13:16', 1, '2024-02-11 09:13:16', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4947, 1, '2024-02-11 10:17:43', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 63, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:17:42', 1, '2024-02-11 10:17:42', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4948, 1, '2024-02-11 10:17:43', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 50, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:17:42', 1, '2024-02-11 10:17:42', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4949, 1, '2024-02-11 10:17:44', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 52, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 10:17:43', 1, '2024-02-11 10:17:43', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4950, 1, '2024-02-11 10:17:44', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":null,\"regex\":null,\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 164, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 10:17:43', 1, '2024-02-11 10:17:43', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4951, 1, '2024-02-11 10:26:11', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 147, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:26:11', 1, '2024-02-11 10:26:11', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4952, 1, '2024-02-11 10:26:11', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 40, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:26:11', 1, '2024-02-11 10:26:11', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4953, 1, '2024-02-11 10:26:12', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 85, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 10:26:12', 1, '2024-02-11 10:26:12', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4954, 1, '2024-02-11 10:26:12', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":null,\"regex\":null,\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 223, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 10:26:12', 1, '2024-02-11 10:26:12', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4955, 1, '2024-02-11 10:26:14', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 49, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 10:26:13', 1, '2024-02-11 10:26:13', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4956, 1, '2024-02-11 10:26:16', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 23, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 10:26:15', 1, '2024-02-11 10:26:15', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4957, 1, '2024-02-11 10:26:45', '127.0.0.1', '/api/file/manage/page/1', 'GET', 'class com.zero.sys.controller.FileManageController.page', '[1,10,{\"id\":null,\"name\":null,\"type\":null,\"uri\":null,\"uploadTime\":null,\"uploadUserId\":null,\"parentId\":null,\"bakFiles\":null,\"user\":null,\"queryUsername\":null,\"queryStartDate\":null,\"queryEndDate\":null}]', 53, 1, '分页查询文件资源管理表数据', NULL, NULL, '2024-02-11 10:26:45', 1, '2024-02-11 10:26:45', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4958, 1, '2024-02-11 10:30:19', '127.0.0.1', '/api/index/login/map', 'GET', 'class com.zero.sys.controller.IndexController.loginMap', '[]', 11, 1, '获取系统首页的用户登录地图数据', NULL, NULL, '2024-02-11 10:30:18', 1, '2024-02-11 10:30:18', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4959, 1, '2024-02-11 10:30:19', '127.0.0.1', '/api/index/chart', 'GET', 'class com.zero.sys.controller.IndexController.chart', '[]', 348, 1, '获取系统首页的展示数据', NULL, NULL, '2024-02-11 10:30:18', 1, '2024-02-11 10:30:18', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4960, 1, '2024-02-11 10:31:29', '127.0.0.1', '/api/menu/tree', 'GET', 'class com.zero.sys.controller.MenuController.tree', '[]', 107, 1, '查询系统菜单表并构建树状结构', NULL, NULL, '2024-02-11 10:31:29', 1, '2024-02-11 10:31:29', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4961, 1, '2024-02-11 10:31:36', '127.0.0.1', '/api/organ/tree', 'GET', 'class com.zero.sys.controller.OrganController.tree', '[]', 23, 1, '查询系统组织机构表数据并构建树状结构', NULL, NULL, '2024-02-11 10:31:35', 1, '2024-02-11 10:31:35', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4962, 1, '2024-02-11 10:32:42', '127.0.0.1', '/api/login/log/page/1', 'GET', 'class com.zero.auth.controller.LoginLogController.page', '[1,10,{\"id\":null,\"userId\":null,\"ip\":null,\"country\":null,\"region\":null,\"city\":null,\"isp\":null,\"loginTime\":null,\"tokenId\":null,\"mobile\":null,\"browserName\":null,\"browserVersion\":null,\"osName\":null,\"logoutTime\":null,\"logout\":null,\"user\":null,\"queryUsername\":null,\"queryStartDate\":null,\"queryEndDate\":null,\"queryOnline\":null,\"queryAddress\":null}]', 150, 1, '分页查询系统账号登录日志表数据', NULL, NULL, '2024-02-11 10:32:42', 1, '2024-02-11 10:32:42', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4963, 1, '2024-02-11 10:41:06', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 54, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:41:05', 1, '2024-02-11 10:41:05', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4964, 1, '2024-02-11 10:41:06', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 41, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:41:05', 1, '2024-02-11 10:41:05', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4965, 1, '2024-02-11 10:41:06', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 31, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 10:41:06', 1, '2024-02-11 10:41:06', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4966, 1, '2024-02-11 10:41:06', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 58, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 10:41:06', 1, '2024-02-11 10:41:06', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4967, 1, '2024-02-11 10:41:12', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 69, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:41:11', 1, '2024-02-11 10:41:11', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4968, 1, '2024-02-11 10:41:12', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 37, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 10:41:11', 1, '2024-02-11 10:41:11', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4969, 1, '2024-02-11 10:41:12', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 46, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 10:41:12', 1, '2024-02-11 10:41:12', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4970, 1, '2024-02-11 10:41:12', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 76, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 10:41:12', 1, '2024-02-11 10:41:12', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4971, 1, '2024-02-11 10:41:15', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 76, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 10:41:15', 1, '2024-02-11 10:41:15', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4972, 1, '2024-02-11 10:41:21', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":null,\"regex\":null,\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 24, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 10:41:20', 1, '2024-02-11 10:41:20', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4973, 1, '2024-02-11 10:42:04', '127.0.0.1', '/api/table/info/page/1', 'GET', 'class com.zero.code.generate.controller.TableInfoController.page', '[1,10,{\"id\":null,\"name\":null,\"comment\":null,\"entityName\":null,\"requestMapping\":null,\"javaPackageName\":null,\"javaCodePath\":null,\"vueCodePath\":null,\"vuePackage\":null,\"tree\":null,\"cover\":null,\"codeAuthor\":null,\"tableColumnList\":null}]', 48, 1, '分页查询系统数据库表信息数据', NULL, NULL, '2024-02-11 10:42:03', 1, '2024-02-11 10:42:03', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4974, 1, '2024-02-11 10:42:27', '127.0.0.1', '/api/user/info', 'GET', 'class com.zero.sys.controller.UserInfoController.info', '[]', 9, 1, '查询当前登录用户的信息数据', NULL, NULL, '2024-02-11 10:42:26', 1, '2024-02-11 10:42:26', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4975, 1, '2024-02-11 11:23:48', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 55, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:23:47', 1, '2024-02-11 11:23:47', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4976, 1, '2024-02-11 11:23:48', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 46, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:23:47', 1, '2024-02-11 11:23:47', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4977, 1, '2024-02-11 11:23:48', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 39, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:23:48', 1, '2024-02-11 11:23:48', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4978, 1, '2024-02-11 11:23:48', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 98, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 11:23:48', 1, '2024-02-11 11:23:48', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4979, 1, '2024-02-11 11:23:57', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":null,\"regex\":null,\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 26, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 11:23:57', 1, '2024-02-11 11:23:57', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4980, 1, '2024-02-11 11:33:35', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 168, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 11:33:35', 1, '2024-02-11 11:33:35', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4981, 1, '2024-02-11 11:33:44', '127.0.0.1', '/api/menu/tree', 'GET', 'class com.zero.sys.controller.MenuController.tree', '[]', 69, 1, '查询系统菜单表并构建树状结构', NULL, NULL, '2024-02-11 11:33:44', 1, '2024-02-11 11:33:44', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4982, 1, '2024-02-11 11:33:49', '127.0.0.1', '/api/file/manage/page/1', 'GET', 'class com.zero.sys.controller.FileManageController.page', '[1,10,{\"id\":null,\"name\":null,\"type\":null,\"uri\":null,\"uploadTime\":null,\"uploadUserId\":null,\"parentId\":null,\"bakFiles\":null,\"user\":null,\"queryUsername\":null,\"queryStartDate\":null,\"queryEndDate\":null}]', 41, 1, '分页查询文件资源管理表数据', NULL, NULL, '2024-02-11 11:33:48', 1, '2024-02-11 11:33:48', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4983, 1, '2024-02-11 11:44:20', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 82, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:44:19', 1, '2024-02-11 11:44:19', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4984, 1, '2024-02-11 11:44:21', '127.0.0.1', '/api/index/login/map', 'GET', 'class com.zero.sys.controller.IndexController.loginMap', '[]', 12, 1, '获取系统首页的用户登录地图数据', NULL, NULL, '2024-02-11 11:44:20', 1, '2024-02-11 11:44:20', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4985, 1, '2024-02-11 11:44:21', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 55, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:44:20', 1, '2024-02-11 11:44:20', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4986, 1, '2024-02-11 11:44:21', '127.0.0.1', '/api/index/chart', 'GET', 'class com.zero.sys.controller.IndexController.chart', '[]', 239, 1, '获取系统首页的展示数据', NULL, NULL, '2024-02-11 11:44:21', 1, '2024-02-11 11:44:21', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4987, 1, '2024-02-11 11:44:51', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 50, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:44:51', 1, '2024-02-11 11:44:51', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4988, 1, '2024-02-11 11:44:52', '127.0.0.1', '/api/index/chart', 'GET', 'class com.zero.sys.controller.IndexController.chart', '[]', 15, 1, '获取系统首页的展示数据', NULL, NULL, '2024-02-11 11:44:51', 1, '2024-02-11 11:44:51', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4989, 1, '2024-02-11 11:44:52', '127.0.0.1', '/api/index/login/map', 'GET', 'class com.zero.sys.controller.IndexController.loginMap', '[]', 7, 1, '获取系统首页的用户登录地图数据', NULL, NULL, '2024-02-11 11:44:51', 1, '2024-02-11 11:44:51', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4990, 1, '2024-02-11 11:44:52', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 39, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:44:51', 1, '2024-02-11 11:44:51', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4991, 1, '2024-02-11 11:45:46', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 171, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 11:45:46', 1, '2024-02-11 11:45:46', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4992, 1, '2024-02-11 11:45:54', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 46, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:45:54', 1, '2024-02-11 11:45:54', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4993, 1, '2024-02-11 11:45:54', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 47, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:45:54', 1, '2024-02-11 11:45:54', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4994, 1, '2024-02-11 11:45:55', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 32, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 11:45:54', 1, '2024-02-11 11:45:54', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4995, 1, '2024-02-11 11:45:55', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 46, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:45:54', 1, '2024-02-11 11:45:54', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4996, 1, '2024-02-11 11:45:57', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":null,\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 24, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 11:45:57', 1, '2024-02-11 11:45:57', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4997, 1, '2024-02-11 11:46:08', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":\"role\",\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 40, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 11:46:08', 1, '2024-02-11 11:46:08', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4998, 1, '2024-02-11 11:46:15', '127.0.0.1', '/api/resources/role/894', 'DELETE', 'class com.zero.auth.controller.ResourcesController.deleteResourcesRole', '[894,3]', 10, 1, '删除系统资源角色', NULL, NULL, '2024-02-11 11:46:15', 1, '2024-02-11 11:46:15', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (4999, 1, '2024-02-11 11:46:15', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":\"role\",\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 25, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 11:46:15', 1, '2024-02-11 11:46:15', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5000, 1, '2024-02-11 11:46:18', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 42, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:46:17', 1, '2024-02-11 11:46:17', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5001, 1, '2024-02-11 11:46:18', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 39, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:46:17', 1, '2024-02-11 11:46:17', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5002, 1, '2024-02-11 11:46:18', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 37, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:46:18', 1, '2024-02-11 11:46:18', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5003, 1, '2024-02-11 11:46:18', '127.0.0.1', '/api/resources/page/1', 'GET', 'class com.zero.auth.controller.ResourcesController.page', '[1,10,{\"id\":null,\"uri\":null,\"description\":null,\"methodType\":null,\"roles\":null,\"queryRoleId\":null}]', 50, 1, '分页查询系统资源数据', NULL, NULL, '2024-02-11 11:46:18', 1, '2024-02-11 11:46:18', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5004, 1, '2024-02-11 11:46:20', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 25, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 11:46:20', 1, '2024-02-11 11:46:20', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5005, 22, '2024-02-11 11:46:23', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 29, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:46:22', 22, '2024-02-11 11:46:22', 22, 0);
+INSERT INTO `sys_operation_log` VALUES (5006, 22, '2024-02-11 11:46:23', '127.0.0.1', '/api/index/login/map', 'GET', 'class com.zero.sys.controller.IndexController.loginMap', '[]', 7, 1, '获取系统首页的用户登录地图数据', NULL, NULL, '2024-02-11 11:46:23', 22, '2024-02-11 11:46:23', 22, 0);
+INSERT INTO `sys_operation_log` VALUES (5007, 22, '2024-02-11 11:46:23', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 37, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:46:23', 22, '2024-02-11 11:46:23', 22, 0);
+INSERT INTO `sys_operation_log` VALUES (5008, 1, '2024-02-11 11:46:33', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 39, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:46:32', 1, '2024-02-11 11:46:32', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5009, 1, '2024-02-11 11:46:33', '127.0.0.1', '/api/index/login/map', 'GET', 'class com.zero.sys.controller.IndexController.loginMap', '[]', 7, 1, '获取系统首页的用户登录地图数据', NULL, NULL, '2024-02-11 11:46:32', 1, '2024-02-11 11:46:32', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5010, 1, '2024-02-11 11:46:33', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 44, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:46:32', 1, '2024-02-11 11:46:32', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5011, 1, '2024-02-11 11:46:33', '127.0.0.1', '/api/index/chart', 'GET', 'class com.zero.sys.controller.IndexController.chart', '[]', 152, 1, '获取系统首页的展示数据', NULL, NULL, '2024-02-11 11:46:32', 1, '2024-02-11 11:46:32', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5012, 1, '2024-02-11 11:46:35', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 17, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 11:46:34', 1, '2024-02-11 11:46:34', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5013, 1, '2024-02-11 11:52:39', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 71, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:52:39', 1, '2024-02-11 11:52:39', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5014, 1, '2024-02-11 11:52:40', '127.0.0.1', '/api/menu/routes', 'GET', 'class com.zero.sys.controller.MenuController.routes', '[]', 72, 1, '[动态路由]获取所有启用的系统菜单', NULL, NULL, '2024-02-11 11:52:39', 1, '2024-02-11 11:52:39', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5015, 1, '2024-02-11 11:52:40', '127.0.0.1', '/api/config/const/keys', 'POST', 'class com.zero.sys.controller.ConfigConstController.keys', '[[\"RECORD_NUMBER\",\"SHOW_SETTINGS\",\"THEME_COLOR\",\"TAGS_VIEW\",\"FIXED_HEADER\",\"SIDEBAR_LOGO\"]]', 38, 1, '批量查询常量键值配置数据', NULL, NULL, '2024-02-11 11:52:40', 1, '2024-02-11 11:52:40', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5016, 1, '2024-02-11 11:52:40', '127.0.0.1', '/api/user/page/1', 'GET', 'class com.zero.auth.controller.UserController.page', '[1,10,{\"id\":null,\"username\":null,\"password\":null,\"enabled\":null,\"locked\":null,\"accountExpire\":null,\"passwordExpire\":null,\"type\":null,\"roles\":null,\"userInfo\":null,\"onlineLoginLogs\":null,\"queryRoleId\":null}]', 128, 1, '分页查询用户数据', NULL, NULL, '2024-02-11 11:52:40', 1, '2024-02-11 11:52:40', 1, 0);
+INSERT INTO `sys_operation_log` VALUES (5017, 1, '2024-02-11 11:52:46', '127.0.0.1', '/api/role/page/1', 'GET', 'class com.zero.auth.controller.RoleController.page', '[1,10,{\"id\":null,\"name\":null,\"description\":null,\"acquiescence\":null}]', 14, 1, '分页查询角色数据', NULL, NULL, '2024-02-11 11:52:45', 1, '2024-02-11 11:52:45', 1, 0);
 
 -- ----------------------------
 -- Table structure for sys_organ

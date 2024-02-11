@@ -8,17 +8,27 @@ import com.zero.auth.properties.JwtProperties;
 import com.zero.common.constant.AppConst;
 import com.zero.common.exception.AppException;
 import com.zero.common.exception.AppExceptionEnum;
+import com.zero.common.kit.PathKit;
+import com.zero.common.kit.ProxyKit;
 import com.zero.common.kit.RedisKit;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,6 +40,41 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
     private final JwtProperties jwtProperties;
     private final RedisKit redisKit;
     private final ResourcesMapper resourcesMapper;
+
+    private final Map<HandlerMethod, String> methodUriMap = new ConcurrentHashMap<>();
+
+
+    private String getMethodUri(HandlerMethod handlerMethod) {
+        return methodUriMap.computeIfAbsent(handlerMethod, method -> {
+            String[] value;
+            Object bean = method.getBean();
+            Object target = ProxyKit.getTarget(bean);
+            Class<?> beanClass = target.getClass();
+            // 获取类路径
+            String beanPath = PathKit.getBeanPath(beanClass);
+            GetMapping getMapping = method.getMethodAnnotation(GetMapping.class);
+            if (getMapping != null) {
+                value = getMapping.value();
+                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+            }
+            PostMapping postMapping = method.getMethodAnnotation(PostMapping.class);
+            if (postMapping != null) {
+                value = postMapping.value();
+                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+            }
+            PutMapping putMapping = method.getMethodAnnotation(PutMapping.class);
+            if (putMapping != null) {
+                value = putMapping.value();
+                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+            }
+            DeleteMapping deleteMapping = method.getMethodAnnotation(DeleteMapping.class);
+            if (deleteMapping != null) {
+                value = deleteMapping.value();
+                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+            }
+            return null;
+        });
+    }
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestURI = request.getRequestURI();
@@ -45,6 +90,9 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
         String tokenId;
         try {
             tokenId = tokenKit.getId(token);
+        } catch (ExpiredJwtException e) {
+            log.debug("[系统登录功能]token已过期失效，请重新获取token，{}", e.getMessage());
+            throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
         } catch (Exception e) {
             log.error("[系统登录功能]解析token失败，{}", e.getMessage());
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
@@ -56,8 +104,10 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
             throw new AppException(AppExceptionEnum.ILLEGAL_TOKEN);
         }
         // 系统鉴权处理器
-        log.debug("[登录权限鉴定器]请求路径：{}", uri);
-        Resources resources = resourcesMapper.getByRegexUriAndMethodType(uri, request.getMethod().toUpperCase());
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        String methodUri = getMethodUri(handlerMethod);
+        log.debug("[登录权限鉴定器]请求路径：{}，{}", uri, methodUri);
+        Resources resources = resourcesMapper.getByUriAndMethodType(methodUri, request.getMethod().toUpperCase());
         if (resources == null) {
             throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
         }

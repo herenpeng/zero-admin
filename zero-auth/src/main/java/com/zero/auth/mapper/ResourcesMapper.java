@@ -41,14 +41,14 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
     List<Resources> getList(@Param("queryResources") Resources queryResources) throws Exception;
 
     /**
-     * 通过uri正则表达式字段（regex）匹配获取对应的资源
+     * 通过uri匹配获取对应的资源
      *
      * @param uri        请求路径
      * @param methodType 方法类型
      * @return 返回资源信息
      * @throws Exception 抛出异常
      */
-    Resources getByRegexUriAndMethodType(@Param("uri") String uri, @Param("methodType") String methodType);
+    Resources getByUriAndMethodType(@Param("uri") String uri, @Param("methodType") String methodType);
 
     /**
      * 删除全部的系统资源数据，【注意】该删除为物理删除，主要是用于系统停止事件的时候进行销毁资源，然后重新扫描资源

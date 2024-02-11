@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zero.common.base.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,11 +36,12 @@ public class Resources extends BaseEntity {
     private String uri;
 
     /**
-     * 资源定位符匹配正则表达式
+     * 资源方法类型
      */
-    @Schema(name = "资源定位符匹配正则表达式")
-    @TableField(value = "regex")
-    private String regex;
+    @Schema(name = "资源方法类型")
+    @Excel(name = "资源方法类型", width = 15, needMerge = true)
+    @TableField(value = "method_type")
+    private String methodType;
 
     /**
      * 资源描述信息
@@ -50,14 +50,6 @@ public class Resources extends BaseEntity {
     @Excel(name = "资源描述信息", width = 50, needMerge = true)
     @TableField(value = "description")
     private String description;
-
-    /**
-     * 资源方法类型
-     */
-    @Schema(name = "资源方法类型")
-    @Excel(name = "资源方法类型", width = 15, needMerge = true)
-    @TableField(value = "method_type")
-    private String methodType;
 
     /**
      * 拥有该资源的角色信息，非数据库字段

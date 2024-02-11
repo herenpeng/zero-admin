@@ -8,23 +8,20 @@ import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.properties.RoleProperties;
-import com.zero.common.constant.AppConst;
 import com.zero.common.constant.MethodTypeConst;
 import com.zero.common.event.AppEvent;
 import com.zero.common.event.AppStartEvent;
+import com.zero.common.kit.PathKit;
+import com.zero.common.kit.ProxyKit;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.aop.framework.AdvisedSupport;
-import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
@@ -39,26 +36,6 @@ import java.lang.reflect.Method;
 @AppStartEvent(sort = 5, enable = true)
 @Component
 public class ScanResourcesEvent implements AppEvent {
-
-    /**
-     * 匹配的正则表达式，例如{id}
-     */
-    public static final String REGEX = "\\{[A-Za-z]+\\}";
-
-    /**
-     * 替换正则表达式内的内容，形成新的适用于正则表达式
-     */
-    public static final String REPLACE = "[0-9]+";
-
-    /**
-     * 正则匹配开始标志
-     */
-    public static final String REGEX_START = "^";
-
-    /**
-     * 正则匹配结束标志
-     */
-    public static final String REGEX_END = "$";
 
     private final ConfigurableApplicationContext run;
 
@@ -92,10 +69,10 @@ public class ScanResourcesEvent implements AppEvent {
             if (hidden != null) {
                 continue;
             }
-            Object target = getTarget(bean);
+            Object target = ProxyKit.getTarget(bean);
             Class<?> beanClass = target.getClass();
             // 获取类路径
-            String beanPath = getBeanPath(beanClass);
+            String beanPath = PathKit.getBeanPath(beanClass);
             Method[] methods = beanClass.getMethods();
             for (Method method : methods) {
                 insertResources(method, beanPath, rootRole);
@@ -103,24 +80,35 @@ public class ScanResourcesEvent implements AppEvent {
         }
     }
 
-    /**
-     * 获取类上的@RequestMapping注解路径
-     *
-     * @param beanClass Controller类的字节码对象
-     * @return 类上的@RequestMapping注解的路径
-     */
-    private String getBeanPath(Class<?> beanClass) {
-        // 类路径
-        String beanPath = "";
-        // 获取类上的@RequestMapping注解
-        RequestMapping beanRequestMapping = beanClass.getAnnotation(RequestMapping.class);
-        if (beanRequestMapping != null) {
-            String[] value = beanRequestMapping.value();
-            if (value.length > 0) {
-                beanPath = value[0];
-            }
+
+
+    // 方法路径 方法类型
+    private record ResourcesInfo(String methodPath, String methodType) {}
+
+    private ResourcesInfo getResourcesInfo(Method method) {
+        // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
+        String[] value;
+        GetMapping getMapping = method.getAnnotation(GetMapping.class);
+        if (getMapping != null) {
+            value = getMapping.value();
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.GET);
         }
-        return beanPath;
+        PostMapping postMapping = method.getAnnotation(PostMapping.class);
+        if (postMapping != null) {
+            value = postMapping.value();
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.POST);
+        }
+        PutMapping putMapping = method.getAnnotation(PutMapping.class);
+        if (putMapping != null) {
+            value = putMapping.value();
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.PUT);
+        }
+        DeleteMapping deleteMapping = method.getAnnotation(DeleteMapping.class);
+        if (deleteMapping != null) {
+            value = deleteMapping.value();
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.DELETE);
+        }
+        return null;
     }
 
 
@@ -132,46 +120,8 @@ public class ScanResourcesEvent implements AppEvent {
      * @param rootRole root角色
      */
     private void insertResources(Method method, String beanPath, Role rootRole) {
-        // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
-        GetMapping getMapping = method.getAnnotation(GetMapping.class);
-        PostMapping postMapping = method.getAnnotation(PostMapping.class);
-        PutMapping putMapping = method.getAnnotation(PutMapping.class);
-        DeleteMapping deleteMapping = method.getAnnotation(DeleteMapping.class);
-        if (!ObjectUtils.anyNotNull(getMapping, postMapping, putMapping, deleteMapping)) {
-            return;
-        }
-        // 方法路径
-        String methodPath = "";
-        // 方法类型
-        String methodType = null;
         // 资源描述
         String description = null;
-        String[] value;
-        if (ObjectUtils.allNotNull(getMapping)) {
-            methodType = MethodTypeConst.GET;
-            value = getMapping.value();
-            if (value.length > 0) {
-                methodPath = value[0];
-            }
-        } else if (ObjectUtils.allNotNull(postMapping)) {
-            methodType = MethodTypeConst.POST;
-            value = postMapping.value();
-            if (value.length > 0) {
-                methodPath = value[0];
-            }
-        } else if (ObjectUtils.allNotNull(putMapping)) {
-            methodType = MethodTypeConst.PUT;
-            value = putMapping.value();
-            if (value.length > 0) {
-                methodPath = value[0];
-            }
-        } else if (ObjectUtils.allNotNull(deleteMapping)) {
-            methodType = MethodTypeConst.DELETE;
-            value = deleteMapping.value();
-            if (value.length > 0) {
-                methodPath = value[0];
-            }
-        }
         Operation operation = method.getAnnotation(Operation.class);
         if (operation != null) {
             if (operation.hidden()) {
@@ -179,10 +129,15 @@ public class ScanResourcesEvent implements AppEvent {
             }
             description = operation.description();
         }
-        // 通过方法的uri，regex和方法类型查找对应的资源记录
+        ResourcesInfo resourcesInfo = getResourcesInfo(method);
+        if (resourcesInfo == null) {
+            return;
+        }
+        String methodType = resourcesInfo.methodType();
+        String methodPath = resourcesInfo.methodPath();
+        // 通过方法的uri和方法类型查找对应的资源记录
         Resources resources = new Resources();
-        resources.setUri(splicingUri(beanPath, methodPath));
-        resources.setRegex(splicingRegex(beanPath, methodPath));
+        resources.setUri(PathKit.splicingUri(beanPath, methodPath));
         resources.setMethodType(methodType);
         // 先在数据库里面进行查找
         Resources queryResources = resourcesMapper.selectOne(new QueryWrapper<>(resources));
@@ -208,66 +163,7 @@ public class ScanResourcesEvent implements AppEvent {
         }
     }
 
-    /**
-     * 获取SpringAOP代理类的原始类
-     *
-     * @param beanInstance 代理类实例
-     * @return 原始类实例
-     */
-    private Object getTarget(Object beanInstance) {
-        if (!AopUtils.isAopProxy(beanInstance)) {
-            return beanInstance;
-        } else if (AopUtils.isCglibProxy(beanInstance)) {
-            try {
-                Field field = beanInstance.getClass().getDeclaredField("CGLIB$CALLBACK_0");
-                field.setAccessible(true);
-                Object dynamicAdvisedInterceptor = field.get(beanInstance);
-                Field advised = dynamicAdvisedInterceptor.getClass().getDeclaredField("advised");
-                advised.setAccessible(true);
-                Object target = ((AdvisedSupport) advised.get(dynamicAdvisedInterceptor)).getTargetSource().getTarget();
-                return target;
-            } catch (NoSuchFieldException e) {
-                log.error("[AOP动态代理]获取动态代理的原目标发生异常，无法获取CGLIB$CALLBACK_0属性");
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                log.error("[AOP动态代理]获取动态代理的原目标发生异常，反射非法访问属性");
-                e.printStackTrace();
-            } catch (Exception e) {
-                log.error("[AOP动态代理]获取动态代理的原目标发生异常，获取原目标对象异常");
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 
 
-    /**
-     * 拼接对应regex表达式
-     *
-     * @param beanPath   Controller上的路径
-     * @param methodPath 方法上面的路径
-     * @return 对应regex表达式
-     */
-    private String splicingRegex(String beanPath, String methodPath) {
-        String uri = splicingUri(beanPath, methodPath);
-        return REGEX_START + uri.replaceAll(REGEX, REPLACE) + REGEX_END;
-    }
-
-    /**
-     * 拼接路径
-     *
-     * @param beanPath   类路径
-     * @param methodPath 方法路径
-     * @return 返回拼接之后的路径
-     */
-    private String splicingUri(String beanPath, String methodPath) {
-        if (StringUtils.isNotBlank(beanPath) && !beanPath.startsWith(AppConst.PATH_SEPARATOR)) {
-            beanPath = AppConst.PATH_SEPARATOR + beanPath;
-        }
-        if (StringUtils.isNotBlank(methodPath) && !methodPath.startsWith(AppConst.PATH_SEPARATOR)) {
-            methodPath = AppConst.PATH_SEPARATOR + methodPath;
-        }
-        return beanPath + methodPath;
-    }
 
 }
