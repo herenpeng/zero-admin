@@ -25,6 +25,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.function.Consumer;
 
 /**
  * @author herenpeng
@@ -55,20 +56,17 @@ public class RootDefendAop {
         Object[] args = joinPoint.getArgs();
         EvaluationContext context = bindParam(method, args);
         //获取表达式
-        String userIdEl = rootDefend.userId();
-        if (StringUtils.isNotBlank(userIdEl)) {
-            Expression expression = parser.parseExpression(userIdEl);
-            Object userId = expression.getValue(context);
-            if (userId != null) {
-                checkRootUser(Integer.valueOf(userId.toString()));
-            }
-        }
-        String roleIdEl = rootDefend.roleId();
-        if (StringUtils.isNotBlank(roleIdEl)) {
-            Expression expression = parser.parseExpression(roleIdEl);
-            Object roleId = expression.getValue(context);
-            if (roleId != null) {
-                checkRootRole(Integer.valueOf(roleId.toString()));
+        checkRootDefend(rootDefend.userId(), context, this::checkRootUser);
+        checkRootDefend(rootDefend.roleId(), context, this::checkRootRole);
+    }
+
+
+    private void checkRootDefend(String el, EvaluationContext context, Consumer<String> consumer) {
+        if (StringUtils.isNotBlank(el)) {
+            Expression expression = parser.parseExpression(el);
+            Object value = expression.getValue(context);
+            if (value != null) {
+                consumer.accept(value.toString());
             }
         }
     }
@@ -79,8 +77,8 @@ public class RootDefendAop {
      *
      * @param userId 用户主键
      */
-    private void checkRootUser(Integer userId) {
-        User user = userMapper.selectById(userId);
+    private void checkRootUser(String userId) {
+        User user = userMapper.selectById(Integer.parseInt(userId));
         if (StringUtils.equals(rootProperties.getUsername(), user.getUsername())) {
             log.error("[root保护机制]禁止修改root用户账号");
             throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
@@ -92,8 +90,8 @@ public class RootDefendAop {
      *
      * @param roleId 角色主键
      */
-    private void checkRootRole(Integer roleId) {
-        Role role = roleMapper.selectById(roleId);
+    private void checkRootRole(String roleId) {
+        Role role = roleMapper.selectById(Integer.parseInt(roleId));
         if (StringUtils.equals(rootProperties.getRoleName(), role.getName())) {
             log.error("[root保护机制]禁止修改root用户角色");
             throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
