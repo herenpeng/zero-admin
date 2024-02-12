@@ -43,7 +43,7 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" sortable="true" align="center" width="80" />
+      <el-table-column label="序号" type="index" sortable="true" align="center" width="80px" />
       <#list tableColumnList as column>
         <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
           <#if column.javaType == "String" || column.javaType == "Integer">
