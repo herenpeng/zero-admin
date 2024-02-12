@@ -72,7 +72,7 @@
               </#if>
             </#if>
           </#list>
-          <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300px">
+          <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="280px" fixed="right">
             <template v-slot="{row}">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row)">
                 {{ $t('table.edit') }}
