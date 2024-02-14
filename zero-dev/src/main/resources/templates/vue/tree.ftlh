@@ -52,7 +52,7 @@
           :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
           @sort-change="sortChange"
         >
-          <el-table-column label="序号" sortable="true" align="center" width="80" />
+          <el-table-column :label="$t('table.id')" sortable="true" align="center" width="80" />
           <#list tableColumnList as column>
             <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" &&
             column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted" &&
@@ -66,13 +66,13 @@
               <#elseif column.javaType == "Boolean">
           <el-table-column label="${column.comment}" width="100px" align="center">
             <template v-slot="{row}">
-              <span>{{ row.${column.javaName} ? '是' : '否' }}</span>
+              <span>{{ row.${column.javaName} ? $t('common.true') : $t('common.false') }}</span>
             </template>
           </el-table-column>
               </#if>
             </#if>
           </#list>
-          <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="280px" fixed="right">
+          <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width" width="280px" fixed="right">
             <template v-slot="{row}">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row)">
                 {{ $t('table.edit') }}
@@ -87,7 +87,7 @@
       </el-col>
     </el-row>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog :title="$t(textMap[dialogStatus])" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="${entityName?uncap_first}" label-position="left" label-width="120px"
                style="width: 400px; margin-left:50px;"
       >
@@ -102,12 +102,12 @@
           <el-input v-model="${entityName?uncap_first}.${column.javaName}" type="number" placeholder="请输入${column.comment}" />
         </el-form-item>
             <#elseif column.javaType == "Boolean">
-        <el-form-item label="是否${column.comment}" prop="${column.javaName}">
+        <el-form-item label="${column.comment}" prop="${column.javaName}">
           <el-switch
               v-model="${entityName?uncap_first}.${column.javaName}"
               style="width: 190px"
-              active-text="是"
-              inactive-text="否"
+              :active-text="$t('common.true')"
+              :inactive-text="$t('common.false')"
           />
         </el-form-item>
             </#if>
@@ -115,8 +115,8 @@
         </#list>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">关闭</el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">保存</el-button>
+        <el-button @click="dialogFormVisible = false">{{ $t('table.close') }}</el-button>
+        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('table.save') }}</el-button>
       </div>
     </el-dialog>
 
@@ -166,8 +166,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
-        create: '添加',
-        update: '编辑'
+        create: 'table.add',
+        update: 'table.edit'
       },
       rules: {
         <#list tableColumnList as column>
@@ -246,7 +246,7 @@ export default {
           create${entityName}(this.${entityName?uncap_first}).then((res) => {
             this.dialogFormVisible = false
             this.$notify({
-              title: '成功',
+              title: this.$t('common.success'),
               message: res.message,
               type: 'success',
               duration: 2000
@@ -270,7 +270,7 @@ export default {
           update${entityName}(this.${entityName?uncap_first}).then((res) => {
             this.dialogFormVisible = false
             this.$notify({
-              title: '成功',
+              title: this.$t('common.success'),
               message: res.message,
               type: 'success',
               duration: 2000

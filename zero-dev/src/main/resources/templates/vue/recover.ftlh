@@ -12,8 +12,8 @@
       <el-select v-model="listQuery.${column.javaName}" placeholder="${column.comment}" clearable class="filter-item"
                  @change="handleFilter"
       >
-        <el-option value="true" label="是" />
-        <el-option value="false" label="否" />
+        <el-option value="true" :label="$t('common.true')" />
+        <el-option value="false" :label="$t('common.false')" />
       </el-select>
       </#if>
         </#if>
@@ -38,7 +38,7 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" sortable="true" align="center" width="80" />
+      <el-table-column :label="$t('table.id')" type="index" sortable="true" align="center" width="80" />
       <#list tableColumnList as column>
         <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" &&
         column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted" &&
@@ -53,13 +53,13 @@
           <#if column.javaType == "Boolean">
       <el-table-column label="${column.comment}" width="100px" align="center">
         <template v-slot="{row}">
-          <span>{{ row.${column.javaName} ? '是' : '否' }}</span>
+          <span>{{ row.${column.javaName} ? $t('common.true') : $t('common.false') }}</span>
         </template>
       </el-table-column>
           </#if>
         </#if>
       </#list>
-      <el-table-column label="操作" align="center" width="250px" class-name="small-padding fixed-width" fixed="right">
+      <el-table-column :label="$t('table.actions')" align="center" width="250px" class-name="small-padding fixed-width" fixed="right">
         <template v-slot="{row}">
           <el-button type="success" size="mini" icon="el-icon-finished" @click="handleRecover(row)">
             {{ $t('table.recovery') }}
