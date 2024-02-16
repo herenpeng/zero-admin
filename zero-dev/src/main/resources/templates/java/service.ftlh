@@ -1,8 +1,8 @@
-package ${javaPackageName}.service;
+package ${javaPackage}.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zero.common.base.service.BaseService;
-import ${javaPackageName}.entity.${entityName};
+import ${javaPackage}.entity.${entityName};
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;

@@ -1,8 +1,8 @@
-package ${javaPackageName}.mapper;
+package ${javaPackage}.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import ${javaPackageName}.entity.${entityName};
+import ${javaPackage}.entity.${entityName};
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

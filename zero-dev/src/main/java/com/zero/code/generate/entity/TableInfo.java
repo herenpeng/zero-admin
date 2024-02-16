@@ -47,6 +47,13 @@ public class TableInfo extends BaseEntity {
     private String entityName;
 
     /**
+     * Java代码生成路径
+     */
+    @Schema(name = "Java代码生成路径")
+    @TableField(value = "java_code_path")
+    private String javaCodePath;
+
+    /**
      * 表名对应的实体类Controller请求路径
      */
     @Schema(name = "表名对应的实体类请求路径")
@@ -57,15 +64,8 @@ public class TableInfo extends BaseEntity {
      * Java包前缀名称
      */
     @Schema(name = "Java包前缀名称")
-    @TableField(value = "java_package_name")
-    private String javaPackageName;
-
-    /**
-     * Java代码生成路径
-     */
-    @Schema(name = "Java代码生成路径")
-    @TableField(value = "java_code_path")
-    private String javaCodePath;
+    @TableField(value = "java_package")
+    private String javaPackage;
 
     /**
      * Vue代码生成路径

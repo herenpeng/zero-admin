@@ -1,4 +1,4 @@
-package ${javaPackageName}.service.impl;
+package ${javaPackage}.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,9 +8,9 @@ import com.zero.common.kit.ExcelKit;
 <#if tree>
 import com.zero.common.kit.TreeKit;
 </#if>
-import ${javaPackageName}.entity.${entityName};
-import ${javaPackageName}.mapper.${entityName}Mapper;
-import ${javaPackageName}.service.${entityName}Service;
+import ${javaPackage}.entity.${entityName};
+import ${javaPackage}.mapper.${entityName}Mapper;
+import ${javaPackage}.service.${entityName}Service;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

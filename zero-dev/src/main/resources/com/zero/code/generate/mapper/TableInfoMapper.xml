@@ -8,7 +8,7 @@
         <result column="comment" jdbcType="VARCHAR" property="comment"/>
         <result column="entity_name" jdbcType="VARCHAR" property="entityName"/>
         <result column="request_mapping" jdbcType="VARCHAR" property="requestMapping"/>
-        <result column="java_package_name" jdbcType="VARCHAR" property="javaPackageName"/>
+        <result column="java_package" jdbcType="VARCHAR" property="javaPackage"/>
         <result column="java_code_path" jdbcType="VARCHAR" property="javaCodePath"/>
         <result column="vue_code_path" jdbcType="VARCHAR" property="vueCodePath"/>
         <result column="vue_package" jdbcType="VARCHAR" property="vuePackage"/>
@@ -24,7 +24,7 @@
 
     <sql id="baseColumn">
         `id`, `name`, `comment`, `entity_name`, `request_mapping`, `java_code_path`, `vue_code_path`,
-        `vue_package`,`tree`,`cover`,`java_package_name`, `code_author`
+        `vue_package`,`tree`,`cover`,`java_package`, `code_author`
     </sql>
 
     <sql id="baseQuery">
@@ -37,8 +37,8 @@
         <if test="queryTableInfo.entityName != null and queryTableInfo.entityName != ''">
             and entity_name like concat('%', #{queryTableInfo.entityName}, '%')
         </if>
-        <if test="queryTableInfo.javaPackageName != null and queryTableInfo.javaPackageName != ''">
-            and java_package_name like concat('%', #{queryTableInfo.javaPackageName}, '%')
+        <if test="queryTableInfo.javaPackage != null and queryTableInfo.javaPackage != ''">
+            and java_package like concat('%', #{queryTableInfo.javaPackage}, '%')
         </if>
         <if test="queryTableInfo.codeAuthor != null and queryTableInfo.codeAuthor != ''">
             and code_author like concat('%', #{queryTableInfo.codeAuthor}, '%')
@@ -50,7 +50,7 @@
 
     <select id="getPage" resultMap="resultMap">
         select `id` as id,`name` as name,`comment` as comment,`entity_name` as entity_name,`request_mapping` as request_mapping,
-        `java_package_name` as java_package_name,`java_code_path` as java_code_path,`vue_code_path` as vue_code_path,
+        `java_package` as java_package,`java_code_path` as java_code_path,`vue_code_path` as vue_code_path,
         `vue_package` as vue_package, `tree` as tree, `cover` as cover, `code_author` as code_author
         from dev_table_info
         <where>

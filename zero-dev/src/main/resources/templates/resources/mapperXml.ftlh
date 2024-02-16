@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${javaPackageName}.mapper.${entityName}Mapper">
+<mapper namespace="${javaPackage}.mapper.${entityName}Mapper">
 
-    <resultMap id="resultMap" type="${javaPackageName}.entity.${entityName}">
+    <resultMap id="resultMap" type="${javaPackage}.entity.${entityName}">
     <#list tableColumnList as column>
     <#if column.name == "id">
         <id column="${column.name}" jdbcType="${column.jdbcType}" property="${column.javaName}"/>

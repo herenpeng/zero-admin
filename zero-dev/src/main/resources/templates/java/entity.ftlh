@@ -1,4 +1,4 @@
-package ${javaPackageName}.entity;
+package ${javaPackage}.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;

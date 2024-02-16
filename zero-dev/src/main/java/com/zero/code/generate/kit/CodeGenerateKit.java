@@ -64,7 +64,7 @@ public class CodeGenerateKit {
             case JAVA:
                 // 拼接文件的全路径
                 generateFilePath.append(tableInfo.getJavaCodePath()).append(templateEnum.getFileBasePath())
-                        .append(packageNameToPath(tableInfo.getJavaPackageName() + templateEnum.getPackageName()))
+                        .append(packageNameToPath(tableInfo.getJavaPackage() + templateEnum.getPackageName()))
                         .append(File.separator).append(tableInfo.getEntityName()).append(templateEnum.getSuffix());
                 break;
             case SQL:
