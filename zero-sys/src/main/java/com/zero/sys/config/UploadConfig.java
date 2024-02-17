@@ -19,10 +19,10 @@ public class UploadConfig {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        //  单个数据大小 1024KB
-        factory.setMaxFileSize(DataSize.ofKilobytes(1024));
-        /// 总上传数据大小 10240KB
-        factory.setMaxRequestSize(DataSize.ofKilobytes(102400));
+        //  单个数据大小 5MB
+        factory.setMaxFileSize(DataSize.ofKilobytes(5120));
+        /// 总上传数据大小 50MB
+        factory.setMaxRequestSize(DataSize.ofKilobytes(512000));
         return factory.createMultipartConfig();
     }
 }
