@@ -17,7 +17,6 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -54,8 +53,6 @@ public class ScanResourcesEvent implements AppEvent {
 
     /**
      * 扫描系统资源
-     *
-     * @param run
      */
     private void scanResources(ConfigurableApplicationContext run) {
         // 获取@RestController注解的类名集合
@@ -81,9 +78,9 @@ public class ScanResourcesEvent implements AppEvent {
     }
 
 
-
     // 方法路径 方法类型
-    private record ResourcesInfo(String methodPath, String methodType) {}
+    private record ResourcesInfo(String methodPath, String methodType) {
+    }
 
     private ResourcesInfo getResourcesInfo(Method method) {
         // 获取方法上的@PutMapping,@GetMapping,@PostMapping,@DeleteMapping注解，
@@ -120,50 +117,42 @@ public class ScanResourcesEvent implements AppEvent {
      * @param rootRole root角色
      */
     private void insertResources(Method method, String beanPath, Role rootRole) {
-        // 资源描述
-        String description = null;
         Operation operation = method.getAnnotation(Operation.class);
-        if (operation != null) {
-            if (operation.hidden()) {
-                return;
-            }
-            description = operation.description();
+        if (operation == null || operation.hidden()) {
+            return;
         }
+        // 资源描述
+        String description = operation.description();
         ResourcesInfo resourcesInfo = getResourcesInfo(method);
         if (resourcesInfo == null) {
             return;
         }
         String methodType = resourcesInfo.methodType();
         String methodPath = resourcesInfo.methodPath();
-        // 通过方法的uri和方法类型查找对应的资源记录
-        Resources resources = new Resources();
-        resources.setUri(PathKit.splicingUri(beanPath, methodPath));
-        resources.setMethodType(methodType);
-        // 先在数据库里面进行查找
-        Resources queryResources = resourcesMapper.selectOne(new QueryWrapper<>(resources));
-        // 创建一个资源关系对象
-        ResourcesRole resourcesRole = new ResourcesRole();
-        // 如果有对应的路径和方法，不插入，而是进行更新
-        if (queryResources != null) {
-            queryResources.setDescription(description);
-            resourcesMapper.updateById(queryResources);
-            resourcesRole.setResourcesId(queryResources.getId());
-        } else {
+        // 通过方法的uri和方法类型查找对应的资源记录，先在数据库里面进行查找
+        Resources resources = resourcesMapper.getByUriAndMethodType(PathKit.splicingUri(beanPath, methodPath), methodType);
+        if (resources == null) {
             // 数据库中不存在对应的资源记录，插入一条新的资源记录
+            resources = new Resources();
+            resources.setUri(PathKit.splicingUri(beanPath, methodPath));
+            resources.setMethodType(methodType);
             resources.setDescription(description);
             resourcesMapper.insert(resources);
-            resourcesRole.setResourcesId(resources.getId());
+        } else {
+            // 如果有对应的路径和方法，不插入，而是进行更新
+            resources.setDescription(description);
+            resourcesMapper.updateById(resources);
         }
-        // 维护root用户的权限，将资源权限分配给root用户
+        // 创建一个资源角色关系对象，维护root用户的权限，将资源权限分配给root用户
+        ResourcesRole resourcesRole = new ResourcesRole();
+        resourcesRole.setResourcesId(resources.getId());
         resourcesRole.setRoleId(rootRole.getId());
         ResourcesRole queryResourcesRole = resourcesRoleMapper.selectOne(new QueryWrapper<>(resourcesRole));
         // 如果root用户不存在该权限，则新增该权限，否则不做处理
-        if (!ObjectUtils.allNotNull(queryResourcesRole)) {
+        if (queryResourcesRole == null) {
             resourcesRoleMapper.insert(resourcesRole);
         }
     }
-
-
 
 
 }

@@ -46,7 +46,6 @@ public interface ResourcesMapper extends BaseMapper<Resources> {
      * @param uri        请求路径
      * @param methodType 方法类型
      * @return 返回资源信息
-     * @throws Exception 抛出异常
      */
     Resources getByUriAndMethodType(@Param("uri") String uri, @Param("methodType") String methodType);
 

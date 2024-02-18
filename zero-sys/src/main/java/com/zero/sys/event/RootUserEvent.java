@@ -15,7 +15,6 @@ import com.zero.common.event.AppStartEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 /**
  * root用户事件，在系统启动时，插入root角色和root用户，并关联两者的关系
@@ -54,7 +53,7 @@ public class RootUserEvent implements AppEvent {
         }
         // 如果root角色为空，插入一个root角色
         Role role = roleMapper.getByName(rootProperties.getRoleName());
-        if (ObjectUtils.isEmpty(role)) {
+        if (role == null) {
             role = new Role();
             role.setName(rootProperties.getRoleName());
             role.setDescription(rootProperties.getRoleDescription());
@@ -64,9 +63,8 @@ public class RootUserEvent implements AppEvent {
         UserRole userRole = new UserRole();
         userRole.setUserId(user.getId());
         userRole.setRoleId(role.getId());
-        QueryWrapper<UserRole> queryWrapper = new QueryWrapper<>(userRole);
-        UserRole userRole1 = userRoleMapper.selectOne(queryWrapper);
-        if (ObjectUtils.isEmpty(userRole1)) {
+        UserRole queryUserRole = userRoleMapper.selectOne(new QueryWrapper<>(userRole));
+        if (queryUserRole == null) {
             userRoleMapper.insert(userRole);
         }
     }

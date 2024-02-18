@@ -13,7 +13,6 @@ import com.zero.sys.mapper.MenuRoleMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -42,12 +41,11 @@ public class RootMenuEvent implements AppEvent {
         List<Menu> menuList = menuMapper.selectList(null);
         Role role = roleMapper.getByName(rootProperties.getRoleName());
         for (Menu menu : menuList) {
-            MenuRole queryMenuRole = new MenuRole();
-            queryMenuRole.setMenuId(menu.getId());
-            queryMenuRole.setRoleId(role.getId());
-            QueryWrapper<MenuRole> queryWrapper = new QueryWrapper<>(queryMenuRole);
-            MenuRole menuRole = menuRoleMapper.selectOne(queryWrapper);
-            if (ObjectUtils.isEmpty(menuRole)) {
+            MenuRole menuRole = new MenuRole();
+            menuRole.setMenuId(menu.getId());
+            menuRole.setRoleId(role.getId());
+            MenuRole queryMenuRole = menuRoleMapper.selectOne(new QueryWrapper<>(menuRole));
+            if (queryMenuRole == null) {
                 menuRoleMapper.insert(menuRole);
             }
         }

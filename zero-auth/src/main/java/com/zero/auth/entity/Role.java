@@ -1,6 +1,5 @@
 package com.zero.auth.entity;
 
-
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-//import org.springframework.security.core.GrantedAuthority;
 
 /**
  * 角色实体类信息
@@ -25,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("auth_role")
-public class Role extends BaseEntity  {
+public class Role extends BaseEntity {
     //implements GrantedAuthority
 
     /**
@@ -52,8 +50,4 @@ public class Role extends BaseEntity  {
     @TableField(value = "acquiescence")
     private Boolean acquiescence;
 
-//    @Override
-//    public String getAuthority() {
-//        return SecurityConst.ROLE_ + this.name;
-//    }
 }
