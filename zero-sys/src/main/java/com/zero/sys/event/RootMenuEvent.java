@@ -12,7 +12,6 @@ import com.zero.sys.mapper.MenuMapper;
 import com.zero.sys.mapper.MenuRoleMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -25,7 +24,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @AppStartEvent(sort = 2, enable = true)
-@Component
 public class RootMenuEvent implements AppEvent {
 
     private final MenuMapper menuMapper;

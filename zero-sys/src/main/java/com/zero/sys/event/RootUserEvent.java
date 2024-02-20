@@ -14,7 +14,6 @@ import com.zero.common.event.AppEvent;
 import com.zero.common.event.AppStartEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * root用户事件，在系统启动时，插入root角色和root用户，并关联两者的关系
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @AppStartEvent(sort = 1, enable = true)
-@Component
 public class RootUserEvent implements AppEvent {
 
     private final RootProperties rootProperties;

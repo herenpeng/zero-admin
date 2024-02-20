@@ -1,5 +1,7 @@
 package com.zero.common.event;
 
+import org.springframework.stereotype.Component;
+
 import java.lang.annotation.*;
 
 /**
@@ -16,6 +18,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
+@Component
 public @interface AppStopEvent {
 
     /**

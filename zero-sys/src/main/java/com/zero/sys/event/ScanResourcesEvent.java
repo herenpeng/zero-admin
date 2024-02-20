@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,6 @@ import java.lang.reflect.Method;
 @Slf4j
 @RequiredArgsConstructor
 @AppStartEvent(sort = 3, enable = true)
-@Component
 public class ScanResourcesEvent implements AppEvent {
 
     private final ConfigurableApplicationContext run;
@@ -138,7 +138,7 @@ public class ScanResourcesEvent implements AppEvent {
             resources.setMethodType(methodType);
             resources.setDescription(description);
             resourcesMapper.insert(resources);
-        } else {
+        } else if (!StringUtils.equals(resources.getDescription(), description)) {
             // 如果有对应的路径和方法，不插入，而是进行更新
             resources.setDescription(description);
             resourcesMapper.updateById(resources);

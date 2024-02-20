@@ -21,7 +21,7 @@ public @interface AppLog {
     /**
      * 操作日志说明，如果该值为null或者为""，则获取@Operation注解上面的方法说明
      *
-     * @return
+     * @return 操作描述信息
      */
     String value() default "";
 
