@@ -14,7 +14,7 @@ public class MethodInvoke {
 
     private final Object object;
 
-    public void invoke(Object... param) throws InvocationTargetException, IllegalAccessException {
-        method.invoke(object, param);
+    public Object invoke(Object... param) throws InvocationTargetException, IllegalAccessException {
+        return method.invoke(object, param);
     }
 }

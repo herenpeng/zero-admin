@@ -3,6 +3,7 @@ package com.zero.common.websocket;
 import com.zero.common.kit.JsonKit;
 import com.zero.common.kit.MethodInvoke;
 import jakarta.websocket.*;
+import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-@ServerEndpoint(value = "/websocket")
+@ServerEndpoint(value = "/websocket/{token}")
 public class AppWebSocket implements ApplicationListener<ApplicationReadyEvent>, ApplicationContextAware {
     private static final Map<Integer, MethodInvoke> webSocketMethodMap = new ConcurrentHashMap<>();
 
@@ -43,6 +44,10 @@ public class AppWebSocket implements ApplicationListener<ApplicationReadyEvent>,
                     continue;
                 }
                 int cmd = webSocketMethod.value();
+                MethodInvoke methodInvoke = webSocketMethodMap.get(cmd);
+                if (methodInvoke != null) {
+                    throw new RuntimeException("WebSocket命令冲突，cmd：" + cmd + "，冲突方法：" + methodInvoke.getMethod() + " | " + method);
+                }
                 webSocketMethodMap.put(cmd, new MethodInvoke(method, object));
             }
         }
@@ -53,16 +58,16 @@ public class AppWebSocket implements ApplicationListener<ApplicationReadyEvent>,
 
     private static final String KEY = "@";
 
-    private static final Map<String, Session> webSocketSessions = new ConcurrentHashMap<>();
+    private static final Map<String, WebSocketSession> webSocketSessions = new ConcurrentHashMap<>();
 
 
     /**
      * WebSocket链接建立后触发的方法
      */
     @OnOpen
-    public void onOpen(Session session) throws Exception {
-        log.info("[WebSocket链接]建立链接，sessionId:{}", session.getId());
-        webSocketSessions.put(session.getId(), session);
+    public void onOpen(@PathParam("token") String token, Session session) throws Exception {
+        log.info("[WebSocket链接]建立链接，sessionId:{}，token:{}", session.getId(), token);
+        webSocketSessions.put(session.getId(), new WebSocketSession(token, session));
     }
 
     /**
@@ -91,7 +96,11 @@ public class AppWebSocket implements ApplicationListener<ApplicationReadyEvent>,
             String data = message.substring(index + 1);
             MethodInvoke methodInvoke = webSocketMethodMap.get(cmd);
             if (methodInvoke != null) {
-                methodInvoke.invoke(data);
+                Object object = methodInvoke.invoke(data);
+                if (object != null) {
+                    String response = buildMessage(cmd, object);
+                    session.getAsyncRemote().sendText(response);
+                }
             }
         } catch (Exception e) {
             log.error("[WebSocket链接]接收消息，消息处理错误，sessionId:{}，message:{}，errorMessage:{}", session.getId(), message, e.getMessage());
@@ -114,12 +123,16 @@ public class AppWebSocket implements ApplicationListener<ApplicationReadyEvent>,
     /**
      * 给单个客户端发送消息
      *
-     * @param cmd     cmdId
+     * @param cmd       cmdId
      * @param data      消息内容
      * @param sessionId 指定发送客户端链接id
      */
     public <T> void sendMessageSingle(int cmd, T data, String sessionId) {
-        Session session = webSocketSessions.get(sessionId);
+        WebSocketSession webSocketSession = webSocketSessions.get(sessionId);
+        if (webSocketSession == null) {
+            return;
+        }
+        Session session = webSocketSession.session();
         if (session != null && session.isOpen()) {
             String message = buildMessage(cmd, data);
             session.getAsyncRemote().sendText(message);
@@ -129,13 +142,14 @@ public class AppWebSocket implements ApplicationListener<ApplicationReadyEvent>,
     /**
      * 给所有客户端发送消息
      *
-     * @param cmd cmdId
-     * @param data  消息内容
+     * @param cmd  cmdId
+     * @param data 消息内容
      */
     public <T> void sendMessageAll(int cmd, T data) {
         String message = buildMessage(cmd, data);
-        for (Map.Entry<String, Session> entry : webSocketSessions.entrySet()) {
-            Session session = entry.getValue();
+        for (Map.Entry<String, WebSocketSession> entry : webSocketSessions.entrySet()) {
+            WebSocketSession webSocketSession = entry.getValue();
+            Session session = webSocketSession.session();
             if (session != null && session.isOpen()) {
                 session.getAsyncRemote().sendText(message);
             }
@@ -145,6 +159,10 @@ public class AppWebSocket implements ApplicationListener<ApplicationReadyEvent>,
 
     private <T> String buildMessage(int cmd, T data) {
         return cmd + KEY + jsonKit.toJson(data);
+    }
+
+
+    private record WebSocketSession(String token, Session session) {
     }
 
 }
