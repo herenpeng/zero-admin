@@ -24,14 +24,12 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public Boolean sendTextMail(ToMail toMail) throws Exception {
-        boolean result = mailUtils.sendTextMail(toMail);
-        return result;
+        return mailUtils.sendTextMail(toMail);
     }
 
     @Override
     public Boolean sendTemplateMail(ToMail toMail) throws Exception {
-        boolean result = mailUtils.sendTemplateMail(toMail);
-        return result;
+        return mailUtils.sendTemplateMail(toMail);
     }
 
 }

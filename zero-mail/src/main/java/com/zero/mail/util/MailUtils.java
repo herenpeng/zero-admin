@@ -12,6 +12,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 /**
  * 邮件工具类
  *
@@ -77,10 +79,10 @@ public class MailUtils {
         mimeMessageHelper.setText(toMail.getContent(), true);
         try {
             mailSender.send(message);
-            log.info("邮件发送成功，邮件接收方：{}", toMail.getToMails());
+            log.info("邮件发送成功，邮件接收方：{}", Arrays.toString(toMail.getToMails()));
             return true;
         } catch (MailException e) {
-            log.error("邮件发送失败，邮件接收方：{}", toMail.getToMails());
+            log.error("邮件发送失败，邮件接收方：{}", Arrays.toString(toMail.getToMails()));
             e.printStackTrace();
             return false;
         }
