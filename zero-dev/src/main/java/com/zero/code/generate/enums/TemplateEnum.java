@@ -21,7 +21,7 @@ public enum TemplateEnum {
     ENTITY(CodeTypeEnum.JAVA,
             "/templates/java",
             "entity.ftlh",
-            "/src/main/java",
+            File.separator + "src" + File.separator + "main" + File.separator + "java",
             ".entity",
             ".java"),
 
@@ -31,7 +31,7 @@ public enum TemplateEnum {
     MAPPER(CodeTypeEnum.JAVA,
             "/templates/java",
             "mapper.ftlh",
-            "/src/main/java",
+            File.separator + "src" + File.separator + "main" + File.separator + "java",
             ".mapper",
             "Mapper.java"),
 
@@ -41,7 +41,7 @@ public enum TemplateEnum {
     MAPPER_XML(CodeTypeEnum.JAVA,
             "/templates/resources",
             "mapperXml.ftlh",
-            "/src/main/resources",
+            File.separator + "src" + File.separator + "main" + File.separator + "resources",
             ".mapper",
             "Mapper.xml"),
 
@@ -51,7 +51,7 @@ public enum TemplateEnum {
     SERVICE(CodeTypeEnum.JAVA,
             "/templates/java",
             "service.ftlh",
-            "/src/main/java",
+            File.separator + "src" + File.separator + "main" + File.separator + "java",
             ".service",
             "Service.java"),
 
@@ -61,7 +61,7 @@ public enum TemplateEnum {
     SERVICE_IMPL(CodeTypeEnum.JAVA,
             "/templates/java",
             "serviceImpl.ftlh",
-            "/src/main/java",
+            File.separator + "src" + File.separator + "main" + File.separator + "java",
             ".service.impl",
             "ServiceImpl.java"),
 
@@ -71,7 +71,7 @@ public enum TemplateEnum {
     CONTROLLER(CodeTypeEnum.JAVA,
             "/templates/java",
             "controller.ftlh",
-            "/src/main/java",
+            File.separator + "src" + File.separator + "main" + File.separator + "java",
             ".controller",
             "Controller.java"),
 
@@ -119,7 +119,19 @@ public enum TemplateEnum {
             "api.ftlh",
             "/src/api",
             "",
-            ".js");
+            ".js"),
+
+
+    /**
+     * Vue组件国际化语言代码
+     */
+    LANG(CodeTypeEnum.VUE,
+            "/templates/vue",
+            "lang.ftlh",
+            "/src/lang",
+            "",
+            ".js"),
+    ;
 
     /**
      * 代码类型

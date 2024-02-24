@@ -47,14 +47,14 @@
       <#list tableColumnList as column>
         <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
           <#if column.javaType == "String" || column.javaType == "Integer">
-      <el-table-column label="${column.comment}" width="150px" align="center">
+      <el-table-column :label="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" width="150px" align="center">
         <template v-slot="{row}">
           <span>{{ row.${column.javaName} }}</span>
         </template>
       </el-table-column>
           </#if>
           <#if column.javaType == "Boolean">
-      <el-table-column label="${column.comment}" width="100px" align="center">
+      <el-table-column :label="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" width="100px" align="center">
         <template v-slot="{row}">
           <span>{{ row.${column.javaName} ? $t('common.true') : $t('common.false') }}</span>
         </template>
@@ -88,15 +88,15 @@
       <#list tableColumnList as column>
         <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
           <#if column.javaType == "String">
-        <el-form-item label="${column.comment}" prop="${column.javaName}">
-          <el-input v-model="${entityName?uncap_first}.${column.javaName}" placeholder="请输入${column.comment}" />
+        <el-form-item :label="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" prop="${column.javaName}">
+          <el-input v-model="${entityName?uncap_first}.${column.javaName}" :placeholder="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}Placeholder')" />
         </el-form-item>
           <#elseif column.javaType == "Integer">
-        <el-form-item label="${column.comment}" prop="${column.javaName}">
-          <el-input v-model="${entityName?uncap_first}.${column.javaName}" type="number" placeholder="请输入${column.comment}" />
+        <el-form-item :label="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" prop="${column.javaName}">
+          <el-input v-model="${entityName?uncap_first}.${column.javaName}" type="number" :placeholder="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}Placeholder')" />
         </el-form-item>
           <#elseif column.javaType == "Boolean">
-        <el-form-item label="${column.comment}" prop="${column.javaName}">
+        <el-form-item :label="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" prop="${column.javaName}">
           <el-switch
                 v-model="${entityName?uncap_first}.${column.javaName}"
                 style="width: 190px"
@@ -124,7 +124,7 @@ import {
   update${entityName},
   delete${entityName},
   export${entityName}Excel
-} from '@/api/${vuePackage?replace(".","/")}'
+} from '@/api/${vuePackage?replace(".","/")}/${entityName?uncap_first}'
 import Pagination from '@/components/Pagination'
 
 export default {
@@ -169,14 +169,18 @@ export default {
         create: 'table.add',
         update: 'table.edit'
       },
-      rules: {
-        <#list tableColumnList as column>
-          <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
-        ${column.javaName}: [{ required: true, message: '请输入${column.comment}', trigger: 'change' }]<#if column_index &lt; (tableColumnList?size - 6) >,</#if>
-          </#if>
-        </#list>
-      },
       downloadLoading: false,
+    }
+  },
+  computed: {
+    rules() {
+      return {
+        <#list tableColumnList as column>
+        <#if column.name != "id" && column.name != "create_time" && column.name != "create_user_id" && column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted">
+        ${column.javaName}: [{ required: true, message: this.$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}Rule'), trigger: 'change' }]<#if column_index &lt; (tableColumnList?size - 6) >,</#if>
+        </#if>
+        </#list>
+      }
     }
   },
   created() {

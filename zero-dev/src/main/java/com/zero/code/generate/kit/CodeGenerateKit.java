@@ -5,6 +5,7 @@ import com.zero.code.generate.enums.CodeTypeEnum;
 import com.zero.code.generate.enums.TemplateEnum;
 import com.zero.common.constant.AppConst;
 import com.zero.common.enums.EncodingEnum;
+import com.zero.common.kit.CamelCaseKit;
 import com.zero.common.kit.FreeMarkerKit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +24,7 @@ public class CodeGenerateKit {
     /**
      * 代码生成方法
      *
-     * @throws Exception
+     * @throws Exception 抛出异常
      */
     public static void generate(TableInfo tableInfo) throws Exception {
         generateFile(tableInfo, TemplateEnum.ENTITY);
@@ -41,6 +42,7 @@ public class CodeGenerateKit {
         }
         generateFile(tableInfo, TemplateEnum.RECOVER);
         generateFile(tableInfo, TemplateEnum.API);
+        generateFile(tableInfo, TemplateEnum.LANG);
     }
 
 
@@ -61,22 +63,15 @@ public class CodeGenerateKit {
         StringBuilder generateFilePath = new StringBuilder();
         CodeTypeEnum codeTypeEnum = templateEnum.getCodeTypeEnum();
         switch (codeTypeEnum) {
-            case JAVA:
-                // 拼接文件的全路径
-                generateFilePath.append(tableInfo.getJavaCodePath()).append(templateEnum.getFileBasePath())
-                        .append(packageNameToPath(tableInfo.getJavaPackage() + templateEnum.getPackageName()))
-                        .append(File.separator).append(tableInfo.getEntityName()).append(templateEnum.getSuffix());
-                break;
-            case SQL:
-                generateFilePath.append(System.getProperty("user.dir")).append(templateEnum.getFileBasePath())
-                        .append(File.separator).append(tableInfo.getEntityName().toLowerCase()).append(templateEnum.getSuffix());
-                break;
-            case VUE:
-                generateFilePath.append(tableInfo.getVueCodePath()).append(templateEnum.getFileBasePath())
-                        .append(packageNameToPath(tableInfo.getVuePackage())).append(templateEnum.getSuffix());
-                break;
-            default:
-                log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);
+            case JAVA -> generateFilePath.append(tableInfo.getJavaCodePath()).append(templateEnum.getFileBasePath())
+                    .append(packageNameToPath(tableInfo.getJavaPackage() + templateEnum.getPackageName()))
+                    .append(File.separator).append(tableInfo.getEntityName()).append(templateEnum.getSuffix());
+            case SQL -> generateFilePath.append(System.getProperty("user.dir")).append(templateEnum.getFileBasePath())
+                    .append(File.separator).append(tableInfo.getEntityName().toLowerCase()).append(templateEnum.getSuffix());
+            case VUE -> generateFilePath.append(tableInfo.getVueCodePath()).append(templateEnum.getFileBasePath())
+                    .append(packageNameToPath(tableInfo.getVuePackage())).append(File.separator)
+                    .append(CamelCaseKit.toStrikeName(tableInfo.getEntityName())).append(templateEnum.getSuffix());
+            default -> log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);
         }
         File generateFile = new File(generateFilePath.toString());
         if (!tableInfo.getCover() && generateFile.exists()) {

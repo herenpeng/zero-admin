@@ -4,12 +4,12 @@
       <#list tableColumnList as column>
         <#if column.query>
       <#if column.javaType == "String">
-      <el-input v-model="listQuery.${column.javaName}" placeholder="${column.comment}" style="width: 200px;" class="filter-item"
+<el-input v-model="listQuery.${column.javaName}" :placeholder="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" style="width: 200px;" class="filter-item"
                 @keyup.enter.native="handleFilter"
       />
       </#if>
       <#if column.javaType == "Boolean">
-      <el-select v-model="listQuery.${column.javaName}" placeholder="${column.comment}" clearable class="filter-item"
+      <el-select v-model="listQuery.${column.javaName}" :placeholder="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" clearable class="filter-item"
                  @change="handleFilter"
       >
         <el-option value="true" :label="$t('common.true')" />
@@ -22,7 +22,7 @@
         {{ $t('table.search') }}
       </el-button>
       <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download"
-             @click="handleDownload"
+                 @click="handleDownload"
       >
         {{ $t('table.export') }}
       </el-button>
@@ -44,14 +44,14 @@
         column.name != "update_time" && column.name != "update_user_id" && column.name != "deleted" &&
         (!tree || column.name != "parent_id")>
           <#if column.javaType == "String" || column.javaType == "Integer">
-      <el-table-column label="${column.comment}" width="150px" align="center">
+      <el-table-column :label="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" width="150px" align="center">
         <template v-slot="{row}">
           <span>{{ row.${column.javaName} }}</span>
         </template>
       </el-table-column>
           </#if>
           <#if column.javaType == "Boolean">
-      <el-table-column label="${column.comment}" width="100px" align="center">
+      <el-table-column :label="$t('table.${vuePackage}.${entityName?uncap_first}.${column.javaName}')" width="100px" align="center">
         <template v-slot="{row}">
           <span>{{ row.${column.javaName} ? $t('common.true') : $t('common.false') }}</span>
         </template>
@@ -59,7 +59,7 @@
           </#if>
         </#if>
       </#list>
-      <el-table-column :label="$t('table.actions')" align="center" width="250px" class-name="small-padding fixed-width" fixed="right">
+      <el-table-column :label="$t('table.actions')" align="center" width="300px" class-name="small-padding fixed-width" fixed="right">
         <template v-slot="{row}">
           <el-button type="success" size="mini" icon="el-icon-finished" @click="handleRecover(row)">
             {{ $t('table.recovery') }}
@@ -85,7 +85,7 @@ import {
   get${entityName}RecoverPage,
   recover${entityName},
   recoverDelete${entityName}
-} from '@/api/${vuePackage?replace(".","/")}'
+} from '@/api/${vuePackage?replace(".","/")}/${entityName?uncap_first}'
 import Pagination from '@/components/Pagination/index.vue'
 
 export default {

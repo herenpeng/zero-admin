@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CamelCaseKit {
 
     /**
-     * 小驼峰命名，转换为下划线命名
+     * 大小驼峰命名，转换为下划线命名
      *
      * @param string 小驼峰命名名称
      * @return 下划线命名名称
@@ -22,7 +22,7 @@ public class CamelCaseKit {
     }
 
     /**
-     * 小驼峰命名，转换为中划线命名
+     * 大小驼峰命名，转换为中划线命名
      *
      * @param string 小驼峰命名名称
      * @return 中划线命名名称
@@ -32,7 +32,7 @@ public class CamelCaseKit {
     }
 
     /**
-     * 将小驼峰命名风格转换为划线风格
+     * 将大小驼峰命名风格转换为间隔符号风格
      *
      * @param string    小驼峰命名风格
      * @param character 划线类型
@@ -42,13 +42,15 @@ public class CamelCaseKit {
         if (StringUtils.isBlank(string)) {
             return null;
         }
+        boolean append = false;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
-            if (Character.isUpperCase(ch)) {
+            if (append && Character.isUpperCase(ch)) {
                 sb.append(character);
             }
             sb.append(Character.toLowerCase(ch));
+            append = true;
         }
         return sb.toString();
     }
