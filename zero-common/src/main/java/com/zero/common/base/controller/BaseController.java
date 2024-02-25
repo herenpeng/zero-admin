@@ -40,7 +40,7 @@ public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody E entity) throws Exception {
         baseService.save(entity);
-        return ResponseEntity.message("添加成功");
+        return ResponseEntity.message("common.addSuccess");
     }
 
 
@@ -52,7 +52,7 @@ public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
     @PutMapping
     public ResponseEntity<Void> updateById(@RequestBody E entity) throws Exception {
         baseService.updateById(entity);
-        return ResponseEntity.message("更新成功");
+        return ResponseEntity.message("common.editSuccess");
     }
 
 
@@ -64,7 +64,7 @@ public class BaseController<S extends BaseService<E>, E extends BaseEntity> {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) throws Exception {
         baseService.removeById(id);
-        return ResponseEntity.message("删除成功");
+        return ResponseEntity.message("common.deleteSuccess");
     }
 
 }

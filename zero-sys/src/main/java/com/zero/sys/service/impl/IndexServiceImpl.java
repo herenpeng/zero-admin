@@ -79,8 +79,8 @@ public class IndexServiceImpl implements IndexService {
         userChart.setNum(userNum);
         userChart.setXAxis(xAxis);
         Map<String, List<Long>> data = new LinkedHashMap<>();
-        data.put("登录用户数", loginUserNum);
-        data.put("登录用户次数", loginNum);
+        data.put("index.lineChart.loginUserNum", loginUserNum);
+        data.put("index.lineChart.loginNum", loginNum);
         userChart.setData(data);
         return userChart;
     }
@@ -106,8 +106,8 @@ public class IndexServiceImpl implements IndexService {
         resourcesChart.setNum(resourcesNum);
         resourcesChart.setXAxis(xAxis);
         Map<String, List<Long>> data = new LinkedHashMap<>();
-        data.put("访问次数", accessNum);
-        data.put("访问耗时", consumeTime);
+        data.put("index.lineChart.accessNum", accessNum);
+        data.put("index.lineChart.consumeTime", consumeTime);
         resourcesChart.setData(data);
         return resourcesChart;
     }
