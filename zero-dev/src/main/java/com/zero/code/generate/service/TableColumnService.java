@@ -5,6 +5,7 @@ import com.zero.common.base.service.BaseService;
 import com.zero.code.generate.entity.TableColumn;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.List;
 
 /**
@@ -70,6 +71,15 @@ public interface TableColumnService extends BaseService<TableColumn> {
      * @throws Exception 抛出异常
      */
     List<TableColumn> getByTableInfoId(Integer tableInfoId) throws Exception;
+
+
+    /**
+     * 同步字段数据
+     *
+     * @param tableInfoId 表主键Id
+     * @throws Exception 抛出异常
+     */
+    void synchron(Integer tableInfoId) throws Exception;
 
     /**
      * 导出系统数据库表字段信息表列表数据的Excel文件

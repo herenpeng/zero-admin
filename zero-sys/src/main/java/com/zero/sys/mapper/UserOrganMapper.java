@@ -21,9 +21,8 @@ public interface UserOrganMapper extends BaseMapper<UserOrgan> {
      * 获取组织机构中的所有用户信息
      *
      * @param organId 组织机构Id
-     * @return
-     * @throws Exception
+     * @return 该组织的所有用户
      */
-    List<User> getUserByOrganId(@Param("organId") Integer organId) throws Exception;
+    List<User> getUserByOrganId(@Param("organId") Integer organId);
 
 }

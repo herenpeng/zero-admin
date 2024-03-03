@@ -3,11 +3,13 @@ package com.zero.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zero.auth.entity.User;
 import com.zero.common.base.service.impl.BaseServiceImpl;
 import com.zero.common.kit.ExcelKit;
 import com.zero.common.kit.TreeKit;
 import com.zero.sys.entity.Organ;
 import com.zero.sys.mapper.OrganMapper;
+import com.zero.sys.mapper.UserOrganMapper;
 import com.zero.sys.service.OrganService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,8 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class OrganServiceImpl extends BaseServiceImpl<OrganMapper, Organ> implements OrganService {
+
+    private final UserOrganMapper userOrganMapper;
 
     @Override
     public IPage<Organ> page(Integer currentPage, Integer size, Organ queryOrgan) throws Exception {
@@ -50,7 +54,10 @@ public class OrganServiceImpl extends BaseServiceImpl<OrganMapper, Organ> implem
 
     @Override
     public List<Organ> tree() throws Exception {
-        return TreeKit.findChildren(0, baseMapper::getByParentId, null);
+        return TreeKit.findChildren(0, baseMapper::getByParentId, organ -> {
+            List<User> users = userOrganMapper.getUserByOrganId(organ.getId());
+            organ.setUsers(users);
+        });
     }
 
 

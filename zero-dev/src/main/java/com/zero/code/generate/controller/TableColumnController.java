@@ -107,6 +107,18 @@ public class TableColumnController extends BaseController<TableColumnService, Ta
 
 
     @AppLog
+    @Operation(description = "通过tableInfoId获取所有的字段信息")
+    @Parameters({
+            @Parameter(name = "tableInfoId", description = "tableInfo主键", required = true)
+    })
+    @PutMapping("synchron/{tableInfoId}")
+    public ResponseEntity<List<TableColumn>> synchron(@PathVariable("tableInfoId") Integer tableInfoId) throws Exception {
+        baseService.synchron(tableInfoId);
+        return ResponseEntity.message("字段数据同步成功");
+    }
+
+
+    @AppLog
     @Operation(description = "导出系统数据库表字段信息表数据的Excel文件")
     @Parameters({
             @Parameter(name = "queryTableColumn", description = "系统数据库表字段信息表查询条件"),

@@ -24,39 +24,19 @@ public enum AppExceptionEnum {
     LOGIN_PASSWORD_EXPIRE(30005, "密码过期，登录失败"),
     LOGIN_PASSWORD_ERROR(30006, "密码错误，登录失败"),
 
-    /**
-     * 40002，无效的token
-     */
     ILLEGAL_TOKEN(40002, "访问凭证无效，请重新登录刷新访问凭证"),
-
-    /**
-     * 40003，访问权限不足
-     */
     INSUFFICIENT_AUTHENTICATION(40003, "您的访问权限不足"),
 
     /**
-     * 系统错误
+     * 业务逻辑错误
      */
     SYS_EXCEPTION(50000, "系统错误"),
-
-    /**
-     * 密码错误
-     */
     PASSWORD_ERROR(50001, "密码错误"),
-
-    /**
-     * 文件上传类型不允许
-     */
     FILE_TYPE_NOT_ALLOW(50002, "文件上传类型错误"),
-
-    /**
-     * 系统配置的KEY值不存在
-     */
     CONFIG_KEY_NOT_EXIST(50003, "系统配置的KEY值不存在"),
-    /**
-     * 系统配置的KEY值不允许用户配置
-     */
-    CONFIG_KEY_NOT_CAN(50004, "系统配置的KEY值不允许用户配置");
+    CONFIG_KEY_NOT_CAN(50004, "系统配置的KEY值不允许用户配置"),
+    TABLE_INFO_NOT_EXIST(50005, "表数据不存在"),
+    ;
 
     private int code;
     private String message;
