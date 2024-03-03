@@ -1,5 +1,6 @@
 package com.zero.auth.handler;
 
+import com.zero.auth.annotation.IgnoreAuth;
 import com.zero.auth.entity.Resources;
 import com.zero.auth.entity.Role;
 import com.zero.auth.kit.TokenKit;
@@ -41,36 +42,40 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
     private final RedisKit redisKit;
     private final ResourcesMapper resourcesMapper;
 
-    private final Map<HandlerMethod, String> methodUriMap = new ConcurrentHashMap<>();
+    private final Map<HandlerMethod, MethodInfo> methodInfoMap = new ConcurrentHashMap<>();
+
+    private record MethodInfo(String uri, IgnoreAuth ignoreAuth) {
+    }
 
 
-    private String getMethodUri(HandlerMethod handlerMethod) {
-        return methodUriMap.computeIfAbsent(handlerMethod, method -> {
+    private MethodInfo getMethodInfo(HandlerMethod handlerMethod) {
+        return methodInfoMap.computeIfAbsent(handlerMethod, method -> {
             String[] value;
             Object bean = method.getBean();
             Object target = ProxyKit.getTarget(bean);
             Class<?> beanClass = target.getClass();
             // 获取类路径
             String beanPath = PathKit.getBeanPath(beanClass);
+            IgnoreAuth ignoreAuth = method.getMethodAnnotation(IgnoreAuth.class);
             GetMapping getMapping = method.getMethodAnnotation(GetMapping.class);
             if (getMapping != null) {
                 value = getMapping.value();
-                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+                return new MethodInfo(PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : ""), ignoreAuth);
             }
             PostMapping postMapping = method.getMethodAnnotation(PostMapping.class);
             if (postMapping != null) {
                 value = postMapping.value();
-                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+                return new MethodInfo(PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : ""), ignoreAuth);
             }
             PutMapping putMapping = method.getMethodAnnotation(PutMapping.class);
             if (putMapping != null) {
                 value = putMapping.value();
-                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+                return new MethodInfo(PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : ""), ignoreAuth);
             }
             DeleteMapping deleteMapping = method.getMethodAnnotation(DeleteMapping.class);
             if (deleteMapping != null) {
                 value = deleteMapping.value();
-                return PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : "");
+                return new MethodInfo(PathKit.splicingUri(beanPath, value.length > 0 ? value[0] : ""), ignoreAuth);
             }
             return null;
         });
@@ -105,9 +110,15 @@ public class JwtAuthenticationHandler implements HandlerInterceptor {
         }
         // 系统鉴权处理器
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        String methodUri = getMethodUri(handlerMethod);
-        log.debug("[登录权限鉴定器]请求路径：{}，{}", uri, methodUri);
-        Resources resources = resourcesMapper.getByUriAndMethodType(methodUri, request.getMethod().toUpperCase());
+        MethodInfo methodInfo = getMethodInfo(handlerMethod);
+        if (methodInfo == null) {
+            return false;
+        }
+        if (methodInfo.ignoreAuth() != null) {
+            return true;
+        }
+        log.debug("[登录权限鉴定器]请求路径：{}，{}", uri, methodInfo.uri());
+        Resources resources = resourcesMapper.getByUriAndMethodType(methodInfo.uri(), request.getMethod().toUpperCase());
         if (resources == null) {
             throw new AppException(AppExceptionEnum.INSUFFICIENT_AUTHENTICATION);
         }
