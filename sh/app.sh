@@ -5,7 +5,7 @@ SERVICE_DIR=/usr/app/zero-admin
 # 日志文件
 LOG_FILE=${SERVICE_DIR}/log.log
 # jar名称
-JAR_NAME=zero-web-1\.0-SNAPSHOT\.jar
+JAR_NAME=zero-web-1\.0\.0-SNAPSHOT\.jar
 # 进程文件名称
 PID_FILE=${SERVICE_NAME}\.pid
 
@@ -25,13 +25,13 @@ start(){
   fi
   nohup java -Dfile.encoding=UTF-8 -jar ${JAR_NAME} --spring.profiles.active=prod >${LOG_FILE} 2>&1 &
   echo $! > ${SERVICE_DIR}/${PID_FILE}
-	echo "=== 服务${SERVICE_NAME}已启动 ==="
+  echo "=== 服务${SERVICE_NAME}已启动 ==="
 }
 
 stop(){
-	P_ID=$(cat ${SERVICE_DIR}/${PID_FILE})
-	if [ "${P_ID}" == "" ]
-	then
+  P_ID=$(cat ${SERVICE_DIR}/${PID_FILE})
+  if [ "${P_ID}" == "" ]
+  then
     echo "=== 服务${SERVICE_NAME}不存在或者已停止 ==="
   else
     kill "${P_ID}"
@@ -41,10 +41,10 @@ stop(){
 }
 
 restart(){
-	stop
+  stop
   sleep 2
   start
-	echo "=== 服务${SERVICE_NAME}已重启 ==="
+  echo "=== 服务${SERVICE_NAME}已重启 ==="
 }
 
 cd ${SERVICE_DIR}
@@ -60,7 +60,7 @@ case ${1} in
       start
         ;;
     stop)
-     	stop
+       stop
         ;;
     restart)
       restart
