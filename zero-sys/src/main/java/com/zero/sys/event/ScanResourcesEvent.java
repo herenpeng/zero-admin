@@ -8,7 +8,6 @@ import com.zero.auth.mapper.ResourcesMapper;
 import com.zero.auth.mapper.ResourcesRoleMapper;
 import com.zero.auth.mapper.RoleMapper;
 import com.zero.auth.properties.RootProperties;
-import com.zero.common.constant.MethodTypeConst;
 import com.zero.common.event.AppEvent;
 import com.zero.common.event.AppStartEvent;
 import com.zero.common.kit.PathKit;
@@ -19,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
@@ -88,22 +87,22 @@ public class ScanResourcesEvent implements AppEvent {
         GetMapping getMapping = method.getAnnotation(GetMapping.class);
         if (getMapping != null) {
             value = getMapping.value();
-            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.GET);
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", HttpMethod.GET.name());
         }
         PostMapping postMapping = method.getAnnotation(PostMapping.class);
         if (postMapping != null) {
             value = postMapping.value();
-            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.POST);
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", HttpMethod.POST.name());
         }
         PutMapping putMapping = method.getAnnotation(PutMapping.class);
         if (putMapping != null) {
             value = putMapping.value();
-            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.PUT);
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", HttpMethod.PUT.name());
         }
         DeleteMapping deleteMapping = method.getAnnotation(DeleteMapping.class);
         if (deleteMapping != null) {
             value = deleteMapping.value();
-            return new ResourcesInfo(value.length > 0 ? value[0] : "", MethodTypeConst.DELETE);
+            return new ResourcesInfo(value.length > 0 ? value[0] : "", HttpMethod.DELETE.name());
         }
         return null;
     }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 系统JVM参数信息实体类
@@ -59,6 +60,10 @@ public class Jvm implements Serializable {
      * JVM内存使用率
      */
     private double usage;
+    /**
+     * 运行参数
+     */
+    private List<String> arguments;
 
 
 }

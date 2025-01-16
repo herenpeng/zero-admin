@@ -38,8 +38,8 @@ gitee地址：[https://gitee.com/herenpeng/zero-admin.git](https://gitee.com/her
 
 
 ## 项目开发环境
-- JDK 17
-- Maven 3.6.3
+- JDK 21
+- Maven 3.9.6
 - MySQL 5.7.30
 - Redis(Windows) 3.2.100
 - RabbitMQ

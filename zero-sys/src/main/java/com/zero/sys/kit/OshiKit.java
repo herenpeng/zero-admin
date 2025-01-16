@@ -96,6 +96,8 @@ public class OshiKit {
         jvm.setFree(ArithHelper.div(free, MB, 2));
         jvm.setUsed(ArithHelper.div(used, MB, 2));
         jvm.setUsage(ArithHelper.percent(used, total, 2));
+        List<String> arguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+        jvm.setArguments(arguments);
         return jvm;
     }
 
