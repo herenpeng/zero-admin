@@ -15,6 +15,7 @@
         <module>zero-dev</module>
         <module>zero-mail</module>
         <module>zero-auth</module>
+        <module>zero-quartz</module>
     </modules>
 
     <properties>
@@ -31,7 +32,7 @@
         <jjwt.version>0.11.2</jjwt.version>
         <easypoi.version>4.4.0</easypoi.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <commons-io.version>2.7</commons-io.version>
+        <commons-io.version>2.14.0</commons-io.version>
         <springdoc.version>2.3.0</springdoc.version>
         <oshi-core.version>6.4.9</oshi-core.version>
     </properties>
@@ -68,6 +69,11 @@
             <dependency>
                 <groupId>com.zero</groupId>
                 <artifactId>zero-sys</artifactId>
+                <version>${zero-admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zero</groupId>
+                <artifactId>zero-quartz</artifactId>
                 <version>${zero-admin.version}</version>
             </dependency>
         </dependencies>

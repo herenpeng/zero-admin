@@ -33,8 +33,8 @@ export function move${entityName}(${entityName?uncap_first}) {
     data: ${entityName?uncap_first}
   })
 }
-</#if>
 
+</#if>
 export function create${entityName}(${entityName?uncap_first}) {
   return request({
     url: '/${requestMapping}',

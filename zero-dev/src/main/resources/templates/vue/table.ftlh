@@ -124,7 +124,7 @@ import {
   update${entityName},
   delete${entityName},
   export${entityName}Excel
-} from '@/api/${vuePackage?replace(".","/")}/${entityName?uncap_first}'
+} from '@/api/${vuePackage?replace(".","/")}/${strikeEntityName}'
 import Pagination from '@/components/Pagination'
 
 export default {

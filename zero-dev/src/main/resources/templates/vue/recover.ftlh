@@ -85,7 +85,7 @@ import {
   get${entityName}RecoverPage,
   recover${entityName},
   recoverDelete${entityName}
-} from '@/api/${vuePackage?replace(".","/")}/${entityName?uncap_first}'
+} from '@/api/${vuePackage?replace(".","/")}/${strikeEntityName}'
 import Pagination from '@/components/Pagination/index.vue'
 
 export default {

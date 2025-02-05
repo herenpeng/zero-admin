@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.quartz.mapper.QuartzJobMapper">
+
+    <resultMap id="resultMap" type="com.zero.quartz.entity.QuartzJob">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="group_name" jdbcType="VARCHAR" property="groupName"/>
+        <result column="status" jdbcType="BOOLEAN" property="status"/>
+        <result column="expression" jdbcType="VARCHAR" property="expression"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="concurrent" jdbcType="BOOLEAN" property="concurrent"/>
+        <result column="bean_class" jdbcType="VARCHAR" property="beanClass"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="previous_fire_time" jdbcType="TIMESTAMP" property="previousFireTime"/>
+        <result column="next_fire_time" jdbcType="TIMESTAMP" property="nextFireTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        `id`,`name`,`group_name`,`status`,`expression`,`description`,`concurrent`,`bean_class`,`method`,`previous_fire_time`,`next_fire_time`
+    </sql>
+
+    <sql id="baseQuery">
+        <if test="queryQuartzJob.name != null and queryQuartzJob.name != ''">
+            and name like concat('%', #{queryQuartzJob.name}, '%')
+        </if>
+        <if test="queryQuartzJob.groupName != null and queryQuartzJob.groupName != ''">
+            and group_name like concat('%', #{queryQuartzJob.groupName}, '%')
+        </if>
+        <if test="queryQuartzJob.status != null">
+            and status = #{queryQuartzJob.status}
+        </if>
+        <if test="queryQuartzJob.expression != null and queryQuartzJob.expression != ''">
+            and expression like concat('%', #{queryQuartzJob.expression}, '%')
+        </if>
+        <if test="queryQuartzJob.description != null and queryQuartzJob.description != ''">
+            and description like concat('%', #{queryQuartzJob.description}, '%')
+        </if>
+        <if test="queryQuartzJob.concurrent != null">
+            and concurrent = #{queryQuartzJob.concurrent}
+        </if>
+        <if test="queryQuartzJob.beanClass != null and queryQuartzJob.beanClass != ''">
+            and bean_class like concat('%', #{queryQuartzJob.beanClass}, '%')
+        </if>
+        <if test="queryQuartzJob.method != null and queryQuartzJob.method != ''">
+            and method like concat('%', #{queryQuartzJob.method}, '%')
+        </if>
+        <if test="queryQuartzJob.previousFireTime != null">
+            and previous_fire_time = #{queryQuartzJob.previousFireTime}
+        </if>
+        <if test="queryQuartzJob.nextFireTime != null">
+            and next_fire_time = #{queryQuartzJob.nextFireTime}
+        </if>
+        <if test="queryQuartzJob.deleted != null">
+            and deleted = #{queryQuartzJob.deleted}
+        </if>
+    </sql>
+
+    <select id="getPage" resultMap="resultMap">
+        select `id` as id,`name` as name,`group_name` as group_name,`status` as status,`expression` as expression,`description` as description,`concurrent` as concurrent,`bean_class` as bean_class,`method` as method,`previous_fire_time` as previous_fire_time,`next_fire_time` as next_fire_time,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from quartz_job
+        <where>
+            <include refid="baseQuery"/>
+        </where>
+    </select>
+
+    <select id="getList" resultMap="resultMap">
+        select `id` as id,`name` as name,`group_name` as group_name,`status` as status,`expression` as expression,`description` as description,`concurrent` as concurrent,`bean_class` as bean_class,`method` as method,`previous_fire_time` as previous_fire_time,`next_fire_time` as next_fire_time,`create_time` as create_time,`create_user_id` as create_user_id,`update_time` as update_time,`update_user_id` as update_user_id,`deleted` as deleted
+        from quartz_job
+        where deleted = 0
+        <include refid="baseQuery"/>
+    </select>
+
+
+
+</mapper>

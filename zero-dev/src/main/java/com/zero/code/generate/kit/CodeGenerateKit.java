@@ -27,6 +27,8 @@ public class CodeGenerateKit {
      * @throws Exception 抛出异常
      */
     public static void generate(TableInfo tableInfo) throws Exception {
+        String strikeEntityName = CamelCaseKit.toStrikeName(tableInfo.getEntityName());
+        tableInfo.setStrikeEntityName(strikeEntityName);
         generateFile(tableInfo, TemplateEnum.ENTITY);
         generateFile(tableInfo, TemplateEnum.MAPPER);
         generateFile(tableInfo, TemplateEnum.SERVICE);
@@ -67,10 +69,10 @@ public class CodeGenerateKit {
                     .append(packageNameToPath(tableInfo.getJavaPackage() + templateEnum.getPackageName()))
                     .append(File.separator).append(tableInfo.getEntityName()).append(templateEnum.getSuffix());
             case SQL -> generateFilePath.append(System.getProperty("user.dir")).append(templateEnum.getFileBasePath())
-                    .append(File.separator).append(tableInfo.getEntityName().toLowerCase()).append(templateEnum.getSuffix());
+                    .append(File.separator).append(tableInfo.getStrikeEntityName()).append(templateEnum.getSuffix());
             case VUE -> generateFilePath.append(tableInfo.getVueCodePath()).append(templateEnum.getFileBasePath())
                     .append(packageNameToPath(tableInfo.getVuePackage())).append(File.separator)
-                    .append(CamelCaseKit.toStrikeName(tableInfo.getEntityName())).append(templateEnum.getSuffix());
+                    .append(tableInfo.getStrikeEntityName()).append(templateEnum.getSuffix());
             default -> log.error("[代码生成工具]系统当前不支持{}类型的代码生成功能", codeTypeEnum);
         }
         File generateFile = new File(generateFilePath.toString());

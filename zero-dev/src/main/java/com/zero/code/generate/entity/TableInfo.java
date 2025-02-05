@@ -109,4 +109,7 @@ public class TableInfo extends BaseEntity {
     @TableField(exist = false)
     private List<TableColumn> tableColumnList;
 
+    @TableField(exist = false)
+    private transient String strikeEntityName;
+
 }
