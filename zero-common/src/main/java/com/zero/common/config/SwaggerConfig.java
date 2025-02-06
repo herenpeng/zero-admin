@@ -37,11 +37,11 @@ public class SwaggerConfig {
                 // 授权信息
                 .url("")
                 // 标识授权许可
-//                .identifier("")
+                // .identifier("")
                 // 使用Map配置信息（如key为"name","url","identifier"）
                 .extensions(new HashMap<>());
 
-        //创建Api帮助文档的描述信息、联系人信息(contact)、授权许可信息(license)
+        // 创建Api帮助文档的描述信息、联系人信息(contact)、授权许可信息(license)
         Info info = new Info()
                 // 标题信息
                 .title("zero-admin通用后台管理系统接口文档")
